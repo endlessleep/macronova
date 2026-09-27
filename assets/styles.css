@@ -11,3 +11,13 @@
 @media(max-width:767px){.reading-progress{position:absolute;bottom:0;left:16px;right:16px;max-width:none;margin:0;height:4px}.exercise{padding:18px 14px}.equation-stack,.equation-chain{font-size:.88rem}.result-box{padding:12px 8px}}
 .target-form{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;background:rgba(167,139,250,.035);padding:12px 14px}.target-label{font-size:.68rem;letter-spacing:.8px;text-transform:uppercase;font-weight:800;color:var(--accent)}.target-form p{color:var(--text-3);font-size:.85rem}.target-form mjx-container[display=true]{margin:.5em 0!important}.pacf-part{display:flex;flex-direction:column;gap:12px;padding-top:12px}.pacf-part h5{font-size:.88rem;color:var(--text);font-weight:700}.matrix-pair{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 28px}.matrix-pair>div{min-width:0;font-size:.94rem}
 .course-year{font-size:.72rem;color:var(--accent-bright);border:1px solid var(--accent-border);border-radius:6px;padding:4px 8px;margin-left:auto;white-space:nowrap}.exercise-statement>ol>li>.equation-stack,.exercise-statement>ol>li>.equation-chain{margin:12px 0}.exercise-statement .equation-chain{font-size:.9rem}.exercise-statement .equation-stack{font-size:.9rem}
+/* Training calculations share a fixed left edge, including wrapped lines. */
+.training-page .equation-stack,
+.training-page .math-display,
+.training-page .result-box { text-align: left; }
+.training-page mjx-container[display="true"] { text-align: left !important; }
+.training-page .equation-chain { justify-content: flex-start; }
+.training-page .exercise-statement > ol { padding-left: 22px; }
+.training-page .exercise-statement > ol > li { padding-left: 6px; }
+.training-page .exercise-statement > ol > li > .equation-stack,
+.training-page .exercise-statement > ol > li > .equation-chain { margin: 8px 0 16px; }
