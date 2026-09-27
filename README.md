@@ -6,7 +6,7 @@ Static HTML, CSS and JavaScript; no build step. Serve the repository with `pytho
 
 ## Adding course material
 
-Problem Set 1 is ready for the first supplied exercises. No course content has been invented. Add material only from supplied course documents and link the real chapter in the sidebar and chapter list.
+The site opens directly on Problem Set 1. Exercise 1 follows the supplied AR(1) statement and correction, with one collapsed solution and a reading-progress bar. Add material only from supplied course documents and link the real chapter in the sidebar and chapter list.
 
 - Reuse `assets/styles.css` and `assets/app.js` on each chapter page.
 - Mark actual course sections with `data-chapter-section` and an ID. The header's `#chapter-progress` becomes a keyboard-accessible segmented navigation bar automatically.

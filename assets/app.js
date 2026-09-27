@@ -37,11 +37,26 @@
       const open = button.getAttribute('aria-expanded') !== 'true';
       button.setAttribute('aria-expanded', String(open));
       target.hidden = !open;
+      const arrow = button.querySelector('.disclosure-arrow');
+      if (arrow) arrow.textContent = open ? '▼' : '▶';
       const action = button.querySelector('[data-toggle-action]');
       if (action) action.textContent = open ? 'Hide' : 'Show';
       if (open && window.MathJax?.typesetPromise) window.MathJax.typesetPromise([target]);
     });
   });
+  const reading = document.querySelector('.reading-progress');
+  if (reading) {
+    const updateReading = () => {
+      const distance = document.documentElement.scrollHeight - innerHeight;
+      const percent = distance > 0 ? Math.max(0, Math.min(100, scrollY / distance * 100)) : 100;
+      reading.setAttribute('aria-valuenow', String(Math.round(percent)));
+      reading.firstElementChild.style.width = `${percent}%`;
+    };
+    addEventListener('scroll', updateReading, {passive:true});
+    addEventListener('resize', updateReading);
+    new ResizeObserver(updateReading).observe(document.body);
+    updateReading();
+  }
   const sections = [...document.querySelectorAll('[data-chapter-section][id]')];
   const progress = document.querySelector('#chapter-progress');
   if (sections.length && progress) {
