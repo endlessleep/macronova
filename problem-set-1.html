@@ -69,6 +69,7 @@
           </div>
           <section class="solution-step" id="step-1">
             <h3><span>Step 1</span> Autoregressive lag polynomial</h3>
+            <div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\Phi(L)X_t=\varepsilon_t\]</div></div>
             <p>Use \(L\) to move the lagged term to the left:</p>
             <div class="equation-stack">\[X_t-0.75LX_t=\varepsilon_t\]
             \[(1-0.75L)X_t=\varepsilon_t.\]</div>
@@ -76,11 +77,11 @@
           </section>
           <section class="solution-step" id="step-2">
             <h3><span>Step 2</span> Characteristic equations &amp; roots</h3>
-            <h4>Characteristic equation</h4>
+            <h4>Characteristic equation</h4><div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\Phi(z)=0\]</div><p>Find the root \(z\).</p></div>
             <p>Set the lag polynomial equal to zero:</p>
             <div class="equation-stack">\[\Phi(z)=0\quad\Longleftrightarrow\quad 1-0.75z=0\]
             \[0.75z=1\quad\Longrightarrow\quad z=\frac{1}{0.75}=\frac43.\]</div>
-            <h4>Inverse characteristic equation</h4>
+            <h4>Inverse characteristic equation</h4><div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[r\Phi(r^{-1})=0\]</div><p>Find the inverse root \(r\).</p></div>
             <p>For an AR(1), multiply \(\Phi(r^{-1})\) by \(r\):</p>
             <div class="equation-stack">\[r\Phi(r^{-1})=0\]
             \[r(1-0.75r^{-1})=0\]
@@ -89,6 +90,7 @@
           </section>
           <section class="solution-step" id="step-3">
             <h3><span>Step 3</span> Inverse polynomial &amp; MA\((\infty)\)</h3>
+            <div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\Phi(L)^{-1}=\frac{1}{\Phi(L)}\]\[X_t=\Phi(L)^{-1}\varepsilon_t\]</div><p>Expand the inverse in powers of \(L\), then express \(X_t\) using current and past innovations.</p></div>
             <p>Since \(|0.75|<1\), expand the inverse using the geometric series:</p>
             <div class="equation-stack">\[\Phi(L)^{-1}=(1-0.75L)^{-1}\]
             \[\boxed{\Phi(L)^{-1}=\sum_{j=0}^{\infty}0.75^jL^j}.\]</div>
@@ -100,9 +102,9 @@
           </section>
           <section class="solution-step" id="step-4">
             <h3><span>Step 4</span> ACF &amp; PACF up to \(h=2\)</h3>
-            <p>The causal representation has zero mean. Write</p>
-            <div class="equation-stack">\[\gamma_X(h)=\operatorname{Cov}(X_t,X_{t-h})\]
-            <div class="equation-chain"><span>\(\gamma_X(h)=E(X_tX_{t-h}),\)</span><span>\(\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}.\)</span></div></div>
+<div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}\]</div><p>Find the autocovariance at lag \(h\), then divide by the variance.</p></div>
+            <p>Here \(\gamma_X(h)=\operatorname{Cov}(X_t,X_{t-h})\). Since the causal representation has zero mean,</p>
+            <div class="equation-stack">\[\gamma_X(h)=E(X_tX_{t-h}).\]</div>
             <h4>ACF — Method 1: MA\((\infty)\)</h4>
             <p>Multiply the two MA representations and take expectations, for \(h\ge0\):</p>
             <div class="equation-stack">\[X_{t-h}=\sum_{k=0}^{\infty}0.75^k\varepsilon_{t-h-k}\]
@@ -127,12 +129,56 @@
             <p>Starting from \(\rho_X(0)=1\),</p>
             <div class="equation-stack">\[\rho_X(1)=0.75,\]
             \[\rho_X(2)=0.75\times0.75=0.5625.\]</div>
-            <h4>PACF</h4>
-            <p>Write \(\alpha_X(h)\) for the correlation after controlling for the intermediate lags. At lag 1, there is no intermediate lag:</p>
-            <div class="equation-stack">\[\alpha_X(1)=\rho_X(1)=0.75.\]</div>
-            <p>At lag 2, control for \(X_{t-1}\):</p>
-            <div class="equation-stack">\[\alpha_X(2)=\frac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}\]
-            \[=\frac{0.5625-0.75^2}{1-0.75^2}=\frac{0}{0.4375}=0.\]</div>
+
+            <h4>PACF — calculation up to lag 2</h4>
+<div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\alpha_X(h)=a_{hh}\]</div><p>The PACF is the <strong>last coefficient</strong> in the linear projection of \(X_t\) on its first \(h\) lags.</p></div>
+            <p>From the ACF, \(\rho_X(1)=0.75\) and \(\rho_X(2)=0.5625\). In the projections below, \(u_t\) denotes the projection residual.</p>
+            <div class="pacf-part">
+              <h5>Lag 0 — Convention</h5>
+              <div class="equation-stack">\[\alpha_X(0)=1.\]</div>
+            </div>
+            <div class="pacf-part">
+              <h5>Lag 1 — One regressor</h5>
+              <div class="equation-stack">\[X_t=a_{11}X_{t-1}+u_t.\]</div>
+              <p>There is no intermediate lag to control for, so \(a_{11}=\rho_X(1)\):</p>
+              <div class="equation-stack">\[\boxed{\alpha_X(1)=a_{11}=0.75}.\]</div>
+            </div>
+            <div class="pacf-part">
+              <h5>Lag 2 — Two regressors</h5>
+              <div class="equation-stack">\[X_t=a_{21}X_{t-1}+a_{22}X_{t-2}+u_t.\]</div>
+              <p>\(a_{21}\) is the coefficient of \(X_{t-1}\); \(a_{22}\) is the coefficient of \(X_{t-2}\). We want the second coefficient: \(\alpha_X(2)=a_{22}\).</p>
+              <p>The Yule–Walker system is</p>
+              <div class="equation-stack">\[
+                \begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}
+                \begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}
+                =\begin{pmatrix}\rho_X(1)\\\rho_X(2)\end{pmatrix}.
+              \]</div>
+            </div>
+            <div class="pacf-part">
+              <h5>Cramer’s rule — Replace column 2</h5>
+              <p>The coefficient matrix is \(R\). To find the <strong>second unknown</strong>, replace its <strong>second column</strong> by the right-hand-side vector, giving \(R_2\):</p>
+              <div class="matrix-pair">
+                <div>\[R=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}\]</div>
+                <div>\[R_2=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{pmatrix}\]</div>
+              </div>
+              <div class="equation-stack">\[a_{22}=\frac{\det(R_2)}{\det(R)}.\]</div>
+              <p>For a \(2\times2\) matrix, multiply along the two diagonals and subtract:</p>
+              <div class="equation-stack">\[\begin{vmatrix}a&b\\c&d\end{vmatrix}=ad-bc.\]</div>
+              <div class="equation-stack">\[\det(R_2)=\begin{vmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{vmatrix}\]
+              \[=1\times\rho_X(2)-\rho_X(1)\times\rho_X(1)\]
+              \[=\rho_X(2)-[\rho_X(1)]^2.\]</div>
+              <div class="equation-stack">\[\det(R)=\begin{vmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{vmatrix}\]
+              \[=1\times1-\rho_X(1)\times\rho_X(1)\]
+              \[=1-[\rho_X(1)]^2.\]</div>
+              <div class="result-box"><div class="equation-chain"><span>\(\alpha_X(2)=a_{22}\)</span><span>\(=\dfrac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}.\)</span></div></div>
+            </div>
+            <div class="pacf-part">
+              <h5>Substitute the ACF values</h5>
+              <div class="equation-stack">\[\alpha_X(2)=\frac{0.5625-(0.75)^2}{1-(0.75)^2}\]
+              \[=\frac{0.5625-0.5625}{1-0.5625}=\frac{0}{0.4375}.\]</div>
+              <div class="result-box">\[\boxed{\alpha_X(2)=0}\]</div>
+              <div class="key-note"><strong>Cramer’s rule to remember.</strong> \[A\begin{pmatrix}x_1\\x_2\end{pmatrix}=b\] <p>Replace column 1 by \(b\) to find \(x_1\), or column 2 to find \(x_2\). Here \(a_{22}\) is the second unknown, so replace column 2.</p></div>
+            </div>
             <div class="result-box"><h4>Final results</h4>
               <table class="results-table"><caption>ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">ACF</th><td>1</td><td>0.75</td><td>0.5625</td></tr><tr><th scope="row">PACF</th><td>1*</td><td>0.75</td><td>0</td></tr></tbody></table>
               <p class="table-note">* PACF at lag 0 is set to 1 by convention.</p>
