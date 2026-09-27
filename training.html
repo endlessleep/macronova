@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — STAR NOVA’s macroeconomics revision notes.">
+  <title>Training — MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer>
+</script>
+</head>
+<body data-math>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span>
+</a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <a href="training.html" class="sidebar-link active" aria-current="page">TRAINING</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Problem sets</div>
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">
+<img src="images/avatar.png" width="36" height="36" alt="">
+<span class="user-dot" aria-hidden="true">
+</span>
+</div>
+        <div class="user-info">
+<div class="user-name">STAR NOVA</div>
+<div class="user-role">macronova</div>
+</div>
+      </div>
+    </div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden>
+</button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M5 7h14M5 12h14M5 17h14"/>
+</svg>
+</button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb">
+<span>MACRO</span>
+<span class="sep" aria-hidden="true">›</span>
+<strong>Training</strong>
+</nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+<span>
+</span>
+</div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">Macroeconomics · Exercises</div>
+        <h1>TRAINING</h1>
+      </div>
+<section class="concept-card violet-top exercise" id="exercise-1" aria-labelledby="exercise-title-1">
+<div class="section-header">
+<span class="section-label">Exercise 1</span>
+<h2 id="exercise-title-1">Training</h2>
+</div>
+<div class="exercise-statement">
+<p>Let \(X_1,X_2,Y_1,Y_2\) be real-valued random variables and \(a,b,c,d\) four real numbers. Show that:</p>
+<ol>
+<li>
+<div class="equation-stack">\[V(aX_1+b)=a^2V(X_1).\]</div>
+</li>
+<li>
+<div class="equation-stack">
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(aX_1+b,cY_1+d)\)</span>
+<span>\(=ac\operatorname{Cov}(X_1,Y_1).\)</span>
+</div>
+</div>
+</li>
+<li>
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(aX_1+bX_2,cY_1+dY_2)\)</span>
+<span>\(=ac\operatorname{Cov}(X_1,Y_1)\)</span>
+<span>\({}+ad\operatorname{Cov}(X_1,Y_2)\)</span>
+<span>\({}+bc\operatorname{Cov}(X_2,Y_1)\)</span>
+<span>\({}+bd\operatorname{Cov}(X_2,Y_2).\)</span>
+</div>
+</li>
+</ol>
+</div>
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="solution-1">
+<span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> solution</button>
+<div class="collapsible solution" id="solution-1" hidden>
+<div class="target-form">
+<span class="target-label">FORMULA</span>
+<div class="equation-stack">\[V(X)=E(X^2)-[E(X)]^2\]<div class="equation-chain">
+<span>\(\operatorname{Cov}(X,Y)\)</span>
+<span>\(=E(XY)-E(X)E(Y)\)</span>
+</div>
+</div>
+<p>The variances and covariances below are understood to exist; in particular, the variables have finite second moments.</p>
+</div>
+<section class="solution-step">
+<h3>
+<span>Step 1</span>i) Variance of an affine transformation</h3>
+<p>Apply the variance formula, then expand both terms:</p>
+<div class="equation-chain">
+<span>\(V(aX_1+b)=E[(aX_1+b)^2]\)</span>
+<span>\({}-[E(aX_1+b)]^2.\)</span>
+</div>
+<div class="equation-stack">\[E[(aX_1+b)^2]\]\[=a^2E(X_1^2)+2abE(X_1)+b^2\]\[[E(aX_1+b)]^2\]\[=a^2[E(X_1)]^2+2abE(X_1)+b^2.\]</div>
+<p>The terms \(2abE(X_1)\) and \(b^2\) cancel:</p>
+<div class="equation-stack">\[V(aX_1+b)=a^2E(X_1^2)-a^2[E(X_1)]^2\]\[=a^2\bigl(E(X_1^2)-[E(X_1)]^2\bigr).\]</div>
+<div class="result-box">
+<div class="equation-stack">\[\boxed{V(aX_1+b)=a^2V(X_1)}\]</div>
+</div>
+</section>
+<section class="solution-step">
+<h3>
+<span>Step 2</span>ii) Covariance of affine transformations</h3>
+<p>Apply the covariance formula:</p>
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(aX_1+b,cY_1+d)\)</span>
+<span>\(=E[(aX_1+b)(cY_1+d)]\)</span>
+<span>\({}-E(aX_1+b)E(cY_1+d).\)</span>
+</div>
+<p>Expand the expected product and the product of expectations separately:</p>
+<div class="equation-stack">\[E[(aX_1+b)(cY_1+d)]\]</div>
+<div class="equation-chain">
+<span>\(=acE(X_1Y_1)+adE(X_1)\)</span>
+<span>\({}+bcE(Y_1)+bd.\)</span>
+</div>
+<div class="equation-stack">\[E(aX_1+b)E(cY_1+d)\]</div>
+<div class="equation-chain">
+<span>\(=acE(X_1)E(Y_1)+adE(X_1)\)</span>
+<span>\({}+bcE(Y_1)+bd.\)</span>
+</div>
+<p>Subtract: all terms involving the constant shifts cancel.</p>
+<div class="equation-stack">\[\operatorname{Cov}(aX_1+b,cY_1+d)\]\[=ac\bigl[E(X_1Y_1)-E(X_1)E(Y_1)\bigr].\]</div>
+<div class="result-box">
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(aX_1+b,cY_1+d)\)</span>
+<span>\(=ac\operatorname{Cov}(X_1,Y_1).\)</span>
+</div>
+</div>
+</section>
+<section class="solution-step">
+<h3>
+<span>Step 3</span>iii) Covariance of two linear combinations</h3>
+<p>Use the same definition and expand the four products:</p>
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(aX_1+bX_2,cY_1+dY_2)\)</span>
+<span>\(=E[(aX_1+bX_2)(cY_1+dY_2)]\)</span>
+<span>\({}-E(aX_1+bX_2)E(cY_1+dY_2).\)</span>
+</div>
+<div class="equation-stack">\[E[(aX_1+bX_2)(cY_1+dY_2)]\]</div>
+<div class="equation-chain">
+<span>\(=acE(X_1Y_1)+adE(X_1Y_2)\)</span>
+<span>\({}+bcE(X_2Y_1)+bdE(X_2Y_2).\)</span>
+</div>
+<div class="equation-stack">\[E(aX_1+bX_2)E(cY_1+dY_2)\]</div>
+<div class="equation-chain">
+<span>\(=acE(X_1)E(Y_1)+adE(X_1)E(Y_2)\)</span>
+<span>\({}+bcE(X_2)E(Y_1)+bdE(X_2)E(Y_2).\)</span>
+</div>
+<p>Subtract and group each expected product with its matching product of expectations:</p>
+<div class="equation-stack">\[\operatorname{Cov}(aX_1+bX_2,cY_1+dY_2)\]\[=ac[E(X_1Y_1)-E(X_1)E(Y_1)]\]\[\quad{}+ad[E(X_1Y_2)-E(X_1)E(Y_2)]\]\[\quad{}+bc[E(X_2Y_1)-E(X_2)E(Y_1)]\]\[\quad{}+bd[E(X_2Y_2)-E(X_2)E(Y_2)].\]</div>
+<div class="result-box">
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(aX_1+bX_2,cY_1+dY_2)\)</span>
+<span>\(=ac\operatorname{Cov}(X_1,Y_1)\)</span>
+<span>\({}+ad\operatorname{Cov}(X_1,Y_2)\)</span>
+<span>\({}+bc\operatorname{Cov}(X_2,Y_1)\)</span>
+<span>\({}+bd\operatorname{Cov}(X_2,Y_2).\)</span>
+</div>
+</div>
+</section>
+</div>
+</section>
+<section class="concept-card violet-top exercise" id="exercise-2" aria-labelledby="exercise-title-2">
+<div class="section-header">
+<span class="section-label">Exercise 2</span>
+<h2 id="exercise-title-2">Stationarity</h2>
+</div>
+<div class="exercise-statement">
+<p>Let \((\varepsilon_t)_{t\in\mathbb Z}\) be a weak white noise with variance \(\sigma^2\). For every \(t\) and every \(h\ne0\),</p>
+<div class="equation-stack">\[E(\varepsilon_t)=0,\]\[V(\varepsilon_t)=E(\varepsilon_t^2)=\sigma^2<\infty,\]\[\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-h})\]\[=E(\varepsilon_t\varepsilon_{t-h})=0.\]</div>
+<p>Are the following processes second-order stationary?</p>
+<ol>
+<li>
+<div class="equation-stack">\[Y_t=\varepsilon_t-\varepsilon_{t-1}.\]</div>
+</li>
+<li>
+<div class="equation-stack">\[Z_t=a\varepsilon_t+b\varepsilon_{t-1}.\]</div>
+</li>
+<li>
+<div class="equation-stack">
+<div class="equation-chain">
+<span>\(W_0=0,\)</span>
+<span>\(W_t=W_{t-1}+\varepsilon_t\quad(t>0).\)</span>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="solution-2">
+<span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> solution</button>
+<div class="collapsible solution" id="solution-2" hidden>
+<div class="target-form">
+<span class="target-label">COURSE REMINDER</span>
+<p>Check that the mean and variance are finite and constant, and that the covariance depends only on the lag:</p>
+<div class="equation-stack">
+<div class="equation-chain">
+<span>\(E(X_t)=\mu,\)</span>
+<span>\(V(X_t)=\gamma_X(0)<\infty,\)</span>
+</div>\[\operatorname{Cov}(X_t,X_{t-h})=\gamma_X(h).\]</div>
+<p>For white noise, only products with matching dates have nonzero expectation. Negative lags follow by covariance symmetry.</p>
+</div>
+<section class="solution-step">
+<h3>
+<span>Step 1</span>\(Y_t=\varepsilon_t-\varepsilon_{t-1}\)</h3>
+<p>First compute the mean and variance:</p>
+<div class="equation-stack">\[E(Y_t)=E(\varepsilon_t)-E(\varepsilon_{t-1})=0.\]</div>
+<div class="equation-chain">
+<span>\(V(Y_t)=V(\varepsilon_t)+V(\varepsilon_{t-1})\)</span>
+<span>\({}-2\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-1})\)</span>
+</div>
+<div class="equation-stack">\[=\sigma^2+\sigma^2-0=2\sigma^2.\]</div>
+<p>At lag 1, the two observations share one innovation:</p>
+<div class="equation-stack">\[\operatorname{Cov}(Y_t,Y_{t-1})\]\[=E[(\varepsilon_t-\varepsilon_{t-1})(\varepsilon_{t-1}-\varepsilon_{t-2})]\]</div>
+<div class="equation-chain">
+<span>\(=E(\varepsilon_t\varepsilon_{t-1})\)</span>
+<span>\({}-E(\varepsilon_t\varepsilon_{t-2})\)</span>
+<span>\({}-E(\varepsilon_{t-1}^2)\)</span>
+<span>\({}+E(\varepsilon_{t-1}\varepsilon_{t-2})\)</span>
+</div>
+<div class="equation-stack">\[=0-0-\sigma^2+0=-\sigma^2.\]</div>
+<p>For \(h>1\), expand in the same way. All dates are distinct in each product:</p>
+<div class="equation-stack">\[\operatorname{Cov}(Y_t,Y_{t-h})\]</div>
+<div class="equation-chain">
+<span>\(=E(\varepsilon_t\varepsilon_{t-h})\)</span>
+<span>\({}-E(\varepsilon_t\varepsilon_{t-h-1})\)</span>
+<span>\({}-E(\varepsilon_{t-1}\varepsilon_{t-h})\)</span>
+<span>\({}+E(\varepsilon_{t-1}\varepsilon_{t-h-1})\)</span>
+</div>
+<div class="equation-stack">\[=0.\]</div>
+<div class="result-box">
+<div class="equation-stack">\[\gamma_Y(h)=\begin{cases}2\sigma^2,&h=0,\\-\sigma^2,&|h|=1,\\0,&|h|>1.\end{cases}\]</div>
+<p>
+<strong>\(Y_t\) is second-order stationary.</strong> Its mean and variance are constant, and its covariance depends only on \(h\).</p>
+</div>
+</section>
+<section class="solution-step">
+<h3>
+<span>Step 2</span>\(Z_t=a\varepsilon_t+b\varepsilon_{t-1}\)</h3>
+<div class="equation-stack">\[E(Z_t)=aE(\varepsilon_t)+bE(\varepsilon_{t-1})=0.\]</div>
+<div class="equation-chain">
+<span>\(V(Z_t)=a^2V(\varepsilon_t)+b^2V(\varepsilon_{t-1})\)</span>
+<span>\({}+2ab\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-1})\)</span>
+</div>
+<div class="equation-stack">\[=(a^2+b^2)\sigma^2.\]</div>
+<p>At lag 1, keep the term whose innovation dates coincide:</p>
+<div class="equation-stack">\[\operatorname{Cov}(Z_t,Z_{t-1})\]\[=E[(a\varepsilon_t+b\varepsilon_{t-1})(a\varepsilon_{t-1}+b\varepsilon_{t-2})]\]</div>
+<div class="equation-chain">
+<span>\(=a^2E(\varepsilon_t\varepsilon_{t-1})\)</span>
+<span>\({}+abE(\varepsilon_t\varepsilon_{t-2})\)</span>
+<span>\({}+abE(\varepsilon_{t-1}^2)\)</span>
+<span>\({}+b^2E(\varepsilon_{t-1}\varepsilon_{t-2})\)</span>
+</div>
+<div class="equation-stack">\[=ab\sigma^2.\]</div>
+<p>For \(h>1\), all four expectations are zero:</p>
+<div class="equation-stack">\[\operatorname{Cov}(Z_t,Z_{t-h})\]</div>
+<div class="equation-chain">
+<span>\(=a^2E(\varepsilon_t\varepsilon_{t-h})\)</span>
+<span>\({}+abE(\varepsilon_t\varepsilon_{t-h-1})\)</span>
+<span>\({}+abE(\varepsilon_{t-1}\varepsilon_{t-h})\)</span>
+<span>\({}+b^2E(\varepsilon_{t-1}\varepsilon_{t-h-1})\)</span>
+</div>
+<div class="equation-stack">\[=0.\]</div>
+<div class="result-box">
+<div class="equation-stack">\[\gamma_Z(h)=\begin{cases}(a^2+b^2)\sigma^2,&h=0,\\ab\sigma^2,&|h|=1,\\0,&|h|>1.\end{cases}\]</div>
+<p>
+<strong>\(Z_t\) is second-order stationary.</strong> All three conditions hold.</p>
+</div>
+</section>
+<section class="solution-step">
+<h3>
+<span>Step 3</span>\(W_t=W_{t-1}+\varepsilon_t\)</h3>
+<p>Unroll the recursion, starting from the fixed value 0:</p>
+<div class="equation-stack">\[W_1=\varepsilon_1,\]\[W_2=\varepsilon_1+\varepsilon_2,\]\[W_3=\varepsilon_1+\varepsilon_2+\varepsilon_3,\]\[W_t=\sum_{i=1}^{t}\varepsilon_i.\]</div>
+<p>The innovations have zero mean and are uncorrelated across dates:</p>
+<div class="equation-stack">\[E(W_t)=\sum_{i=1}^{t}E(\varepsilon_i)=0,\]\[V(W_t)=\sum_{i=1}^{t}V(\varepsilon_i)=t\sigma^2.\]</div>
+<div class="result-box">
+<p>
+<strong>For \(\sigma^2>0\), \(W_t\) is not second-order stationary:</strong> its variance increases with \(t\). A constant mean alone is not enough.</p>
+</div>
+<p>If \(\sigma^2=0\), the process is identically zero; the non-stationarity conclusion concerns nonzero innovation variance.</p>
+</section>
+</div>
+</section>
+<section class="concept-card violet-top exercise" id="exercise-3" aria-labelledby="exercise-title-3">
+<div class="section-header">
+<span class="section-label">Exercise 3</span>
+<h2 id="exercise-title-3">Transformations of stationary processes</h2>
+<span class="course-year">2025/2026</span>
+</div>
+<div class="exercise-statement">
+<ol>
+<li>
+<p>Let \((X_t)_{t\in\mathbb Z}\) and \((Y_t)_{t\in\mathbb Z}\) be second-order stationary, with \(E(X_t)=E(Y_t)=0\), and let \(Z_t=X_t+Y_t\). Is \(Z_t\) necessarily second-order stationary? Show that it is if the two processes are uncorrelated.</p>
+</li>
+<li>
+<p>Let \((\varepsilon_t)_{t\in\mathbb Z}\) be a weak white noise with variance \(\sigma^2\). Fix \(\mu\in\mathbb R\) and coefficients \((\theta_k)\) such that</p>
+<div class="equation-stack">\[\sum_{k=0}^{\infty}\theta_k^2<\infty.\]</div>
+<p>Define</p>
+<div class="equation-stack">\[U_t=\mu+\sum_{k=0}^{\infty}\theta_k\varepsilon_{t-k}.\]</div>
+<p>Compute the expectation, variance and covariance \(\gamma_U(h)=\operatorname{Cov}(U_t,U_{t-h})\), for \(h>0\).</p>
+</li>
+</ol>
+</div>
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="solution-3">
+<span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> solution</button>
+<div class="collapsible solution" id="solution-3" hidden>
+<div class="target-form">
+<span class="target-label">COURSE REMINDER</span>
+<p>As in Exercise 2, check the mean, variance and covariance as functions of time and lag.</p>
+<div class="equation-stack">
+<div class="equation-chain">
+<span>\(V(X+Y)=V(X)+V(Y)\)</span>
+<span>\({}+2\operatorname{Cov}(X,Y)\)</span>
+</div>
+</div>
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(X_t+Y_t,X_{t-h}+Y_{t-h})\)</span>
+<span>\(=\operatorname{Cov}(X_t,X_{t-h})\)</span>
+<span>\({}+\operatorname{Cov}(X_t,Y_{t-h})\)</span>
+<span>\({}+\operatorname{Cov}(Y_t,X_{t-h})\)</span>
+<span>\({}+\operatorname{Cov}(Y_t,Y_{t-h}).\)</span>
+</div>
+</div>
+<section class="solution-step">
+<h3>
+<span>Step 1</span>Question 1 — Why the sum can fail to be stationary</h3>
+<p>The mean of \(Z_t\) is zero. However, stationarity of each process does not ensure that their cross-covariances depend only on the lag.</p>
+<p>Take the example in the correction: \(Y_t=(-1)^tX_t\), with \(X_t\) zero-mean stationary and \(V(X_t)=\sigma_X^2>0\).</p>
+<div class="equation-stack">\[E(Y_t)=(-1)^tE(X_t)=0,\]\[V(Y_t)=(-1)^{2t}\sigma_X^2=\sigma_X^2,\]\[\operatorname{Cov}(Y_t,Y_{t-h})=(-1)^{2t-h}\gamma_X(h)\]\[=(-1)^h\gamma_X(h).\]</div>
+<p>Thus \(Y_t\) is also stationary. But its covariance with \(X_t\) alternates:</p>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,Y_t)=(-1)^t\sigma_X^2.\]</div>
+<div class="equation-stack">\[Z_t=X_t+Y_t=\begin{cases}2X_t,&t\text{ even},\\0,&t\text{ odd},\end{cases}\]\[V(Z_t)=\begin{cases}4\sigma_X^2,&t\text{ even},\\0,&t\text{ odd}.\end{cases}\]</div>
+<div class="result-box">
+<p>
+<strong>No: the sum need not be stationary.</strong> Here its variance depends on whether \(t\) is even or odd.</p>
+</div>
+<p>The covariance calculation gives the same conclusion:</p>
+<div class="equation-stack">\[\operatorname{Cov}(Z_t,Z_{t-h})\]</div>
+<div class="equation-chain">
+<span>\(=\bigl[1+(-1)^{t-h}+(-1)^t\)</span>
+<span>\({}+(-1)^{2t-h}\bigr]\gamma_X(h)\)</span>
+</div>
+<div class="equation-stack">\[=[1+(-1)^t][1+(-1)^{t-h}]\gamma_X(h).\]</div>
+<div class="equation-stack">\[\operatorname{Cov}(Z_t,Z_{t-h})\]\[=\begin{cases}4\gamma_X(h),&t,h\text{ both even},\\0,&\text{otherwise}.\end{cases}\]</div>
+<p>
+<strong>Attention.</strong> This corrects the parity table in the supplied solution: the other three cases are zero.</p>
+</section>
+<section class="solution-step">
+<h3>
+<span>Step 2</span>Question 1 — When the processes are uncorrelated</h3>
+<p>Uncorrelated processes means \(\operatorname{Cov}(X_t,Y_s)=0\) for all dates \(t,s\). Both cross terms therefore vanish:</p>
+<div class="equation-stack">\[E(Z_t)=0,\]\[V(Z_t)=\gamma_X(0)+\gamma_Y(0),\]\[\operatorname{Cov}(Z_t,Z_{t-h})=\gamma_X(h)+\gamma_Y(h).\]</div>
+<div class="result-box">
+<p>
+<strong>The sum is then second-order stationary.</strong> Its variance is constant and its covariance depends only on \(h\).</p>
+</div>
+</section>
+<section class="solution-step">
+<h3>
+<span>Step 3</span>Question 2 — Moments of the linear process</h3>
+<div class="target-form">
+<span class="target-label">FORMULA</span>
+<div class="equation-stack">\[E(U_t),\qquad V(U_t),\]\[\gamma_U(h)=\operatorname{Cov}(U_t,U_{t-h})\quad(h>0).\]</div>
+</div>
+<p>Use \(E(\varepsilon_t)=0\) and the fact that distinct white-noise terms are uncorrelated. The square-summability condition ensures the infinite sum has finite variance.</p>
+<h4>Expectation</h4>
+<div class="equation-stack">\[E(U_t)=\mu+\sum_{k=0}^{\infty}\theta_kE(\varepsilon_{t-k})\]\[=\mu.\]</div>
+<h4>Variance</h4>
+<div class="equation-stack">\[V(U_t)=V\!\left(\sum_{k=0}^{\infty}\theta_k\varepsilon_{t-k}\right)\]\[=\sum_{k=0}^{\infty}\theta_k^2V(\varepsilon_{t-k})\]\[=\sigma^2\sum_{k=0}^{\infty}\theta_k^2<\infty.\]</div>
+<h4>Covariance at lag \(h>0\)</h4>
+<p>Center both observations at their common mean:</p>
+<div class="equation-stack">\[U_t-\mu=\sum_{j=0}^{\infty}\theta_j\varepsilon_{t-j},\]\[U_{t-h}-\mu=\sum_{k=0}^{\infty}\theta_k\varepsilon_{t-h-k}.\]</div>
+<div class="equation-stack">\[\gamma_U(h)=E[(U_t-\mu)(U_{t-h}-\mu)]\]\[=\sum_{j=0}^{\infty}\sum_{k=0}^{\infty}\theta_j\theta_k E(\varepsilon_{t-j}\varepsilon_{t-h-k}).\]</div>
+<p>Only matching innovation dates contribute:</p>
+<div class="equation-stack">\[t-j=t-h-k\quad\Longrightarrow\quad j=h+k.\]</div>
+<p>For these terms, the expectation is \(\sigma^2\):</p>
+<div class="equation-stack">\[\gamma_U(h)=\sigma^2\sum_{k=0}^{\infty}\theta_{k+h}\theta_k.\]</div>
+<div class="result-box">
+<div class="equation-stack">\[\boxed{E(U_t)=\mu}\]\[\boxed{V(U_t)=\sigma^2\sum_{k=0}^{\infty}\theta_k^2}\]\[\boxed{\gamma_U(h)=\sigma^2\sum_{k=0}^{\infty}\theta_k\theta_{k+h}}\]</div>
+<p>The last expression holds for \(h>0\).</p>
+</div>
+</section>
+</div>
+</section>
+    </main>
+  </div>
+</body>
+</html>

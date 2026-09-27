@@ -21,6 +21,7 @@
       <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
     </div>
     <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <a href="training.html" class="sidebar-link">TRAINING</a>
       <div class="sidebar-group">
         <div class="sidebar-group-title">Problem sets</div>
         <a href="problem-set-1.html" class="sidebar-link active" aria-current="page">Problem Set 1</a>
@@ -69,7 +70,7 @@
           </div>
           <section class="solution-step" id="step-1">
             <h3><span>Step 1</span> Autoregressive lag polynomial</h3>
-            <div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\Phi(L)X_t=\varepsilon_t\]</div></div>
+            <div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\Phi(L)X_t=\varepsilon_t\]</div></div>
             <p>Use \(L\) to move the lagged term to the left:</p>
             <div class="equation-stack">\[X_t-0.75LX_t=\varepsilon_t\]
             \[(1-0.75L)X_t=\varepsilon_t.\]</div>
@@ -77,11 +78,11 @@
           </section>
           <section class="solution-step" id="step-2">
             <h3><span>Step 2</span> Characteristic equations &amp; roots</h3>
-            <h4>Characteristic equation</h4><div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\Phi(z)=0\]</div><p>Find the root \(z\).</p></div>
+            <h4>Characteristic equation</h4><div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\Phi(z)=0\]</div><p>Find the root \(z\).</p></div>
             <p>Set the lag polynomial equal to zero:</p>
             <div class="equation-stack">\[\Phi(z)=0\quad\Longleftrightarrow\quad 1-0.75z=0\]
             \[0.75z=1\quad\Longrightarrow\quad z=\frac{1}{0.75}=\frac43.\]</div>
-            <h4>Inverse characteristic equation</h4><div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[r\Phi(r^{-1})=0\]</div><p>Find the inverse root \(r\).</p></div>
+            <h4>Inverse characteristic equation</h4><div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[r\Phi(r^{-1})=0\]</div><p>Find the inverse root \(r\).</p></div>
             <p>For an AR(1), multiply \(\Phi(r^{-1})\) by \(r\):</p>
             <div class="equation-stack">\[r\Phi(r^{-1})=0\]
             \[r(1-0.75r^{-1})=0\]
@@ -90,7 +91,7 @@
           </section>
           <section class="solution-step" id="step-3">
             <h3><span>Step 3</span> Inverse polynomial &amp; MA\((\infty)\)</h3>
-            <div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\Phi(L)^{-1}=\frac{1}{\Phi(L)}\]\[X_t=\Phi(L)^{-1}\varepsilon_t\]</div><p>Expand the inverse in powers of \(L\), then express \(X_t\) using current and past innovations.</p></div>
+            <div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\Phi(L)^{-1}=\frac{1}{\Phi(L)}\]\[X_t=\Phi(L)^{-1}\varepsilon_t\]</div><p>Expand the inverse in powers of \(L\), then express \(X_t\) using current and past innovations.</p></div>
             <p>Since \(|0.75|<1\), expand the inverse using the geometric series:</p>
             <div class="equation-stack">\[\Phi(L)^{-1}=(1-0.75L)^{-1}\]
             \[\boxed{\Phi(L)^{-1}=\sum_{j=0}^{\infty}0.75^jL^j}.\]</div>
@@ -102,7 +103,7 @@
           </section>
           <section class="solution-step" id="step-4">
             <h3><span>Step 4</span> ACF &amp; PACF up to \(h=2\)</h3>
-<div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}\]</div><p>Find the autocovariance at lag \(h\), then divide by the variance.</p></div>
+<div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}\]</div><p>Find the autocovariance at lag \(h\), then divide by the variance.</p></div>
             <p>Here \(\gamma_X(h)=\operatorname{Cov}(X_t,X_{t-h})\). Since the causal representation has zero mean,</p>
             <div class="equation-stack">\[\gamma_X(h)=E(X_tX_{t-h}).\]</div>
             <h4>ACF — Method 1: MA\((\infty)\)</h4>
@@ -131,7 +132,7 @@
             \[\rho_X(2)=0.75\times0.75=0.5625.\]</div>
 
             <h4>PACF — calculation up to lag 2</h4>
-<div class="target-form"><span class="target-label">Form to find</span><div class="equation-stack">\[\alpha_X(h)=a_{hh}\]</div><p>The PACF is the <strong>last coefficient</strong> in the linear projection of \(X_t\) on its first \(h\) lags.</p></div>
+<div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\alpha_X(h)=a_{hh}\]</div><p>The PACF is the <strong>last coefficient</strong> in the linear projection of \(X_t\) on its first \(h\) lags.</p></div>
             <p>From the ACF, \(\rho_X(1)=0.75\) and \(\rho_X(2)=0.5625\). In the projections below, \(u_t\) denotes the projection residual.</p>
             <div class="pacf-part">
               <h5>Lag 0 — Convention</h5>
