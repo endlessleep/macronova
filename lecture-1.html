@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css">
-  <script src="assets/app.js" defer>
+  <link rel="stylesheet" href="assets/styles.css?v=a599626179e4">
+  <script src="assets/app.js?v=725a7f169a2f" defer>
 </script>
 </head>
 <body data-math class="lecture-page">
@@ -76,7 +76,6 @@
 <a href="#white-noise-method">Calculations</a>
 <a href="#trend">Non-stationarity</a>
 <a href="#ergodicity">Ergodicity</a>
-<a href="#toolbox">Toolbox</a>
 </nav>
 <section class="concept-card violet-top lecture-section" id="stationarity" aria-labelledby="stationarity-title">
 <div class="section-header">
@@ -544,84 +543,6 @@
 <span class="note-label">Interpretation</span>
 <p>The permanent common component never disappears. All observations share it, so even distant observations remain correlated.</p>
 </div>
-</section>
-<section class="concept-card violet-top lecture-section" id="toolbox" aria-labelledby="toolbox-title">
-<div class="section-header">
-<span class="section-label">Recall</span>
-<h2 id="toolbox-title">Exercise toolbox</h2>
-</div>
-<div class="toolbox-flow">
-<div class="lecture-block">
-<h3>Start with the mean</h3>
-<div class="equation-stack">\[E(X_t)\]</div>
-<p>If it varies with time, stop: non-stationary.</p>
-</div>
-<div class="lecture-block">
-<h3>Check the variance</h3>
-<div class="equation-stack">\[\operatorname{Var}(X_t)=E(X_t^2)-[E(X_t)]^2\]</div>
-<p>Check that it is finite and constant. Use the linear-combination identities when convenient.</p>
-</div>
-<div class="lecture-block">
-<h3>Compute the autocovariance</h3>
-<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})\]</div>
-<p>If the mean is zero, use the expected product. Expand carefully and, for white noise, keep only matching dates.</p>
-</div>
-<div class="lecture-block">
-<h3>Conclude</h3>
-<p>Weak stationarity requires a constant mean, a constant finite variance, and covariance depending only on the lag.</p>
-</div>
-</div>
-<div class="lecture-block">
-<h3>Essential formulas</h3>
-<div class="lecture-note ">
-<span class="note-label">Moments</span>
-<div class="equation-stack">\[\operatorname{Var}(X)=E(X^2)-[E(X)]^2\]</div>
-<div class="equation-chain">
-<span>\(\operatorname{Cov}(X,Y)=E(XY)\)</span>
-<span>\({}-E(X)E(Y).\)</span>
-</div>
-</div>
-<div class="lecture-note ">
-<span class="note-label">Stationary autocovariance</span>
-<div class="equation-stack">\[\gamma_X(h)=\operatorname{Cov}(X_t,X_{t-h}),\]<div class="equation-chain">
-<span>\(\gamma_X(0)=\operatorname{Var}(X_t),\)</span>
-<span>\(\gamma_X(h)=\gamma_X(-h).\)</span>
-</div>
-</div>
-<p>At zero mean: \(\gamma_X(h)=E(X_tX_{t-h})\).</p>
-</div>
-<div class="lecture-note ">
-<span class="note-label">White noise</span>
-<div class="equation-stack">\[E(\varepsilon_t\varepsilon_s)=\begin{cases}\sigma_\varepsilon^2,&t=s,\\0,&t\ne s.\end{cases}\]</div>
-</div>
-<div class="lecture-note ">
-<span class="note-label">Random walk — fixed initial value</span>
-<div class="equation-stack">\[X_t=X_{t-1}+\varepsilon_t,\]\[\operatorname{Var}(X_t)=t\sigma_\varepsilon^2,\]\[\operatorname{Cov}(X_t,X_{t-h})=(t-h)\sigma_\varepsilon^2,\]\[\Delta X_t=\varepsilon_t.\]</div>
-<p>The covariance formula uses \(0<h\le t\).</p>
-</div>
-<div class="lecture-note ">
-<span class="note-label">Mean ergodicity</span>
-<div class="equation-stack">\[\bar X_T\xrightarrow{p}\mu\]</div>
-<p>A sufficient condition is</p>
-<div class="equation-stack">\[\sum_{h=0}^{\infty}|\gamma_X(h)|<\infty.\]</div>
-</div>
-</div>
-</section>
-<section class="lecture-summary" aria-labelledby="summary-title">
-<span class="section-label">Keep in mind</span>
-<h2 id="summary-title">To solve a Lecture 1 exercise</h2>
-<div class="rule-flow">
-<span>Mean</span>
-<span>→</span>
-<span>Variance</span>
-<span>→</span>
-<span>Autocovariance</span>
-<span>→</span>
-<span>Stationarity conclusion</span>
-</div>
-<p>For white-noise calculations, always ask:</p>
-<strong class="summary-question">Which shocks have exactly the same date?</strong>
-<p>Only those terms survive in covariance calculations.</p>
 </section>
     </main>
   </div>

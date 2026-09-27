@@ -14,3 +14,7 @@ Lecture 1, Introduction to Univariate Time Series, appears before the Problem se
 - Collapsible derivations use a `.toggle-btn` with `data-disclosure`, `aria-controls`, `aria-expanded="false"`, a `[data-toggle-action]` span containing `Show`, and a corresponding `.collapsible` container with `hidden`.
 - Add `data-math` to the body of pages containing formulas. This loads the same MathJax version and notation as ECOGROWTH.
 - Keep STAR NOVA's original avatar and footer. Preserve course notation and scope.
+
+## Updating shared styles or scripts
+
+Run `python3 scripts/version_assets.py` before committing an update. It adds a content-based version to the shared CSS and JavaScript URLs on every page, preventing an older cached stylesheet from being reused with new page content.
