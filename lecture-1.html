@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — STAR NOVA’s macroeconomics revision notes.">
+  <title>Lecture 1 — Introduction to Univariate Time Series | MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer>
+</script>
+</head>
+<body data-math class="lecture-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span>
+</a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <a href="lecture-1.html" class="sidebar-link active" aria-current="page">LECTURE 1</a>
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Problem sets</div>
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">
+<img src="images/avatar.png" width="36" height="36" alt="">
+<span class="user-dot" aria-hidden="true">
+</span>
+</div>
+        <div class="user-info">
+<div class="user-name">STAR NOVA</div>
+<div class="user-role">macronova</div>
+</div>
+      </div>
+    </div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden>
+</button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M5 7h14M5 12h14M5 17h14"/>
+</svg>
+</button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb">
+<span>MACRO</span>
+<span class="sep" aria-hidden="true">›</span>
+<strong>Lecture 1</strong>
+</nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+<span>
+</span>
+</div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">Macroeconometrics · Revision notes</div>
+        <h1>LECTURE 1</h1>
+<p class="lecture-subtitle">Introduction to Univariate Time Series</p>
+      </div>
+<nav class="lecture-jumps" aria-label="Lecture topics">
+<a href="#stationarity">Stationarity</a>
+<a href="#white-noise">White noise</a>
+<a href="#moments">Moments</a>
+<a href="#white-noise-method">Calculations</a>
+<a href="#trend">Non-stationarity</a>
+<a href="#ergodicity">Ergodicity</a>
+<a href="#toolbox">Toolbox</a>
+</nav>
+<section class="concept-card violet-top lecture-section" id="stationarity" aria-labelledby="stationarity-title">
+<div class="section-header">
+<span class="section-label">Definitions</span>
+<h2 id="stationarity-title">Stationarity</h2>
+</div>
+<div class="lecture-block">
+<h3>Strong stationarity</h3>
+<p>A process \((X_t)_{t\in\mathbb Z}\) is <strong>strongly (or strictly) stationary</strong> if shifting every date by the same amount leaves the entire joint distribution unchanged:</p>
+<div class="equation-chain">
+<span>\((X_{t_1},\ldots,X_{t_k})\)</span>
+<span>\(\overset{d}{=}(X_{t_1+h},\ldots,X_{t_k+h}).\)</span>
+</div>
+<p>This must hold for every collection of dates, every \(k\), and every shift \(h\). The symbol \(\overset{d}{=}\) means “has the same distribution as”. For example,</p>
+<div class="equation-chain">
+<span>\((X_t,X_{t+1})\)</span>
+<span>\(\overset{d}{=}(X_{t+h},X_{t+h+1}).\)</span>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Weak stationarity</h3>
+<p>A <strong>weakly stationary</strong> process is also called <strong>second-order stationary</strong> or <strong>covariance-stationary</strong>. It satisfies all three conditions:</p>
+<div class="condition-list">
+<div>
+<h4>Constant mean</h4>
+<div class="equation-stack">\[E(X_t)=\mu\]</div>
+<p>\(\mu\) does not depend on the date \(t\).</p>
+</div>
+<div>
+<h4>Constant, finite variance</h4>
+<div class="equation-stack">\[\operatorname{Var}(X_t)=\gamma_X(0)<\infty\]</div>
+<p>The dispersion is the same at every date.</p>
+</div>
+<div>
+<h4>Covariance depends only on the lag</h4>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})=\gamma_X(h)\]</div>
+<p>Only the distance \(h\) matters, not the date \(t\).</p>
+</div>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Autocovariance symmetry</h3>
+<div class="equation-stack">\[\boxed{\gamma_X(h)=\gamma_X(-h)}\]</div>
+<p>Covariance is symmetric. Together with stationarity, this gives</p>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})=\operatorname{Cov}(X_{t-h},X_t)\]\[=\operatorname{Cov}(X_t,X_{t+h}).\]</div>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Exercise method</span>
+<p>
+<strong>Mean → variance → autocovariance.</strong> Check each quantity for dependence on calendar time. If one condition fails, stop: the process is not weakly stationary.</p>
+<p>For example, \(E(X_t)=a+bt\) with \(b\ne0\) already rules out stationarity.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="strong-weak" aria-labelledby="strong-weak-title">
+<div class="section-header">
+<span class="section-label">Distinction</span>
+<h2 id="strong-weak-title">Strong versus weak stationarity</h2>
+</div>
+<div class="lecture-grid">
+<div class="lecture-block">
+<h3>Strong → weak</h3>
+<p>
+<strong>Provided the first two moments are finite</strong>, strong stationarity implies weak stationarity. The whole distribution is unchanged, so these moments are unchanged too.</p>
+</div>
+<div class="lecture-block">
+<h3>Weak ⇏ strong</h3>
+<p>Weak stationarity controls the mean, variance and autocovariances only. It does not generally imply that the entire joint distribution is unchanged.</p>
+</div>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Key rule</span>
+<p>For a <strong>Gaussian process</strong>, weak stationarity does imply strong stationarity. Here “Gaussian process” refers to the joint Gaussian distributions of its observations.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="white-noise" aria-labelledby="white-noise-title">
+<div class="section-header">
+<span class="section-label">Definitions & rules</span>
+<h2 id="white-noise-title">White noise</h2>
+</div>
+<div class="lecture-block">
+<h3>Weak white noise</h3>
+<p>A weak white noise \((\varepsilon_t)\) consists of zero-mean shocks with constant finite variance and no serial correlation:</p>
+<div class="equation-stack">\[E(\varepsilon_t)=0,\]\[\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2<\infty,\]\[\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-h})=0\quad(h\ne0).\]</div>
+<div class="result-box">
+<div class="equation-stack">\[\gamma_\varepsilon(h)=\begin{cases}\sigma_\varepsilon^2,&h=0,\\0,&h\ne0.\end{cases}\]</div>
+</div>
+<p>Past shocks contain no linear information about the current shock. This is a statement about correlation, not necessarily independence.</p>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Key rule — match the dates</span>
+<p>Since the shocks have zero mean,</p>
+<div class="equation-stack">\[E(\varepsilon_t\varepsilon_s)=\operatorname{Cov}(\varepsilon_t,\varepsilon_s)\]</div>
+<div class="equation-stack">\[\boxed{E(\varepsilon_t\varepsilon_s)=\begin{cases}\sigma_\varepsilon^2,&t=s,\\0,&t\ne s.\end{cases}}\]</div>
+<p>
+<strong>Same date: keep the term. Different dates: the term vanishes.</strong>
+</p>
+</div>
+<div class="equation-stack">\[E(\varepsilon_t^2)=\sigma_\varepsilon^2,\]\[E(\varepsilon_t\varepsilon_{t-1})=0,\]\[E(\varepsilon_{t-1}\varepsilon_{t-3})=0.\]</div>
+<div class="lecture-block">
+<h3>Strong white noise</h3>
+<div class="equation-stack">\[\varepsilon_t\overset{iid}{\sim}F,\]\[E(\varepsilon_t)=0,\qquad \operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2<\infty.\]</div>
+<p>The shocks are <strong>independent and identically distributed</strong> over time. Independence implies zero covariance, so strong white noise is weak white noise. The converse does not hold.</p>
+</div>
+<div class="lecture-block">
+<h3>Gaussian white noise</h3>
+<div class="equation-stack">\[\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2).\]</div>
+<p>This is the Gaussian case of strong white noise.</p>
+</div>
+<div class="result-box">
+<div class="rule-flow">
+<span>Gaussian WN</span>
+<span aria-hidden="true">⊂</span>
+<span>Strong WN</span>
+<span aria-hidden="true">⊂</span>
+<span>Weak WN</span>
+</div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="dependence" aria-labelledby="dependence-title">
+<div class="section-header">
+<span class="section-label">Example</span>
+<h2 id="dependence-title">Uncorrelated does not mean independent</h2>
+</div>
+<p>Take \(X\sim N(0,1)\) and \(Y=X^2\). Their covariance is zero:</p>
+<div class="equation-stack">\[\operatorname{Cov}(X,Y)=\operatorname{Cov}(X,X^2)\]\[=E(X^3)-E(X)E(X^2)\]\[=E(X^3)=0.\]</div>
+<p>The last equality uses the zero third moment of a centered normal variable. Yet \(Y\) is completely determined by \(X\), so the two variables are dependent.</p>
+<div class="lecture-note ">
+<span class="note-label">Common mistake</span>
+<p>
+<strong>Independence implies zero covariance</strong> when the moments exist, but <strong>zero covariance does not imply independence</strong>. Zero covariance excludes linear association as measured by covariance, not every form of dependence.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="moments" aria-labelledby="moments-title">
+<div class="section-header">
+<span class="section-label">Formula</span>
+<h2 id="moments-title">Moments & autocovariance</h2>
+</div>
+<p>Use these definitions before expanding a variance or covariance. All moments involved must exist.</p>
+<div class="lecture-block">
+<h3>Mean and variance</h3>
+<div class="equation-stack">\[E(X_t),\]\[\operatorname{Var}(X_t)=E\!\left[(X_t-E(X_t))^2\right]\]</div>
+<p>The König–Huygens identity gives</p>
+<div class="result-box">
+<div class="equation-stack">\[\operatorname{Var}(X_t)=E(X_t^2)-[E(X_t)]^2.\]</div>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Covariance</h3>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,Y_t)\]\[=E\!\left[(X_t-E(X_t))(Y_t-E(Y_t))\right]\]</div>
+<div class="result-box">
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(X_t,Y_t)=E(X_tY_t)\)</span>
+<span>\({}-E(X_t)E(Y_t).\)</span>
+</div>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Autocovariance</h3>
+<p>For a weakly stationary process, the covariance at lag \(h\) can be written as a function of \(h\) alone:</p>
+<div class="equation-stack">\[\gamma_X(h)=\operatorname{Cov}(X_t,X_{t-h})\]</div>
+<div class="equation-chain">
+<span>\(=E(X_tX_{t-h})\)</span>
+<span>\({}-E(X_t)E(X_{t-h}).\)</span>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Key rule</span>
+<p>For a zero-mean stationary process,</p>
+<div class="equation-stack">\[\gamma_X(h)=E(X_tX_{t-h}).\]</div>
+<p>At lag zero,</p>
+<div class="equation-stack">\[\gamma_X(0)=\operatorname{Var}(X_t).\]</div>
+</div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="identities" aria-labelledby="identities-title">
+<div class="section-header">
+<span class="section-label">Exercise tools</span>
+<h2 id="identities-title">Working identities</h2>
+</div>
+<div class="equation-stack">\[\operatorname{Var}(aX)=a^2\operatorname{Var}(X).\]</div>
+<div class="lecture-block">
+<h3>Variance of a sum</h3>
+<div class="equation-chain">
+<span>\(\operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)\)</span>
+<span>\({}+2\operatorname{Cov}(X,Y).\)</span>
+</div>
+<div class="equation-chain">
+<span>\(\operatorname{Var}(aX+bY)=a^2\operatorname{Var}(X)\)</span>
+<span>\({}+b^2\operatorname{Var}(Y)+2ab\operatorname{Cov}(X,Y).\)</span>
+</div>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Key rule</span>
+<p>If the variables are uncorrelated, the covariance term vanishes:</p>
+<div class="equation-chain">
+<span>\(\operatorname{Var}(aX+bY)=a^2\operatorname{Var}(X)\)</span>
+<span>\({}+b^2\operatorname{Var}(Y).\)</span>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Linearity of covariance</h3>
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(aX+bY,Z)=a\operatorname{Cov}(X,Z)\)</span>
+<span>\({}+b\operatorname{Cov}(Y,Z).\)</span>
+</div>
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(X,aY+bZ)=a\operatorname{Cov}(X,Y)\)</span>
+<span>\({}+b\operatorname{Cov}(X,Z).\)</span>
+</div>
+</div>
+<p>These identities are especially useful for linear combinations of white-noise shocks.</p>
+</section>
+<section class="concept-card violet-top lecture-section" id="white-noise-method" aria-labelledby="white-noise-method-title">
+<div class="section-header">
+<span class="section-label">Worked method</span>
+<h2 id="white-noise-method-title">Processes built from white noise</h2>
+</div>
+<p>Consider the process</p>
+<div class="equation-stack">\[X_t=a\varepsilon_t+b\varepsilon_{t-1},\]</div>
+<p>where \((\varepsilon_t)\) is weak white noise. Apply the same sequence: mean, variance, autocovariance.</p>
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="white-noise-calculation">
+<span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> calculation</button>
+<div class="collapsible lecture-calculation" id="white-noise-calculation" hidden>
+<div class="lecture-block">
+<h3>Mean</h3>
+<div class="equation-chain">
+<span>\(E(X_t)=aE(\varepsilon_t)\)</span>
+<span>\({}+bE(\varepsilon_{t-1})=0.\)</span>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Variance</h3>
+<div class="equation-chain">
+<span>\(\operatorname{Var}(X_t)=a^2\operatorname{Var}(\varepsilon_t)\)</span>
+<span>\({}+b^2\operatorname{Var}(\varepsilon_{t-1})\)</span>
+<span>\({}+2ab\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-1})\)</span>
+</div>
+<p>The covariance term is zero because the shock dates differ:</p>
+<div class="equation-stack">\[\operatorname{Var}(X_t)=(a^2+b^2)\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Autocovariance at lag one</h3>
+<p>Write the two observations side by side:</p>
+<div class="equation-stack">\[X_t=a\varepsilon_t+b\varepsilon_{t-1},\]\[X_{t-1}=a\varepsilon_{t-1}+b\varepsilon_{t-2}.\]</div>
+<p>Their mean is zero, so</p>
+<div class="equation-stack">\[\gamma_X(1)=E(X_tX_{t-1})\]\[=E[(a\varepsilon_t+b\varepsilon_{t-1})(a\varepsilon_{t-1}+b\varepsilon_{t-2})].\]</div>
+<p>Expand the product:</p>
+<div class="equation-chain">
+<span>\(\gamma_X(1)=a^2E(\varepsilon_t\varepsilon_{t-1})\)</span>
+<span>\({}+abE(\varepsilon_t\varepsilon_{t-2})\)</span>
+<span>\({}+abE(\varepsilon_{t-1}^2)\)</span>
+<span>\({}+b^2E(\varepsilon_{t-1}\varepsilon_{t-2}).\)</span>
+</div>
+<p>Only \(E(\varepsilon_{t-1}^2)=\sigma_\varepsilon^2\) survives:</p>
+<div class="equation-stack">\[\gamma_X(1)=ab\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Autocovariance at larger lags</h3>
+<div class="equation-stack">\[X_{t-h}=a\varepsilon_{t-h}+b\varepsilon_{t-h-1}.\]</div>
+<p>For \(h>1\), there is no shock date shared by \(X_t\) and \(X_{t-h}\). Every expected cross-product is zero:</p>
+<div class="equation-stack">\[\gamma_X(h)=0\quad(h>1).\]</div>
+</div>
+</div>
+<div class="result-box">
+<div class="equation-stack">
+<div class="equation-chain">
+<span>\(E(X_t)=0,\)</span>
+<span>\(\operatorname{Var}(X_t)=(a^2+b^2)\sigma_\varepsilon^2,\)</span>
+</div>\[\gamma_X(1)=ab\sigma_\varepsilon^2,\]\[\gamma_X(h)=0\quad(h>1).\]</div>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Exercise method</span>
+<p>
+<strong>Look for shocks appearing in both observations.</strong> Only common shock dates can generate a nonzero covariance.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="trend" aria-labelledby="trend-title">
+<div class="section-header">
+<span class="section-label">Diagnosis</span>
+<h2 id="trend-title">Non-stationarity & deterministic trend</h2>
+</div>
+<p>A process fails covariance stationarity if its mean, variance or covariance varies with calendar time. One failure is enough; there is no need to show that every condition fails.</p>
+<div class="lecture-block">
+<h3>Deterministic trend</h3>
+<div class="equation-stack">\[X_t=a+bt+\varepsilon_t,\qquad b\ne0.\]</div>
+<div class="equation-stack">\[E(X_t)=a+bt+E(\varepsilon_t)=a+bt.\]</div>
+<p>The mean depends on time, so the process is not weakly stationary. No further calculation is needed.</p>
+</div>
+<div class="lecture-block">
+<h3>Detrending</h3>
+<p>Subtract the deterministic component:</p>
+<div class="equation-stack">\[\widetilde X_t=X_t-a-bt=\varepsilon_t.\]</div>
+<div class="result-box">
+<p>The transformed process is white noise and therefore stationary.</p>
+</div>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Exercise method</span>
+<p>For this deterministic trend, remove the deterministic component instead of automatically taking a first difference.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="random-walk" aria-labelledby="random-walk-title">
+<div class="section-header">
+<span class="section-label">Diagnosis</span>
+<h2 id="random-walk-title">Random walk & first differences</h2>
+</div>
+<div class="equation-stack">\[X_t=X_{t-1}+\varepsilon_t\quad(t\ge1)\]</div>
+<p>Here \(X_0\) is fixed and the weak white-noise shocks have variance \(\sigma_\varepsilon^2>0\). Repeated substitution gives</p>
+<div class="equation-chain">
+<span>\(X_t=X_0+\varepsilon_1+\varepsilon_2\)</span>
+<span>\({}+\cdots+\varepsilon_t\)</span>
+</div>
+<div class="equation-stack">\[=X_0+\sum_{s=1}^{t}\varepsilon_s.\]</div>
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="random-walk-calculation">
+<span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> calculation</button>
+<div class="collapsible lecture-calculation" id="random-walk-calculation" hidden>
+<div class="lecture-block">
+<h3>Variance</h3>
+<p>\(X_0\) is fixed, and all covariances between different shock dates are zero:</p>
+<div class="equation-stack">\[\operatorname{Var}(X_t)=\operatorname{Var}\!\left(\sum_{s=1}^{t}\varepsilon_s\right)\]\[=\sum_{s=1}^{t}\operatorname{Var}(\varepsilon_s)\]\[=\underbrace{\sigma_\varepsilon^2+\cdots+\sigma_\varepsilon^2}_{t\text{ terms}}\]\[=t\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Autocovariance</h3>
+<p>For \(0<h\le t\),</p>
+<div class="equation-stack">\[X_{t-h}=X_0+\sum_{s=1}^{t-h}\varepsilon_s.\]</div>
+<p>Both observations contain \(\varepsilon_1,\ldots,\varepsilon_{t-h}\). Each of these \(t-h\) common shocks contributes its variance:</p>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})=(t-h)\sigma_\varepsilon^2.\]</div>
+</div>
+</div>
+<div class="result-box">
+<div class="equation-stack">\[\operatorname{Var}(X_t)=t\sigma_\varepsilon^2,\]\[\operatorname{Cov}(X_t,X_{t-h})=(t-h)\sigma_\varepsilon^2.\]</div>
+<p>The variance depends on \(t\), and the covariance depends on both \(t\) and \(h\). The random walk is non-stationary.</p>
+</div>
+<div class="lecture-block">
+<h3>First differencing</h3>
+<p>Subtract the previous observation:</p>
+<div class="equation-stack">\[\Delta X_t=X_t-X_{t-1}\]\[=X_{t-1}+\varepsilon_t-X_{t-1}\]\[=\varepsilon_t.\]</div>
+<div class="result-box">
+<p>
+<strong>\(X_t\) is non-stationary, but \(\Delta X_t\) is stationary.</strong> Its first difference is weak white noise.</p>
+</div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="transformations" aria-labelledby="transformations-title">
+<div class="section-header">
+<span class="section-label">Comparison</span>
+<h2 id="transformations-title">Choose the transformation</h2>
+</div>
+<div class="lecture-grid">
+<div class="lecture-block">
+<h3>Deterministic trend</h3>
+<div class="equation-stack">\[X_t=a+bt+\varepsilon_t\]</div>
+<p>Non-stationarity comes from the deterministic component \(a+bt\).</p>
+<div class="lecture-note ">
+<span class="note-label">Transformation</span>
+<p>
+<strong>Detrend</strong> by subtracting this component.</p>
+<div class="equation-stack">\[X_t-a-bt=\varepsilon_t.\]</div>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Random walk</h3>
+<div class="equation-stack">\[X_t=X_{t-1}+\varepsilon_t\]</div>
+<p>Non-stationarity comes from the accumulation of random shocks.</p>
+<div class="lecture-note ">
+<span class="note-label">Transformation</span>
+<p>
+<strong>First-difference</strong> the process.</p>
+<div class="equation-stack">\[\Delta X_t=\varepsilon_t.\]</div>
+</div>
+</div>
+</div>
+<p>Both can appear persistent, but the source of their non-stationarity differs. Choose the transformation accordingly.</p>
+</section>
+<section class="concept-card violet-top lecture-section" id="ergodicity" aria-labelledby="ergodicity-title">
+<div class="section-header">
+<span class="section-label">Definitions</span>
+<h2 id="ergodicity-title">Ergodicity</h2>
+</div>
+<p>Stationarity and ergodicity answer different questions. Ergodicity asks whether statistics from one sufficiently long realization converge to the corresponding population quantities.</p>
+<div class="lecture-block">
+<h3>Ergodicity for the mean</h3>
+<p>For a covariance-stationary process, define the sample mean:</p>
+<div class="equation-stack">\[\bar X_T=\frac1T\sum_{t=1}^{T}X_t,\qquad \mu=E(X_t).\]</div>
+<div class="result-box">
+<div class="equation-stack">\[\bar X_T\xrightarrow{p}\mu\quad\text{as }T\to\infty.\]</div>
+</div>
+<p>This is mean ergodicity: the sample mean converges <strong>in probability</strong>, denoted by \(\xrightarrow{p}\), to the population mean.</p>
+</div>
+<div class="lecture-block">
+<h3>A sufficient condition</h3>
+<div class="equation-stack">\[\boxed{\sum_{h=0}^{\infty}|\gamma_X(h)|<\infty}\]</div>
+<p>This is <strong>absolute summability of the autocovariance function</strong>. It is a sufficient condition for mean ergodicity: temporal dependence must disappear sufficiently quickly.</p>
+<div class="lecture-note ">
+<span class="note-label">Interpretation</span>
+<p>Observations far apart in time must become sufficiently weakly related.</p>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Ergodicity for second moments</h3>
+<p>For each fixed nonnegative lag, the sample autocovariance is</p>
+<div class="equation-stack">
+<div class="equation-chain">
+<span>\(\widehat\gamma_T(h)=\dfrac1{T-h}\sum_{t=h+1}^{T}\)</span>
+<span>\((X_t-\bar X_T)(X_{t-h}-\bar X_T).\)</span>
+</div>
+<p>Here \(0\le h<T\).</p>
+</div>
+<div class="result-box">
+<div class="equation-stack">\[\widehat\gamma_T(h)\xrightarrow{p}\gamma_X(h).\]</div>
+</div>
+<p>Second-moment ergodicity means that the sample autocovariance converges to its population counterpart for every fixed lag. Conditions ensuring this are generally stronger than conditions for mean ergodicity alone.</p>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Common mistake</span>
+<p>
+<strong>Stationarity does not imply ergodicity.</strong> Constant population moments do not by themselves guarantee convergence of sample statistics.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="ergodicity-examples" aria-labelledby="ergodicity-examples-title">
+<div class="section-header">
+<span class="section-label">Examples</span>
+<h2 id="ergodicity-examples-title">Stationarity does not imply ergodicity</h2>
+</div>
+<div class="lecture-block">
+<h3>Gaussian white noise: stationary and ergodic</h3>
+<div class="equation-stack">\[\varepsilon_t\overset{iid}{\sim}N(0,1),\]\[\gamma_\varepsilon(0)=1,\qquad\gamma_\varepsilon(h)=0\quad(h\ne0).\]</div>
+<p>The shocks have no dependence across dates. This process is stationary and ergodic.</p>
+</div>
+<div class="lecture-block">
+<h3>A permanent random component</h3>
+<div class="equation-stack">\[X_t=\mu+\varepsilon_t,\]\[\mu\sim U[-1,1],\]\[\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2).\]</div>
+<p>The same random variable \(\mu\) appears at every date. Here \(\mu\) is a <strong>random component</strong>, not the population mean.</p>
+</div>
+<div class="lecture-note attention">
+<span class="note-label">Attention — condition needed</span>
+<p>The supplied moment calculations require \(\operatorname{Cov}(\mu,\varepsilon_t)=0\) for every \(t\). This is not stated in the supplied excerpt. The results below hold under this condition.</p>
+</div>
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="nonergodic-calculation">
+<span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> calculation</button>
+<div class="collapsible lecture-calculation" id="nonergodic-calculation" hidden>
+<div class="lecture-block">
+<h3>Population moments</h3>
+<div class="equation-stack">\[E(\mu)=0,\qquad \operatorname{Var}(\mu)=\frac13,\]\[E(X_t)=E(\mu)+E(\varepsilon_t)=0,\]\[\operatorname{Var}(X_t)=\operatorname{Var}(\mu)+\operatorname{Var}(\varepsilon_t)\]\[=\frac13+\sigma_\varepsilon^2.\]</div>
+<p>For \(h\ne0\), the cross terms vanish and only the common random component remains:</p>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})\]\[=\operatorname{Cov}(\mu+\varepsilon_t,\mu+\varepsilon_{t-h})\]\[=\operatorname{Var}(\mu)=\frac13.\]</div>
+<p>These moments do not depend on the calendar date. The process is covariance-stationary.</p>
+</div>
+<div class="lecture-block">
+<h3>The sample mean</h3>
+<div class="equation-stack">\[\bar X_T=\mu+\frac1T\sum_{t=1}^{T}\varepsilon_t.\]</div>
+<p>The noise average converges to zero:</p>
+<div class="equation-stack">\[\frac1T\sum_{t=1}^{T}\varepsilon_t\xrightarrow{p}0.\]</div>
+<p>Therefore,</p>
+<div class="equation-stack">\[\bar X_T\xrightarrow{p}\mu,\]</div>
+<p>which is the random common component, rather than the population mean \(E(X_t)=0\).</p>
+</div>
+</div>
+<div class="result-box">
+<div class="equation-stack">\[E(X_t)=0,\qquad \operatorname{Var}(X_t)=\frac13+\sigma_\varepsilon^2,\]\[\gamma_X(h)=\frac13\quad(h\ne0),\]\[\bar X_T\xrightarrow{p}\mu.\]</div>
+<p>
+<strong>Stationary, but not ergodic for the mean.</strong>
+</p>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Interpretation</span>
+<p>The permanent common component never disappears. All observations share it, so even distant observations remain correlated.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="toolbox" aria-labelledby="toolbox-title">
+<div class="section-header">
+<span class="section-label">Recall</span>
+<h2 id="toolbox-title">Exercise toolbox</h2>
+</div>
+<div class="toolbox-flow">
+<div class="lecture-block">
+<h3>Start with the mean</h3>
+<div class="equation-stack">\[E(X_t)\]</div>
+<p>If it varies with time, stop: non-stationary.</p>
+</div>
+<div class="lecture-block">
+<h3>Check the variance</h3>
+<div class="equation-stack">\[\operatorname{Var}(X_t)=E(X_t^2)-[E(X_t)]^2\]</div>
+<p>Check that it is finite and constant. Use the linear-combination identities when convenient.</p>
+</div>
+<div class="lecture-block">
+<h3>Compute the autocovariance</h3>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})\]</div>
+<p>If the mean is zero, use the expected product. Expand carefully and, for white noise, keep only matching dates.</p>
+</div>
+<div class="lecture-block">
+<h3>Conclude</h3>
+<p>Weak stationarity requires a constant mean, a constant finite variance, and covariance depending only on the lag.</p>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Essential formulas</h3>
+<div class="lecture-note ">
+<span class="note-label">Moments</span>
+<div class="equation-stack">\[\operatorname{Var}(X)=E(X^2)-[E(X)]^2\]</div>
+<div class="equation-chain">
+<span>\(\operatorname{Cov}(X,Y)=E(XY)\)</span>
+<span>\({}-E(X)E(Y).\)</span>
+</div>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Stationary autocovariance</span>
+<div class="equation-stack">\[\gamma_X(h)=\operatorname{Cov}(X_t,X_{t-h}),\]<div class="equation-chain">
+<span>\(\gamma_X(0)=\operatorname{Var}(X_t),\)</span>
+<span>\(\gamma_X(h)=\gamma_X(-h).\)</span>
+</div>
+</div>
+<p>At zero mean: \(\gamma_X(h)=E(X_tX_{t-h})\).</p>
+</div>
+<div class="lecture-note ">
+<span class="note-label">White noise</span>
+<div class="equation-stack">\[E(\varepsilon_t\varepsilon_s)=\begin{cases}\sigma_\varepsilon^2,&t=s,\\0,&t\ne s.\end{cases}\]</div>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Random walk — fixed initial value</span>
+<div class="equation-stack">\[X_t=X_{t-1}+\varepsilon_t,\]\[\operatorname{Var}(X_t)=t\sigma_\varepsilon^2,\]\[\operatorname{Cov}(X_t,X_{t-h})=(t-h)\sigma_\varepsilon^2,\]\[\Delta X_t=\varepsilon_t.\]</div>
+<p>The covariance formula uses \(0<h\le t\).</p>
+</div>
+<div class="lecture-note ">
+<span class="note-label">Mean ergodicity</span>
+<div class="equation-stack">\[\bar X_T\xrightarrow{p}\mu\]</div>
+<p>A sufficient condition is</p>
+<div class="equation-stack">\[\sum_{h=0}^{\infty}|\gamma_X(h)|<\infty.\]</div>
+</div>
+</div>
+</section>
+<section class="lecture-summary" aria-labelledby="summary-title">
+<span class="section-label">Keep in mind</span>
+<h2 id="summary-title">To solve a Lecture 1 exercise</h2>
+<div class="rule-flow">
+<span>Mean</span>
+<span>→</span>
+<span>Variance</span>
+<span>→</span>
+<span>Autocovariance</span>
+<span>→</span>
+<span>Stationarity conclusion</span>
+</div>
+<p>For white-noise calculations, always ask:</p>
+<strong class="summary-question">Which shocks have exactly the same date?</strong>
+<p>Only those terms survive in covariance calculations.</p>
+</section>
+    </main>
+  </div>
+</body>
+</html>
