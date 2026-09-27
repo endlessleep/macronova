@@ -28,3 +28,4 @@
 /* Keep Safari's mobile text sizing and sticky header consistent. */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .topbar { -webkit-backdrop-filter: blur(12px); }
+@media(max-width:359px){.lecture-page .autocorrelation-matrix{margin-inline:-12px}}
