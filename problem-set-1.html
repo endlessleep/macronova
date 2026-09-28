@@ -118,7 +118,13 @@
             <p>For matching dates, the expectation is \(\sigma_\varepsilon^2\). Thus</p>
             <div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2\sum_{j=h}^{\infty}0.75^{2j-h}\]
             \[=\sigma_\varepsilon^2\,0.75^{-h}\sum_{j=h}^{\infty}0.75^{2j}\]
-            \[=\sigma_\varepsilon^2\,0.75^{-h}\frac{0.75^{2h}}{1-0.75^2}\]
+            </div>
+            <p>To evaluate the remaining sum, first factor out its first term, \(0.75^{2h}\). The index then starts at \(0\):</p>
+            <div class="equation-stack">\[\sum_{j=h}^{\infty}0.75^{2j}
+            =0.75^{2h}\sum_{j=0}^{\infty}0.75^{2j}
+            =\frac{0.75^{2h}}{1-0.75^2}.\]</div>
+            <p>Substituting this geometric-series value gives:</p>
+            <div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2\,0.75^{-h}\frac{0.75^{2h}}{1-0.75^2}\]
             \[=\frac{\sigma_\varepsilon^2\,0.75^h}{1-0.75^2}.\]</div>
             <p class="key-note"><strong>Attention.</strong> The sum starts at \(j=h\), not \(j=0\), because \(k=j-h\ge0\). This is why the final power is \(0.75^h\).</p>
             <div class="equation-stack">\[\gamma_X(0)=\frac{\sigma_\varepsilon^2}{1-0.75^2}\]
