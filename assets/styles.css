@@ -29,3 +29,4 @@
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .topbar { -webkit-backdrop-filter: blur(12px); }
 @media(max-width:359px){.lecture-page .autocorrelation-matrix{margin-inline:-12px}}
+.sidebar-divider { border: 0; border-top: 1px solid var(--border); margin: 16px 22px; }
