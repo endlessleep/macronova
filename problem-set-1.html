@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="assets/styles.css?v=542e1f2dfb98">
   <script src="assets/app.js?v=725a7f169a2f" defer></script>
   <style>
-    /* Keep the official PACF matrices within narrow screens. */
+    /* Keep the PACF matrices within narrow screens. */
     .official-matrix mjx-container svg { max-width: 100%; height: auto; }
   </style>
 </head>
@@ -73,7 +73,7 @@
             <p>For the weak white noise,</p>
             <div class="equation-stack">\[E(\varepsilon_t)=0,\qquad \operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2.\]
             \[\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-h})=0\quad(h\ne0).\]</div>
-            <p>The lag operator is \(LX_t=X_{t-1}\). As in the official solution, write \(\phi=0.75\) when computing moments from the MA\((\infty)\) representation.</p>
+            <p>The lag operator is \(LX_t=X_{t-1}\). For the moment calculations from the MA\((\infty)\) representation, write \(\phi=0.75\).</p>
           </div>
           <section class="solution-step" id="step-1">
             <h3><span>Question 1</span> Autoregressive lag polynomial</h3>
@@ -95,7 +95,7 @@
             <div class="equation-stack">\[r\Phi(r^{-1})=0\]
             \[r(1-0.75r^{-1})=0\]
             \[r-0.75=0\quad\Longrightarrow\quad r_1=0.75.\]</div>
-            <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad r_1=\frac1{z_1},\qquad |r_1|<1.\]</div><p>The characteristic root lies outside the unit circle; the inverse root lies inside. Following the official solution, these equivalent checks show that the lag polynomial \(\Phi(L)\) is invertible.</p></div>
+            <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad r_1=\frac1{z_1},\qquad |r_1|<1.\]</div><p>The characteristic root lies outside the unit circle; the inverse root lies inside. The characteristic-root condition \(|z_1|>1\), or equivalently the inverse-root condition \(|r_1|<1\), shows that \(\Phi(L)\) is invertible.</p></div>
           </section>
           <section class="solution-step" id="step-3">
             <h3><span>Question 3</span> Inverse polynomial &amp; MA\((\infty)\)</h3>
@@ -133,13 +133,13 @@
             <div class="equation-stack">\[X_{t-h}=\sum_{k=0}^{\infty}\phi^k\varepsilon_{t-h-k},\]
             \[\gamma_X(h)=\sum_{j=0}^{\infty}\sum_{k=0}^{\infty}\phi^{j+k}\]
             \[\hspace{1em}{}\times E(\varepsilon_{t-j}\varepsilon_{t-h-k}).\]</div>
-            <p>As in the official solution, only innovations at the same date contribute:</p>
+            <p>Because innovations at different dates are uncorrelated, only terms with the same date contribute:</p>
             <div class="equation-stack">\[t-j=t-h-k\quad\Longrightarrow\quad k=j-h.\]
             \[k\ge0\quad\Longrightarrow\quad j\ge h.\]</div>
             <p>Substitute \(k=j-h\) into the power \(j+k\), and keep only matching dates:</p>
             <div class="equation-stack">\[E(X_tX_{t-h})=\sum_{j=\color{red}{h}}^{\infty}\phi^{2j-h}\sigma_\varepsilon^2.\]</div>
             <p class="key-note"><strong>Lower bound.</strong> The sum starts at \(j=h\), not \(j=0\), because \(k=j-h\ge0\).</p>
-            <p>Writing the first terms gives precisely the sequence in the official correction:</p>
+            <p>Writing the first terms makes the pattern of the sum explicit:</p>
             <div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2(\phi^h+\phi^{h+2}+\phi^{h+4}+\cdots)\]
             \[=\phi^h\sigma_\varepsilon^2(1+\phi^2+\phi^4+\cdots).\]</div>
             <p>Equivalently, in the indexed sum, factor out \(\phi^{-h}\), then its first remaining term \(\phi^{2h}\). With \(\ell=j-h\), the new index starts at zero:</p>
@@ -161,9 +161,9 @@
             \[\rho_X(2)=0.75\times0.75=0.5625.\]</div>
 
 
-            <h4>PACF — the official determinant calculation</h4>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find \(\alpha_X(1)\) and \(\alpha_X(2)\) using the ACF values already calculated.</p><div class="equation-stack">\[\alpha_X(h)=\frac{|\mathcal R_h^\star|}{|\mathcal R_h|}.\]</div><p>This is the determinant form of Cramer’s rule used in the official correction.</p></div>
-            <p>The vertical bars mean <strong>determinants</strong>. The matrix \(\mathcal R_h\) contains the autocorrelations between the \(h\) lags. In \(\mathcal R_h^\star\), replace its last column with \(\rho_X(1),\ldots,\rho_X(h)\), as in the official solution:</p>
+            <h4>PACF — Cramer’s rule</h4>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find \(\alpha_X(1)\) and \(\alpha_X(2)\) using the ACF values already calculated.</p><div class="equation-stack">\[\alpha_X(h)=\frac{|\mathcal R_h^\star|}{|\mathcal R_h|}.\]</div><p>Cramer’s rule gives the last projection coefficient as the ratio of these two determinants.</p></div>
+            <p>The vertical bars denote determinants. To calculate the PACF at lag \(h\), we need the coefficient \(a_{hh}\), the last coefficient in the projection of \(X_t\) on its first \(h\) lags. The Yule–Walker system is \(\mathcal R_h a_h=\rho_h\), where \(a_h=(a_{h1},\ldots,a_{hh})^{\mathsf T}\) and \(\rho_h=(\rho_X(1),\ldots,\rho_X(h))^{\mathsf T}\). By Cramer’s rule, \(a_{hh}\) is obtained by replacing the last column of \(\mathcal R_h\) with \(\rho_h\), because \(a_{hh}\) is the last unknown in the system:</p>
             <div class="equation-stack official-matrix">\[\mathcal R_h=\begin{bmatrix}
             \rho_X(0)&\rho_X(1)&\cdots&\rho_X(h-1)\\
             \rho_X(1)&\rho_X(0)&\cdots&\rho_X(h-2)\\
@@ -225,7 +225,7 @@
             <div class="equation-stack">\[r\Theta(r^{-1})=0\]
             \[r(1-0.5r^{-1})=0\]
             \[r-0.5=0.\]</div>
-            <div class="result-box">\[r_1=0.5,\qquad |r_1|<1.\]<p>The inverse characteristic root is inside the unit circle. As in the official solution, the MA lag polynomial is invertible.</p></div>
+            <div class="result-box">\[r_1=0.5,\qquad |r_1|<1.\]<p>The inverse characteristic root is inside the unit circle. The inverse characteristic root lies inside the unit circle, so the MA lag polynomial is invertible.</p></div>
           </section>
           <section class="solution-step" id="exercise-2-q3">
             <h3><span>Question 3</span> AR\((\infty)\) representation</h3>
@@ -245,7 +245,7 @@
             <h3><span>Question 4</span> Autocovariances, ACF &amp; PACF</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the ACF at lags \(0,1,2\) by computing variance and autocovariances.</p><div class="equation-stack">\[\gamma_U(h)=\operatorname{Cov}(U_t,U_{t-h}),\]
 \[\rho_U(h)=\frac{\gamma_U(h)}{\gamma_U(0)}.\]</div></div>
-            <p>The official derivation writes \(U_t=\varepsilon_t+\theta_1\varepsilon_{t-1}\); here \(\theta_1=-0.5\). Its mean is zero, so \(\gamma_U(h)=E(U_tU_{t-h})\). At different dates, the white-noise products have zero expectation.</p>
+            <p>Rewrite the given model as \(U_t=\varepsilon_t+\theta_1\varepsilon_{t-1}\), where \(\theta_1=-0.5\). Its mean is zero, so \(\gamma_U(h)=E(U_tU_{t-h})\). At different dates, the white-noise products have zero expectation.</p>
             <h4>Autocovariances</h4>
             <p>At \(h=0\), expand the square. The cross term has zero expectation:</p>
             <div class="equation-stack">\[\gamma_U(0)=E[(\varepsilon_t+\theta_1\varepsilon_{t-1})^2]\]
