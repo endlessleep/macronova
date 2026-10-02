@@ -12,6 +12,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=542e1f2dfb98">
   <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    /* Keep the official PACF matrices within narrow screens. */
+    .official-matrix mjx-container svg { max-width: 100%; height: auto; }
+  </style>
 </head>
 <body data-math>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -69,34 +73,37 @@
             <p>For the weak white noise,</p>
             <div class="equation-stack">\[E(\varepsilon_t)=0,\qquad \operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2.\]
             \[\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-h})=0\quad(h\ne0).\]</div>
-            <p>The lag operator is \(LX_t=X_{t-1}\). Below, we use the stable, causal solution of the process.</p>
+            <p>The lag operator is \(LX_t=X_{t-1}\). As in the official solution, write \(\phi=0.75\) when computing moments from the MA\((\infty)\) representation.</p>
           </div>
           <section class="solution-step" id="step-1">
-            <h3><span>Step 1</span> Autoregressive lag polynomial</h3>
-            <div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\Phi(L)X_t=\varepsilon_t\]</div></div>
+            <h3><span>Question 1</span> Autoregressive lag polynomial</h3>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the polynomial multiplying \(X_t\).</p><div class="equation-stack">\[\Phi(L)X_t=\varepsilon_t,\qquad LX_t=X_{t-1}.\]</div></div>
             <p>Use \(L\) to move the lagged term to the left:</p>
             <div class="equation-stack">\[X_t-0.75LX_t=\varepsilon_t\]
             \[(1-0.75L)X_t=\varepsilon_t.\]</div>
             <div class="result-box">\[\boxed{\Phi(L)=1-0.75L}\]</div>
           </section>
           <section class="solution-step" id="step-2">
-            <h3><span>Step 2</span> Characteristic equations &amp; roots</h3>
-            <h4>Characteristic equation</h4><div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\Phi(z)=0\]</div><p>Find the root \(z\).</p></div>
+            <h3><span>Question 2</span> Characteristic equations &amp; roots</h3>
+            <h4>Characteristic equation</h4><div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[\Phi(z)=0\]</div><p>Find the characteristic root \(z_1\).</p></div>
             <p>Set the lag polynomial equal to zero:</p>
             <div class="equation-stack">\[\Phi(z)=0\quad\Longleftrightarrow\quad 1-0.75z=0\]
-            \[0.75z=1\quad\Longrightarrow\quad z=\frac{1}{0.75}=\frac43.\]</div>
-            <h4>Inverse characteristic equation</h4><div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[r\Phi(r^{-1})=0\]</div><p>Find the inverse root \(r\).</p></div>
+            \[0.75z=1,\]
+\[z_1=\frac{1}{0.75}=\frac43\simeq1.33.\]</div>
+            <h4>Inverse characteristic equation</h4><div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[r\Phi(r^{-1})=0\]</div><p>Find the inverse characteristic root \(r_1\).</p></div>
             <p>For an AR(1), multiply \(\Phi(r^{-1})\) by \(r\):</p>
             <div class="equation-stack">\[r\Phi(r^{-1})=0\]
             \[r(1-0.75r^{-1})=0\]
-            \[r-0.75=0\quad\Longrightarrow\quad r=0.75.\]</div>
-            <div class="result-box"><div class="equation-stack">\[z=\frac43>1,\qquad r=\frac1z=0.75<1.\]</div><p>The characteristic root lies outside the unit circle; its inverse lies inside. The stability condition is satisfied.</p></div>
+            \[r-0.75=0\quad\Longrightarrow\quad r_1=0.75.\]</div>
+            <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad r_1=\frac1{z_1},\qquad |r_1|<1.\]</div><p>The characteristic root lies outside the unit circle; the inverse root lies inside. Following the official solution, these equivalent checks show that the lag polynomial \(\Phi(L)\) is invertible.</p></div>
           </section>
           <section class="solution-step" id="step-3">
-            <h3><span>Step 3</span> Inverse polynomial &amp; MA\((\infty)\)</h3>
-            <div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\Phi(L)^{-1}=\frac{1}{\Phi(L)}\]\[X_t=\Phi(L)^{-1}\varepsilon_t\]</div><p>Expand the inverse in powers of \(L\), then express \(X_t\) using current and past innovations.</p></div>
+            <h3><span>Question 3</span> Inverse polynomial &amp; MA\((\infty)\)</h3>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[\Phi(L)^{-1}=\frac{1}{\Phi(L)}\]\[X_t=\Phi(L)^{-1}\varepsilon_t\]</div><p>Expand the inverse in powers of \(L\), then express \(X_t\) using current and past innovations.</p></div>
             <p>Since \(|0.75|<1\), expand the inverse using the geometric series:</p>
-            <div class="equation-stack">\[\Phi(L)^{-1}=(1-0.75L)^{-1}\]
+            <div class="equation-stack">\[\frac1{1-x}=\sum_{j=0}^{\infty}x^j\quad(|x|<1).\]
+\[\Phi(L)^{-1}=(1-0.75L)^{-1}\]
+\[=\sum_{j=0}^{\infty}(0.75L)^j\]
             \[\boxed{\Phi(L)^{-1}=\sum_{j=0}^{\infty}0.75^jL^j}.\]</div>
             <p>Apply this inverse to \(\varepsilon_t\), with \(L^j\varepsilon_t=\varepsilon_{t-j}\):</p>
             <div class="equation-stack">\[X_t=\Phi(L)^{-1}\varepsilon_t\]
@@ -104,33 +111,46 @@
             <div class="result-box">\[\boxed{X_t=\sum_{j=0}^{\infty}0.75^j\varepsilon_{t-j}}\]</div>
             <div class="equation-chain"><span>\(X_t=\varepsilon_t+0.75\varepsilon_{t-1}\)</span><span>\({}+0.75^2\varepsilon_{t-2}+\cdots.\)</span></div>
           </section>
+
           <section class="solution-step" id="step-4">
-            <h3><span>Step 4</span> ACF &amp; PACF up to \(h=2\)</h3>
-<div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}\]</div><p>Find the autocovariance at lag \(h\), then divide by the variance.</p></div>
-            <p>Here \(\gamma_X(h)=\operatorname{Cov}(X_t,X_{t-h})\). Since the causal representation has zero mean,</p>
-            <div class="equation-stack">\[\gamma_X(h)=E(X_tX_{t-h}).\]</div>
+            <h3><span>Question 4</span> ACF &amp; PACF up to \(h=2\)</h3>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the ACF at lags \(0,1,2\): compute the variance and autocovariances, then divide.</p><div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}.\]</div></div>
+            <p>Here \(\phi=0.75\). The MA representation has zero mean because the innovations have zero mean. Therefore the mean product in the autocovariance vanishes:</p>
+            <div class="equation-stack">\[\gamma_X(h)=E(X_tX_{t-h})\]\[{}-E(X_t)E(X_{t-h})\]\[=E(X_tX_{t-h}).\]</div>
             <h4>ACF — Method 1: MA\((\infty)\)</h4>
-            <p>Multiply the two MA representations and take expectations, for \(h\ge0\):</p>
-            <div class="equation-stack">\[X_{t-h}=\sum_{k=0}^{\infty}0.75^k\varepsilon_{t-h-k}\]
-            \[\gamma_X(h)=\sum_{j=0}^{\infty}\sum_{k=0}^{\infty}0.75^{j+k}\,E(\varepsilon_{t-j}\varepsilon_{t-h-k}).\]</div>
-            <p>White-noise terms contribute only when their dates coincide:</p>
+            <h5>Variance</h5>
+            <p>First compute \(\gamma_X(0)\), the denominator of the ACF. Use different indices for the two copies of the MA sum:</p>
+            <div class="equation-stack">\[X_t=\sum_{j=0}^{\infty}\phi^j\varepsilon_{t-j}.\]
+            \[\gamma_X(0)=E(X_t^2)\]
+            \[=\sum_{j=0}^{\infty}\sum_{k=0}^{\infty}\phi^{j+k}E(\varepsilon_{t-j}\varepsilon_{t-k}).\]</div>
+            <p>For weak white noise, different dates are uncorrelated. Only \(j=k\) remains, and each matching expectation equals \(\sigma_\varepsilon^2\):</p>
+            <div class="equation-stack">\[\gamma_X(0)=\sum_{j=0}^{\infty}\phi^{2j}\sigma_\varepsilon^2\]
+            \[=\sigma_\varepsilon^2(1+\phi^2+\phi^4+\cdots)\]
+            \[=\frac{\sigma_\varepsilon^2}{1-\phi^2}.\]</div>
+            <p>The last equality is the geometric-series formula, with ratio \(\phi^2<1\).</p>
+            <h5>Autocovariance at lag \(h\ge0\)</h5>
+            <p>Multiply the two MA representations:</p>
+            <div class="equation-stack">\[X_{t-h}=\sum_{k=0}^{\infty}\phi^k\varepsilon_{t-h-k},\]
+            \[\gamma_X(h)=\sum_{j=0}^{\infty}\sum_{k=0}^{\infty}\phi^{j+k}\]
+            \[\hspace{1em}{}\times E(\varepsilon_{t-j}\varepsilon_{t-h-k}).\]</div>
+            <p>As in the official solution, only innovations at the same date contribute:</p>
             <div class="equation-stack">\[t-j=t-h-k\quad\Longrightarrow\quad k=j-h.\]
             \[k\ge0\quad\Longrightarrow\quad j\ge h.\]</div>
-            <p>For matching dates, the expectation is \(\sigma_\varepsilon^2\). Thus</p>
-            <div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2\sum_{j=h}^{\infty}0.75^{2j-h}\]
-            \[=\sigma_\varepsilon^2\,0.75^{-h}\sum_{j=h}^{\infty}0.75^{2j}\]
-            </div>
-            <p>To evaluate the remaining sum, first factor out its first term, \(0.75^{2h}\). The index then starts at \(0\):</p>
-            <div class="equation-stack">\[\sum_{j=h}^{\infty}0.75^{2j}
-            =0.75^{2h}\sum_{j=0}^{\infty}0.75^{2j}
-            =\frac{0.75^{2h}}{1-0.75^2}.\]</div>
-            <p>Substituting this geometric-series value gives:</p>
-            <div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2\,0.75^{-h}\frac{0.75^{2h}}{1-0.75^2}\]
-            \[=\frac{\sigma_\varepsilon^2\,0.75^h}{1-0.75^2}.\]</div>
-            <p class="key-note"><strong>Attention.</strong> The sum starts at \(j=h\), not \(j=0\), because \(k=j-h\ge0\). This is why the final power is \(0.75^h\).</p>
-            <div class="equation-stack">\[\gamma_X(0)=\frac{\sigma_\varepsilon^2}{1-0.75^2}\]
-            \[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=0.75^h\quad(h\ge0).\]</div>
-            <h4>ACF — Method 2: Yule–Walker / AR recursion</h4>
+            <p>Substitute \(k=j-h\) into the power \(j+k\), and keep only matching dates:</p>
+            <div class="equation-stack">\[E(X_tX_{t-h})=\sum_{j=\color{red}{h}}^{\infty}\phi^{2j-h}\sigma_\varepsilon^2.\]</div>
+            <p class="key-note"><strong>Lower bound.</strong> The sum starts at \(j=h\), not \(j=0\), because \(k=j-h\ge0\).</p>
+            <p>Writing the first terms gives precisely the sequence in the official correction:</p>
+            <div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2(\phi^h+\phi^{h+2}+\phi^{h+4}+\cdots)\]
+            \[=\phi^h\sigma_\varepsilon^2(1+\phi^2+\phi^4+\cdots).\]</div>
+            <p>Equivalently, in the indexed sum, factor out \(\phi^{-h}\), then its first remaining term \(\phi^{2h}\). With \(\ell=j-h\), the new index starts at zero:</p>
+            <div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2\phi^{-h}\sum_{j=h}^{\infty}\phi^{2j},\]
+            \[\sum_{j=h}^{\infty}\phi^{2j}=\phi^{2h}\sum_{\ell=0}^{\infty}\phi^{2\ell}\]
+            \[=\frac{\phi^{2h}}{1-\phi^2}.\]
+            \[\gamma_X(h)=\sigma_\varepsilon^2\phi^{-h}\frac{\phi^{2h}}{1-\phi^2}\]
+            \[=\phi^h\frac{\sigma_\varepsilon^2}{1-\phi^2}.\]</div>
+            <p>Divide by the variance to obtain the ACF:</p>
+            <div class="result-box">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=\phi^h\quad(h\ge0).\]</div>
+                        <h4>ACF — Method 2: Yule–Walker / AR recursion</h4>
             <p>Multiply the AR equation by \(X_{t-h}\) and take expectations:</p>
             <div class="equation-chain"><span>\(E(X_tX_{t-h})=0.75E(X_{t-1}X_{t-h})\)</span><span>\({}+E(\varepsilon_tX_{t-h}).\)</span></div>
             <p>For \(h>0\), \(X_{t-h}\) contains only past innovations, which are uncorrelated with \(\varepsilon_t\). Hence the last term is zero:</p>
@@ -140,60 +160,126 @@
             <div class="equation-stack">\[\rho_X(1)=0.75,\]
             \[\rho_X(2)=0.75\times0.75=0.5625.\]</div>
 
-            <h4>PACF — calculation up to lag 2</h4>
-<div class="target-form"><span class="target-label">FORMULA</span><div class="equation-stack">\[\alpha_X(h)=a_{hh}\]</div><p>The PACF is the <strong>last coefficient</strong> in the linear projection of \(X_t\) on its first \(h\) lags.</p></div>
-            <p>From the ACF, \(\rho_X(1)=0.75\) and \(\rho_X(2)=0.5625\). In the projections below, \(u_t\) denotes the projection residual.</p>
-            <div class="pacf-part">
-              <h5>Lag 0 — Convention</h5>
-              <div class="equation-stack">\[\alpha_X(0)=1.\]</div>
-            </div>
-            <div class="pacf-part">
-              <h5>Lag 1 — One regressor</h5>
-              <div class="equation-stack">\[X_t=a_{11}X_{t-1}+u_t.\]</div>
-              <p>There is no intermediate lag to control for, so \(a_{11}=\rho_X(1)\):</p>
-              <div class="equation-stack">\[\boxed{\alpha_X(1)=a_{11}=0.75}.\]</div>
-            </div>
-            <div class="pacf-part">
-              <h5>Lag 2 — Two regressors</h5>
-              <div class="equation-stack">\[X_t=a_{21}X_{t-1}+a_{22}X_{t-2}+u_t.\]</div>
-              <p>\(a_{21}\) is the coefficient of \(X_{t-1}\); \(a_{22}\) is the coefficient of \(X_{t-2}\). We want the second coefficient: \(\alpha_X(2)=a_{22}\).</p>
-              <p>The Yule–Walker system is</p>
-              <div class="equation-stack">\[
-                \begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}
-                \begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}
-                =\begin{pmatrix}\rho_X(1)\\\rho_X(2)\end{pmatrix}.
-              \]</div>
-            </div>
-            <div class="pacf-part">
-              <h5>Cramer’s rule — Replace column 2</h5>
-              <p>The coefficient matrix is \(R\). To find the <strong>second unknown</strong>, replace its <strong>second column</strong> by the right-hand-side vector, giving \(R_2\):</p>
-              <div class="matrix-pair">
-                <div>\[R=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}\]</div>
-                <div>\[R_2=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{pmatrix}\]</div>
-              </div>
-              <div class="equation-stack">\[a_{22}=\frac{\det(R_2)}{\det(R)}.\]</div>
-              <p>For a \(2\times2\) matrix, multiply along the two diagonals and subtract:</p>
-              <div class="equation-stack">\[\begin{vmatrix}a&b\\c&d\end{vmatrix}=ad-bc.\]</div>
-              <div class="equation-stack">\[\det(R_2)=\begin{vmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{vmatrix}\]
-              \[=1\times\rho_X(2)-\rho_X(1)\times\rho_X(1)\]
-              \[=\rho_X(2)-[\rho_X(1)]^2.\]</div>
-              <div class="equation-stack">\[\det(R)=\begin{vmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{vmatrix}\]
-              \[=1\times1-\rho_X(1)\times\rho_X(1)\]
-              \[=1-[\rho_X(1)]^2.\]</div>
-              <div class="result-box"><div class="equation-chain"><span>\(\alpha_X(2)=a_{22}\)</span><span>\(=\dfrac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}.\)</span></div></div>
-            </div>
-            <div class="pacf-part">
-              <h5>Substitute the ACF values</h5>
-              <div class="equation-stack">\[\alpha_X(2)=\frac{0.5625-(0.75)^2}{1-(0.75)^2}\]
-              \[=\frac{0.5625-0.5625}{1-0.5625}=\frac{0}{0.4375}.\]</div>
-              <div class="result-box">\[\boxed{\alpha_X(2)=0}\]</div>
-              <div class="key-note"><strong>Cramer’s rule to remember.</strong> \[A\begin{pmatrix}x_1\\x_2\end{pmatrix}=b\] <p>Replace column 1 by \(b\) to find \(x_1\), or column 2 to find \(x_2\). Here \(a_{22}\) is the second unknown, so replace column 2.</p></div>
-            </div>
-            <div class="result-box"><h4>Final results</h4>
-              <table class="results-table"><caption>ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">ACF</th><td>1</td><td>0.75</td><td>0.5625</td></tr><tr><th scope="row">PACF</th><td>1*</td><td>0.75</td><td>0</td></tr></tbody></table>
-              <p class="table-note">* PACF at lag 0 is set to 1 by convention.</p>
-              <p>The ACF decays gradually; the PACF cuts off after lag 1.</p>
-            </div>
+
+            <h4>PACF — the official determinant calculation</h4>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find \(\alpha_X(1)\) and \(\alpha_X(2)\) using the ACF values already calculated.</p><div class="equation-stack">\[\alpha_X(h)=\frac{|\mathcal R_h^\star|}{|\mathcal R_h|}.\]</div><p>This is the determinant form of Cramer’s rule used in the official correction.</p></div>
+            <p>The vertical bars mean <strong>determinants</strong>. The matrix \(\mathcal R_h\) contains the autocorrelations between the \(h\) lags. In \(\mathcal R_h^\star\), replace its last column with \(\rho_X(1),\ldots,\rho_X(h)\), as in the official solution:</p>
+            <div class="equation-stack official-matrix">\[\mathcal R_h=\begin{bmatrix}
+            \rho_X(0)&\rho_X(1)&\cdots&\rho_X(h-1)\\
+            \rho_X(1)&\rho_X(0)&\cdots&\rho_X(h-2)\\
+            \vdots&\vdots&\ddots&\vdots\\
+            \rho_X(h-1)&\rho_X(h-2)&\cdots&\rho_X(0)
+            \end{bmatrix}\]</div>
+            <div class="equation-stack official-matrix">\[\mathcal R_h^\star=\begin{bmatrix}
+            \rho_X(0)&\rho_X(1)&\cdots&\rho_X(1)\\
+            \rho_X(1)&\rho_X(0)&\cdots&\rho_X(2)\\
+            \vdots&\vdots&\ddots&\vdots\\
+            \rho_X(h-1)&\rho_X(h-2)&\cdots&\rho_X(h)
+            \end{bmatrix}.\]</div>
+            <div class="pacf-part"><h5>Lag 1</h5>
+            <p>At lag 1, the PACF equals the ACF:</p>
+            <div class="equation-stack">\[\alpha_X(1)=\rho_X(1)=\phi=0.75.\]</div></div>
+            <div class="pacf-part"><h5>Lag 2</h5>
+            <p>Since \(\rho_X(0)=1\), the two matrices are:</p>
+            <div class="matrix-pair"><div>\[\mathcal R_2=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}\]</div>
+            <div>\[\mathcal R_2^\star=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{pmatrix}.\]</div></div>
+            <p>For each \(2\times2\) determinant, multiply along the main diagonal and subtract the product along the other diagonal:</p>
+            <div class="equation-stack">\[|\mathcal R_2^\star|=1\cdot\rho_X(2)-\rho_X(1)\rho_X(1),\]
+            \[|\mathcal R_2|=1\cdot1-\rho_X(1)\rho_X(1).\]</div>
+            <p>Substitute \(\rho_X(1)=\phi\) and \(\rho_X(2)=\phi^2\):</p>
+            <div class="equation-stack">\[\alpha_X(2)=\frac{\rho_X(2)-\rho_X(1)^2}{1-\rho_X(1)^2}\]
+            \[=\frac{\phi^2-\phi\phi}{1-\phi\phi}\]
+            \[=\frac{0.5625-0.75^2}{1-0.75^2}=\frac0{0.4375}=0.\]</div></div>
+            <div class="result-box"><table class="results-table"><caption>ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">\(\rho_X(h)\)</th><td>1</td><td>0.75</td><td>0.5625</td></tr><tr><th scope="row">\(\alpha_X(h)\)</th><td>—</td><td>0.75</td><td>0</td></tr></tbody></table></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="concept-card violet-top exercise" id="exercise-2" aria-labelledby="exercise-2-title">
+        <div class="section-header"><span class="section-label">Exercise 2</span><h2 id="exercise-2-title">An MA(1) process</h2></div>
+        <div class="exercise-statement">
+          <p>Let \(U_t\) be the moving average process of order 1</p>
+          <div class="math-display">\[U_t=\varepsilon_t-0.5\varepsilon_{t-1},\]</div>
+          <p>where \(\varepsilon_t\) is a weak white noise.</p>
+          <ol>
+            <li>Write this model using the lag operator.</li>
+            <li>Find the inverse characteristic equation associated with the moving average lag polynomial.</li>
+            <li>Show that <div class="equation-stack">\[U_t=-\sum_{j=1}^{\infty}0.5^jU_{t-j}+\varepsilon_t.\]</div></li>
+            <li>Compute the ACF and the PACF up to \(h=2\).</li>
+          </ol>
+        </div>
+        <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="solution-2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> solution</button>
+        <div class="collapsible solution" id="solution-2" hidden>
+          <section class="solution-step" id="exercise-2-q1">
+            <h3><span>Question 1</span> Moving average lag polynomial</h3>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the polynomial acting on the innovations, keeping the minus sign in the given model.</p><div class="equation-stack">\[U_t=\Theta(L)\varepsilon_t,\qquad L\varepsilon_t=\varepsilon_{t-1}.\]</div></div>
+            <p>Replace the lagged innovation by \(L\varepsilon_t\), then factor out \(\varepsilon_t\):</p>
+            <div class="equation-stack">\[U_t=\varepsilon_t-0.5L\varepsilon_t\]
+            \[=(1-0.5L)\varepsilon_t.\]</div>
+            <div class="result-box">\[\Theta(L)=1-0.5L.\]</div>
+          </section>
+          <section class="solution-step" id="exercise-2-q2">
+            <h3><span>Question 2</span> Inverse characteristic equation</h3>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the inverse characteristic equation and its root \(r_1\).</p><div class="equation-stack">\[r\Theta(r^{-1})=0.\]</div><p>For the inverse root, the condition used in the correction is \(|r_1|<1\).</p></div>
+            <p>Substitute \(r^{-1}\) for \(L\), then multiply by \(r\):</p>
+            <div class="equation-stack">\[r\Theta(r^{-1})=0\]
+            \[r(1-0.5r^{-1})=0\]
+            \[r-0.5=0.\]</div>
+            <div class="result-box">\[r_1=0.5,\qquad |r_1|<1.\]<p>The inverse characteristic root is inside the unit circle. As in the official solution, the MA lag polynomial is invertible.</p></div>
+          </section>
+          <section class="solution-step" id="exercise-2-q3">
+            <h3><span>Question 3</span> AR\((\infty)\) representation</h3>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Express \(U_t\) using its own past values and the current innovation.</p><div class="equation-stack">\[\varepsilon_t=\Theta(L)^{-1}U_t,\]
+\[\frac1{1-x}=\sum_{j=0}^{\infty}x^j\quad(|x|<1).\]</div></div>
+            <p>Since \(0.5<1\), the geometric expansion gives:</p>
+            <div class="equation-stack">\[(1-0.5L)^{-1}=\sum_{j=0}^{\infty}0.5^jL^j.\]</div>
+            <p>Apply this inverse to \(U_t\):</p>
+            <div class="equation-stack">\[\varepsilon_t=\sum_{j=0}^{\infty}0.5^jL^jU_t\]
+            \[=\sum_{j=0}^{\infty}0.5^jU_{t-j}.\]</div>
+            <p>The \(j=0\) term is \(U_t\). Separate it and move all terms with \(j\ge1\) to the other side:</p>
+            <div class="equation-stack">\[\varepsilon_t=U_t+\sum_{j=1}^{\infty}0.5^jU_{t-j}.\]</div>
+            <div class="result-box">\[U_t=-\sum_{j=1}^{\infty}0.5^jU_{t-j}+\varepsilon_t.\]</div>
+            <p>The minus sign in this AR representation comes from moving the positive sum to the other side of the equation.</p>
+          </section>
+          <section class="solution-step" id="exercise-2-q4">
+            <h3><span>Question 4</span> Autocovariances, ACF &amp; PACF</h3>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the ACF at lags \(0,1,2\) by computing variance and autocovariances.</p><div class="equation-stack">\[\gamma_U(h)=\operatorname{Cov}(U_t,U_{t-h}),\]
+\[\rho_U(h)=\frac{\gamma_U(h)}{\gamma_U(0)}.\]</div></div>
+            <p>The official derivation writes \(U_t=\varepsilon_t+\theta_1\varepsilon_{t-1}\); here \(\theta_1=-0.5\). Its mean is zero, so \(\gamma_U(h)=E(U_tU_{t-h})\). At different dates, the white-noise products have zero expectation.</p>
+            <h4>Autocovariances</h4>
+            <p>At \(h=0\), expand the square. The cross term has zero expectation:</p>
+            <div class="equation-stack">\[\gamma_U(0)=E[(\varepsilon_t+\theta_1\varepsilon_{t-1})^2]\]
+            \[=E(\varepsilon_t^2)+2\theta_1E(\varepsilon_t\varepsilon_{t-1})\]
+            \[\hspace{1em}{}+\theta_1^2E(\varepsilon_{t-1}^2)\]
+            \[=\sigma_\varepsilon^2(1+\theta_1^2).\]</div>
+            <p>At \(h=1\), the only date shared by \(U_t\) and \(U_{t-1}\) is \(t-1\). Expand the product:</p>
+            <div class="equation-stack">\[\gamma_U(1)=E(U_tU_{t-1})\]
+            \[=E(\varepsilon_t\varepsilon_{t-1})+\theta_1E(\varepsilon_t\varepsilon_{t-2})\]
+            \[\hspace{1em}{}+\theta_1E(\varepsilon_{t-1}^2)\]
+            \[\hspace{1em}{}+\theta_1^2E(\varepsilon_{t-1}\varepsilon_{t-2})\]
+            \[=\theta_1\sigma_\varepsilon^2.\]</div>
+            <p>For \(h>1\), the two MA(1) expressions have no innovation date in common. Hence:</p>
+            <div class="equation-stack">\[\gamma_U(h)=0\quad(h>1).\]</div>
+            <h4>ACF</h4>
+            <p>Divide each autocovariance by \(\gamma_U(0)\):</p>
+            <div class="equation-stack">\[\rho_U(0)=1,\]
+            \[\rho_U(1)=\frac{\theta_1}{1+\theta_1^2},\]
+            \[\rho_U(h)=0\quad(h>1).\]</div>
+            <p>For the given model, \(\theta_1=-0.5\). Substitution gives:</p>
+            <div class="equation-stack">\[\gamma_U(0)=(1+(-0.5)^2)\sigma_\varepsilon^2\]
+            \[=1.25\sigma_\varepsilon^2,\qquad \gamma_U(1)=-0.5\sigma_\varepsilon^2.\]
+            \[\rho_U(1)=\frac{-0.5}{1+(-0.5)^2}\]
+            \[=\frac{-0.5}{1.25}=-0.4.\]</div>
+            <h4>PACF — Cramer’s rule</h4>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the PACF at lags 1 and 2 from the ACF.</p><div class="equation-stack">\[\alpha_U(1)=\rho_U(1),\]
+\[\alpha_U(2)=\frac{\rho_U(2)-\rho_U(1)^2}{1-\rho_U(1)^2}.\]</div></div>
+            <p>At lag 1, \(\alpha_U(1)=\rho_U(1)=-0.4\). At lag 2, replace the second column of the autocorrelation matrix, exactly as in Exercise 1:</p>
+            <div class="equation-stack">\[\alpha_U(2)=\frac{\begin{vmatrix}1&\rho_U(1)\\\rho_U(1)&\rho_U(2)\end{vmatrix}}{\begin{vmatrix}1&\rho_U(1)\\\rho_U(1)&1\end{vmatrix}}\]
+            \[=\frac{\rho_U(2)-\rho_U(1)^2}{1-\rho_U(1)^2}.\]</div>
+            <p>Substitute \(\rho_U(2)=0\) and \(\rho_U(1)=-0.4\). Squaring the lag-1 correlation gives \((-0.4)^2=0.16\):</p>
+            <div class="equation-stack">\[\alpha_U(2)=\frac{0-(-0.4)^2}{1-(-0.4)^2}\]
+            \[=-\frac{0.16}{0.84}\simeq-0.19.\]</div>
+            <div class="result-box"><table class="results-table"><caption>MA(1) ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">\(\rho_U(h)\)</th><td>1</td><td>−0.4</td><td>0</td></tr><tr><th scope="row">\(\alpha_U(h)\)</th><td>—</td><td>−0.4</td><td>\(-0.19\)</td></tr></tbody></table><p class="table-note">The lag-2 PACF is rounded to two decimal places.</p></div>
           </section>
         </div>
       </section>
