@@ -14,7 +14,7 @@
   <script src="assets/app.js?v=725a7f169a2f" defer></script>
   <style>
     /* Keep the PACF matrices within narrow screens. */
-    .official-matrix mjx-container svg { max-width: 100%; height: auto; }
+    .pacf-matrix mjx-container svg { max-width: 100%; height: auto; }
   </style>
 </head>
 <body data-math>
@@ -85,13 +85,13 @@
           </section>
           <section class="solution-step" id="step-2">
             <h3><span>Question 2</span> Characteristic equations &amp; roots</h3>
-            <h4>Characteristic equation</h4><div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[\Phi(z)=0\]</div><p>Find the characteristic root \(z_1\).</p></div>
+            <h4>Characteristic equation</h4><div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[\Phi(z)=0\]</div><p>Replace the lag operator by \(z\), then solve for the characteristic root \(z_1\).</p></div>
             <p>Set the lag polynomial equal to zero:</p>
             <div class="equation-stack">\[\Phi(z)=0\quad\Longleftrightarrow\quad 1-0.75z=0\]
             \[0.75z=1,\]
 \[z_1=\frac{1}{0.75}=\frac43\simeq1.33.\]</div>
-            <h4>Inverse characteristic equation</h4><div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[r\Phi(r^{-1})=0\]</div><p>Find the inverse characteristic root \(r_1\).</p></div>
-            <p>For an AR(1), multiply \(\Phi(r^{-1})\) by \(r\):</p>
+            <h4>Inverse characteristic equation</h4><div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[r\Phi(r^{-1})=0\]</div><p>Find the inverse characteristic root \(r_1\). Multiplying by \(r\) removes the negative power and gives a root equal to \(1/z_1\).</p></div>
+            <p>For an AR(1), multiply \(\Phi(r^{-1})\) by \(r\) to remove \(r^{-1}\):</p>
             <div class="equation-stack">\[r\Phi(r^{-1})=0\]
             \[r(1-0.75r^{-1})=0\]
             \[r-0.75=0\quad\Longrightarrow\quad r_1=0.75.\]</div>
@@ -105,7 +105,9 @@
 \[\Phi(L)^{-1}=(1-0.75L)^{-1}\]
 \[=\sum_{j=0}^{\infty}(0.75L)^j\]
             \[\boxed{\Phi(L)^{-1}=\sum_{j=0}^{\infty}0.75^jL^j}.\]</div>
-            <p>Apply this inverse to \(\varepsilon_t\), with \(L^j\varepsilon_t=\varepsilon_{t-j}\):</p>
+            <p>The root calculation explains why this expansion works: the inverse root has modulus below one, so the geometric series converges. Applying the inverse polynomial to the white noise expresses \(X_t\) as a convergent weighted sum of current and past innovations.</p>
+            <div class="result-box"><p>For this AR\((1)\), the characteristic-root condition gives an MA\((\infty)\) representation:</p>\[\boxed{|z_1|>1\;\Longrightarrow\;\text{convergent MA}(\infty)\text{ representation}}\]</div>
+            <p>Apply this inverse to \(\varepsilon_t\). Each power of the lag operator moves the innovation back by that many periods, so \(L^j\varepsilon_t=\varepsilon_{t-j}\):</p>
             <div class="equation-stack">\[X_t=\Phi(L)^{-1}\varepsilon_t\]
             \[X_t=\sum_{j=0}^{\infty}0.75^jL^j\varepsilon_t.\]</div>
             <div class="result-box">\[\boxed{X_t=\sum_{j=0}^{\infty}0.75^j\varepsilon_{t-j}}\]</div>
@@ -151,7 +153,7 @@
             <p>Divide by the variance to obtain the ACF:</p>
             <div class="result-box">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=\phi^h\quad(h\ge0).\]</div>
                         <h4>ACF — Method 2: Yule–Walker / AR recursion</h4>
-            <p>Multiply the AR equation by \(X_{t-h}\) and take expectations:</p>
+            <p>This second calculation obtains the autocovariance recursively from the AR equation. Multiply both sides by \(X_{t-h}\) and take expectations:</p>
             <div class="equation-chain"><span>\(E(X_tX_{t-h})=0.75E(X_{t-1}X_{t-h})\)</span><span>\({}+E(\varepsilon_tX_{t-h}).\)</span></div>
             <p>For \(h>0\), \(X_{t-h}\) contains only past innovations, which are uncorrelated with \(\varepsilon_t\). Hence the last term is zero:</p>
             <div class="equation-stack">\[\gamma_X(h)=0.75\gamma_X(h-1)\]
@@ -163,14 +165,14 @@
 
             <h4>PACF — Cramer’s rule</h4>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find \(\alpha_X(1)\) and \(\alpha_X(2)\) using the ACF values already calculated.</p><div class="equation-stack">\[\alpha_X(h)=\frac{|\mathcal R_h^\star|}{|\mathcal R_h|}.\]</div><p>Cramer’s rule gives the last projection coefficient as the ratio of these two determinants.</p></div>
-            <p>The vertical bars denote determinants. To calculate the PACF at lag \(h\), we need the coefficient \(a_{hh}\), the last coefficient in the projection of \(X_t\) on its first \(h\) lags. The Yule–Walker system is \(\mathcal R_h a_h=\rho_h\), where \(a_h=(a_{h1},\ldots,a_{hh})^{\mathsf T}\) and \(\rho_h=(\rho_X(1),\ldots,\rho_X(h))^{\mathsf T}\). By Cramer’s rule, \(a_{hh}\) is obtained by replacing the last column of \(\mathcal R_h\) with \(\rho_h\), because \(a_{hh}\) is the last unknown in the system:</p>
-            <div class="equation-stack official-matrix">\[\mathcal R_h=\begin{bmatrix}
+            <p>The vertical bars denote determinants. To calculate the PACF at lag \(h\), we need the coefficient \(a_{hh}\), the last coefficient in the projection of \(X_t\) on its first \(h\) lags. The entries of \(\mathcal R_h\) are the autocorrelations among the first \(h\) lagged values. The Yule–Walker system for their projection coefficients is \(\mathcal R_h a_h=\rho_h\), where \(a_h=(a_{h1},\ldots,a_{hh})^{\mathsf T}\) and \(\rho_h=(\rho_X(1),\ldots,\rho_X(h))^{\mathsf T}\). By Cramer’s rule, \(a_{hh}\) is obtained by replacing the last column of \(\mathcal R_h\) with \(\rho_h\), because \(a_{hh}\) is the last unknown in the system:</p>
+            <div class="equation-stack pacf-matrix">\[\mathcal R_h=\begin{bmatrix}
             \rho_X(0)&\rho_X(1)&\cdots&\rho_X(h-1)\\
             \rho_X(1)&\rho_X(0)&\cdots&\rho_X(h-2)\\
             \vdots&\vdots&\ddots&\vdots\\
             \rho_X(h-1)&\rho_X(h-2)&\cdots&\rho_X(0)
             \end{bmatrix}\]</div>
-            <div class="equation-stack official-matrix">\[\mathcal R_h^\star=\begin{bmatrix}
+            <div class="equation-stack pacf-matrix">\[\mathcal R_h^\star=\begin{bmatrix}
             \rho_X(0)&\rho_X(1)&\cdots&\rho_X(1)\\
             \rho_X(1)&\rho_X(0)&\cdots&\rho_X(2)\\
             \vdots&\vdots&\ddots&\vdots\\
@@ -220,12 +222,12 @@
           </section>
           <section class="solution-step" id="exercise-2-q2">
             <h3><span>Question 2</span> Inverse characteristic equation</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the inverse characteristic equation and its root \(r_1\).</p><div class="equation-stack">\[r\Theta(r^{-1})=0.\]</div><p>For the inverse root, the condition used in the correction is \(|r_1|<1\).</p></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the inverse characteristic equation and its root \(r_1\).</p><div class="equation-stack">\[r\Theta(r^{-1})=0.\]</div><p>Check whether this inverse root lies inside the unit circle: \(|r_1|&lt;1\) is the invertibility condition here.</p></div>
             <p>Substitute \(r^{-1}\) for \(L\), then multiply by \(r\):</p>
             <div class="equation-stack">\[r\Theta(r^{-1})=0\]
             \[r(1-0.5r^{-1})=0\]
             \[r-0.5=0.\]</div>
-            <div class="result-box">\[r_1=0.5,\qquad |r_1|<1.\]<p>The inverse characteristic root is inside the unit circle. The inverse characteristic root lies inside the unit circle, so the MA lag polynomial is invertible.</p></div>
+            <div class="result-box">\[r_1=0.5,\qquad |r_1|<1.\]<p>The inverse root lies inside the unit circle, so this MA lag polynomial is invertible.</p></div>
           </section>
           <section class="solution-step" id="exercise-2-q3">
             <h3><span>Question 3</span> AR\((\infty)\) representation</h3>
@@ -233,6 +235,8 @@
 \[\frac1{1-x}=\sum_{j=0}^{\infty}x^j\quad(|x|<1).\]</div></div>
             <p>Since \(0.5<1\), the geometric expansion gives:</p>
             <div class="equation-stack">\[(1-0.5L)^{-1}=\sum_{j=0}^{\infty}0.5^jL^j.\]</div>
+            <p>This condition links the previous question to this representation: because the MA polynomial is invertible, its inverse can be expanded as a convergent series in powers of \(L\). Applying that series to \(U_t\) expresses the innovations in terms of current and past values of \(U\); rearranging then gives an AR\((\infty)\) representation.</p>
+            <div class="result-box"><p>For this MA\((1)\), invertibility is equivalent to having the convergent AR\((\infty)\) representation obtained from the geometric expansion:</p>\[\boxed{\text{invertible MA}(1)\;\Longleftrightarrow\;\text{convergent AR}(\infty)\text{ representation}}\]</div>
             <p>Apply this inverse to \(U_t\):</p>
             <div class="equation-stack">\[\varepsilon_t=\sum_{j=0}^{\infty}0.5^jL^jU_t\]
             \[=\sum_{j=0}^{\infty}0.5^jU_{t-j}.\]</div>
@@ -273,7 +277,7 @@
             <h4>PACF — Cramer’s rule</h4>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the PACF at lags 1 and 2 from the ACF.</p><div class="equation-stack">\[\alpha_U(1)=\rho_U(1),\]
 \[\alpha_U(2)=\frac{\rho_U(2)-\rho_U(1)^2}{1-\rho_U(1)^2}.\]</div></div>
-            <p>At lag 1, \(\alpha_U(1)=\rho_U(1)=-0.4\). At lag 2, replace the second column of the autocorrelation matrix, exactly as in Exercise 1:</p>
+            <p>At lag 1, \(\alpha_U(1)=\rho_U(1)=-0.4\). At lag 2, the coefficient sought is the second and last unknown, so Cramer’s rule replaces the second column of the autocorrelation matrix:</p>
             <div class="equation-stack">\[\alpha_U(2)=\frac{\begin{vmatrix}1&\rho_U(1)\\\rho_U(1)&\rho_U(2)\end{vmatrix}}{\begin{vmatrix}1&\rho_U(1)\\\rho_U(1)&1\end{vmatrix}}\]
             \[=\frac{\rho_U(2)-\rho_U(1)^2}{1-\rho_U(1)^2}.\]</div>
             <p>Substitute \(\rho_U(2)=0\) and \(\rho_U(1)=-0.4\). Squaring the lag-1 correlation gives \((-0.4)^2=0.16\):</p>
