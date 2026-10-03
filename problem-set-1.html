@@ -14,7 +14,7 @@
   <script src="assets/app.js?v=725a7f169a2f" defer></script>
   <style>
     /* Keep the PACF matrices within narrow screens. */
-    .pacf-matrix mjx-container svg { max-width: 100%; height: auto; }
+    .pacf-guide mjx-container[display="true"] svg, .pacf-matrix mjx-container svg { max-width: 100%; height: auto; }
     .pacf-guide { border-top: 3px solid #60a5fa; background: linear-gradient(135deg, rgba(96,165,250,.10), rgba(255,255,255,.015)); }
     .pacf-guide .section-label { color: #bfdbfe; background: rgba(96,165,250,.12); border-color: rgba(96,165,250,.32); }
     .pacf-guide .result-box { border-color: rgba(96,165,250,.4); background: rgba(96,165,250,.09); }
@@ -61,8 +61,22 @@
         <p>At lag \(h\), the PACF is the coefficient on the most distant lag, \(X_{t-h}\), when \(X_t\) is projected on its first \(h\) lags:</p>
         <div class="equation-stack">\[X_t=a_{h1}X_{t-1}+\cdots+a_{hh}X_{t-h}+u_t,\qquad \alpha_X(h)=a_{hh}.\]</div>
         <p>The projection coefficients are found from the Yule–Walker system \(\mathcal R_h a_h=\rho_h\). Here, \(\mathcal R_h\) records the autocorrelations among the lagged values, \(a_h=(a_{h1},\ldots,a_{hh})^{\mathsf T}\) is the vector of coefficients, and \(\rho_h=(\rho_X(1),\ldots,\rho_X(h))^{\mathsf T}\) contains their autocorrelations with \(X_t\).</p>
-        <p>Cramer’s rule gives the last coefficient by replacing the last column of \(\mathcal R_h\) with \(\rho_h\). We call the resulting matrix \(\mathcal R_h^\star\). The vertical bars denote determinants:</p>
-        <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=a_{hh}=\frac{|\mathcal R_h^\star|}{|\mathcal R_h|}}\]</div></div>
+        <p>Cramer’s rule gives the last coefficient by replacing the last column of \(\mathcal R_h\) with \(\rho_h\). The vertical bars in the fraction below mean determinants; the numerator is the determinant after that column has been replaced:</p>
+        <div class="equation-stack pacf-matrix">\[
+        \alpha_X(h)=a_{hh}=
+        \frac{\begin{vmatrix}
+        \rho_X(0)&\rho_X(1)&\cdots&\rho_X(1)\\
+        \rho_X(1)&\rho_X(0)&\cdots&\rho_X(2)\\
+        \vdots&\vdots&\ddots&\vdots\\
+        \rho_X(h-1)&\rho_X(h-2)&\cdots&\rho_X(h)
+        \end{vmatrix}}
+        {\begin{vmatrix}
+        \rho_X(0)&\rho_X(1)&\cdots&\rho_X(h-1)\\
+        \rho_X(1)&\rho_X(0)&\cdots&\rho_X(h-2)\\
+        \vdots&\vdots&\ddots&\vdots\\
+        \rho_X(h-1)&\rho_X(h-2)&\cdots&\rho_X(0)
+        \end{vmatrix}}.
+        \]</div>
         <p>For lag 1, the system has one coefficient, so \(\alpha_X(1)=\rho_X(1)\). For lag 2, replacing the second column gives:</p>
         <div class="matrix-pair"><div>\[\mathcal R_2=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}\]</div><div>\[\mathcal R_2^\star=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{pmatrix}.\]</div></div>
         <p>For a 2 by 2 matrix, its determinant is the product on the main diagonal minus the product on the other diagonal. Applying that rule to the two matrices gives:</p>
