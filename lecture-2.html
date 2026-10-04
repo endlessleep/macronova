@@ -307,48 +307,17 @@
 <h2 id="pacf-title">PACF</h2>
 </div>
 <p>The ACF measures the correlation between \(X_t\) and \(X_{t-h}\). The PACF measures their linear correlation <strong>after controlling for the intermediate lags</strong> \(X_{t-1},\ldots,X_{t-h+1}\).</p>
-<p>For the zero-mean process, consider the linear projection onto its first \(h\) lags:</p>
+<p>For a zero-mean process, write the projection onto the first \(h\) lags as</p>
 <div class="equation-chain">
 <span>\(X_t=a_{h1}X_{t-1}+\cdots\)</span>
 <span>\({}+a_{hh}X_{t-h}+u_t^{(h)}.\)</span>
 </div>
-<p>\(u_t^{(h)}\) is the projection residual. The PACF is the coefficient on the last lag:</p>
+<p>The PACF is the coefficient on the last lag:</p>
 <div class="result-box">
 <div class="equation-stack">\[\alpha_X(h)=a_{hh}.\]</div>
 </div>
-<div class="lecture-block">
-<h3>Reading the coefficients at lag two</h3>
-<div class="equation-stack">\[X_t=a_{21}X_{t-1}+a_{22}X_{t-2}+u_t^{(2)}.\]</div>
-<p>\(a_{21}\) is the coefficient of \(X_{t-1}\), while \(a_{22}\) is the coefficient of \(X_{t-2}\). The first index indicates the projection order; the second identifies the lag. Thus</p>
-<div class="equation-stack">\[\alpha_X(2)=a_{22}.\]</div>
-</div>
-<p>At lags zero and one,</p>
-<div class="equation-stack">\[\alpha_X(0)=1\quad\text{by convention},\]\[\alpha_X(1)=\rho_X(1).\]</div>
-</section>
-<section class="concept-card violet-top lecture-section" id="cramer-two" aria-labelledby="cramer-two-title">
-<div class="section-header">
-<span class="section-label">Method</span>
-<h2 id="cramer-two-title">Compute the PACF at lag 2</h2>
-</div>
-<p>The projection coefficients satisfy \(R_ha_h=\rho_h\), where \(R_h\) is the autocorrelation matrix, \(a_h\) the vector of projection coefficients, and \(\rho_h\) the vector of autocorrelations at lags 1 to \(h\).</p>
-<p>When \(|R_h|\ne0\), Cramer’s rule gives</p>
-<div class="equation-stack">\[\alpha_X(h)=a_{hh}=\frac{|R_h^\star|}{|R_h|}.\]</div>
-<p>\(R_h^\star\) replaces the <strong>last column</strong> of \(R_h\) by \(\rho_h\). The vertical bars denote determinants.</p>
-<div class="lecture-block">
-<h3>The lag-two system</h3>
-<div class="equation-stack">\[\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\end{pmatrix}.\]</div>
-<p>The leftmost matrix is \(R_2\). Since \(\alpha_X(2)=a_{22}\), the coefficient sought is the second unknown, so its column is replaced:</p>
-<div class="equation-stack">\[R_2^\star=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{pmatrix},\]\[a_{22}=\frac{|R_2^\star|}{|R_2|}.\]</div>
-</div>
-<div class="lecture-block">
-<h3>Evaluating the determinants</h3>
-<div class="equation-stack">\[\begin{vmatrix}a&b\\c&d\end{vmatrix}=ad-bc.\]</div>
-<p>Therefore,</p>
-<div class="equation-stack">\[|R_2^\star|=\rho_X(2)-[\rho_X(1)]^2,\]\[|R_2|=1-[\rho_X(1)]^2.\]</div>
-<div class="result-box">
-<div class="equation-stack">\[\alpha_X(2)=\frac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}.\]</div>
-</div>
-</div>
+<p>For the calculations below,</p>
+<div class="equation-stack">\[\alpha_X(1)=\rho_X(1),\]\[\alpha_X(2)=\frac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}.\]</div>
 </section>
 <section class="concept-card violet-top lecture-section" id="ar1-pacf" aria-labelledby="ar1-pacf-title">
 <div class="section-header">
@@ -356,9 +325,7 @@
 <h2 id="ar1-pacf-title">PACF of an AR(1)</h2>
 </div>
 <p>The ACF calculation above gives \(\rho_X(1)=\phi\) and \(\rho_X(2)=\phi^2\).</p>
-<div class="equation-stack">\[\alpha_X(1)=\rho_X(1)=\phi.\]</div>
-<p>At lag two, substitute these two autocorrelations into the Cramer formula:</p>
-<div class="equation-stack">\[\alpha_X(2)=\frac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}\]\[=\frac{\phi^2-\phi^2}{1-\phi^2}=0.\]</div>
+<div class="equation-stack">\[\alpha_X(1)=\phi,\]\[\alpha_X(2)=\frac{\phi^2-\phi^2}{1-\phi^2}=0.\]</div>
 <div class="result-box">
 <div class="equation-chain">
 <span>\(\alpha_X(1)=\phi,\)</span>
@@ -402,10 +369,8 @@
 <span class="section-label">Application</span>
 <h2 id="ma1-pacf-title">PACF of an MA(1)</h2>
 </div>
-<p>Use the ACF obtained above in the same PACF formulas.</p>
-<div class="equation-stack">\[\alpha_U(1)=\rho_U(1)=\frac{\theta}{1+\theta^2}.\]</div>
-<p>Since \(\rho_U(2)=0\), the lag-two coefficient is</p>
-<div class="equation-stack">\[\alpha_U(2)=\frac{\rho_U(2)-[\rho_U(1)]^2}{1-[\rho_U(1)]^2}\]\[=\frac{-\left[\dfrac{\theta}{1+\theta^2}\right]^2}{1-\left[\dfrac{\theta}{1+\theta^2}\right]^2}.\]</div>
+<p>The ACF calculation above gives \(\rho_U(1)=\dfrac{\theta}{1+\theta^2}\) and \(\rho_U(2)=0\).</p>
+<div class="equation-stack">\[\alpha_U(1)=\frac{\theta}{1+\theta^2},\]\[\alpha_U(2)=\frac{-\left[\dfrac{\theta}{1+\theta^2}\right]^2}{1-\left[\dfrac{\theta}{1+\theta^2}\right]^2}.\]</div>
 </section>
     </main>
   </div>
