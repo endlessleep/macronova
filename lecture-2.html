@@ -267,6 +267,24 @@
 <div class="equation-stack">\[\rho_X(0)=1,\qquad \rho_X(-h)=\rho_X(h),\]\[-1\le\rho_X(h)\le1.\]</div>
 </div>
 </section>
+<section class="concept-card violet-top lecture-section" id="pacf" aria-labelledby="pacf-title">
+<div class="section-header">
+<span class="section-label">Definition</span>
+<h2 id="pacf-title">PACF</h2>
+</div>
+<p>The ACF measures the correlation between \(X_t\) and \(X_{t-h}\). The PACF measures their linear correlation <strong>after controlling for the intermediate lags</strong> \(X_{t-1},\ldots,X_{t-h+1}\).</p>
+<p>For a zero-mean process, write the projection onto the first \(h\) lags as</p>
+<div class="equation-chain">
+<span>\(X_t=a_{h1}X_{t-1}+\cdots\)</span>
+<span>\({}+a_{hh}X_{t-h}+u_t^{(h)}.\)</span>
+</div>
+<p>The PACF is the coefficient on the last lag:</p>
+<div class="result-box">
+<div class="equation-stack">\[\alpha_X(h)=a_{hh}.\]</div>
+</div>
+<p>For the calculations below,</p>
+<div class="equation-stack">\[\alpha_X(1)=\rho_X(1),\]\[\alpha_X(2)=\frac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}.\]</div>
+</section>
 <section class="concept-card violet-top lecture-section" id="ar1-acf" aria-labelledby="ar1-acf-title">
 <div class="section-header">
 <span class="section-label">Application</span>
@@ -299,24 +317,6 @@
 <div class="equation-stack">\[\rho_X(0)=1,\quad\rho_X(1)=\phi,\quad\rho_X(2)=\phi^2.\]</div>
 <p>The ACF follows successive powers of \(\phi\); it does not generally cut off after lag one.</p>
 </div>
-</section>
-<section class="concept-card violet-top lecture-section" id="pacf" aria-labelledby="pacf-title">
-<div class="section-header">
-<span class="section-label">Definition</span>
-<h2 id="pacf-title">PACF</h2>
-</div>
-<p>The ACF measures the correlation between \(X_t\) and \(X_{t-h}\). The PACF measures their linear correlation <strong>after controlling for the intermediate lags</strong> \(X_{t-1},\ldots,X_{t-h+1}\).</p>
-<p>For a zero-mean process, write the projection onto the first \(h\) lags as</p>
-<div class="equation-chain">
-<span>\(X_t=a_{h1}X_{t-1}+\cdots\)</span>
-<span>\({}+a_{hh}X_{t-h}+u_t^{(h)}.\)</span>
-</div>
-<p>The PACF is the coefficient on the last lag:</p>
-<div class="result-box">
-<div class="equation-stack">\[\alpha_X(h)=a_{hh}.\]</div>
-</div>
-<p>For the calculations below,</p>
-<div class="equation-stack">\[\alpha_X(1)=\rho_X(1),\]\[\alpha_X(2)=\frac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}.\]</div>
 </section>
 <section class="concept-card violet-top lecture-section" id="ar1-pacf" aria-labelledby="ar1-pacf-title">
 <div class="section-header">
