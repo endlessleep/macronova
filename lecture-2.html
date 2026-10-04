@@ -147,55 +147,62 @@
 </section>
 <section class="concept-card violet-top lecture-section" id="ar1-ma" aria-labelledby="ar1-ma-title">
 <div class="section-header">
-<span class="section-label">Derivation</span>
-<h2 id="ar1-ma-title">AR(1) as an MA(∞)</h2>
+<span class="section-label">Transformation</span>
+<h2 id="ar1-ma-title">From an AR(1) to an MA(∞)</h2>
 </div>
-<p>Start from the AR(1) model and write the lagged term using the operator:</p>
+<p>An AR(1) is written with its own past values. The aim is to rewrite it using only current and past innovations.</p>
+<div class="lecture-block">
+<h3>Write the model with \(L\)</h3>
 <div class="equation-stack">\[X_t=\phi X_{t-1}+\varepsilon_t,\]\[X_t=\phi LX_t+\varepsilon_t,\]\[(1-\phi L)X_t=\varepsilon_t.\]</div>
-<p>Inverting the polynomial gives</p>
+</div>
+<div class="lecture-block">
+<h3>Invert the AR polynomial</h3>
+<p>For \(|\phi|<1\), the inverse uses current and past dates only:</p>
 <div class="equation-stack">\[X_t=(1-\phi L)^{-1}\varepsilon_t.\]</div>
-<p>For \(|\phi|<1\), substitute the causal expansion:</p>
 <div class="equation-stack">\[(1-\phi L)^{-1}=\sum_{j=0}^{\infty}\phi^jL^j,\]\[X_t=\sum_{j=0}^{\infty}\phi^jL^j\varepsilon_t.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Read the resulting MA\((\infty)\)</h3>
 <p>Since \(L^j\varepsilon_t=\varepsilon_{t-j}\),</p>
 <div class="result-box">
 <div class="equation-stack">\[X_t=\sum_{j=0}^{\infty}\phi^j\varepsilon_{t-j}.\]</div>
 </div>
-<p>Explicitly,</p>
 <div class="equation-chain">
 <span>\(X_t=\varepsilon_t+\phi\varepsilon_{t-1}\)</span>
 <span>\({}+\phi^2\varepsilon_{t-2}+\cdots.\)</span>
 </div>
+</div>
 </section>
 <section class="concept-card violet-top lecture-section" id="ma1" aria-labelledby="ma1-title">
 <div class="section-header">
-<span class="section-label">Model</span>
-<h2 id="ma1-title">MA(1) &amp; invertibility</h2>
+<span class="section-label">Transformation</span>
+<h2 id="ma1-title">From an MA(1) to an AR(∞)</h2>
 </div>
-<p>An MA(1) process is written as a linear combination of the current innovation and the preceding innovation:</p>
-<div class="result-box">
-<div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1}=\Theta(L)\varepsilon_t,\qquad\Theta(L)=1+\theta L.\]</div>
-</div>
-<p>It is an MA process because it is expressed using innovations, rather than past values of \(U_t\).</p>
+<p>This is the same method in the other direction. An MA(1) is written with innovations; now the aim is to express it using its own past values and the current innovation.</p>
 <div class="lecture-block">
-<h3>Inverse characteristic equation</h3>
-<p>Following the convention used in the exercises, substitute \(r^{-1}\) for \(L\), then multiply by \(r\):</p>
-<div class="equation-stack">\[r\Theta(r^{-1})=0,\]\[r(1+\theta r^{-1})=r+\theta=0.\]</div>
-<p>The inverse root is therefore</p>
-<div class="equation-stack">\[r_1=-\theta.\]</div>
-<p>The MA(1) is invertible when this inverse root lies inside the unit circle:</p>
-<div class="result-box">
-<div class="equation-stack">\[|r_1|<1\quad\Longleftrightarrow\quad|\theta|<1.\]</div>
-</div>
+<h3>Write the model with \(L\)</h3>
+<div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1},\]\[U_t=(1+\theta L)\varepsilon_t,\]\[\Theta(L)=1+\theta L.\]</div>
 </div>
 <div class="lecture-block">
-<h3>AR\((\infty)\) representation</h3>
-<p>Under \(|\theta|<1\), invert the MA polynomial to express the innovation using current and past values of \(U\):</p>
+<h3>Invert the MA polynomial</h3>
+<p>For \(|\theta|<1\), invert the polynomial to express the innovation using current and past values of \(U\):</p>
 <div class="equation-stack">\[\varepsilon_t=(1+\theta L)^{-1}U_t,\]\[(1+\theta L)^{-1}=\sum_{j=0}^{\infty}(-\theta)^jL^j.\]</div>
-<p>Separating the current term gives</p>
+</div>
+<div class="lecture-block">
+<h3>Read the resulting AR\((\infty)\)</h3>
+<p>Apply the series, separate the current value \(U_t\), then move the past terms to the other side:</p>
+<div class="equation-stack">\[\varepsilon_t=U_t+\sum_{j=1}^{\infty}(-\theta)^jU_{t-j}.\]</div>
 <div class="result-box">
 <div class="equation-stack">\[U_t=-\sum_{j=1}^{\infty}(-\theta)^jU_{t-j}+\varepsilon_t.\]</div>
 </div>
-<p>For the exercise model \(U_t=\varepsilon_t-0.5\varepsilon_{t-1}\), \(\theta=-0.5\), so \(r_1=0.5\) and</p>
+</div>
+<div class="lecture-block">
+<h3>Check invertibility</h3>
+<p>Following the exercise convention, the inverse characteristic equation is</p>
+<div class="equation-stack">\[r\Theta(r^{-1})=r+\theta=0,\qquad r_1=-\theta.\]</div>
+<p>The MA(1) is invertible when its inverse root lies inside the unit circle:</p>
+<div class="result-box"><div class="equation-stack">\[|r_1|<1\quad\Longleftrightarrow\quad|\theta|<1.\]</div></div>
+<p>For \(U_t=\varepsilon_t-0.5\varepsilon_{t-1}\), \(\theta=-0.5\), so \(r_1=0.5\) and</p>
 <div class="equation-stack">\[U_t=-\sum_{j=1}^{\infty}0.5^jU_{t-j}+\varepsilon_t.\]</div>
 </div>
 </section>
@@ -341,7 +348,7 @@
 <section class="concept-card violet-top lecture-section" id="ma1-acf-pacf" aria-labelledby="ma1-acf-pacf-title">
 <div class="section-header">
 <span class="section-label">Application</span>
-<h2 id="ma1-acf-pacf-title">ACF &amp; PACF of an MA(1)</h2>
+<h2 id="ma1-acf-pacf-title">How the ACF behaves for an MA(1)</h2>
 </div>
 <p>Let</p>
 <div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad E(\varepsilon_t)=0,\qquad\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2.\]</div>
@@ -361,14 +368,14 @@
 <section class="concept-card violet-top lecture-section" id="acf-pacf" aria-labelledby="acf-pacf-title">
 <div class="section-header">
 <span class="section-label">Comparison</span>
-<h2 id="acf-pacf-title">ACF versus PACF</h2>
+<h2 id="acf-pacf-title">Reading an AR(1) and an MA(1)</h2>
 </div>
 <div class="equation-stack">\[\rho_X(h)=\operatorname{Corr}(X_t,X_{t-h}).\]</div>
-<p>The <strong>ACF</strong> measures the total linear correlation at a given lag. The <strong>PACF</strong> measures the remaining linear correlation after controlling for intermediate lags.</p>
-<p>For an AR(1), the contrast is</p>
+<p>The <strong>ACF</strong> measures the total linear correlation at a given lag. The <strong>PACF</strong> measures the remaining linear correlation after controlling for intermediate lags. This gives two different signatures:</p>
+<p>For an AR(1), the PACF cuts off after lag 1:</p>
 <div class="equation-stack">\[\text{ACF:}\quad1,\phi,\phi^2,\phi^3,\ldots\]\[\text{PACF:}\quad1,\phi,0,0,\ldots\]</div>
-<p>For an MA(1), it is the ACF that cuts off after lag 1:</p>
-<div class="equation-stack">\[\text{ACF:}\quad1,\frac{\theta}{1+\theta^2},0,0,\ldots\]</div>
+<p>For an MA(1), the ACF cuts off after lag 1:</p>
+<div class="equation-stack">\[\text{ACF:}\quad1,\frac{\theta}{1+\theta^2},0,0,\ldots\]\[\text{PACF:}\quad1,\alpha_U(1),\alpha_U(2),\ldots\]</div>
 </section>
     </main>
   </div>
