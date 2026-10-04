@@ -448,95 +448,40 @@
 <span class="section-label">Definitions</span>
 <h2 id="ergodicity-title">Ergodicity</h2>
 </div>
-<p>Stationarity and ergodicity answer different questions. Ergodicity asks whether statistics from one sufficiently long realization converge to the corresponding population quantities.</p>
+<p>Ergodicity means that statistics computed from <strong>one sufficiently long realization</strong> converge to the corresponding population quantities.</p>
 <div class="lecture-block">
-<h3>Ergodicity for the mean</h3>
-<p>For a covariance-stationary process, define the sample mean:</p>
+<h3>Mean ergodicity</h3>
 <div class="equation-stack">\[\bar X_T=\frac1T\sum_{t=1}^{T}X_t,\qquad \mu=E(X_t).\]</div>
 <div class="result-box">
-<div class="equation-stack">\[\bar X_T\xrightarrow{p}\mu\quad\text{as }T\to\infty.\]</div>
+<div class="equation-stack">\[\bar X_T\xrightarrow{p}\mu=E(X_t).\]</div>
 </div>
-<p>This is mean ergodicity: the sample mean converges <strong>in probability</strong>, denoted by \(\xrightarrow{p}\), to the population mean.</p>
+<p>A process is mean ergodic when its sample mean converges in probability, denoted by \(\xrightarrow{p}\), to its population mean.</p>
+<p>Compare \(E(X_t)\) with \(\lim_{T\to\infty}\bar X_T\). If they coincide, the process is mean ergodic; if they do not, it is not.</p>
 </div>
 <div class="lecture-block">
 <h3>A sufficient condition</h3>
 <div class="equation-stack">\[\boxed{\sum_{h=0}^{\infty}|\gamma_X(h)|<\infty}\]</div>
-<p>This is <strong>absolute summability of the autocovariance function</strong>. It is a sufficient condition for mean ergodicity: temporal dependence must disappear sufficiently quickly.</p>
-<div class="lecture-note ">
-<span class="note-label">Interpretation</span>
-<p>Observations far apart in time must become sufficiently weakly related.</p>
-</div>
+<p>Absolute summability of the autocovariances is sufficient for mean ergodicity: dependence between observations must disappear sufficiently quickly as the lag increases.</p>
 </div>
 <div class="lecture-block">
-<h3>Ergodicity for second moments</h3>
-<p>For each fixed nonnegative lag, the sample autocovariance is</p>
-<div class="equation-stack">
-<div class="equation-chain">
-<span>\(\widehat\gamma_T(h)=\dfrac1{T-h}\sum_{t=h+1}^{T}\)</span>
-<span>\((X_t-\bar X_T)(X_{t-h}-\bar X_T).\)</span>
-</div>
-<p>Here \(0\le h<T\).</p>
-</div>
-<div class="result-box">
-<div class="equation-stack">\[\widehat\gamma_T(h)\xrightarrow{p}\gamma_X(h).\]</div>
-</div>
-<p>Second-moment ergodicity means that the sample autocovariance converges to its population counterpart for every fixed lag. Conditions ensuring this are generally stronger than conditions for mean ergodicity alone.</p>
-</div>
-<div class="lecture-note ">
-<span class="note-label">Common mistake</span>
-<p>
-<strong>Stationarity does not imply ergodicity.</strong> Constant population moments do not by themselves guarantee convergence of sample statistics.</p>
-</div>
-</section>
-<section class="concept-card violet-top lecture-section" id="ergodicity-examples" aria-labelledby="ergodicity-examples-title">
-<div class="section-header">
-<span class="section-label">Examples</span>
-<h2 id="ergodicity-examples-title">Stationarity does not imply ergodicity</h2>
-</div>
-<div class="lecture-block">
-<h3>Gaussian white noise: stationary and ergodic</h3>
-<div class="equation-stack">\[\varepsilon_t\overset{iid}{\sim}N(0,1),\]\[\gamma_\varepsilon(0)=1,\qquad\gamma_\varepsilon(h)=0\quad(h\ne0).\]</div>
-<p>The shocks have no dependence across dates. This process is stationary and ergodic.</p>
+<h3>White noise</h3>
+<div class="equation-stack">\[E(\varepsilon_t)=0,\qquad \bar\varepsilon_T\xrightarrow{p}0.\]</div>
+<div class="result-box"><div class="equation-stack">\[\bar\varepsilon_T\xrightarrow{p}E(\varepsilon_t).\]</div></div>
+<p>White noise is stationary and mean ergodic.</p>
 </div>
 <div class="lecture-block">
 <h3>A permanent random component</h3>
 <div class="equation-stack">\[X_t=\mu+\varepsilon_t,\]\[\mu\sim U[-1,1],\]\[\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2).\]</div>
 <p>The same random variable \(\mu\) appears at every date. Here \(\mu\) is a <strong>random component</strong>, not the population mean.</p>
-</div>
-<div class="lecture-note attention">
-<span class="note-label">Attention — condition needed</span>
-<p>The supplied moment calculations require \(\operatorname{Cov}(\mu,\varepsilon_t)=0\) for every \(t\). This is not stated in the supplied excerpt. The results below hold under this condition.</p>
-</div>
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="nonergodic-calculation">
-<span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> calculation</button>
-<div class="collapsible lecture-calculation" id="nonergodic-calculation" hidden>
-<div class="lecture-block">
-<h3>Population moments</h3>
-<div class="equation-stack">\[E(\mu)=0,\qquad \operatorname{Var}(\mu)=\frac13,\]\[E(X_t)=E(\mu)+E(\varepsilon_t)=0,\]\[\operatorname{Var}(X_t)=\operatorname{Var}(\mu)+\operatorname{Var}(\varepsilon_t)\]\[=\frac13+\sigma_\varepsilon^2.\]</div>
-<p>For \(h\ne0\), the cross terms vanish and only the common random component remains:</p>
-<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})\]\[=\operatorname{Cov}(\mu+\varepsilon_t,\mu+\varepsilon_{t-h})\]\[=\operatorname{Var}(\mu)=\frac13.\]</div>
-<p>These moments do not depend on the calendar date. The process is covariance-stationary.</p>
-</div>
-<div class="lecture-block">
-<h3>The sample mean</h3>
 <div class="equation-stack">\[\bar X_T=\mu+\frac1T\sum_{t=1}^{T}\varepsilon_t.\]</div>
-<p>The noise average converges to zero:</p>
-<div class="equation-stack">\[\frac1T\sum_{t=1}^{T}\varepsilon_t\xrightarrow{p}0.\]</div>
-<p>Therefore,</p>
-<div class="equation-stack">\[\bar X_T\xrightarrow{p}\mu,\]</div>
-<p>which is the random common component, rather than the population mean \(E(X_t)=0\).</p>
-</div>
-</div>
 <div class="result-box">
-<div class="equation-stack">\[E(X_t)=0,\qquad \operatorname{Var}(X_t)=\frac13+\sigma_\varepsilon^2,\]\[\gamma_X(h)=\frac13\quad(h\ne0),\]\[\bar X_T\xrightarrow{p}\mu.\]</div>
-<p>
-<strong>Stationary, but not ergodic for the mean.</strong>
-</p>
+<div class="equation-stack">\[E(X_t)=0,\qquad \bar X_T\xrightarrow{p}\mu.\]</div>
 </div>
-<div class="lecture-note ">
-<span class="note-label">Interpretation</span>
-<p>The permanent common component never disappears. All observations share it, so even distant observations remain correlated.</p>
+<p>The sample mean converges to the random common component, rather than to the population mean. Therefore</p>
+<div class="result-box"><div class="equation-stack">\[\bar X_T\not\xrightarrow{p}E(X_t).\]</div></div>
+<p>The process is stationary but not mean ergodic.</p>
 </div>
+<div class="lecture-note"><span class="note-label">Stationarity versus ergodicity</span><p><strong>Stationarity does not imply ergodicity.</strong> A process can have time-invariant population moments while the statistics from one realization fail to converge to them.</p></div>
 </section>
     </main>
   </div>
