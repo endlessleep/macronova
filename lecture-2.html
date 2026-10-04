@@ -267,36 +267,6 @@
 <div class="equation-stack">\[\rho_X(0)=1,\qquad \rho_X(-h)=\rho_X(h),\]\[-1\le\rho_X(h)\le1.\]</div>
 </div>
 </section>
-<section class="concept-card violet-top lecture-section" id="ma1-acf-pacf" aria-labelledby="ma1-acf-pacf-title">
-<div class="section-header">
-<span class="section-label">Application</span>
-<h2 id="ma1-acf-pacf-title">MA(1): derive the autocovariance and ACF</h2>
-</div>
-<div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad E(\varepsilon_t)=0,\qquad\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2.\]</div>
-<p>The process has mean zero. Write the two observations involved at each lag, expand their product, and keep only products of shocks with the same date.</p>
-<div class="lecture-block">
-<h3>Lag zero: the variance</h3>
-<div class="equation-stack">\[\gamma_U(0)=E(U_t^2)\]\[=E\!\left[(\varepsilon_t+\theta\varepsilon_{t-1})^2\right]\]\[=E(\varepsilon_t^2)+2\theta E(\varepsilon_t\varepsilon_{t-1})+\theta^2E(\varepsilon_{t-1}^2)\]\[=(1+\theta^2)\sigma_\varepsilon^2.\]</div>
-</div>
-<div class="lecture-block">
-<h3>Lag one: one common shock</h3>
-<div class="equation-stack">\[U_{t-1}=\varepsilon_{t-1}+\theta\varepsilon_{t-2}.\]</div>
-<p>The innovation \(\varepsilon_{t-1}\) is the only shock present in both \(U_t\) and \(U_{t-1}\):</p>
-<div class="equation-stack">\[\gamma_U(1)=E(U_tU_{t-1})\]\[=E\!\left[(\varepsilon_t+\theta\varepsilon_{t-1})(\varepsilon_{t-1}+\theta\varepsilon_{t-2})\right]\]\[=\theta E(\varepsilon_{t-1}^2)=\theta\sigma_\varepsilon^2.\]</div>
-</div>
-<div class="lecture-block">
-<h3>Lags greater than one: no common shock</h3>
-<p>For \(h>1\), \(U_t\) uses the shock dates \(t\) and \(t-1\), while \(U_{t-h}\) uses \(t-h\) and \(t-h-1\). No dates coincide, so</p>
-<div class="equation-stack">\[\gamma_U(h)=0\quad(h>1).\]</div>
-</div>
-<div class="lecture-block">
-<h3>Divide by the variance</h3>
-<div class="result-box">
-<div class="equation-stack">\[\rho_U(0)=1,\qquad\rho_U(1)=\frac{\theta}{1+\theta^2},\qquad\rho_U(h)=0\quad(h>1).\]</div>
-</div>
-<p>The ACF of an MA(1) cuts off after lag one.</p>
-</div>
-</section>
 <section class="concept-card violet-top lecture-section" id="ar1-acf" aria-labelledby="ar1-acf-title">
 <div class="section-header">
 <span class="section-label">Application</span>
@@ -362,6 +332,36 @@
 </div>
 </div>
 <p>The PACF of an AR(1) cuts off after lag 1.</p>
+</section>
+<section class="concept-card violet-top lecture-section" id="ma1-acf-pacf" aria-labelledby="ma1-acf-pacf-title">
+<div class="section-header">
+<span class="section-label">Application</span>
+<h2 id="ma1-acf-pacf-title">MA(1): derive the autocovariance and ACF</h2>
+</div>
+<div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad E(\varepsilon_t)=0,\qquad\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2.\]</div>
+<p>The process has mean zero. Write the two observations involved at each lag, expand their product, and keep only products of shocks with the same date.</p>
+<div class="lecture-block">
+<h3>Lag zero: the variance</h3>
+<div class="equation-stack">\[\gamma_U(0)=E(U_t^2)\]\[=E\!\left[(\varepsilon_t+\theta\varepsilon_{t-1})^2\right]\]\[=E(\varepsilon_t^2)+2\theta E(\varepsilon_t\varepsilon_{t-1})+\theta^2E(\varepsilon_{t-1}^2)\]\[=(1+\theta^2)\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Lag one: one common shock</h3>
+<div class="equation-stack">\[U_{t-1}=\varepsilon_{t-1}+\theta\varepsilon_{t-2}.\]</div>
+<p>The innovation \(\varepsilon_{t-1}\) is the only shock present in both \(U_t\) and \(U_{t-1}\):</p>
+<div class="equation-stack">\[\gamma_U(1)=E(U_tU_{t-1})\]\[=E\!\left[(\varepsilon_t+\theta\varepsilon_{t-1})(\varepsilon_{t-1}+\theta\varepsilon_{t-2})\right]\]\[=\theta E(\varepsilon_{t-1}^2)=\theta\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Lags greater than one: no common shock</h3>
+<p>For \(h>1\), \(U_t\) uses the shock dates \(t\) and \(t-1\), while \(U_{t-h}\) uses \(t-h\) and \(t-h-1\). No dates coincide, so</p>
+<div class="equation-stack">\[\gamma_U(h)=0\quad(h>1).\]</div>
+</div>
+<div class="lecture-block">
+<h3>Divide by the variance</h3>
+<div class="result-box">
+<div class="equation-stack">\[\rho_U(0)=1,\qquad\rho_U(1)=\frac{\theta}{1+\theta^2},\qquad\rho_U(h)=0\quad(h>1).\]</div>
+</div>
+<p>The ACF of an MA(1) cuts off after lag one.</p>
+</div>
 </section>
 <section class="concept-card violet-top lecture-section" id="ma1-pacf" aria-labelledby="ma1-pacf-title">
 <div class="section-header">
