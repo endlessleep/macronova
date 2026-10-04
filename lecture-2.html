@@ -271,18 +271,35 @@
 <section class="concept-card violet-top lecture-section" id="ar1-acf" aria-labelledby="ar1-acf-title">
 <div class="section-header">
 <span class="section-label">Application</span>
-<h2 id="ar1-acf-title">ACF of an AR(1)</h2>
+<h2 id="ar1-acf-title">AR(1): derive the autocovariance and ACF</h2>
 </div>
 <div class="equation-stack">\[X_t=\phi X_{t-1}+\varepsilon_t,\qquad|\phi|<1,\]\[\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2).\]</div>
-<p>For the stationary causal solution, the variance and autocovariance are</p>
-<div class="equation-stack">\[\gamma_X(0)=\frac{\sigma_\varepsilon^2}{1-\phi^2},\]\[\gamma_X(h)=\phi^{|h|}\frac{\sigma_\varepsilon^2}{1-\phi^2}.\]</div>
-<p>Divide the autocovariance by the variance:</p>
-<div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}\]\[=\frac{\phi^{|h|}\sigma_\varepsilon^2/(1-\phi^2)}{\sigma_\varepsilon^2/(1-\phi^2)}\]</div>
+<p>The process has mean zero. To find its ACF, first calculate the variance, which is \(\gamma_X(0)\).</p>
+<div class="lecture-block">
+<h3>Lag zero: the variance</h3>
+<p>Square the AR(1) equation and take expectations. The cross term is zero because \(\varepsilon_t\) is uncorrelated with the past value \(X_{t-1}\):</p>
+<div class="equation-stack">\[\gamma_X(0)=E(X_t^2)\]\[=E\!\left[(\phi X_{t-1}+\varepsilon_t)^2\right]\]\[=\phi^2\gamma_X(0)+\sigma_\varepsilon^2.\]</div>
+<p>Move the first term to the left:</p>
+<div class="equation-stack">\[(1-\phi^2)\gamma_X(0)=\sigma_\varepsilon^2,\]\[\boxed{\gamma_X(0)=\frac{\sigma_\varepsilon^2}{1-\phi^2}.}\]</div>
+</div>
+<div class="lecture-block">
+<h3>Positive lags: the autocovariance recursion</h3>
+<p>For \(h\ge1\), multiply the AR(1) equation by \(X_{t-h}\) and take expectations:</p>
+<div class="equation-stack">\[\gamma_X(h)=E(X_tX_{t-h})\]\[=E\!\left[(\phi X_{t-1}+\varepsilon_t)X_{t-h}\right]\]\[=\phi\gamma_X(h-1)+E(\varepsilon_tX_{t-h}).\]</div>
+<p>Again, the last term is zero because \(X_{t-h}\) belongs to the past. Hence</p>
+<div class="equation-stack">\[\gamma_X(h)=\phi\gamma_X(h-1).\]</div>
+<p>Applying this recursion repeatedly gives</p>
+<div class="equation-stack">\[\gamma_X(h)=\phi^h\gamma_X(0)\quad(h\ge0),\]\[\gamma_X(h)=\phi^{|h|}\frac{\sigma_\varepsilon^2}{1-\phi^2}\quad(h\in\mathbb Z).\]</div>
+</div>
+<div class="lecture-block">
+<h3>Divide by the variance</h3>
+<div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}\]\[=\frac{\phi^{|h|}\sigma_\varepsilon^2/(1-\phi^2)}{\sigma_\varepsilon^2/(1-\phi^2)}\]\[=\phi^{|h|}.\]</div>
 <div class="result-box">
 <div class="equation-stack">\[\rho_X(h)=\phi^{|h|}.\]</div>
 </div>
 <div class="equation-stack">\[\rho_X(0)=1,\quad\rho_X(1)=\phi,\quad\rho_X(2)=\phi^2.\]</div>
-<p>For \(h\ge0\), \(\rho_X(h)=\phi^h\). The ACF follows successive powers of \(\phi\); it does not generally cut off immediately after lag one.</p>
+<p>The ACF follows successive powers of \(\phi\); it does not generally cut off after lag one.</p>
+</div>
 </section>
 <section class="concept-card violet-top lecture-section" id="pacf" aria-labelledby="pacf-title">
 <div class="section-header">
@@ -310,8 +327,8 @@
 </section>
 <section class="concept-card violet-top lecture-section" id="cramer-two" aria-labelledby="cramer-two-title">
 <div class="section-header">
-<span class="section-label">Derivation</span>
-<h2 id="cramer-two-title">PACF & Cramer’s rule</h2>
+<span class="section-label">Method</span>
+<h2 id="cramer-two-title">Compute the PACF at lag 2</h2>
 </div>
 <p>The projection coefficients satisfy \(R_ha_h=\rho_h\), where \(R_h\) is the autocorrelation matrix, \(a_h\) the vector of projection coefficients, and \(\rho_h\) the vector of autocorrelations at lags 1 to \(h\).</p>
 <p>When \(|R_h|\ne0\), Cramer’s rule gives</p>
@@ -338,9 +355,9 @@
 <span class="section-label">Application</span>
 <h2 id="ar1-pacf-title">PACF of an AR(1)</h2>
 </div>
-<p>For a stable causal AR(1), \(\rho_X(1)=\phi\) and \(\rho_X(2)=\phi^2\). Hence</p>
+<p>The ACF calculation above gives \(\rho_X(1)=\phi\) and \(\rho_X(2)=\phi^2\).</p>
 <div class="equation-stack">\[\alpha_X(1)=\rho_X(1)=\phi.\]</div>
-<p>At lag two,</p>
+<p>At lag two, substitute these two autocorrelations into the Cramer formula:</p>
 <div class="equation-stack">\[\alpha_X(2)=\frac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}\]\[=\frac{\phi^2-\phi^2}{1-\phi^2}=0.\]</div>
 <div class="result-box">
 <div class="equation-chain">
@@ -353,30 +370,42 @@
 <section class="concept-card violet-top lecture-section" id="ma1-acf-pacf" aria-labelledby="ma1-acf-pacf-title">
 <div class="section-header">
 <span class="section-label">Application</span>
-<h2 id="ma1-acf-pacf-title">How the ACF behaves for an MA(1)</h2>
+<h2 id="ma1-acf-pacf-title">MA(1): derive the autocovariance and ACF</h2>
 </div>
-<p>Let</p>
 <div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad E(\varepsilon_t)=0,\qquad\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2.\]</div>
-<p>At lag zero, both innovations enter the variance. At lag one, \(U_t\) and \(U_{t-1}\) share only the innovation dated \(t-1\). Beyond lag one, they share no innovation date:</p>
-<div class="equation-stack">\[\gamma_U(0)=(1+\theta^2)\sigma_\varepsilon^2,\]\[\gamma_U(1)=\theta\sigma_\varepsilon^2,\qquad\gamma_U(h)=0\quad(h>1).\]</div>
-<p>Dividing by \(\gamma_U(0)\) gives</p>
+<p>The process has mean zero. Write the two observations involved at each lag, expand their product, and keep only products of shocks with the same date.</p>
+<div class="lecture-block">
+<h3>Lag zero: the variance</h3>
+<div class="equation-stack">\[\gamma_U(0)=E(U_t^2)\]\[=E\!\left[(\varepsilon_t+\theta\varepsilon_{t-1})^2\right]\]\[=E(\varepsilon_t^2)+2\theta E(\varepsilon_t\varepsilon_{t-1})+\theta^2E(\varepsilon_{t-1}^2)\]\[=(1+\theta^2)\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Lag one: one common shock</h3>
+<div class="equation-stack">\[U_{t-1}=\varepsilon_{t-1}+\theta\varepsilon_{t-2}.\]</div>
+<p>The innovation \(\varepsilon_{t-1}\) is the only shock present in both \(U_t\) and \(U_{t-1}\):</p>
+<div class="equation-stack">\[\gamma_U(1)=E(U_tU_{t-1})\]\[=E\!\left[(\varepsilon_t+\theta\varepsilon_{t-1})(\varepsilon_{t-1}+\theta\varepsilon_{t-2})\right]\]\[=\theta E(\varepsilon_{t-1}^2)=\theta\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Lags greater than one: no common shock</h3>
+<p>For \(h>1\), \(U_t\) uses the shock dates \(t\) and \(t-1\), while \(U_{t-h}\) uses \(t-h\) and \(t-h-1\). No dates coincide, so</p>
+<div class="equation-stack">\[\gamma_U(h)=0\quad(h>1).\]</div>
+</div>
+<div class="lecture-block">
+<h3>Divide by the variance</h3>
 <div class="result-box">
 <div class="equation-stack">\[\rho_U(0)=1,\qquad\rho_U(1)=\frac{\theta}{1+\theta^2},\qquad\rho_U(h)=0\quad(h>1).\]</div>
 </div>
-<p>The ACF of an MA(1) therefore cuts off after lag 1. For the PACF,</p>
-<div class="equation-stack">\[\alpha_U(1)=\rho_U(1),\]\[\alpha_U(2)=\frac{\rho_U(2)-[\rho_U(1)]^2}{1-[\rho_U(1)]^2}=-\frac{[\rho_U(1)]^2}{1-[\rho_U(1)]^2}.\]</div>
-</section>
-<section class="concept-card violet-top lecture-section" id="acf-pacf" aria-labelledby="acf-pacf-title">
-<div class="section-header">
-<span class="section-label">Comparison</span>
-<h2 id="acf-pacf-title">Reading an AR(1) and an MA(1)</h2>
+<p>The ACF of an MA(1) cuts off after lag one.</p>
 </div>
-<div class="equation-stack">\[\rho_X(h)=\operatorname{Corr}(X_t,X_{t-h}).\]</div>
-<p>The <strong>ACF</strong> measures the total linear correlation at a given lag. The <strong>PACF</strong> measures the remaining linear correlation after controlling for intermediate lags. This gives two different signatures:</p>
-<p>For an AR(1), the PACF cuts off after lag 1:</p>
-<div class="equation-stack">\[\text{ACF:}\quad1,\phi,\phi^2,\phi^3,\ldots\]\[\text{PACF:}\quad1,\phi,0,0,\ldots\]</div>
-<p>For an MA(1), the ACF cuts off after lag 1:</p>
-<div class="equation-stack">\[\text{ACF:}\quad1,\frac{\theta}{1+\theta^2},0,0,\ldots\]\[\text{PACF:}\quad1,\alpha_U(1),\alpha_U(2),\ldots\]</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="ma1-pacf" aria-labelledby="ma1-pacf-title">
+<div class="section-header">
+<span class="section-label">Application</span>
+<h2 id="ma1-pacf-title">PACF of an MA(1)</h2>
+</div>
+<p>Use the ACF obtained above in the same PACF formulas.</p>
+<div class="equation-stack">\[\alpha_U(1)=\rho_U(1)=\frac{\theta}{1+\theta^2}.\]</div>
+<p>Since \(\rho_U(2)=0\), the lag-two coefficient is</p>
+<div class="equation-stack">\[\alpha_U(2)=\frac{\rho_U(2)-[\rho_U(1)]^2}{1-[\rho_U(1)]^2}\]\[=\frac{-\left[\dfrac{\theta}{1+\theta^2}\right]^2}{1-\left[\dfrac{\theta}{1+\theta^2}\right]^2}.\]</div>
 </section>
     </main>
   </div>
