@@ -156,8 +156,8 @@
 <div class="equation-stack">\[X_t=\phi X_{t-1}+\varepsilon_t,\]\[X_t=\phi LX_t+\varepsilon_t,\]\[(1-\phi L)X_t=\varepsilon_t.\]</div>
 </div>
 <div class="lecture-block">
-<h3>Invert the AR polynomial</h3>
-<p>For \(|\phi|<1\), the inverse uses current and past dates only:</p>
+<h3>Check stability, then invert</h3>
+<p>Before using an infinite series, check the stability condition. For \(|\phi|<1\), the inverse uses current and past dates only:</p>
 <div class="equation-stack">\[X_t=(1-\phi L)^{-1}\varepsilon_t.\]</div>
 <div class="equation-stack">\[(1-\phi L)^{-1}=\sum_{j=0}^{\infty}\phi^jL^j,\]\[X_t=\sum_{j=0}^{\infty}\phi^jL^j\varepsilon_t.\]</div>
 </div>
@@ -184,8 +184,12 @@
 <div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1},\]\[U_t=(1+\theta L)\varepsilon_t,\]\[\Theta(L)=1+\theta L.\]</div>
 </div>
 <div class="lecture-block">
-<h3>Invert the MA polynomial</h3>
-<p>For \(|\theta|<1\), invert the polynomial to express the innovation using current and past values of \(U\):</p>
+<h3>Check invertibility, then invert</h3>
+<p>Before using an infinite series, check the inverse root. Following the exercise convention,</p>
+<div class="equation-stack">\[r\Theta(r^{-1})=r+\theta=0,\qquad r_1=-\theta.\]</div>
+<p>The MA(1) is invertible when</p>
+<div class="result-box"><div class="equation-stack">\[|r_1|<1\quad\Longleftrightarrow\quad|\theta|<1.\]</div></div>
+<p>Only under this condition can the polynomial be inverted as a series in current and past values of \(U\):</p>
 <div class="equation-stack">\[\varepsilon_t=(1+\theta L)^{-1}U_t,\]\[(1+\theta L)^{-1}=\sum_{j=0}^{\infty}(-\theta)^jL^j.\]</div>
 </div>
 <div class="lecture-block">
@@ -195,13 +199,6 @@
 <div class="result-box">
 <div class="equation-stack">\[U_t=-\sum_{j=1}^{\infty}(-\theta)^jU_{t-j}+\varepsilon_t.\]</div>
 </div>
-</div>
-<div class="lecture-block">
-<h3>Check invertibility</h3>
-<p>Following the exercise convention, the inverse characteristic equation is</p>
-<div class="equation-stack">\[r\Theta(r^{-1})=r+\theta=0,\qquad r_1=-\theta.\]</div>
-<p>The MA(1) is invertible when its inverse root lies inside the unit circle:</p>
-<div class="result-box"><div class="equation-stack">\[|r_1|<1\quad\Longleftrightarrow\quad|\theta|<1.\]</div></div>
 <p>For \(U_t=\varepsilon_t-0.5\varepsilon_{t-1}\), \(\theta=-0.5\), so \(r_1=0.5\) and</p>
 <div class="equation-stack">\[U_t=-\sum_{j=1}^{\infty}0.5^jU_{t-j}+\varepsilon_t.\]</div>
 </div>
