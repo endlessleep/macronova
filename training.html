@@ -257,7 +257,7 @@
 </div>
 <div class="equation-stack">\[=0.\]</div>
 <div class="result-box">
-<div class="equation-stack">\[\gamma_Y(h)=\begin{cases}2\sigma^2,&h=0,\\-\sigma^2,&|h|=1,\\0,&|h|>1.\end{cases}\]</div>
+<div class="equation-stack">\[\gamma_Y(h)=\begin{cases}2\sigma^2, & h=0,\\[3pt]-\sigma^2, & |h|=1,\\[3pt]0, & |h|>1.\end{cases}\]</div>
 <p>
 <strong>\(Y_t\) is second-order stationary.</strong> Its mean and variance are constant, and its covariance depends only on \(h\).</p>
 </div>
@@ -290,7 +290,7 @@
 </div>
 <div class="equation-stack">\[=0.\]</div>
 <div class="result-box">
-<div class="equation-stack">\[\gamma_Z(h)=\begin{cases}(a^2+b^2)\sigma^2,&h=0,\\ab\sigma^2,&|h|=1,\\0,&|h|>1.\end{cases}\]</div>
+<div class="equation-stack">\[\gamma_Z(h)=\begin{cases}(a^2+b^2)\sigma^2, & h=0,\\[3pt]ab\sigma^2, & |h|=1,\\[3pt]0, & |h|>1.\end{cases}\]</div>
 <p>
 <strong>\(Z_t\) is second-order stationary.</strong> All three conditions hold.</p>
 </div>
@@ -358,7 +358,7 @@
 <div class="equation-stack">\[E(Y_t)=(-1)^tE(X_t)=0,\]\[V(Y_t)=(-1)^{2t}\sigma_X^2=\sigma_X^2,\]\[\operatorname{Cov}(Y_t,Y_{t-h})=(-1)^{2t-h}\gamma_X(h)\]\[=(-1)^h\gamma_X(h).\]</div>
 <p>Thus \(Y_t\) is also stationary. But its covariance with \(X_t\) alternates:</p>
 <div class="equation-stack">\[\operatorname{Cov}(X_t,Y_t)=(-1)^t\sigma_X^2.\]</div>
-<div class="equation-stack">\[Z_t=X_t+Y_t=\begin{cases}2X_t,&t\text{ even},\\0,&t\text{ odd},\end{cases}\]\[V(Z_t)=\begin{cases}4\sigma_X^2,&t\text{ even},\\0,&t\text{ odd}.\end{cases}\]</div>
+<div class="equation-stack">\[Z_t=X_t+Y_t=\begin{cases}2X_t, & t\text{ even},\\[3pt]0, & t\text{ odd},\end{cases}\]\[V(Z_t)=\begin{cases}4\sigma_X^2, & t\text{ even},\\[3pt]0, & t\text{ odd}.\end{cases}\]</div>
 <div class="result-box">
 <p>
 <strong>No: the sum need not be stationary.</strong> Here its variance depends on whether \(t\) is even or odd.</p>
@@ -370,7 +370,7 @@
 <span>\({}+(-1)^{2t-h}\bigr]\gamma_X(h)\)</span>
 </div>
 <div class="equation-stack">\[=[1+(-1)^t][1+(-1)^{t-h}]\gamma_X(h).\]</div>
-<div class="equation-stack">\[\operatorname{Cov}(Z_t,Z_{t-h})\]\[=\begin{cases}4\gamma_X(h),&t,h\text{ both even},\\0,&\text{otherwise}.\end{cases}\]</div>
+<div class="equation-stack">\[\operatorname{Cov}(Z_t,Z_{t-h})\]\[=\begin{cases}4\gamma_X(h), & t,h\text{ both even},\\[3pt]0, & \text{otherwise}.\end{cases}\]</div>
 <p>
 <strong>Attention.</strong> This corrects the parity table in the supplied solution: the other three cases are zero.</p>
 </section>

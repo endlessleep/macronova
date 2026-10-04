@@ -71,35 +71,35 @@
         <div class="matrix-pair"><div>\[a_h=\begin{pmatrix}a_{h1}\\a_{h2}\\\vdots\\a_{hh}\end{pmatrix}\]</div><div>\[\rho_h=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(h)\end{pmatrix}.\]</div></div>
         <p>The PACF is the last coefficient, \(a_{hh}\).</p>
         <h3>Cramer’s rule: replace the last column</h3>
-        <p>For \(a_{hh}\), Cramer’s rule replaces column \(h\) of \(R_h\) with \(\rho_h\):</p>
+        <p>For \(a_{hh}\), Cramer’s rule replaces the last column of \(R_h\) with \(\rho_h\):</p>
         <div class="matrix-pair pacf-matrix"><div>\[R_h=\begin{pmatrix}
-        \rho_X(0)&\rho_X(1)&\cdots&\boxed{\rho_X(h-1)}\\
-        \rho_X(1)&\rho_X(0)&\cdots&\boxed{\rho_X(h-2)}\\
-        \vdots&\vdots&\ddots&\boxed{\vdots}\\
-        \rho_X(h-1)&\rho_X(h-2)&\cdots&\boxed{\rho_X(0)}
+        \rho_X(0)&\rho_X(1)&\cdots&\rho_X(h-1)\\
+        \rho_X(1)&\rho_X(0)&\cdots&\rho_X(h-2)\\
+        \vdots&\vdots&\ddots&\vdots\\
+        \rho_X(h-1)&\rho_X(h-2)&\cdots&\rho_X(0)
         \end{pmatrix}\]</div><div>\[\rho_h=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(h)\end{pmatrix}.\]</div></div>
-        <p>Replace the marked column with this vector:</p>
-        <div class="equation-stack pacf-matrix">\[R_h^*=\begin{pmatrix}
-        \rho_X(0)&\rho_X(1)&\cdots&\boxed{\rho_X(1)}\\
-        \rho_X(1)&\rho_X(0)&\cdots&\boxed{\rho_X(2)}\\
-        \vdots&\vdots&\ddots&\boxed{\vdots}\\
-        \rho_X(h-1)&\rho_X(h-2)&\cdots&\boxed{\rho_X(h)}
+        <p>Replace the last column with this vector:</p>
+        <div class="equation-stack pacf-matrix">\[R_h^\star=\begin{pmatrix}
+        \rho_X(0)&\rho_X(1)&\cdots&\rho_X(1)\\
+        \rho_X(1)&\rho_X(0)&\cdots&\rho_X(2)\\
+        \vdots&\vdots&\ddots&\vdots\\
+        \rho_X(h-1)&\rho_X(h-2)&\cdots&\rho_X(h)
         \end{pmatrix}.\]</div>
         <h3>General result</h3>
-        <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=a_{hh}=\frac{\det(R_h^*)}{\det(R_h)}}\]</div></div>
+        <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=a_{hh}=\frac{\det(R_h^\star)}{\det(R_h)}}\]</div></div>
         <p>The denominator uses the original matrix; the numerator uses the matrix with its last column replaced.</p>
 
         <h3>Case \(h=2\)</h3>
         <p>For lag 2,</p>
         <div class="matrix-pair"><div>\[R_2=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}\]</div><div>\[\rho_2=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\end{pmatrix}.\]</div></div>
         <p>The PACF is \(\alpha_X(2)=a_{22}\), so replace column 2:</p>
-        <div class="equation-stack">\[R_2^*=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{pmatrix}.\]</div>
+        <div class="equation-stack">\[R_2^\star=\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{pmatrix}.\]</div>
         <div class="equation-stack pacf-matrix">\[
-        \alpha_X(2)=\frac{\det(R_2^*)}{\det(R_2)}=
+        \alpha_X(2)=\frac{\det(R_2^\star)}{\det(R_2)}=
         \frac{\begin{vmatrix}1&\rho_X(1)\\\rho_X(1)&\rho_X(2)\end{vmatrix}}
         {\begin{vmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{vmatrix}}.
         \]</div>
-        <div class="equation-stack">\[\det(R_2^*)=\rho_X(2)-\rho_X(1)^2,\qquad
+        <div class="equation-stack">\[\det(R_2^\star)=\rho_X(2)-\rho_X(1)^2,\qquad
         \det(R_2)=1-\rho_X(1)^2.\]</div>
         <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(2)=\frac{\rho_X(2)-\rho_X(1)^2}{1-\rho_X(1)^2}}\]</div></div>
       </section>
