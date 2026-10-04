@@ -76,7 +76,7 @@
 
           <section class="solution-step">
             <h3><span>Question 1</span> Mean and demeaned process</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Take expectations under stationarity, then define \(\widetilde X_t=X_t-\mu_X\).</p></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Under stationarity, the mean is the same at every date. Then centre the process around that mean.</p><div class="equation-stack">\[\mu_X=E(X_t),\qquad \widetilde X_t=X_t-\mu_X.\]</div></div>
             <div class="equation-stack">\[\mu_X=\frac16-\frac16\mu_X+\frac16\mu_X+E(\varepsilon_t)=\frac16.\]</div>
             <div class="result-box"><div class="equation-stack">\[\boxed{\mu_X=\frac16.}\]</div></div>
             <p>Subtract \(\mu_X\) from the model. Replacing \(X_{t-1}\) and \(X_{t-2}\) by their demeaned values makes the constants cancel:</p>
@@ -86,7 +86,7 @@
 
           <section class="solution-step">
             <h3><span>Question 2</span> Stationarity and MA\((\infty)\)</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the characteristic roots of the AR polynomial, then invert the polynomial.</p><div class="equation-stack">\[\Phi(L)\widetilde X_t=\varepsilon_t.\]</div></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the roots of the AR polynomial. Characteristic roots outside the unit circle give a stationary causal representation.</p><div class="equation-stack">\[\Phi(L)\widetilde X_t=\varepsilon_t,\qquad \Phi(z)=0,\qquad |z_i|>1.\]</div></div>
             <p>Using \(L\), the demeaned process becomes</p>
             <div class="equation-stack">\[\left(1+\frac16L-\frac16L^2\right)\widetilde X_t=\varepsilon_t,\qquad \Phi(L)=1+\frac16L-\frac16L^2.\]</div>
             <p>The 2026/27 characteristic equation is</p>
@@ -111,7 +111,7 @@
 
           <section class="solution-step">
             <h3><span>Question 4</span> PACF up to lag 3</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Use \(\alpha_X(h)=a_{hh}\) and \(R_ha_h=\rho_h\). For the PACF, replace the last column of \(R_h\) by \(\rho_h\).</p></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>For the PACF, replace the last column of \(R_h\) by \(\rho_h\).</p><div class="equation-stack">\[\alpha_X(h)=a_{hh},\qquad R_ha_h=\rho_h,\qquad \alpha_X(h)=\frac{\det(R_h^\star)}{\det(R_h)}.\]</div></div>
             <p>At lag one,</p>
             <div class="equation-stack">\[\alpha_X(1)=\rho_X(1)=-\frac15.\]</div>
             <h4>Lag 2</h4>
@@ -153,7 +153,7 @@
 
           <section class="solution-step">
             <h3><span>Question 1</span> Mean and demeaned process</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Take expectations, then subtract the mean from the process.</p></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Use the zero mean of the innovations, then centre the process around its mean.</p><div class="equation-stack">\[\mu_Y=E(Y_t),\qquad \widetilde Y_t=Y_t-\mu_Y.\]</div></div>
             <div class="equation-stack">\[\mu_Y=E(Y_t)=1+12E(\varepsilon_t)-7E(\varepsilon_{t-1})+E(\varepsilon_{t-2})=1.\]</div>
             <div class="result-box"><div class="equation-stack">\[\boxed{\mu_Y=1,\qquad \widetilde Y_t=12\varepsilon_t-7\varepsilon_{t-1}+\varepsilon_{t-2}.}\]</div></div>
             <p>For the lag-polynomial calculation, divide the demeaned process by 12:</p>
@@ -162,7 +162,7 @@
 
           <section class="solution-step">
             <h3><span>Question 2</span> Invertibility and AR\((\infty)\)</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the roots of the MA polynomial, then invert it to express \(\widetilde Y_t\) using its own lags.</p></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the roots of the MA polynomial. Characteristic roots outside the unit circle give an invertible representation.</p><div class="equation-stack">\[\frac1{12}\widetilde Y_t=\Theta(L)\varepsilon_t,\qquad \Theta(z)=0,\qquad |z_i|>1.\]</div></div>
             <div class="equation-stack">\[\frac1{12}\widetilde Y_t=\Theta(L)\varepsilon_t,\qquad \Theta(L)=1-\frac7{12}L+\frac1{12}L^2.\]</div>
             <div class="equation-stack">\[\Theta(z)=1-\frac7{12}z+\frac1{12}z^2=0,\qquad z_1=3,\quad z_2=4.\]</div>
             <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad |z_2|>1.\]</div><p>The MA(2) is invertible. Equivalently, its inverse roots \(r_1=\frac13\) and \(r_2=\frac14\) lie inside the unit circle.</p></div>
@@ -188,7 +188,7 @@
 
           <section class="solution-step">
             <h3><span>Question 4</span> PACF up to lag 3</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Use \(\alpha_Y(h)=a_{hh}\) and \(R_ha_h=\rho_h\). Replace the last column of \(R_h\) by \(\rho_h\).</p></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>For the PACF, replace the last column of \(R_h\) by \(\rho_h\).</p><div class="equation-stack">\[\alpha_Y(h)=a_{hh},\qquad R_ha_h=\rho_h,\qquad \alpha_Y(h)=\frac{\det(R_h^\star)}{\det(R_h)}.\]</div></div>
             <div class="equation-stack">\[\rho_1=-\frac{91}{194},\qquad \rho_2=\frac6{97},\qquad \rho_3=0.\]</div>
             <p>At lag one,</p>
             <div class="equation-stack">\[\alpha_Y(1)=\rho_1=-\frac{91}{194}\simeq-0.4691.\]</div>
