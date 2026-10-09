@@ -17,6 +17,8 @@
     .pacf-guide mjx-container[display="true"] svg, .pacf-matrix mjx-container svg { max-width: 100%; height: auto; }
     .pacf-guide { border-top: 3px solid #60a5fa; background: linear-gradient(135deg, rgba(96,165,250,.10), rgba(255,255,255,.015)); }
     .pacf-guide .result-box { border-color: rgba(96,165,250,.4); background: rgba(96,165,250,.09); }
+    .answer-toggle { width: 100%; text-align: left; }
+    .answer-panel { border-top: 0; padding-top: 16px; }
   </style>
 </head>
 <body data-math>
@@ -116,8 +118,7 @@
             <li>Compute the ACF and PACF up to \(h=2\).</li>
           </ol>
         </div>
-        <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="solution-1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> solution</button>
-        <div class="collapsible solution" id="solution-1" hidden>
+        <div class="collapsible solution" id="solution-1">
           <div class="solution-givens">
             <h3>Given information &amp; notation</h3>
             <p>For the weak white noise,</p>
@@ -125,7 +126,9 @@
             \[\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-h})=0\quad(h\ne0).\]</div>
             <p>The lag operator is \(LX_t=X_{t-1}\). For the moment calculations from the MA\((\infty)\) representation, write \(\phi=0.75\).</p>
           </div>
-          <section class="solution-step" id="step-1">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="step-1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
+            <section class="solution-step answer-panel" id="step-1" hidden>
             <h3><span>Question 1</span> Autoregressive lag polynomial</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the polynomial multiplying \(X_t\).</p><div class="equation-stack">\[\Phi(L)X_t=\varepsilon_t,\qquad LX_t=X_{t-1}.\]</div></div>
             <p>Use \(L\) to move the lagged term to the left:</p>
@@ -133,7 +136,10 @@
             \[(1-0.75L)X_t=\varepsilon_t.\]</div>
             <div class="result-box">\[\boxed{\Phi(L)=1-0.75L}\]</div>
           </section>
-          <section class="solution-step" id="step-2">
+          </div>
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="step-2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
+            <section class="solution-step answer-panel" id="step-2" hidden>
             <h3><span>Question 2</span> Characteristic equations &amp; roots</h3>
             <h4>Characteristic equation</h4><div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[\Phi(z)=0\]</div><p>Replace the lag operator by \(z\), then solve for the characteristic root \(z_1\).</p></div>
             <p>Set the lag polynomial equal to zero:</p>
@@ -147,7 +153,10 @@
             \[r-0.75=0\quad\Longrightarrow\quad r_1=0.75.\]</div>
             <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad r_1=\frac1{z_1},\qquad |r_1|<1.\]</div><p>The characteristic root lies outside the unit circle; the inverse root lies inside. The characteristic-root condition \(|z_1|>1\), or equivalently the inverse-root condition \(|r_1|<1\), shows that \(\Phi(L)\) is invertible.</p></div>
           </section>
-          <section class="solution-step" id="step-3">
+          </div>
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="step-3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
+            <section class="solution-step answer-panel" id="step-3" hidden>
             <h3><span>Question 3</span> Inverse polynomial &amp; MA\((\infty)\)</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><div class="equation-stack">\[\Phi(L)^{-1}=\frac{1}{\Phi(L)}\]\[X_t=\Phi(L)^{-1}\varepsilon_t\]</div><p>Expand the inverse in powers of \(L\), then express \(X_t\) using current and past innovations.</p></div>
             <p>Since \(|0.75|<1\), expand the inverse using the geometric series:</p>
@@ -163,8 +172,11 @@
             <div class="result-box">\[\boxed{X_t=\sum_{j=0}^{\infty}0.75^j\varepsilon_{t-j}}\]</div>
             <div class="equation-chain"><span>\(X_t=\varepsilon_t+0.75\varepsilon_{t-1}\)</span><span>\({}+0.75^2\varepsilon_{t-2}+\cdots.\)</span></div>
           </section>
+          </div>
 
-          <section class="solution-step" id="step-4">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="step-4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button>
+            <section class="solution-step answer-panel" id="step-4" hidden>
             <h3><span>Question 4</span> ACF &amp; PACF up to \(h=2\)</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the ACF at lags \(0,1,2\): compute the variance and autocovariances, then divide.</p><div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}.\]</div></div>
             <p>Here \(\phi=0.75\). The MA representation has zero mean because the innovations have zero mean. Therefore the mean product in the autocovariance vanishes:</p>
@@ -246,6 +258,7 @@
               <p><strong>AR(1) → PACF cuts off after lag 1.</strong> The result \(\alpha_X(2)=0\) agrees with this property: once \(X_{t-1}\) is controlled for, older lags add no direct linear dependence. Thus \(\alpha_X(h)=0\) for \(h>1\), while the ACF \(\rho_X(h)=0.75^h\) tails off.</p>
             <div class="result-box"><table class="results-table"><caption>ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">\(\rho_X(h)\)</th><td>1</td><td>0.75</td><td>0.5625</td></tr><tr><th scope="row">\(\alpha_X(h)\)</th><td>—</td><td>0.75</td><td>0</td></tr></tbody></table></div>
           </section>
+          </div>
         </div>
       </section>
 
@@ -262,9 +275,10 @@
             <li>Compute the ACF and the PACF up to \(h=2\).</li>
           </ol>
         </div>
-        <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="solution-2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> solution</button>
-        <div class="collapsible solution" id="solution-2" hidden>
-          <section class="solution-step" id="exercise-2-q1">
+        <div class="collapsible solution" id="solution-2">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
+            <section class="solution-step answer-panel" id="exercise-2-q1" hidden>
             <h3><span>Question 1</span> Moving average lag polynomial</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the polynomial acting on the innovations, keeping the minus sign in the given model.</p><div class="equation-stack">\[U_t=\Theta(L)\varepsilon_t,\qquad L\varepsilon_t=\varepsilon_{t-1}.\]</div></div>
             <p>Replace the lagged innovation by \(L\varepsilon_t\), then factor out \(\varepsilon_t\):</p>
@@ -272,7 +286,10 @@
             \[=(1-0.5L)\varepsilon_t.\]</div>
             <div class="result-box">\[\Theta(L)=1-0.5L.\]</div>
           </section>
-          <section class="solution-step" id="exercise-2-q2">
+          </div>
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
+            <section class="solution-step answer-panel" id="exercise-2-q2" hidden>
             <h3><span>Question 2</span> Inverse characteristic equation</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the inverse characteristic equation and its root \(r_1\).</p><div class="equation-stack">\[r\Theta(r^{-1})=0.\]</div><p>Check whether this inverse root lies inside the unit circle: \(|r_1|&lt;1\) is the invertibility condition here.</p></div>
             <p>Substitute \(r^{-1}\) for \(L\), then multiply by \(r\):</p>
@@ -281,7 +298,10 @@
             \[r-0.5=0.\]</div>
             <div class="result-box">\[r_1=0.5,\qquad |r_1|<1.\]<p>The inverse root lies inside the unit circle, so this MA lag polynomial is invertible.</p></div>
           </section>
-          <section class="solution-step" id="exercise-2-q3">
+          </div>
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
+            <section class="solution-step answer-panel" id="exercise-2-q3" hidden>
             <h3><span>Question 3</span> AR\((\infty)\) representation</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Express \(U_t\) using its own past values and the current innovation.</p><div class="equation-stack">\[\varepsilon_t=\Theta(L)^{-1}U_t,\]
 \[\frac1{1-x}=\sum_{j=0}^{\infty}x^j\quad(|x|<1).\]</div></div>
@@ -297,7 +317,10 @@
             <div class="result-box">\[U_t=-\sum_{j=1}^{\infty}0.5^jU_{t-j}+\varepsilon_t.\]</div>
             <p>The minus sign in this AR representation comes from moving the positive sum to the other side of the equation.</p>
           </section>
-          <section class="solution-step" id="exercise-2-q4">
+          </div>
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button>
+            <section class="solution-step answer-panel" id="exercise-2-q4" hidden>
             <h3><span>Question 4</span> Autocovariances, ACF &amp; PACF</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the ACF at lags \(0,1,2\) by computing variance and autocovariances.</p><div class="equation-stack">\[\gamma_U(h)=\operatorname{Cov}(U_t,U_{t-h}),\]
 \[\rho_U(h)=\frac{\gamma_U(h)}{\gamma_U(0)}.\]</div></div>
@@ -359,6 +382,7 @@
               <p><strong>MA(1) → ACF cuts off after lag 1.</strong> Although \(\rho_U(2)=0\), \(\alpha_U(2)\ne0\): after controlling for \(U_{t-1}\), lag 2 can still have partial linear dependence. Thus \(\rho_U(h)=0\) for \(h>1\), while the PACF tails off.</p>
             <div class="result-box"><table class="results-table"><caption>MA(1) ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">\(\rho_U(h)\)</th><td>1</td><td>−0.4</td><td>0</td></tr><tr><th scope="row">\(\alpha_U(h)\)</th><td>—</td><td>−0.4</td><td>\(-0.19\)</td></tr></tbody></table><p class="table-note">The lag-2 PACF is rounded to two decimal places.</p></div>
           </section>
+          </div>
         </div>
       </section>
     </main>

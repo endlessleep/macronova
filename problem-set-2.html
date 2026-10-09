@@ -14,6 +14,8 @@
   <script src="assets/app.js?v=725a7f169a2f" defer></script>
   <style>
     .solution mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+    .answer-toggle { width: 100%; text-align: left; }
+    .answer-panel { border-top: 0; padding-top: 16px; }
   </style>
 </head>
 <body data-math>
@@ -66,15 +68,16 @@
             <li>Compute the PACF up to \(h=3\).</li>
           </ol>
         </div>
-        <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="solution-1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> solution</button>
-        <div class="collapsible solution" id="solution-1" hidden>
+        <div class="collapsible solution" id="solution-1">
           <div class="solution-givens">
             <h3>Given information &amp; notation</h3>
             <div class="equation-stack">\[E(\varepsilon_t)=0,\qquad \operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2,\qquad \operatorname{Cov}(\varepsilon_t,\varepsilon_{t-h})=0\ (h\ne0).\]</div>
             <p>Write \(\widetilde X_t=X_t-\mu_X\). The lag operator satisfies \(LX_t=X_{t-1}\).</p>
           </div>
 
-          <section class="solution-step">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
+            <section class="solution-step answer-panel" id="exercise-1-q1" hidden>
             <h3><span>Question 1</span> Mean and demeaned process</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Under stationarity, the mean is the same at every date. Then centre the process around that mean.</p><div class="equation-stack">\[\mu_X=E(X_t),\qquad \widetilde X_t=X_t-\mu_X.\]</div></div>
             <div class="equation-stack">\[\mu_X=\frac16-\frac16\mu_X+\frac16\mu_X+E(\varepsilon_t)=\frac16.\]</div>
@@ -88,8 +91,11 @@
             <p>The constant terms cancel: \(-\frac1{36}+\frac1{36}=0\). Therefore:</p>
             <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde X_t=-\frac16\widetilde X_{t-1}+\frac16\widetilde X_{t-2}+\varepsilon_t.}\]</div></div>
           </section>
+          </div>
 
-          <section class="solution-step">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
+            <section class="solution-step answer-panel" id="exercise-1-q2" hidden>
             <h3><span>Question 2</span> Stationarity and MA\((\infty)\)</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the roots of the AR polynomial. Characteristic roots outside the unit circle give a stationary causal representation.</p><div class="equation-stack">\[\Phi(L)\widetilde X_t=\varepsilon_t,\qquad \Phi(z)=0,\qquad |z_i|>1.\]</div></div>
             <p>Using \(L\), the demeaned process becomes</p>
@@ -110,8 +116,11 @@
             <p>Apply the inverse polynomial to \(\varepsilon_t\):</p>
             <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde X_t=\sum_{j=0}^{\infty}\left[\frac25\left(\frac13\right)^j+\frac35\left(-\frac12\right)^j\right]\varepsilon_{t-j}.}\]</div></div>
           </section>
+          </div>
 
-          <section class="solution-step">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
+            <section class="solution-step answer-panel" id="exercise-1-q3" hidden>
             <h3><span>Question 3</span> ACF up to lag 3</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Use the AR(2) recursion with \(\phi_1=-\frac16\), \(\phi_2=\frac16\), and \(\rho_X(0)=1\).</p><div class="equation-stack">\[\rho_X(h)=\phi_1\rho_X(h-1)+\phi_2\rho_X(h-2).\]</div></div>
             <p>Multiply the demeaned AR(2) equation by \(\widetilde X_{t-h}\) and take expectations. For \(h\geq1\), \(E(\varepsilon_t\widetilde X_{t-h})=0\), so</p>
@@ -125,8 +134,11 @@
             <div class="equation-stack">\[\rho_X(2)=-\frac16\left(-\frac15\right)+\frac16(1)=\frac1{30}+\frac5{30}=\frac15,\]\[\rho_X(3)=-\frac16\left(\frac15\right)+\frac16\left(-\frac15\right)=-\frac1{15}.\]</div>
             <div class="result-box"><table class="results-table"><caption>AR(2) ACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">\(\rho_X(h)\)</th><td>\(1\)</td><td>\(-\frac15\)</td><td>\(\frac15\)</td><td>\(-\frac1{15}\)</td></tr></tbody></table></div>
           </section>
+          </div>
 
-          <section class="solution-step">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button>
+            <section class="solution-step answer-panel" id="exercise-1-q4" hidden>
             <h3><span>Question 4</span> PACF up to lag 3</h3>
             <h4>\(h=1\)</h4>
             <div class="equation-stack">\[R_1a_1=\rho_1.\]</div>
@@ -160,6 +172,7 @@
               <p><strong>MA(2) → ACF cuts off after lag 2.</strong><br>ACF cuts off: \(\rho_Y(h)=0\) for \(h>2\).<br>PACF tails off: \(\alpha_Y(h)\) can remain nonzero for \(h>2\).</p>
             </div>
           </section>
+          </div>
         </div>
       </section>
 
@@ -176,15 +189,16 @@
             <li>Compute the PACF up to \(h=3\).</li>
           </ol>
         </div>
-        <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="solution-2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> solution</button>
-        <div class="collapsible solution" id="solution-2" hidden>
+        <div class="collapsible solution" id="solution-2">
           <div class="solution-givens">
             <h3>Given information &amp; notation</h3>
             <div class="equation-stack">\[E(\varepsilon_t)=0,\qquad \operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2,\qquad \operatorname{Cov}(\varepsilon_t,\varepsilon_{t-h})=0\ (h\ne0).\]</div>
             <p>Write \(\widetilde Y_t=Y_t-\mu_Y\).</p>
           </div>
 
-          <section class="solution-step">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
+            <section class="solution-step answer-panel" id="exercise-2-q1" hidden>
             <h3><span>Question 1</span> Mean and demeaned process</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Use the zero mean of the innovations, then centre the process around its mean.</p><div class="equation-stack">\[\mu_Y=E(Y_t),\qquad \widetilde Y_t=Y_t-\mu_Y.\]</div></div>
             <div class="equation-stack">\[\mu_Y=E(Y_t)=1+12E(\varepsilon_t)-7E(\varepsilon_{t-1})+E(\varepsilon_{t-2})=1.\]</div>
@@ -192,8 +206,11 @@
             <p>For the lag-polynomial calculation, divide the demeaned process by 12:</p>
             <div class="equation-stack">\[\frac1{12}\widetilde Y_t=\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}.\]</div>
           </section>
+          </div>
 
-          <section class="solution-step">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
+            <section class="solution-step answer-panel" id="exercise-2-q2" hidden>
             <h3><span>Question 2</span> Invertibility and AR\((\infty)\)</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the roots of the MA polynomial. Characteristic roots outside the unit circle give an invertible representation.</p><div class="equation-stack">\[\frac1{12}\widetilde Y_t=\Theta(L)\varepsilon_t,\qquad \Theta(z)=0,\qquad |z_i|>1.\]</div></div>
             <div class="equation-stack">\[\frac1{12}\widetilde Y_t=\Theta(L)\varepsilon_t,\qquad \Theta(L)=1-\frac7{12}L+\frac1{12}L^2.\]</div>
@@ -205,8 +222,11 @@
             <div class="equation-stack">\[\varepsilon_t=\frac1{12}\widetilde Y_t+\frac1{12}\sum_{j=1}^{\infty}\left[4\left(\frac13\right)^j-3\left(\frac14\right)^j\right]\widetilde Y_{t-j}.\]</div>
             <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde Y_t=12\varepsilon_t-\sum_{j=1}^{\infty}\left[4\left(\frac13\right)^j-3\left(\frac14\right)^j\right]\widetilde Y_{t-j}.}\]</div></div>
           </section>
+          </div>
 
-          <section class="solution-step">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
+            <section class="solution-step answer-panel" id="exercise-2-q3" hidden>
             <h3><span>Question 3</span> ACF up to lag 3</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Compute \(\gamma_Y(h)=E(\widetilde Y_t\widetilde Y_{t-h})\), then divide by \(\gamma_Y(0)\).</p><div class="equation-stack">\[\rho_Y(h)=\frac{\gamma_Y(h)}{\gamma_Y(0)}.\]</div></div>
             <p>At lag zero, all cross-date products vanish:</p>
@@ -218,8 +238,11 @@
             <div class="result-box"><table class="results-table"><caption>MA(2) ACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">\(\rho_Y(h)\)</th><td>\(1\)</td><td>\(-\frac{91}{194}\)</td><td>\(\frac6{97}\)</td><td>\(0\)</td></tr></tbody></table><p class="table-note">\(-\frac{91}{194}\simeq-0.4691\) and \(\frac6{97}\simeq0.0619\).</p></div>
             <p>The ACF of this MA(2) cuts off after lag 2: \(\rho_Y(h)=0\) for \(h>2\).</p>
           </section>
+          </div>
 
-          <section class="solution-step">
+          <div class="answer-item">
+            <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button>
+            <section class="solution-step answer-panel" id="exercise-2-q4" hidden>
             <h3><span>Question 4</span> PACF up to lag 3</h3>
             <h4>\(h=1\)</h4>
             <div class="equation-stack">\[R_1a_1=\rho_1.\]</div>
@@ -264,6 +287,7 @@
               <p><strong>MA(2) → ACF cuts off after lag 2.</strong><br>ACF cuts off: \(\rho_Y(h)=0\) for \(h>2\).<br>PACF tails off: \(\alpha_Y(h)\) can remain nonzero for \(h>2\).</p>
             </div>
           </section>
+          </div>
         </div>
       </section>
     </main>
