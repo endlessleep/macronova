@@ -49,7 +49,7 @@
     </header>
     <main class="main-content" id="main-content" tabindex="-1">
       <div class="page-title-block">
-        <div class="page-label">Macroeconometrics · Exercises · 2026/27</div>
+        <div class="page-label">Macroeconometrics · Exercises</div>
         <h1>PROBLEM SET 2</h1>
       </div>
 
@@ -79,8 +79,13 @@
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Under stationarity, the mean is the same at every date. Then centre the process around that mean.</p><div class="equation-stack">\[\mu_X=E(X_t),\qquad \widetilde X_t=X_t-\mu_X.\]</div></div>
             <div class="equation-stack">\[\mu_X=\frac16-\frac16\mu_X+\frac16\mu_X+E(\varepsilon_t)=\frac16.\]</div>
             <div class="result-box"><div class="equation-stack">\[\boxed{\mu_X=\frac16.}\]</div></div>
-            <p>Subtract \(\mu_X\) from the model. Replacing \(X_{t-1}\) and \(X_{t-2}\) by their demeaned values makes the constants cancel:</p>
-            <div class="equation-stack">\[\widetilde X_t=-\frac16\widetilde X_{t-1}+\frac16\widetilde X_{t-2}+\varepsilon_t.\]</div>
+            <h4>Demeaned process</h4>
+            <p>We know that \(\mu_X=\frac16\). Subtract \(\frac16\) directly from both sides of the model:</p>
+            <div class="equation-stack">\[X_t-\frac16=-\frac16X_{t-1}+\frac16X_{t-2}+\varepsilon_t.\]</div>
+            <p>Since \(\widetilde X_t=X_t-\frac16\), substitute</p>
+            <div class="equation-stack">\[X_{t-1}=\widetilde X_{t-1}+\frac16,\qquad X_{t-2}=\widetilde X_{t-2}+\frac16,\]</div>
+            <div class="equation-stack">\[\widetilde X_t=-\frac16\left(\widetilde X_{t-1}+\frac16\right)+\frac16\left(\widetilde X_{t-2}+\frac16\right)+\varepsilon_t.\]</div>
+            <p>The constant terms cancel: \(-\frac1{36}+\frac1{36}=0\). Therefore:</p>
             <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde X_t=-\frac16\widetilde X_{t-1}+\frac16\widetilde X_{t-2}+\varepsilon_t.}\]</div></div>
           </section>
 
@@ -89,11 +94,18 @@
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the roots of the AR polynomial. Characteristic roots outside the unit circle give a stationary causal representation.</p><div class="equation-stack">\[\Phi(L)\widetilde X_t=\varepsilon_t,\qquad \Phi(z)=0,\qquad |z_i|>1.\]</div></div>
             <p>Using \(L\), the demeaned process becomes</p>
             <div class="equation-stack">\[\left(1+\frac16L-\frac16L^2\right)\widetilde X_t=\varepsilon_t,\qquad \Phi(L)=1+\frac16L-\frac16L^2.\]</div>
-            <p>The 2026/27 characteristic equation is</p>
+            <p>The characteristic equation is</p>
             <div class="equation-stack">\[\Phi(z)=1+\frac16z-\frac16z^2=0,\qquad z_1=3,\quad z_2=-2.\]</div>
             <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad |z_2|>1.\]</div><p>Both characteristic roots lie outside the unit circle, so the AR(2) is stationary and causal. Equivalently, its inverse roots \(r_1=\frac13\) and \(r_2=-\frac12\) lie inside the unit circle.</p></div>
-            <p>Factor the polynomial and use the given partial-fraction decomposition:</p>
-            <div class="equation-stack">\[\Phi(L)=\left(1-\frac13L\right)\left(1+\frac12L\right),\]\[\Phi(L)^{-1}=\frac25\left(1-\frac13L\right)^{-1}+\frac35\left(1+\frac12L\right)^{-1}.\]</div>
+            <p>Factor the polynomial and find the partial-fraction coefficients:</p>
+            <div class="equation-stack">\[\Phi(L)=\left(1-\frac13L\right)\left(1+\frac12L\right),\]
+            \[\frac{1}{(1-\frac13L)(1+\frac12L)}=\frac{C_1}{1-\frac13L}+\frac{C_2}{1+\frac12L}.\]</div>
+            <p>Multiply by the common denominator, then group constants and coefficients of \(L\):</p>
+            <div class="equation-stack">\[\begin{aligned}1&=C_1\left(1+\frac12L\right)+C_2\left(1-\frac13L\right)\\&=(C_1+C_2)+\left(\frac{C_1}{2}-\frac{C_2}{3}\right)L.\end{aligned}\]</div>
+            <p>The left side is \(1+0L\), so</p>
+            <div class="equation-stack">\[\begin{cases}C_1+C_2=1,\\\frac{C_1}{2}-\frac{C_2}{3}=0.\end{cases}\qquad C_2=\frac32C_1\quad\Rightarrow\quad\frac52C_1=1.\]
+            \[\boxed{C_1=\frac25,\qquad C_2=\frac35.}\]
+            \[\Phi(L)^{-1}=\frac25\left(1-\frac13L\right)^{-1}+\frac35\left(1+\frac12L\right)^{-1}.\]</div>
             <div class="equation-stack">\[\Phi(L)^{-1}=\frac25\sum_{j=0}^{\infty}\left(\frac13\right)^jL^j+\frac35\sum_{j=0}^{\infty}\left(-\frac12\right)^jL^j.\]</div>
             <p>Apply the inverse polynomial to \(\varepsilon_t\):</p>
             <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde X_t=\sum_{j=0}^{\infty}\left[\frac25\left(\frac13\right)^j+\frac35\left(-\frac12\right)^j\right]\varepsilon_{t-j}.}\]</div></div>
@@ -102,6 +114,11 @@
           <section class="solution-step">
             <h3><span>Question 3</span> ACF up to lag 3</h3>
             <div class="target-form"><span class="target-label">What to find · Formula</span><p>Use the AR(2) recursion with \(\phi_1=-\frac16\), \(\phi_2=\frac16\), and \(\rho_X(0)=1\).</p><div class="equation-stack">\[\rho_X(h)=\phi_1\rho_X(h-1)+\phi_2\rho_X(h-2).\]</div></div>
+            <p>Multiply the demeaned AR(2) equation by \(\widetilde X_{t-h}\) and take expectations. For \(h\geq1\), \(E(\varepsilon_t\widetilde X_{t-h})=0\), so</p>
+            <div class="equation-stack">\[\begin{aligned}E(\widetilde X_t\widetilde X_{t-h})&=-\frac16E(\widetilde X_{t-1}\widetilde X_{t-h})\\&\quad+\frac16E(\widetilde X_{t-2}\widetilde X_{t-h}).\end{aligned}\]
+            \[\gamma_X(h)=-\frac16\gamma_X(h-1)+\frac16\gamma_X(h-2).\]</div>
+            <p>Divide the entire equation by \(\gamma_X(0)\):</p>
+            <div class="equation-stack">\[\rho_X(h)=-\frac16\rho_X(h-1)+\frac16\rho_X(h-2),\qquad h\geq1.\]</div>
             <p>At lag one, use \(\rho_X(-1)=\rho_X(1)\):</p>
             <div class="equation-stack">\[\rho_X(1)=\phi_1+\phi_2\rho_X(1),\]\[\rho_X(1)(1-\phi_2)=\phi_1,\]\[\rho_X(1)=\frac{-1/6}{1-1/6}=-\frac15.\]</div>
             <p>Then apply the recursion at lags two and three:</p>
@@ -111,21 +128,37 @@
 
           <section class="solution-step">
             <h3><span>Question 4</span> PACF up to lag 3</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>For the PACF, replace the last column of \(R_h\) by \(\rho_h\).</p><div class="equation-stack">\[\alpha_X(h)=a_{hh},\qquad R_ha_h=\rho_h,\qquad \alpha_X(h)=\frac{\det(R_h^\star)}{\det(R_h)}.\]</div></div>
-            <p>At lag one,</p>
-            <div class="equation-stack">\[\alpha_X(1)=\rho_X(1)=-\frac15.\]</div>
-            <h4>Lag 2</h4>
-            <div class="matrix-pair"><div>\[R_2=\begin{pmatrix}1&-\frac15\\-\frac15&1\end{pmatrix}\]</div><div>\[\rho_2=\begin{pmatrix}-\frac15\\\frac15\end{pmatrix}\]</div></div>
-            <p>Since \(\alpha_X(2)=a_{22}\), replace the second column:</p>
-            <div class="equation-stack">\[R_2^\star=\begin{pmatrix}1&-\frac15\\-\frac15&\frac15\end{pmatrix}.\]</div>
-            <div class="equation-stack">\[\alpha_X(2)=\frac{\det(R_2^\star)}{\det(R_2)}=\frac{\frac15-\left(\frac15\right)^2}{1-\left(\frac15\right)^2}=\frac{4/25}{24/25}=\frac16.\]</div>
-            <h4>Lag 3</h4>
-            <div class="matrix-pair"><div>\[R_3=\begin{pmatrix}1&-\frac15&\frac15\\-\frac15&1&-\frac15\\\frac15&-\frac15&1\end{pmatrix}\]</div><div>\[\rho_3=\begin{pmatrix}-\frac15\\\frac15\\-\frac1{15}\end{pmatrix}\]</div></div>
-            <p>Because \(\alpha_X(3)=a_{33}\), replace the third column:</p>
-            <div class="equation-stack">\[R_3^\star=\begin{pmatrix}1&-\frac15&-\frac15\\-\frac15&1&\frac15\\\frac15&-\frac15&-\frac1{15}\end{pmatrix}.\]</div>
-            <div class="equation-stack">\[\det(R_3^\star)=0,\qquad \det(R_3)=\frac{112}{125},\]\[\alpha_X(3)=\frac{\det(R_3^\star)}{\det(R_3)}=0.\]</div>
-            <p>This is consistent with an AR(2): its PACF cuts off after lag 2.</p>
+            <h4>\(h=1\)</h4>
+            <div class="equation-stack">\[R_1a_1=\rho_1.\]</div>
+            <div class="matrix-pair"><div>\[a_1=\begin{pmatrix}a_{11}\end{pmatrix}\]</div><div>\[\rho_1=\begin{pmatrix}\rho_X(1)\end{pmatrix}.\]</div></div>
+            <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(1)=\alpha_X(1)=a_{11}\). The numerical system is</p>
+            <div class="equation-stack">\[\begin{pmatrix}1\end{pmatrix}\begin{pmatrix}a_{11}\end{pmatrix}=\begin{pmatrix}-\frac15\end{pmatrix}.\]</div>
+            <p>Use Cramer’s rule for \(a_{11}\): replace the <strong>first (and last) column</strong> of \(R_1\) by \(\rho_1\) to form \(R_1^{(1)}\).</p>
+            <div class="equation-stack">\[a_{11}=\frac{\det(R_1^{(1)})}{\det(R_1)}.\]</div>
+            <div class="matrix-pair"><div>\[R_1=\begin{pmatrix}1\end{pmatrix}\]</div><div>\[R_1^{(1)}=\begin{pmatrix}-\frac15\end{pmatrix}.\]</div></div>
+            <div class="equation-stack">\[\det(R_1)=1.\]</div>
+            <div class="equation-stack">\[\det(R_1^{(1)})=-\frac15.\]</div>
+            <div class="equation-stack">\[\boxed{\operatorname{PACF}(1)=\alpha_X(1)=a_{11}=\frac{-1/5}{1}=-\frac15.}\]</div>
+            <h4>\(h=2\)</h4>
+            <div class="equation-stack">\[R_2a_2=\rho_2.\]</div>
+            <div class="matrix-pair"><div>\[a_2=\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}\]</div><div>\[\rho_2=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\end{pmatrix}.\]</div></div>
+            <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(2)=\alpha_X(2)=a_{22}\). The numerical system is</p>
+            <div class="equation-stack">\[\begin{pmatrix}1&-\frac15\\-\frac15&1\end{pmatrix}\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}=\begin{pmatrix}-\frac15\\\frac15\end{pmatrix}.\]</div>
+            <p>Use Cramer’s rule for \(a_{22}\): replace the <strong>second / last column</strong> of \(R_2\) by \(\rho_2\) to form \(R_2^{(2)}\).</p>
+            <div class="equation-stack">\[a_{22}=\frac{\det(R_2^{(2)})}{\det(R_2)}.\]</div>
+            <div class="matrix-pair"><div>\[R_2=\begin{pmatrix}1&-\frac15\\-\frac15&1\end{pmatrix}\]</div><div>\[R_2^{(2)}=\begin{pmatrix}1&-\frac15\\-\frac15&\frac15\end{pmatrix}.\]</div></div>
+            <div class="equation-stack">\[\det(R_2)=1\cdot1-\left(-\frac15\right)\left(-\frac15\right)=\frac{24}{25}.\]</div>
+            <div class="equation-stack">\[\det(R_2^{(2)})=1\cdot\frac15-\left(-\frac15\right)\left(-\frac15\right)=\frac4{25}.\]</div>
+            <div class="equation-stack">\[\boxed{\operatorname{PACF}(2)=\alpha_X(2)=a_{22}=\frac{4/25}{24/25}=\frac16.}\]</div>
+            <h4>\(h>2\)</h4>
+            <div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{PACF}(h)=\alpha_X(h)=0,\qquad h>2.}\]</div><p><strong>AR(2) → PACF cuts off after lag 2.</strong></p></div>
+            <p>An AR(2) process depends directly only on its first two lags. Once \(X_{t-1}\) and \(X_{t-2}\) are controlled for, older lags provide no additional direct linear dependence. Therefore the PACF cuts off after lag 2; in particular, \(\alpha_X(3)=0\).</p>
             <div class="result-box"><table class="results-table"><caption>AR(2) ACF and PACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">ACF \(\rho_X(h)\)</th><td>\(1\)</td><td>\(-\frac15\)</td><td>\(\frac15\)</td><td>\(-\frac1{15}\)</td></tr><tr><th scope="row">PACF \(\alpha_X(h)\)</th><td>—</td><td>\(-\frac15\)</td><td>\(\frac16\)</td><td>\(0\)</td></tr></tbody></table></div>
+            <div class="result-box">
+              <h4>AR(2) and MA(2): reciprocal cutoffs</h4>
+              <p><strong>AR(2) → PACF cuts off after lag 2.</strong><br>ACF tails off: \(\rho_X(h)\) can remain nonzero for \(h>2\).<br>PACF cuts off: \(\alpha_X(h)=0\) for \(h>2\).</p>
+              <p><strong>MA(2) → ACF cuts off after lag 2.</strong><br>ACF cuts off: \(\rho_Y(h)=0\) for \(h>2\).<br>PACF tails off: \(\alpha_Y(h)\) can remain nonzero for \(h>2\).</p>
+            </div>
           </section>
         </div>
       </section>
@@ -188,20 +221,48 @@
 
           <section class="solution-step">
             <h3><span>Question 4</span> PACF up to lag 3</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>For the PACF, replace the last column of \(R_h\) by \(\rho_h\).</p><div class="equation-stack">\[\alpha_Y(h)=a_{hh},\qquad R_ha_h=\rho_h,\qquad \alpha_Y(h)=\frac{\det(R_h^\star)}{\det(R_h)}.\]</div></div>
-            <div class="equation-stack">\[\rho_1=-\frac{91}{194},\qquad \rho_2=\frac6{97},\qquad \rho_3=0.\]</div>
-            <p>At lag one,</p>
-            <div class="equation-stack">\[\alpha_Y(1)=\rho_1=-\frac{91}{194}\simeq-0.4691.\]</div>
-            <h4>Lag 2</h4>
-            <div class="matrix-pair"><div>\[R_2=\begin{pmatrix}1&-\frac{91}{194}\\-\frac{91}{194}&1\end{pmatrix}\]</div><div>\[R_2^\star=\begin{pmatrix}1&-\frac{91}{194}\\-\frac{91}{194}&\frac6{97}\end{pmatrix}\]</div></div>
-            <div class="equation-stack">\[\alpha_Y(2)=\frac{\rho_2-\rho_1^2}{1-\rho_1^2}=-\frac{5953}{29355}\simeq-0.2028.\]</div>
-            <h4>Lag 3</h4>
-            <div class="matrix-pair"><div>\[R_3=\begin{pmatrix}1&-\frac{91}{194}&\frac6{97}\\-\frac{91}{194}&1&-\frac{91}{194}\\\frac6{97}&-\frac{91}{194}&1\end{pmatrix}\]</div><div>\[\rho_3=\begin{pmatrix}-\frac{91}{194}\\\frac6{97}\\0\end{pmatrix}\]</div></div>
-            <p>Because \(\alpha_Y(3)=a_{33}\), replace the third column:</p>
-            <div class="equation-stack">\[R_3^\star=\begin{pmatrix}1&-\frac{91}{194}&-\frac{91}{194}\\-\frac{91}{194}&1&\frac6{97}\\\frac6{97}&-\frac{91}{194}&0\end{pmatrix}.\]</div>
-            <div class="equation-stack">\[\det(R_3^\star)=-\frac{342979}{7301384},\qquad\det(R_3)=\frac{1064791}{1825346},\]\[\alpha_Y(3)=\frac{\det(R_3^\star)}{\det(R_3)}=-\frac{3769}{46804}\simeq-0.0805.\]</div>
+            <h4>\(h=1\)</h4>
+            <div class="equation-stack">\[R_1a_1=\rho_1.\]</div>
+            <div class="matrix-pair"><div>\[a_1=\begin{pmatrix}a_{11}\end{pmatrix}\]</div><div>\[\rho_1=\begin{pmatrix}\rho_Y(1)\end{pmatrix}.\]</div></div>
+            <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(1)=\alpha_Y(1)=a_{11}\). The numerical system is</p>
+            <div class="equation-stack">\[\begin{pmatrix}1\end{pmatrix}\begin{pmatrix}a_{11}\end{pmatrix}=\begin{pmatrix}-\frac{91}{194}\end{pmatrix}.\]</div>
+            <p>Use Cramer’s rule for \(a_{11}\): replace the <strong>first (and last) column</strong> of \(R_1\) by \(\rho_1\) to form \(R_1^{(1)}\).</p>
+            <div class="equation-stack">\[a_{11}=\frac{\det(R_1^{(1)})}{\det(R_1)}.\]</div>
+            <div class="matrix-pair"><div>\[R_1=\begin{pmatrix}1\end{pmatrix}\]</div><div>\[R_1^{(1)}=\begin{pmatrix}-\frac{91}{194}\end{pmatrix}.\]</div></div>
+            <div class="equation-stack">\[\det(R_1)=1.\]</div>
+            <div class="equation-stack">\[\det(R_1^{(1)})=-\frac{91}{194}.\]</div>
+            <div class="equation-stack">\[\boxed{\operatorname{PACF}(1)=\alpha_Y(1)=a_{11}=\frac{-91/194}{1}=-\frac{91}{194}\simeq-0.4691.}\]</div>
+            <h4>\(h=2\)</h4>
+            <div class="equation-stack">\[R_2a_2=\rho_2.\]</div>
+            <div class="matrix-pair"><div>\[a_2=\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}\]</div><div>\[\rho_2=\begin{pmatrix}\rho_Y(1)\\\rho_Y(2)\end{pmatrix}.\]</div></div>
+            <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(2)=\alpha_Y(2)=a_{22}\). The numerical system is</p>
+            <div class="equation-stack">\[\begin{pmatrix}1&-\frac{91}{194}\\-\frac{91}{194}&1\end{pmatrix}\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}=\begin{pmatrix}-\frac{91}{194}\\\frac6{97}\end{pmatrix}.\]</div>
+            <p>Use Cramer’s rule for \(a_{22}\): replace the <strong>second / last column</strong> of \(R_2\) by \(\rho_2\) to form \(R_2^{(2)}\).</p>
+            <div class="equation-stack">\[a_{22}=\frac{\det(R_2^{(2)})}{\det(R_2)}.\]</div>
+            <div class="matrix-pair"><div>\[R_2=\begin{pmatrix}1&-\frac{91}{194}\\-\frac{91}{194}&1\end{pmatrix}\]</div><div>\[R_2^{(2)}=\begin{pmatrix}1&-\frac{91}{194}\\-\frac{91}{194}&\frac6{97}\end{pmatrix}.\]</div></div>
+            <div class="equation-stack">\[\det(R_2)=1\cdot1-\left(-\frac{91}{194}\right)^2=\frac{29355}{37636}.\]</div>
+            <div class="equation-stack">\[\det(R_2^{(2)})=1\cdot\frac6{97}-\left(-\frac{91}{194}\right)^2=-\frac{5953}{37636}.\]</div>
+            <div class="equation-stack">\[\boxed{\operatorname{PACF}(2)=\alpha_Y(2)=a_{22}=\frac{-5953/37636}{29355/37636}=-\frac{5953}{29355}\simeq-0.2028.}\]</div>
+            <h4>\(h=3\)</h4>
+            <p>For an MA(2), \(\rho_Y(h)=0\) for \(h>2\), so \(\rho_Y(3)=0\). <strong>But PACF(3) is not necessarily zero.</strong></p>
+            <p>PACF(3) is \(a_{33}\), obtained after controlling for lags 1 and 2. Even though \(\rho_Y(3)=0\), the partial autocorrelation can be nonzero because \(\rho_Y(1)\) and \(\rho_Y(2)\) enter the Yule–Walker system.</p>
+            <div class="equation-stack">\[R_3a_3=\rho_3.\]</div>
+            <div class="matrix-pair"><div>\[a_3=\begin{pmatrix}a_{31}\\a_{32}\\a_{33}\end{pmatrix}\]</div><div>\[\rho_3=\begin{pmatrix}\rho_Y(1)\\\rho_Y(2)\\0\end{pmatrix}.\]</div></div>
+            <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(3)=\alpha_Y(3)=a_{33}\). The numerical system is</p>
+            <div class="equation-stack">\[\begin{pmatrix}1&-\frac{91}{194}&\frac6{97}\\-\frac{91}{194}&1&-\frac{91}{194}\\\frac6{97}&-\frac{91}{194}&1\end{pmatrix}\begin{pmatrix}a_{31}\\a_{32}\\a_{33}\end{pmatrix}=\begin{pmatrix}-\frac{91}{194}\\\frac6{97}\\0\end{pmatrix}.\]</div>
+            <p>Use Cramer’s rule for \(a_{33}\): replace the <strong>third / last column</strong> of \(R_3\) by \(\rho_3\) to form \(R_3^{(3)}\).</p>
+            <div class="equation-stack">\[a_{33}=\frac{\det(R_3^{(3)})}{\det(R_3)}.\]</div>
+            <div class="matrix-pair"><div>\[R_3=\begin{pmatrix}1&-\frac{91}{194}&\frac6{97}\\-\frac{91}{194}&1&-\frac{91}{194}\\\frac6{97}&-\frac{91}{194}&1\end{pmatrix}\]</div><div>\[R_3^{(3)}=\begin{pmatrix}1&-\frac{91}{194}&-\frac{91}{194}\\-\frac{91}{194}&1&\frac6{97}\\\frac6{97}&-\frac{91}{194}&0\end{pmatrix}.\]</div></div>
+            <p>Expand each determinant along the first row, with signs \(+,-,+\):</p>
+            <div class="equation-stack">\[\begin{aligned}\det(R_3)&=1\left[1\cdot1-\left(-\frac{91}{194}\right)^2\right]\\&\quad-\left(-\frac{91}{194}\right)\left[\left(-\frac{91}{194}\right)\cdot1-\left(-\frac{91}{194}\right)\frac6{97}\right]\\&\quad+\frac6{97}\left[\left(-\frac{91}{194}\right)^2-1\cdot\frac6{97}\right]\\&=\frac{1064791}{1825346}.\end{aligned}\]</div>
+            <div class="equation-stack">\[\begin{aligned}\det(R_3^{(3)})&=1\left[1\cdot0-\frac6{97}\left(-\frac{91}{194}\right)\right]\\&\quad-\left(-\frac{91}{194}\right)\left[\left(-\frac{91}{194}\right)\cdot0-\frac6{97}\cdot\frac6{97}\right]\\&\quad+\left(-\frac{91}{194}\right)\left[\left(-\frac{91}{194}\right)^2-1\cdot\frac6{97}\right]\\&=-\frac{342979}{7301384}.\end{aligned}\]</div>
+            <div class="equation-stack">\[\boxed{\operatorname{PACF}(3)=\alpha_Y(3)=a_{33}=\frac{-342979/7301384}{1064791/1825346}=-\frac{3769}{46804}\simeq-0.0805.}\]</div>
             <div class="result-box"><table class="results-table"><caption>MA(2) ACF and PACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">ACF \(\rho_Y(h)\)</th><td>\(1\)</td><td>\(-0.4691\)</td><td>\(0.0619\)</td><td>\(0\)</td></tr><tr><th scope="row">PACF \(\alpha_Y(h)\)</th><td>—</td><td>\(-0.4691\)</td><td>\(-0.2028\)</td><td>\(-0.0805\)</td></tr></tbody></table></div>
-            <p>For an MA(2), the ACF cuts off after lag 2, while the PACF generally tails off.</p>
+            <div class="result-box">
+              <h4>AR(2) and MA(2): reciprocal cutoffs</h4>
+              <p><strong>AR(2) → PACF cuts off after lag 2.</strong><br>ACF tails off: \(\rho_X(h)\) can remain nonzero for \(h>2\).<br>PACF cuts off: \(\alpha_X(h)=0\) for \(h>2\).</p>
+              <p><strong>MA(2) → ACF cuts off after lag 2.</strong><br>ACF cuts off: \(\rho_Y(h)=0\) for \(h>2\).<br>PACF tails off: \(\alpha_Y(h)\) can remain nonzero for \(h>2\).</p>
+            </div>
           </section>
         </div>
       </section>

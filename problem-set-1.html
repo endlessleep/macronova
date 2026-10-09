@@ -213,11 +213,37 @@
             \[\rho_X(2)=0.75\times0.75=0.5625.\]</div>
 
 
-            <h4>PACF — apply the formula above</h4>
-            <p>The ACF values are \(\rho_X(1)=0.75\) and \(\rho_X(2)=0.5625\). At lag 1, the PACF is the lag-1 autocorrelation. At lag 2, substitute both ACF values into the formula from the blue box:</p>
-            <div class="equation-stack">\[\alpha_X(1)=\rho_X(1)=0.75,\]
-            \[\alpha_X(2)=\frac{0.5625-(0.75)^2}{1-(0.75)^2}\]
-            \[=\frac{0.5625-0.5625}{0.4375}=0.\]</div>
+            <h4>PACF — Yule–Walker system and Cramer’s rule</h4>
+              <p>The ACF values are \(\rho_X(1)=0.75\) and \(\rho_X(2)=0.5625\).</p>
+            <div class="pacf-part">
+              <h5>\(h=1\)</h5>
+              <div class="equation-stack pacf-matrix">\[R_1a_1=\rho_1.\]</div>
+              <div class="matrix-pair pacf-matrix"><div>\[a_1=\begin{pmatrix}a_{11}\end{pmatrix}\]</div><div>\[\rho_1=\begin{pmatrix}\rho_X(1)\end{pmatrix}.\]</div></div>
+              <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(1)=\alpha_X(1)=a_{11}\). Insert the ACF values into the system:</p>
+              <div class="equation-stack pacf-matrix">\[\begin{pmatrix}1\end{pmatrix}\begin{pmatrix}a_{11}\end{pmatrix}=\begin{pmatrix}0.75\end{pmatrix}.\]</div>
+              <p>Use Cramer’s rule for \(a_{11}\): replace the <strong>first (and last) column</strong> of \(R_1\) by \(\rho_1\) to form \(R_1^\star\).</p>
+              <div class="equation-stack pacf-matrix">\[a_{11}=\frac{\det(R_1^\star)}{\det(R_1)}.\]</div>
+              <div class="matrix-pair pacf-matrix"><div>\[R_1=\begin{pmatrix}1\end{pmatrix}\]</div><div>\[R_1^\star=\begin{pmatrix}0.75\end{pmatrix}.\]</div></div>
+              <div class="equation-stack pacf-matrix">\[\det(R_1)=1.\]</div>
+              <div class="equation-stack pacf-matrix">\[\det(R_1^\star)=0.75.\]</div>
+              <div class="equation-stack pacf-matrix">\[a_{11}=\frac{0.75}{1}=0.75.\]</div>
+              <div class="equation-stack pacf-matrix">\[\boxed{\operatorname{PACF}(1)=\alpha_X(1)=0.75.}\]</div>
+            </div>
+            <div class="pacf-part">
+              <h5>\(h=2\)</h5>
+              <div class="equation-stack pacf-matrix">\[R_2a_2=\rho_2.\]</div>
+              <div class="matrix-pair pacf-matrix"><div>\[a_2=\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}\]</div><div>\[\rho_2=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\end{pmatrix}.\]</div></div>
+              <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(2)=\alpha_X(2)=a_{22}\). Insert the ACF values into the system:</p>
+              <div class="equation-stack pacf-matrix">\[\begin{pmatrix}1&0.75\\0.75&1\end{pmatrix}\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}=\begin{pmatrix}0.75\\0.5625\end{pmatrix}.\]</div>
+              <p>Use Cramer’s rule for \(a_{22}\): replace the <strong>second / last column</strong> of \(R_2\) by \(\rho_2\) to form \(R_2^\star\).</p>
+              <div class="equation-stack pacf-matrix">\[a_{22}=\frac{\det(R_2^\star)}{\det(R_2)}.\]</div>
+              <div class="matrix-pair pacf-matrix"><div>\[R_2=\begin{pmatrix}1&0.75\\0.75&1\end{pmatrix}\]</div><div>\[R_2^\star=\begin{pmatrix}1&0.75\\0.75&0.5625\end{pmatrix}.\]</div></div>
+              <div class="equation-stack pacf-matrix">\[\det(R_2)=1\cdot1-0.75\cdot0.75=0.4375.\]</div>
+              <div class="equation-stack pacf-matrix">\[\det(R_2^\star)=1\cdot0.5625-0.75\cdot0.75=0.\]</div>
+              <div class="equation-stack pacf-matrix">\[a_{22}=\frac{0}{0.4375}=0.\]</div>
+              <div class="equation-stack pacf-matrix">\[\boxed{\operatorname{PACF}(2)=\alpha_X(2)=0.}\]</div>
+            </div>
+              <p><strong>AR(1) → PACF cuts off after lag 1.</strong> The result \(\alpha_X(2)=0\) agrees with this property: once \(X_{t-1}\) is controlled for, older lags add no direct linear dependence. Thus \(\alpha_X(h)=0\) for \(h>1\), while the ACF \(\rho_X(h)=0.75^h\) tails off.</p>
             <div class="result-box"><table class="results-table"><caption>ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">\(\rho_X(h)\)</th><td>1</td><td>0.75</td><td>0.5625</td></tr><tr><th scope="row">\(\alpha_X(h)\)</th><td>—</td><td>0.75</td><td>0</td></tr></tbody></table></div>
           </section>
         </div>
@@ -300,10 +326,37 @@
             \[=1.25\sigma_\varepsilon^2,\qquad \gamma_U(1)=-0.5\sigma_\varepsilon^2.\]
             \[\rho_U(1)=\frac{-0.5}{1+(-0.5)^2}\]
             \[=\frac{-0.5}{1.25}=-0.4.\]</div>
-            <h4>PACF — numerical application</h4>
-            <p>At lag 1, the PACF equals the lag-1 autocorrelation. At lag 2, use the formula from the blue box and substitute \(\rho_U(2)=0\) and \(\rho_U(1)=-0.4\):</p>
-            <div class="equation-stack">\[\alpha_U(2)=\frac{0-(-0.4)^2}{1-(-0.4)^2}\]
-            \[=-\frac{0.16}{0.84}\simeq-0.19.\]</div>
+            <h4>PACF — Yule–Walker system and Cramer’s rule</h4>
+              <p>The ACF values are \(\rho_U(1)=-0.4\) and \(\rho_U(2)=0\).</p>
+            <div class="pacf-part">
+              <h5>\(h=1\)</h5>
+              <div class="equation-stack pacf-matrix">\[R_1a_1=\rho_1.\]</div>
+              <div class="matrix-pair pacf-matrix"><div>\[a_1=\begin{pmatrix}a_{11}\end{pmatrix}\]</div><div>\[\rho_1=\begin{pmatrix}\rho_U(1)\end{pmatrix}.\]</div></div>
+              <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(1)=\alpha_U(1)=a_{11}\). Insert the ACF values into the system:</p>
+              <div class="equation-stack pacf-matrix">\[\begin{pmatrix}1\end{pmatrix}\begin{pmatrix}a_{11}\end{pmatrix}=\begin{pmatrix}-0.4\end{pmatrix}.\]</div>
+              <p>Use Cramer’s rule for \(a_{11}\): replace the <strong>first (and last) column</strong> of \(R_1\) by \(\rho_1\) to form \(R_1^\star\).</p>
+              <div class="equation-stack pacf-matrix">\[a_{11}=\frac{\det(R_1^\star)}{\det(R_1)}.\]</div>
+              <div class="matrix-pair pacf-matrix"><div>\[R_1=\begin{pmatrix}1\end{pmatrix}\]</div><div>\[R_1^\star=\begin{pmatrix}-0.4\end{pmatrix}.\]</div></div>
+              <div class="equation-stack pacf-matrix">\[\det(R_1)=1.\]</div>
+              <div class="equation-stack pacf-matrix">\[\det(R_1^\star)=-0.4.\]</div>
+              <div class="equation-stack pacf-matrix">\[a_{11}=\frac{-0.4}{1}=-0.4.\]</div>
+              <div class="equation-stack pacf-matrix">\[\boxed{\operatorname{PACF}(1)=\alpha_U(1)=-0.4.}\]</div>
+            </div>
+            <div class="pacf-part">
+              <h5>\(h=2\)</h5>
+              <div class="equation-stack pacf-matrix">\[R_2a_2=\rho_2.\]</div>
+              <div class="matrix-pair pacf-matrix"><div>\[a_2=\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}\]</div><div>\[\rho_2=\begin{pmatrix}\rho_U(1)\\\rho_U(2)\end{pmatrix}.\]</div></div>
+              <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(2)=\alpha_U(2)=a_{22}\). Insert the ACF values into the system:</p>
+              <div class="equation-stack pacf-matrix">\[\begin{pmatrix}1&-0.4\\-0.4&1\end{pmatrix}\begin{pmatrix}a_{21}\\a_{22}\end{pmatrix}=\begin{pmatrix}-0.4\\0\end{pmatrix}.\]</div>
+              <p>Use Cramer’s rule for \(a_{22}\): replace the <strong>second / last column</strong> of \(R_2\) by \(\rho_2\) to form \(R_2^\star\).</p>
+              <div class="equation-stack pacf-matrix">\[a_{22}=\frac{\det(R_2^\star)}{\det(R_2)}.\]</div>
+              <div class="matrix-pair pacf-matrix"><div>\[R_2=\begin{pmatrix}1&-0.4\\-0.4&1\end{pmatrix}\]</div><div>\[R_2^\star=\begin{pmatrix}1&-0.4\\-0.4&0\end{pmatrix}.\]</div></div>
+              <div class="equation-stack pacf-matrix">\[\det(R_2)=1\cdot1-(-0.4)(-0.4)=0.84.\]</div>
+              <div class="equation-stack pacf-matrix">\[\det(R_2^\star)=1\cdot0-(-0.4)(-0.4)=-0.16.\]</div>
+              <div class="equation-stack pacf-matrix">\[a_{22}=\frac{-0.16}{0.84}=-\frac4{21}.\]</div>
+              <div class="equation-stack pacf-matrix">\[\boxed{\operatorname{PACF}(2)=\alpha_U(2)=-\frac4{21}\simeq-0.19.}\]</div>
+            </div>
+              <p><strong>MA(1) → ACF cuts off after lag 1.</strong> Although \(\rho_U(2)=0\), \(\alpha_U(2)\ne0\): after controlling for \(U_{t-1}\), lag 2 can still have partial linear dependence. Thus \(\rho_U(h)=0\) for \(h>1\), while the PACF tails off.</p>
             <div class="result-box"><table class="results-table"><caption>MA(1) ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">\(\rho_U(h)\)</th><td>1</td><td>−0.4</td><td>0</td></tr><tr><th scope="row">\(\alpha_U(h)\)</th><td>—</td><td>−0.4</td><td>\(-0.19\)</td></tr></tbody></table><p class="table-note">The lag-2 PACF is rounded to two decimal places.</p></div>
           </section>
         </div>
