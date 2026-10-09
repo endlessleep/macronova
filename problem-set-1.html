@@ -151,7 +151,7 @@
             <div class="equation-stack">\[r\Phi(r^{-1})=0\]
             \[r(1-0.75r^{-1})=0\]
             \[r-0.75=0\quad\Longrightarrow\quad r_1=0.75.\]</div>
-            <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad r_1=\frac1{z_1},\qquad |r_1|<1.\]</div><p>The characteristic root lies outside the unit circle; the inverse root lies inside. The characteristic-root condition \(|z_1|>1\), or equivalently the inverse-root condition \(|r_1|<1\), shows that \(\Phi(L)\) is invertible.</p></div>
+            <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad r_1=\frac1{z_1},\qquad |r_1|<1.\]</div><p>The characteristic root lies outside the unit circle; the inverse root lies inside. The characteristic-root condition \(|z_1|>1\), or equivalently the inverse-root condition \(|r_1|<1\), gives a stationary causal AR(1) representation: we can expand \(\Phi(L)^{-1}\) to express \(X_t\) using current and past innovations.</p></div>
           </section>
           </div>
           <div class="answer-item">
@@ -218,8 +218,9 @@
             <p>This second calculation obtains the autocovariance recursively from the AR equation. Multiply both sides by \(X_{t-h}\) and take expectations:</p>
             <div class="equation-chain"><span>\(E(X_tX_{t-h})=0.75E(X_{t-1}X_{t-h})\)</span><span>\({}+E(\varepsilon_tX_{t-h}).\)</span></div>
             <p>For \(h>0\), \(X_{t-h}\) contains only past innovations, which are uncorrelated with \(\varepsilon_t\). Hence the last term is zero:</p>
-            <div class="equation-stack">\[\gamma_X(h)=0.75\gamma_X(h-1)\]
-            \[\rho_X(h)=0.75\rho_X(h-1).\]</div>
+            <div class="equation-stack">\[\gamma_X(h)=0.75\gamma_X(h-1).\]</div>
+            <p>Divide the entire equation by \(\gamma_X(0)\):</p>
+            <div class="equation-stack">\[\rho_X(h)=0.75\rho_X(h-1),\qquad h\geq1.\]</div>
             <p>Starting from \(\rho_X(0)=1\),</p>
             <div class="equation-stack">\[\rho_X(1)=0.75,\]
             \[\rho_X(2)=0.75\times0.75=0.5625.\]</div>
@@ -255,7 +256,7 @@
               <div class="equation-stack pacf-matrix">\[a_{22}=\frac{0}{0.4375}=0.\]</div>
               <div class="equation-stack pacf-matrix">\[\boxed{\operatorname{PACF}(2)=\alpha_X(2)=0.}\]</div>
             </div>
-              <p><strong>AR(1) → PACF cuts off after lag 1.</strong> The result \(\alpha_X(2)=0\) agrees with this property: once \(X_{t-1}\) is controlled for, older lags add no direct linear dependence. Thus \(\alpha_X(h)=0\) for \(h>1\), while the ACF \(\rho_X(h)=0.75^h\) tails off.</p>
+              <p><strong>AR(1): PACF is zero for every lag greater than 1.</strong> The result \(\alpha_X(2)=0\) agrees with this property: once \(X_{t-1}\) is controlled for, older lags add no direct linear dependence. Thus \(\alpha_X(h)=0\) for \(h>1\), while the ACF \(\rho_X(h)=0.75^h\) gets closer to zero as \(h\) increases but remains nonzero at every finite lag.</p>
             <div class="result-box"><table class="results-table"><caption>ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">\(\rho_X(h)\)</th><td>1</td><td>0.75</td><td>0.5625</td></tr><tr><th scope="row">\(\alpha_X(h)\)</th><td>—</td><td>0.75</td><td>0</td></tr></tbody></table></div>
           </section>
           </div>
@@ -379,7 +380,7 @@
               <div class="equation-stack pacf-matrix">\[a_{22}=\frac{-0.16}{0.84}=-\frac4{21}.\]</div>
               <div class="equation-stack pacf-matrix">\[\boxed{\operatorname{PACF}(2)=\alpha_U(2)=-\frac4{21}\simeq-0.19.}\]</div>
             </div>
-              <p><strong>MA(1) → ACF cuts off after lag 1.</strong> Although \(\rho_U(2)=0\), \(\alpha_U(2)\ne0\): after controlling for \(U_{t-1}\), lag 2 can still have partial linear dependence. Thus \(\rho_U(h)=0\) for \(h>1\), while the PACF tails off.</p>
+              <p><strong>MA(1): ACF is zero for every lag greater than 1.</strong> Although \(\rho_U(2)=0\), \(\alpha_U(2)\ne0\): after controlling for \(U_{t-1}\), lag 2 can still have partial linear dependence. Thus \(\rho_U(h)=0\) for \(h>1\), while the PACF can remain nonzero for \(h>1\). A zero ACF does not imply a zero PACF.</p>
             <div class="result-box"><table class="results-table"><caption>MA(1) ACF and PACF up to lag 2</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th></tr></thead><tbody><tr><th scope="row">\(\rho_U(h)\)</th><td>1</td><td>−0.4</td><td>0</td></tr><tr><th scope="row">\(\alpha_U(h)\)</th><td>—</td><td>−0.4</td><td>\(-0.19\)</td></tr></tbody></table><p class="table-note">The lag-2 PACF is rounded to two decimal places.</p></div>
           </section>
           </div>
