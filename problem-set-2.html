@@ -62,6 +62,16 @@
         <p><strong>MA(2)</strong><br>ACF: \(\rho_Y(h)=0\) for every \(h>2\). Only lags 1 and 2 need to be calculated, with \(\rho_Y(0)=1\).<br>PACF: \(\alpha_Y(h)\) can still be different from zero at lags 3, 4, and beyond. Calculate each requested lag.</p>
       </section>
 
+      <section class="concept-card target-form" id="normalization-reminder" aria-labelledby="normalization-reminder-title">
+        <span class="target-label">What to find · Formula</span>
+        <div class="section-header"><h2 id="normalization-reminder-title">AR and MA: which coefficient must be 1?</h2></div>
+        <p>These forms are written for a zero-mean or demeaned process.</p>
+        <p><strong>AR(\(p\)):</strong> by convention, the coefficient in front of \(X_t\) is 1.</p>
+        <div class="equation-chain"><span>\(X_t=\phi_1X_{t-1}+\cdots\)</span><span>\({}+\phi_pX_{t-p}+\varepsilon_t.\)</span></div>
+        <p><strong>MA(\(q\)):</strong> by convention, the coefficient in front of \(\varepsilon_t\) is 1.</p>
+        <div class="equation-chain"><span>\(X_t=\varepsilon_t+\theta_1\varepsilon_{t-1}\)</span><span>\({}+\cdots+\theta_q\varepsilon_{t-q}.\)</span></div>
+      </section>
+
       <section class="concept-card violet-top exercise" id="exercise-1" aria-labelledby="exercise-1-title">
         <div class="section-header"><span class="section-label">Exercise 1</span><h2 id="exercise-1-title">An AR(2) process</h2></div>
         <div class="exercise-statement">
@@ -210,8 +220,14 @@
             <h4>Demeaned process</h4>
             <p>We know that \(\mu_Y=1\). Subtract \(1\) directly from both sides of the model and write \(\widetilde Y_t=Y_t-1\):</p>
             <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde Y_t=12\varepsilon_t-7\varepsilon_{t-1}+\varepsilon_{t-2}.}\]</div></div>
-            <p>For the lag-polynomial calculation, divide the demeaned process by 12:</p>
-            <div class="equation-stack">\[\frac1{12}\widetilde Y_t=\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}.\]</div>
+            <h4>Why divide by 12?</h4>
+            <p>By convention, an MA(\(q\)) is written with coefficient \(1\) on the current innovation \(\varepsilon_t\):</p>
+            <div class="equation-stack">\[X_t=\varepsilon_t+\theta_1\varepsilon_{t-1}+\cdots+\theta_q\varepsilon_{t-q}.\]</div>
+            <p>In the demeaned equation above, the coefficient on \(\varepsilon_t\) is \(12\), not \(1\). We therefore divide the whole equation by \(12\):</p>
+            <div class="result-box"><div class="equation-stack">\[\boxed{\frac{\widetilde Y_t}{12}=\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}.}\]</div></div>
+            <p>Hence the normalized MA polynomial is</p>
+            <div class="result-box"><div class="equation-stack">\[\boxed{B(L)=1-\frac7{12}L+\frac1{12}L^2.}\]</div></div>
+            <p>This is the same polynomial denoted by \(\Theta(L)\) in Question 2: \(B(L)=\Theta(L)\).</p>
           </section>
           </div>
 
