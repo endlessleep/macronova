@@ -55,6 +55,13 @@
         <h1>PROBLEM SET 2</h1>
       </div>
 
+      <section class="concept-card target-form" id="acf-pacf-reminder" aria-labelledby="acf-pacf-reminder-title">
+        <span class="target-label">What to find · Formula</span>
+        <div class="section-header"><h2 id="acf-pacf-reminder-title">AR(2) and MA(2): reciprocal cutoffs</h2></div>
+        <p><strong>AR(2) → PACF cuts off after lag 2.</strong><br>ACF tails off: \(\rho_X(h)\) can remain nonzero for \(h>2\).<br>PACF cuts off: \(\alpha_X(h)=0\) for \(h>2\).</p>
+        <p><strong>MA(2) → ACF cuts off after lag 2.</strong><br>ACF cuts off: \(\rho_Y(h)=0\) for \(h>2\).<br>PACF tails off: \(\alpha_Y(h)\) can remain nonzero for \(h>2\).</p>
+      </section>
+
       <section class="concept-card violet-top exercise" id="exercise-1" aria-labelledby="exercise-1-title">
         <div class="section-header"><span class="section-label">Exercise 1</span><h2 id="exercise-1-title">An AR(2) process</h2></div>
         <div class="exercise-statement">
@@ -166,11 +173,6 @@
             <div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{PACF}(h)=\alpha_X(h)=0,\qquad h>2.}\]</div><p><strong>AR(2) → PACF cuts off after lag 2.</strong></p></div>
             <p>An AR(2) process depends directly only on its first two lags. Once \(X_{t-1}\) and \(X_{t-2}\) are controlled for, older lags provide no additional direct linear dependence. Therefore the PACF cuts off after lag 2; in particular, \(\alpha_X(3)=0\).</p>
             <div class="result-box"><table class="results-table"><caption>AR(2) ACF and PACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">ACF \(\rho_X(h)\)</th><td>\(1\)</td><td>\(-\frac15\)</td><td>\(\frac15\)</td><td>\(-\frac1{15}\)</td></tr><tr><th scope="row">PACF \(\alpha_X(h)\)</th><td>—</td><td>\(-\frac15\)</td><td>\(\frac16\)</td><td>\(0\)</td></tr></tbody></table></div>
-            <div class="result-box">
-              <h4>AR(2) and MA(2): reciprocal cutoffs</h4>
-              <p><strong>AR(2) → PACF cuts off after lag 2.</strong><br>ACF tails off: \(\rho_X(h)\) can remain nonzero for \(h>2\).<br>PACF cuts off: \(\alpha_X(h)=0\) for \(h>2\).</p>
-              <p><strong>MA(2) → ACF cuts off after lag 2.</strong><br>ACF cuts off: \(\rho_Y(h)=0\) for \(h>2\).<br>PACF tails off: \(\alpha_Y(h)\) can remain nonzero for \(h>2\).</p>
-            </div>
           </section>
           </div>
         </div>
@@ -281,11 +283,6 @@
             <div class="equation-stack">\[\begin{aligned}\det(R_3^{(3)})&=1\left[1\cdot0-\frac6{97}\left(-\frac{91}{194}\right)\right]\\&\quad-\left(-\frac{91}{194}\right)\left[\left(-\frac{91}{194}\right)\cdot0-\frac6{97}\cdot\frac6{97}\right]\\&\quad+\left(-\frac{91}{194}\right)\left[\left(-\frac{91}{194}\right)^2-1\cdot\frac6{97}\right]\\&=-\frac{342979}{7301384}.\end{aligned}\]</div>
             <div class="equation-stack">\[\boxed{\operatorname{PACF}(3)=\alpha_Y(3)=a_{33}=\frac{-342979/7301384}{1064791/1825346}=-\frac{3769}{46804}\simeq-0.0805.}\]</div>
             <div class="result-box"><table class="results-table"><caption>MA(2) ACF and PACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">ACF \(\rho_Y(h)\)</th><td>\(1\)</td><td>\(-0.4691\)</td><td>\(0.0619\)</td><td>\(0\)</td></tr><tr><th scope="row">PACF \(\alpha_Y(h)\)</th><td>—</td><td>\(-0.4691\)</td><td>\(-0.2028\)</td><td>\(-0.0805\)</td></tr></tbody></table></div>
-            <div class="result-box">
-              <h4>AR(2) and MA(2): reciprocal cutoffs</h4>
-              <p><strong>AR(2) → PACF cuts off after lag 2.</strong><br>ACF tails off: \(\rho_X(h)\) can remain nonzero for \(h>2\).<br>PACF cuts off: \(\alpha_X(h)=0\) for \(h>2\).</p>
-              <p><strong>MA(2) → ACF cuts off after lag 2.</strong><br>ACF cuts off: \(\rho_Y(h)=0\) for \(h>2\).<br>PACF tails off: \(\alpha_Y(h)\) can remain nonzero for \(h>2\).</p>
-            </div>
           </section>
           </div>
         </div>
