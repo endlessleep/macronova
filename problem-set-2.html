@@ -114,14 +114,23 @@
             <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
             <section class="solution-step answer-panel" id="exercise-1-q2" hidden>
             <h3><span>Question 2</span> Stationarity and MA\((\infty)\)</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the roots of the AR polynomial. Characteristic roots outside the unit circle give a stationary causal representation.</p><div class="equation-stack">\[\Phi(L)\widetilde X_t=\varepsilon_t,\qquad \Phi(z)=0,\qquad |z_i|>1.\]</div></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Calculate the inverse roots \(r_1,r_2\), then use them in the factors \((1-r_1L)(1-r_2L)\). Inverse roots inside the unit circle make this AR(2) stationary and causal.</p><div class="equation-stack">\[\Phi(L)\widetilde X_t=\varepsilon_t,\qquad r^2\Phi(r^{-1})=0,\qquad |r_i|<1.\]</div></div>
             <p>Using \(L\), the demeaned process becomes</p>
             <div class="equation-stack">\[\left(1+\frac16L-\frac16L^2\right)\widetilde X_t=\varepsilon_t,\qquad \Phi(L)=1+\frac16L-\frac16L^2.\]</div>
-            <p>The characteristic equation is</p>
-            <div class="equation-stack">\[\Phi(z)=1+\frac16z-\frac16z^2=0,\qquad z_1=3,\quad z_2=-2.\]</div>
-            <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad |z_2|>1.\]</div><p>Both characteristic roots lie outside the unit circle, so the AR(2) is stationary and causal. Equivalently, its inverse roots \(r_1=\frac13\) and \(r_2=-\frac12\) lie inside the unit circle.</p></div>
-            <p>Factor the polynomial and find the partial-fraction coefficients:</p>
-            <div class="equation-stack">\[\Phi(L)=\left(1-\frac13L\right)\left(1+\frac12L\right),\]
+            <h4>Inverse roots</h4>
+            <p>Replace \(L\) by \(r^{-1}\), then multiply by \(r^2\) to remove the negative powers:</p>
+            <div class="equation-stack">\[r^2\Phi(r^{-1})=0\]
+            \[r^2\left(1+\frac16r^{-1}-\frac16r^{-2}\right)=0\]
+            \[r^2+\frac16r-\frac16=0\quad\Longleftrightarrow\quad6r^2+r-1=0.\]</div>
+            <p>Use the quadratic formula:</p>
+            <div class="equation-stack">\[\Delta=1^2-4(6)(-1)=25,\qquad r=\frac{-1\pm\sqrt{25}}{12}.\]
+            \[r_1=\frac{-1+5}{12}=\frac13,\qquad r_2=\frac{-1-5}{12}=-\frac12.\]</div>
+            <div class="result-box"><div class="equation-stack">\[\boxed{r_1=\frac13,\qquad r_2=-\frac12.}\]
+            \[|r_1|=\frac13<1,\qquad |r_2|=\frac12<1.\]</div><p>Both inverse roots lie inside the unit circle, so the AR(2) is stationary and causal.</p></div>
+            <h4>Factorization and partial fractions</h4>
+            <p>Use the inverse roots in \((1-r_1L)(1-r_2L)\), then find the partial-fraction coefficients:</p>
+            <div class="equation-stack">\[\Phi(L)=(1-r_1L)(1-r_2L)\]
+            \[=\left(1-\frac13L\right)\left(1+\frac12L\right),\]
             \[\frac{1}{(1-\frac13L)(1+\frac12L)}=\frac{C_1}{1-\frac13L}+\frac{C_2}{1+\frac12L}.\]</div>
             <p>Multiply by the common denominator, then group constants and coefficients of \(L\):</p>
             <div class="equation-stack">\[\begin{aligned}1&=C_1\left(1+\frac12L\right)+C_2\left(1-\frac13L\right)\\&=(C_1+C_2)+\left(\frac{C_1}{2}-\frac{C_2}{3}\right)L.\end{aligned}\]</div>
@@ -235,12 +244,22 @@
             <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
             <section class="solution-step answer-panel" id="exercise-2-q2" hidden>
             <h3><span>Question 2</span> Invertibility and AR\((\infty)\)</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Find the roots of the MA polynomial. Characteristic roots outside the unit circle give an invertible representation.</p><div class="equation-stack">\[\frac1{12}\widetilde Y_t=\Theta(L)\varepsilon_t,\qquad \Theta(z)=0,\qquad |z_i|>1.\]</div></div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Calculate the inverse roots \(r_1,r_2\), then use them in the factors \((1-r_1L)(1-r_2L)\). Inverse roots inside the unit circle make this MA(2) invertible.</p><div class="equation-stack">\[\frac1{12}\widetilde Y_t=\Theta(L)\varepsilon_t,\qquad r^2\Theta(r^{-1})=0,\qquad |r_i|<1.\]</div></div>
             <div class="equation-stack">\[\frac1{12}\widetilde Y_t=\Theta(L)\varepsilon_t,\qquad \Theta(L)=1-\frac7{12}L+\frac1{12}L^2.\]</div>
-            <div class="equation-stack">\[\Theta(z)=1-\frac7{12}z+\frac1{12}z^2=0,\qquad z_1=3,\quad z_2=4.\]</div>
-            <div class="result-box"><div class="equation-stack">\[|z_1|>1,\qquad |z_2|>1.\]</div><p>The MA(2) is invertible. Equivalently, its inverse roots \(r_1=\frac13\) and \(r_2=\frac14\) lie inside the unit circle.</p></div>
-            <p>Factor the polynomial and find the partial-fraction coefficients:</p>
-            <div class="equation-stack">\[\Theta(L)=\left(1-\frac13L\right)\left(1-\frac14L\right),\]
+            <h4>Inverse roots</h4>
+            <p>Replace \(L\) by \(r^{-1}\), then multiply by \(r^2\) to remove the negative powers:</p>
+            <div class="equation-stack">\[r^2\Theta(r^{-1})=0\]
+            \[r^2\left(1-\frac7{12}r^{-1}+\frac1{12}r^{-2}\right)=0\]
+            \[r^2-\frac7{12}r+\frac1{12}=0\quad\Longleftrightarrow\quad12r^2-7r+1=0.\]</div>
+            <p>Use the quadratic formula:</p>
+            <div class="equation-stack">\[\Delta=(-7)^2-4(12)(1)=1,\qquad r=\frac{7\pm\sqrt{1}}{24}.\]
+            \[r_1=\frac{7+1}{24}=\frac13,\qquad r_2=\frac{7-1}{24}=\frac14.\]</div>
+            <div class="result-box"><div class="equation-stack">\[\boxed{r_1=\frac13,\qquad r_2=\frac14.}\]
+            \[|r_1|=\frac13<1,\qquad |r_2|=\frac14<1.\]</div><p>Both inverse roots lie inside the unit circle, so the MA(2) is invertible.</p></div>
+            <h4>Factorization and partial fractions</h4>
+            <p>Use the inverse roots in \((1-r_1L)(1-r_2L)\), then find the partial-fraction coefficients:</p>
+            <div class="equation-stack">\[\Theta(L)=(1-r_1L)(1-r_2L)\]
+            \[=\left(1-\frac13L\right)\left(1-\frac14L\right),\]
             \[\frac{1}{(1-\frac13L)(1-\frac14L)}=\frac{C_1}{1-\frac13L}+\frac{C_2}{1-\frac14L}.\]</div>
             <p>Multiply by the common denominator, then group constants and coefficients of \(L\):</p>
             <div class="equation-stack">\[\begin{aligned}1&=C_1\left(1-\frac14L\right)+C_2\left(1-\frac13L\right)\\&=(C_1+C_2)+\left(-\frac{C_1}{4}-\frac{C_2}{3}\right)L.\end{aligned}\]</div>
