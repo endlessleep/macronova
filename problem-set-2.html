@@ -278,13 +278,90 @@
             <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
             <section class="solution-step answer-panel" id="exercise-2-q3" hidden>
             <h3><span>Question 3</span> ACF up to lag 3</h3>
-            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Compute \(\gamma_Y(h)=E(\widetilde Y_t\widetilde Y_{t-h})\), then divide by \(\gamma_Y(0)\).</p><div class="equation-stack">\[\rho_Y(h)=\frac{\gamma_Y(h)}{\gamma_Y(0)}.\]</div></div>
-            <p>At lag zero, all cross-date products vanish:</p>
-            <div class="equation-stack">\[\gamma_Y(0)=E\!\left[(12\varepsilon_t-7\varepsilon_{t-1}+\varepsilon_{t-2})^2\right]\]\[=(12^2+(-7)^2+1^2)\sigma_\varepsilon^2=194\sigma_\varepsilon^2.\]</div>
-            <p>At lag one, the common innovation dates are \(t-1\) and \(t-2\):</p>
-            <div class="equation-stack">\[\widetilde Y_{t-1}=12\varepsilon_{t-1}-7\varepsilon_{t-2}+\varepsilon_{t-3},\]\[\gamma_Y(1)=(-7)(12)\sigma_\varepsilon^2+(1)(-7)\sigma_\varepsilon^2=-91\sigma_\varepsilon^2.\]</div>
-            <p>At lag two, only the innovation dated \(t-2\) is common. At lag three, there is no common innovation date:</p>
-            <div class="equation-stack">\[\gamma_Y(2)=(1)(12)\sigma_\varepsilon^2=12\sigma_\varepsilon^2,\qquad\gamma_Y(3)=0.\]</div>
+            <div class="target-form"><span class="target-label">What to find · Formula</span><p>Start from the expected product at each lag. Keep the factor 12 visible in both processes, then divide each autocovariance by the variance.</p><div class="equation-stack">\[\gamma_Y(h)=E(\widetilde Y_t\widetilde Y_{t-h}),\qquad \rho_Y(h)=\frac{\gamma_Y(h)}{\gamma_Y(0)}.\]</div></div>
+            <p>Start from the demeaned process and factor out 12:</p>
+            <div class="equation-stack">\[\widetilde Y_t=12\varepsilon_t-7\varepsilon_{t-1}+\varepsilon_{t-2}.\]</div>
+            <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde Y_t=12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right).}\]</div></div>
+            <p>Since \(E(\widetilde Y_t)=0\), the autocovariance is</p>
+            <div class="equation-stack">\[\boxed{\gamma_Y(h)=E(\widetilde Y_t\widetilde Y_{t-h}).}\]</div>
+
+            <h4>\(h=0\)</h4>
+            <p>Start from the definition:</p>
+            <div class="equation-stack">\[\gamma_Y(0)=E(\widetilde Y_t\widetilde Y_t)=E(\widetilde Y_t^2).\]</div>
+            <p>Substitute the factored expression into both copies of \(\widetilde Y_t\):</p>
+            <div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(0)=E\Bigg[&12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &\times12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\Bigg].
+            \end{aligned}\]</div>
+            <p class="key-note"><strong>Where does 144 come from?</strong> Each process contributes a factor 12, so \(12\times12=144\). This constant can be taken outside the expectation.</p>
+            <div class="equation-stack">\[\gamma_Y(0)=144E\left[\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)^2\right].\]</div>
+            <p>Expand the square using</p>
+            <div class="equation-stack">\[(a+b+c)^2=a^2+b^2+c^2+2ab+2ac+2bc.\]</div>
+            <p>Products of innovations from different dates have expectation zero because the innovations are white noise. Only the squared terms contribute:</p>
+            <div class="equation-stack">\[\gamma_Y(0)=144E\left[\varepsilon_t^2+\frac{49}{144}\varepsilon_{t-1}^2+\frac1{144}\varepsilon_{t-2}^2\right].\]</div>
+            <p>At every date, the innovations have zero mean and variance \(\sigma_\varepsilon^2\), so</p>
+            <div class="equation-stack">\[E(\varepsilon_t^2)=E(\varepsilon_{t-1}^2)=E(\varepsilon_{t-2}^2)=\sigma_\varepsilon^2.\]
+            \[\begin{aligned}\gamma_Y(0)&=144\left(1+\frac{49}{144}+\frac1{144}\right)\sigma_\varepsilon^2\\&=144\left(\frac{194}{144}\right)\sigma_\varepsilon^2.\end{aligned}\]</div>
+            <div class="result-box"><div class="equation-stack">\[\boxed{\gamma_Y(0)=194\sigma_\varepsilon^2.}\]</div></div>
+
+            <h4>\(h=1\)</h4>
+            <p>Start again from the definition:</p>
+            <div class="equation-stack">\[\gamma_Y(1)=E(\widetilde Y_t\widetilde Y_{t-1}).\]</div>
+            <p>Shift every innovation date by one period to write the second process:</p>
+            <div class="equation-stack">\[\widetilde Y_t=12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right),\]
+            \[\widetilde Y_{t-1}=12\left(\varepsilon_{t-1}-\frac7{12}\varepsilon_{t-2}+\frac1{12}\varepsilon_{t-3}\right).\]</div>
+            <p>Substitute both processes:</p>
+            <div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(1)=E\Bigg[&12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &\times12\left(\varepsilon_{t-1}-\frac7{12}\varepsilon_{t-2}+\frac1{12}\varepsilon_{t-3}\right)\Bigg].
+            \end{aligned}\]</div>
+            <p>Again, \(12\times12=144\), so</p>
+            <div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(1)=144E\Bigg[&\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &\times\left(\varepsilon_{t-1}-\frac7{12}\varepsilon_{t-2}+\frac1{12}\varepsilon_{t-3}\right)\Bigg].
+            \end{aligned}\]</div>
+            <p>Look for <strong>same-date innovations</strong>. The two brackets share only \(\varepsilon_{t-1}\) and \(\varepsilon_{t-2}\). Only these two products have nonzero expectations:</p>
+            <div class="equation-stack">\[\left(-\frac7{12}\varepsilon_{t-1}\right)(\varepsilon_{t-1}),\qquad \left(\frac1{12}\varepsilon_{t-2}\right)\left(-\frac7{12}\varepsilon_{t-2}\right).\]</div>
+            <div class="equation-stack">\[\gamma_Y(1)=144E\left[-\frac7{12}\varepsilon_{t-1}^2-\frac7{144}\varepsilon_{t-2}^2\right].\]
+            \[\begin{aligned}\gamma_Y(1)&=144\left(-\frac7{12}-\frac7{144}\right)\sigma_\varepsilon^2\\&=144\left(-\frac{84}{144}-\frac7{144}\right)\sigma_\varepsilon^2\\&=144\left(-\frac{91}{144}\right)\sigma_\varepsilon^2.\end{aligned}\]</div>
+            <div class="result-box"><div class="equation-stack">\[\boxed{\gamma_Y(1)=-91\sigma_\varepsilon^2.}\]</div></div>
+
+            <h4>\(h=2\)</h4>
+            <p>Start again from the definition:</p>
+            <div class="equation-stack">\[\gamma_Y(2)=E(\widetilde Y_t\widetilde Y_{t-2}).\]</div>
+            <p>Shift every innovation date by two periods:</p>
+            <div class="equation-stack">\[\widetilde Y_{t-2}=12\left(\varepsilon_{t-2}-\frac7{12}\varepsilon_{t-3}+\frac1{12}\varepsilon_{t-4}\right).\]</div>
+            <p>Substitute both processes and take \(12\times12=144\) outside the expectation:</p>
+            <div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(2)=144E\Bigg[&\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &\times\left(\varepsilon_{t-2}-\frac7{12}\varepsilon_{t-3}+\frac1{12}\varepsilon_{t-4}\right)\Bigg].
+            \end{aligned}\]</div>
+            <p>There is now <strong>only one common innovation</strong>: \(\varepsilon_{t-2}\). Its coefficients in the two brackets are \(\frac1{12}\) and \(1\), so</p>
+            <div class="equation-stack">\[\gamma_Y(2)=144E\left[\frac1{12}\varepsilon_{t-2}^2\right]=144\left(\frac1{12}\right)\sigma_\varepsilon^2.\]</div>
+            <div class="result-box"><div class="equation-stack">\[\boxed{\gamma_Y(2)=12\sigma_\varepsilon^2.}\]</div></div>
+
+            <h4>\(h=3\)</h4>
+            <p>Start again from the definition:</p>
+            <div class="equation-stack">\[\gamma_Y(3)=E(\widetilde Y_t\widetilde Y_{t-3}).\]</div>
+            <p>Shift every innovation date by three periods:</p>
+            <div class="equation-stack">\[\widetilde Y_{t-3}=12\left(\varepsilon_{t-3}-\frac7{12}\varepsilon_{t-4}+\frac1{12}\varepsilon_{t-5}\right).\]</div>
+            <p>Substitute both processes and take \(12\times12=144\) outside the expectation:</p>
+            <div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(3)=144E\Bigg[&\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &\times\left(\varepsilon_{t-3}-\frac7{12}\varepsilon_{t-4}+\frac1{12}\varepsilon_{t-5}\right)\Bigg].
+            \end{aligned}\]</div>
+            <p>Compare the innovation dates in the two brackets:</p>
+            <div class="equation-stack">\[\{t,t-1,t-2\}\qquad\text{and}\qquad\{t-3,t-4,t-5\}.\]</div>
+            <p>There is <strong>no common date</strong>, so every product has expectation zero. The same is true at every lag greater than 2:</p>
+            <div class="result-box"><div class="equation-stack">\[\boxed{\gamma_Y(3)=0,\qquad\gamma_Y(h)=0\quad(h>2).}\]</div></div>
+
+            <h4>Convert autocovariances into the ACF</h4>
+            <p>We have \(\gamma_Y(0)=194\sigma_\varepsilon^2\), \(\gamma_Y(1)=-91\sigma_\varepsilon^2\), \(\gamma_Y(2)=12\sigma_\varepsilon^2\), and \(\gamma_Y(h)=0\) for \(h>2\). Divide each autocovariance by \(\gamma_Y(0)\):</p>
+            <div class="equation-stack">\[\rho_Y(h)=\frac{\gamma_Y(h)}{\gamma_Y(0)}.\]
+            \[\rho_Y(0)=\frac{194\sigma_\varepsilon^2}{194\sigma_\varepsilon^2}=1,\]
+            \[\rho_Y(1)=\frac{-91\sigma_\varepsilon^2}{194\sigma_\varepsilon^2}=-\frac{91}{194}\simeq-0.4691,\]
+            \[\rho_Y(2)=\frac{12\sigma_\varepsilon^2}{194\sigma_\varepsilon^2}=\frac{12}{194}=\frac6{97}\simeq0.0619,\]
+            \[\rho_Y(h)=0\qquad(h>2).\]</div>
             <div class="result-box"><table class="results-table"><caption>MA(2) ACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">\(\rho_Y(h)\)</th><td>\(1\)</td><td>\(-\frac{91}{194}\)</td><td>\(\frac6{97}\)</td><td>\(0\)</td></tr></tbody></table><p class="table-note">\(-\frac{91}{194}\simeq-0.4691\) and \(\frac6{97}\simeq0.0619\).</p></div>
             <p>The ACF of this MA(2) is zero for every lag greater than 2: \(\rho_Y(h)=0\) for \(h>2\).</p>
           </section>
