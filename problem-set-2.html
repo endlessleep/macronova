@@ -194,6 +194,39 @@
             <div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{PACF}(h)=\alpha_X(h)=0,\qquad h>2.}\]</div><p><strong>AR(2): PACF is zero for every lag greater than 2.</strong></p></div>
             <p>An AR(2) process depends directly only on its first two lags. Once \(X_{t-1}\) and \(X_{t-2}\) are controlled for, older lags provide no additional direct linear dependence. Therefore the PACF is zero for every lag greater than 2; in particular, \(\alpha_X(3)=0\).</p>
             <div class="result-box"><table class="results-table"><caption>AR(2) ACF and PACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">ACF \(\rho_X(h)\)</th><td>\(1\)</td><td>\(-\frac15\)</td><td>\(\frac15\)</td><td>\(-\frac1{15}\)</td></tr><tr><th scope="row">PACF \(\alpha_X(h)\)</th><td>—</td><td>\(-\frac15\)</td><td>\(\frac16\)</td><td>\(0\)</td></tr></tbody></table></div>
+            <div class="answer-item">
+              <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q4-pacf3-calculation"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> calculation — Why is PACF(3) = 0?</button>
+              <div class="solution-step answer-panel" id="exercise-1-q4-pacf3-calculation" hidden>
+                <div class="equation-stack">\[\operatorname{PACF}(3)=a_{33}.\]</div>
+                <p>Using the ACF values calculated in Question 3:</p>
+                <div class="equation-stack">\[\rho_X(1)=-\frac15,\qquad \rho_X(2)=\frac15,\qquad \rho_X(3)=-\frac1{15}.\]</div>
+                <p>The Yule–Walker system is</p>
+                <div class="equation-stack">\[R_3a_3=\rho_3,\]</div>
+                <div class="matrix-pair"><div>\[R_3=\begin{pmatrix}1&-\frac15&\frac15\\-\frac15&1&-\frac15\\\frac15&-\frac15&1\end{pmatrix}\]</div><div>\[a_3=\begin{pmatrix}a_{31}\\a_{32}\\a_{33}\end{pmatrix},\qquad \rho_3=\begin{pmatrix}-\frac15\\\frac15\\-\frac1{15}\end{pmatrix}.\]</div></div>
+                <p>We want the <strong>last coefficient</strong>: \(\operatorname{PACF}(3)=a_{33}\). By Cramer’s rule,</p>
+                <div class="equation-stack">\[a_{33}=\frac{\det(R_3^\star)}{\det(R_3)}.\]</div>
+                <p>Replace the <strong>third (last) column</strong> of \(R_3\) with \(\rho_3\):</p>
+                <div class="matrix-pair"><div>\[R_3=\begin{pmatrix}1&-\frac15&\frac15\\-\frac15&1&-\frac15\\\frac15&-\frac15&1\end{pmatrix}\]</div><div>\[R_3^\star=\begin{pmatrix}1&-\frac15&-\frac15\\-\frac15&1&\frac15\\\frac15&-\frac15&-\frac1{15}\end{pmatrix}.\]</div></div>
+                <p>Expand each determinant along the first row, using the cofactor signs \(+,\;-,\;+\):</p>
+                <div class="equation-stack">\[\begin{aligned}
+                  \det(R_3)&=1\left[1\cdot1-\left(-\frac15\right)\left(-\frac15\right)\right]\\
+                  &\quad-\left(-\frac15\right)\left[\left(-\frac15\right)\cdot1-\left(-\frac15\right)\frac15\right]\\
+                  &\quad+\frac15\left[\left(-\frac15\right)\left(-\frac15\right)-1\cdot\frac15\right]\\
+                  &=\frac{24}{25}+\frac15\left(-\frac4{25}\right)+\frac15\left(-\frac4{25}\right)\\
+                  &=\frac{120}{125}-\frac4{125}-\frac4{125}=\frac{112}{125}.
+                \end{aligned}\]</div>
+                <div class="equation-stack">\[\begin{aligned}
+                  \det(R_3^\star)&=1\left[1\left(-\frac1{15}\right)-\frac15\left(-\frac15\right)\right]\\
+                  &\quad-\left(-\frac15\right)\left[\left(-\frac15\right)\left(-\frac1{15}\right)-\frac15\cdot\frac15\right]\\
+                  &\quad+\left(-\frac15\right)\left[\left(-\frac15\right)\left(-\frac15\right)-1\cdot\frac15\right]\\
+                  &=-\frac2{75}+\frac15\left(-\frac2{75}\right)+\left(-\frac15\right)\left(-\frac4{25}\right)\\
+                  &=-\frac{10}{375}-\frac2{375}+\frac{12}{375}=0.
+                \end{aligned}\]</div>
+                <div class="equation-stack">\[a_{33}=\frac{0}{112/125}=0.\]</div>
+                <div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{PACF}_X(3)=a_{33}=0.}\]</div></div>
+                <p>This confirms the theoretical property of an AR(2): its PACF is zero at every lag greater than 2.</p>
+              </div>
+            </div>
           </section>
           </div>
         </div>
@@ -271,6 +304,40 @@
             <div class="equation-stack">\[\varepsilon_t=\frac1{12}\widetilde Y_t+\frac1{12}\sum_{j=1}^{\infty}\left[4\left(\frac13\right)^j-3\left(\frac14\right)^j\right]\widetilde Y_{t-j}.\]</div>
             <p>Multiply by 12 and move the terms with \(j\geq1\) to the other side:</p>
             <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde Y_t=12\varepsilon_t-\sum_{j=1}^{\infty}\left[4\left(\frac13\right)^j-3\left(\frac14\right)^j\right]\widetilde Y_{t-j}.}\]</div></div>
+            <div class="answer-item">
+              <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q2-official-representation"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> equivalent representation — Official correction</button>
+              <div class="solution-step answer-panel" id="exercise-2-q2-official-representation" hidden>
+                <p>Recall the normalized equation:</p>
+                <div class="equation-stack">\[\frac1{12}\widetilde Y_t=\Theta(L)\varepsilon_t,\]
+                \[\Theta(L)=1-\frac7{12}L+\frac1{12}L^2.\]</div>
+                <p>The inverse lag polynomial has already been calculated:</p>
+                <div class="equation-stack">\[\begin{aligned}\Theta(L)^{-1}&=4\sum_{j=0}^{\infty}\left(\frac13\right)^jL^j\\&\quad-3\sum_{j=0}^{\infty}\left(\frac14\right)^jL^j.\end{aligned}\]</div>
+                <p>Define</p>
+                <div class="equation-stack">\[c_j=4\left(\frac13\right)^j-3\left(\frac14\right)^j.\]</div>
+                <p>Then</p>
+                <div class="equation-stack">\[\varepsilon_t=\frac1{12}\sum_{j=0}^{\infty}c_j\widetilde Y_{t-j}.\]</div>
+                <p>The demeaned and original processes satisfy \(\widetilde Y_{t-j}=Y_{t-j}-1\). Substituting gives</p>
+                <div class="equation-stack">\[\varepsilon_t=\frac1{12}\sum_{j=0}^{\infty}c_j(Y_{t-j}-1).\]</div>
+                <p>Expand the sum:</p>
+                <div class="equation-stack">\[\varepsilon_t=\frac1{12}\sum_{j=0}^{\infty}c_jY_{t-j}-\frac1{12}\sum_{j=0}^{\infty}c_j.\]</div>
+                <p>Calculate the constant using geometric series:</p>
+                <div class="equation-stack">\[\begin{aligned}
+                  \sum_{j=0}^{\infty}c_j&=4\sum_{j=0}^{\infty}\left(\frac13\right)^j-3\sum_{j=0}^{\infty}\left(\frac14\right)^j\\
+                  &=\frac4{1-\frac13}-\frac3{1-\frac14}\\
+                  &=6-4\\
+                  &=2.
+                \end{aligned}\]</div>
+                <p>Therefore,</p>
+                <div class="equation-stack">\[-\frac1{12}\sum_{j=0}^{\infty}c_j=-\frac2{12}=-\frac16.\]</div>
+                <p>Since \(c_0=4-3=1\), separate the \(j=0\) term:</p>
+                <div class="equation-stack">\[\varepsilon_t=-\frac16+\frac1{12}Y_t+\frac1{12}\sum_{j=1}^{\infty}c_jY_{t-j}.\]</div>
+                <div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}
+                  \varepsilon_t&=-\frac16+\frac1{12}Y_t\\
+                  &\quad+\frac1{12}\sum_{j=1}^{\infty}\left[4\left(\frac13\right)^j-3\left(\frac14\right)^j\right]Y_{t-j}.
+                \end{aligned}}\]</div></div>
+                <p>Both representations describe the same invertible MA(2) process. The main correction expresses the demeaned process as an AR\((\infty)\), whereas the official correction expresses the innovation \(\varepsilon_t\) using the original observations \(Y_t\). The constant \(-1/6\) appears because \(Y_t\) has mean 1.</p>
+              </div>
+            </div>
           </section>
           </div>
 
