@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — Lecture 3: ARMA processes, stationarity, representations, ACF and PACF.">
+  <title>Lecture 3 — ARMA Models and Their Properties | MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=542e1f2dfb98">
+  <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    /* Reuse the existing disclosure and equation styles from the website. */
+    .answer-toggle { width: 100%; text-align: left; }
+    .lecture-recall { margin-top: 18px; }
+    .lecture-recall .answer-panel { border-top: 0; padding-top: 16px; }
+    .lecture-recall .lecture-block { margin-top: 16px; }
+    .lecture-recall .recall-links { margin-top: 0; }
+    /* Keep long formulas readable and scroll them within the existing cards. */
+    .lecture-section, .lecture-recall, .result-box { min-width: 0; }
+    .equation-stack, .equation-chain > span, .matrix-pair > div {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    .answer-toggle { max-width: 100%; line-height: 1.5; }
+    .lecture-recall .matrix-pair { max-width: 100%; }
+  </style>
+</head>
+<body data-math class="lecture-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span></a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
+      <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
+      <a href="lecture-3.html" class="sidebar-link active" aria-current="page">LECTURE 3</a>
+      <hr class="sidebar-divider">
+      <div class="sidebar-group">
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+        <a href="problem-set-2.html" class="sidebar-link">Problem Set 2</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar"><img src="images/avatar.png" width="44" height="44" alt=""><span class="user-dot" aria-hidden="true"></span></div><div class="user-info"><div class="user-name">STAR NOVA</div></div></div></div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden></button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb"><span>MACRO</span><span class="sep" aria-hidden="true">›</span><strong>Lecture 3</strong></nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">MACROECONOMETRICS · REVISION NOTES</div>
+        <h1>LECTURE 3</h1>
+        <p class="lecture-subtitle">ARMA Processes — Stationarity, Representations, ACF &amp; PACF</p>
+      </div>
+
+<!-- Lecture 3, slides 3–6. General model is new in scope; old operator mechanics live in the optional disclosure. -->
+<section class="concept-card violet-top lecture-section" id="arma-processes" aria-labelledby="arma-processes-title">
+  <div class="section-header"><span class="section-label">Class of models</span><h2 id="arma-processes-title">ARMA(p,q), AR(p) and MA(q)</h2></div>
+  <div class="lecture-block">
+    <h3>ARMA(p,q) process</h3>
+    <p>An ARMA(p,q) process combines dependence on <strong>past values of the process</strong> (the AR part) and <strong>current and past white-noise shocks</strong> (the MA part). For a weak white noise \(\varepsilon_t\), the general model is</p>
+    <div class="equation-chain"><span>\(X_t=\mu+\phi_1X_{t-1}+\cdots+\phi_pX_{t-p}\)</span><span>\({}+\varepsilon_t+\theta_1\varepsilon_{t-1}+\cdots+\theta_q\varepsilon_{t-q}.\)</span></div>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\Phi(L)X_t=\mu+\Theta(L)\varepsilon_t}\]</div></div>
+    <div class="equation-stack">\[\Phi(L)=1-\phi_1L-\cdots-\phi_pL^p,\]\[\Theta(L)=1+\theta_1L+\cdots+\theta_qL^q.\]</div>
+    <p>The degrees are \(p\) and \(q\), with \(\phi_p\neq0\) and \(\theta_q\neq0\). The symbol \(\mu\) is the <strong>constant in the equation</strong>, not necessarily the unconditional mean \(E(X_t)\).</p>
+  </div>
+  <div class="lecture-grid">
+    <div class="lecture-block"><h3>AR(p): no lagged shocks</h3><div class="equation-stack">\[X_t=\mu+\sum_{i=1}^p\phi_iX_{t-i}+\varepsilon_t\]\[\boxed{\Phi(L)X_t=\mu+\varepsilon_t}\]</div><p>The MA polynomial reduces to \(\Theta(L)=1\).</p></div>
+    <div class="lecture-block"><h3>MA(q): no lagged observations</h3><div class="equation-stack">\[X_t=\mu+\varepsilon_t+\sum_{j=1}^q\theta_j\varepsilon_{t-j}\]\[\boxed{X_t=\mu+\Theta(L)\varepsilon_t}\]</div><p>The AR polynomial reduces to \(\Phi(L)=1\).</p></div>
+  </div>
+  <div class="lecture-block">
+    <h3>Mean-adjusted ARMA</h3>
+    <p>For a stationary ARMA process, the unconditional mean is constant. Taking expectations in \(X_t=\mu+\sum_{i=1}^p\phi_iX_{t-i}+\varepsilon_t+\sum_{j=1}^q\theta_j\varepsilon_{t-j}\) gives</p>
+    <div class="equation-stack">\[m_X=\mu+\left(\sum_{i=1}^p\phi_i\right)m_X\]\[\left(1-\sum_{i=1}^p\phi_i\right)m_X=\mu.\]</div>
+    <div class="result-box"><div class="equation-stack">\[\boxed{m_X=E(X_t)=\frac{\mu}{1-\sum_{i=1}^p\phi_i}=\frac{\mu}{\Phi(1)}}\]</div></div>
+    <p>Set \(\widetilde X_t=X_t-m_X\). Substituting \(X_{t-j}=\widetilde X_{t-j}+m_X\) cancels the constant:</p>
+    <div class="equation-stack">\[\widetilde X_t=\phi_1\widetilde X_{t-1}+\cdots+\phi_p\widetilde X_{t-p}+\varepsilon_t+\theta_1\varepsilon_{t-1}+\cdots+\theta_q\varepsilon_{t-q}.\]</div>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t,\qquad\widetilde X_t=X_t-m_X.}\]</div></div>
+    <p>For an MA(q), \(\Phi(1)=1\) and thus \(m_X=\mu\). For an AR(p) or ARMA(p,q), the equation's constant \(\mu\) and the mean \(m_X\) generally differ.</p>
+  </div>
+<div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — lag operators and polynomial inversion</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-1" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-2.html#arma">Lecture 2 · ARMA &amp; lag operators</a> <a href="lecture-2.html#polynomials">Lecture 2 · Lag-polynomial inversion</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>ARMA representation and lag notation</h4><p>An ARMA\((p,q)\) model has the form</p>
+<div class="equation-chain">
+<span>\(X_t=c+\phi_1X_{t-1}+\cdots+\phi_pX_{t-p}\)</span>
+<span>\({}+\varepsilon_t+\theta_1\varepsilon_{t-1}\)</span>
+<span>\({}+\cdots+\theta_q\varepsilon_{t-q}.\)</span>
+</div>
+<p>In lag-polynomial notation,</p>
+<div class="result-box">
+<div class="equation-stack">\[\Phi(L)X_t=c+\Theta(L)\varepsilon_t,\]</div>
+</div>
+<div class="equation-stack">\[\Phi(L)=1-\phi_1L-\cdots-\phi_pL^p,\]\[\Theta(L)=1+\theta_1L+\cdots+\theta_qL^q.\]</div>
+<p>The AR terms move to the left, giving minus signs in the AR polynomial. The MA polynomial retains the plus signs shown in the model.</p>
+<div class="lecture-block">
+<h3>Lag, difference and lead</h3>
+<div class="equation-stack">\[LX_t=X_{t-1},\qquad L^kX_t=X_{t-k}.\]</div>
+<p>The lag operator shifts the date backward. The first difference subtracts the previous observation:</p>
+<div class="equation-stack">\[\Delta X_t=X_t-X_{t-1}\]\[=X_t-LX_t=(1-L)X_t,\]\[\Delta=1-L.\]</div>
+<p>The lead operator shifts the date forward and is the inverse of the lag operator:</p>
+<div class="equation-stack">\[FX_t=X_{t+1},\qquad F=L^{-1}.\]</div>
+</div></div><div class="lecture-block"><h4>Lag-polynomial algebra and first-order inversion</h4><div class="equation-stack">\[P(L)=\sum_{k=0}^{p}a_kL^k\]</div>
+<p>Applying the polynomial shifts each observation by the corresponding number of periods:</p>
+<div class="equation-stack">\[P(L)X_t=\sum_{k=0}^{p}a_kX_{t-k}.\]</div>
+<p>For example,</p>
+<div class="equation-stack">\[(1-\phi L)X_t=X_t-\phi X_{t-1}.\]</div>
+<div class="lecture-block">
+<h3>First-order inversion</h3>
+<p>For \(|\rho|&lt;1\), the geometric expansion gives the <strong>causal stable inverse</strong>:</p>
+<div class="result-box">
+<div class="equation-stack">\[(1-\rho L)^{-1}=\sum_{k=0}^{\infty}\rho^kL^k.\]</div>
+</div>
+<p>It uses current and past values only.</p>
+<p>For \(|\rho|&gt;1\), a stable noncausal inverse exists and involves leads. For \(|\rho|=1\), there is no absolutely summable stable inverse.</p>
+</div></div>
+  </div>
+</div>
+</section>
+<!-- Lecture 3, slides 7–11. -->
+<section class="concept-card violet-top lecture-section" id="root-conditions" aria-labelledby="root-conditions-title">
+  <div class="section-header"><span class="section-label">Conditions</span><h2 id="root-conditions-title">Stationarity, stability and invertibility</h2></div>
+  <p>The three concepts use related root calculations, but they answer <strong>different questions</strong>. Write \(z_i\) for the roots of a characteristic equation \(P(z)=0\), and \(r_i=1/z_i\) for the corresponding inverse roots.</p>
+  <div class="lecture-block">
+    <h3>Stationarity: existence of a stationary solution</h3>
+    <p>Let \(\mathcal C=\{z\in\mathbb C:|z|=1\}\) be the complex unit circle. Assume \(\Phi\) and \(\Theta\) have no common roots. The lecture states that a stationary solution exists precisely when <strong>none</strong> of the roots of the AR polynomial lies on this circle.</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\Phi(z_i)=0\quad\Longrightarrow\quad |z_i|\ne1\ \text{for every AR root}}\]</div><div class="equation-stack">\[\boxed{r^p\Phi(r^{-1})=0\quad\Longrightarrow\quad |r_i|\ne1.}\]</div></div>
+    <p>For stationarity alone, a characteristic root may be <strong>inside or outside</strong> the unit circle, but not exactly on it. This is broader than the stability condition below.</p>
+    <h4>Stationary-solution theorem</h4>
+    <p>Under the hypotheses above, with \(\varepsilon_t\) a weak white noise, define \(\Psi(L)=\Theta(L)/\Phi(L)\). Then the lecture gives the unique stationary solution:</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\Psi(L)\varepsilon_t,\qquad \Psi(L)=\frac{\Theta(L)}{\Phi(L)},\qquad m_X=\frac{\mu}{\Phi(1)}.}\]</div></div>
+    <p>When the solution is stationary but not causal, the Laurent expansion can involve leads and lags:</p>
+    <div class="equation-stack">\[\Psi(L)=\sum_{j=-\infty}^{+\infty}\psi_jL^j.\]</div>
+    <p>A finite-order MA(q) is stationary for any finite MA coefficients when driven by weak white noise: it does not require AR stability roots because \(\Phi(L)=1\).</p>
+  </div>
+  <div class="lecture-block">
+    <h3>Stability: a causal solution based on past shocks</h3>
+    <p>The model is stable when <strong>every root of the AR characteristic polynomial</strong> lies strictly outside the unit circle. This is equivalent to every inverse AR root lying strictly inside it:</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{|z_i|>1\ \Longleftrightarrow\ |r_i|<1\quad\text{for all AR roots}.}\]</div></div>
+    <p>Under stability, the rational polynomial \(\Psi(L)=\Theta(L)/\Phi(L)\) has a <strong>one-sided</strong> lag expansion:</p>
+    <div class="equation-stack">\[\Psi(L)=\sum_{j=0}^{\infty}\psi_jL^j,\]\[\widetilde X_t=\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}.\]</div>
+    <p>Only \(\varepsilon_t,\varepsilon_{t-1},\ldots\) appear: no future shocks are needed. Thus stability implies a stationary <em>causal</em> solution; stationarity alone does not guarantee causality.</p>
+  </div>
+  <div class="lecture-block">
+    <h3>Invertibility: recovering shocks from observations</h3>
+    <p>Now the relevant polynomial is the <strong>MA polynomial</strong> \(\Theta(L)\), not \(\Phi(L)\). When all its characteristic roots are outside the unit circle, the shocks can be recovered using current and past observations:</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\Theta(z_i)=0,\quad |z_i|>1\quad\Longleftrightarrow\quad |r_i|<1.}\]</div></div>
+    <p>From \(\Phi(L)X_t=\mu+\Theta(L)\varepsilon_t\), isolate the shock:</p>
+    <div class="equation-stack">\[\Theta(L)\varepsilon_t=\Phi(L)X_t-\mu\]\[\varepsilon_t=\frac{\Phi(L)}{\Theta(L)}X_t-\frac{\mu}{\Theta(1)}.\]</div>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\varepsilon_t=m_X^*+\frac{\Phi(L)}{\Theta(L)}X_t,\qquad m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.}\]</div></div>
+    <p>The inverse \(1/\Theta(L)\) is expanded in <strong>non-negative powers of \(L\)</strong> to use current and past \(X\)'s. Compare this with stability, which allows \(X_t\) to be expressed using past shocks.</p>
+  </div>
+  <div class="lecture-note"><span class="note-label">Reading the lecture's root conditions carefully</span>
+    <p>The slide titled <em>Recap of conditions</em> writes <strong>\(|z_i|\ne1\)</strong> for MA-root invertibility, whereas its detailed <em>Invertible solutions</em> definition and MA(1) example use <strong>\(|z_i|>1\)</strong>. They are not interchangeable: \(|z_i|>1\) is the condition for an inverse in <em>current and past observations</em>; \(|z_i|\ne1\) is only the broader no-unit-circle-root condition. The root condition used for the causal/fundamental representations below is \(|z_i|>1\).</p>
+  </div>
+<div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — stationarity and white noise — full Lecture 1 theory</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-2" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-1.html#stationarity">Lecture 1 · Stationarity</a> <a href="lecture-1.html#white-noise">Lecture 1 · White noise</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>Lecture 1: stationarity, moments and covariance</h4><div class="lecture-block">
+<h3>Strong stationarity</h3>
+<p>A process \((X_t)_{t\in\mathbb Z}\) is <strong>strongly (or strictly) stationary</strong> if shifting every date by the same amount leaves the entire joint distribution unchanged:</p>
+<div class="equation-chain">
+<span>\((X_{t_1},\ldots,X_{t_k})\)</span>
+<span>\(\overset{d}{=}(X_{t_1+h},\ldots,X_{t_k+h}).\)</span>
+</div>
+<p>This must hold for every collection of dates, every \(k\), and every shift \(h\). The symbol \(\overset{d}{=}\) means “has the same distribution as”. For example,</p>
+<div class="equation-chain">
+<span>\((X_t,X_{t+1})\)</span>
+<span>\(\overset{d}{=}(X_{t+h},X_{t+h+1}).\)</span>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Weak stationarity</h3>
+<p>A <strong>weakly stationary</strong> process is also called <strong>second-order stationary</strong> or <strong>covariance-stationary</strong>. It satisfies all three conditions:</p>
+<div class="condition-list">
+<div>
+<h4>Constant mean</h4>
+<div class="equation-stack">\[E(X_t)=\mu\]</div>
+<p>\(\mu\) does not depend on the date \(t\).</p>
+</div>
+<div>
+<h4>Constant, finite variance</h4>
+<div class="equation-stack">\[\operatorname{Var}(X_t)=\gamma_X(0)&lt;\infty\]</div>
+<p>The dispersion is the same at every date.</p>
+</div>
+<div>
+<h4>Covariance depends only on the lag</h4>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})=\gamma_X(h)\]</div>
+<p>Only the distance \(h\) matters, not the date \(t\).</p>
+</div>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Autocovariance symmetry</h3>
+<div class="equation-stack">\[\boxed{\gamma_X(h)=\gamma_X(-h)}\]</div>
+<p>Covariance is symmetric. Together with stationarity, this gives</p>
+<div class="equation-stack">\[\operatorname{Cov}(X_t,X_{t-h})=\operatorname{Cov}(X_{t-h},X_t)\]\[=\operatorname{Cov}(X_t,X_{t+h}).\]</div>
+</div></div><div class="lecture-block"><h4>Lecture 1: weak, strong and Gaussian white noise</h4><div class="lecture-block">
+<h3>Weak white noise</h3>
+<p>A weak white noise \((\varepsilon_t)\) consists of zero-mean shocks with constant finite variance and no serial correlation:</p>
+<div class="equation-stack">\[E(\varepsilon_t)=0,\]\[\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2&lt;\infty,\]\[\operatorname{Cov}(\varepsilon_t,\varepsilon_{t-h})=0\quad(h\ne0).\]</div>
+<div class="result-box">
+<div class="equation-stack">\[\gamma_\varepsilon(h)=\begin{cases}\sigma_\varepsilon^2,&amp;h=0,\\0,&amp;h\ne0.\end{cases}\]</div>
+</div>
+<p>Past shocks contain no linear information about the current shock. This is a statement about correlation, not necessarily independence.</p>
+</div>
+<div class="lecture-note">
+<span class="note-label">Key rule — match the dates</span>
+<p>Since the shocks have zero mean,</p>
+<div class="equation-stack">\[E(\varepsilon_t\varepsilon_s)=\operatorname{Cov}(\varepsilon_t,\varepsilon_s)\]</div>
+<div class="equation-stack">\[\boxed{E(\varepsilon_t\varepsilon_s)=\begin{cases}\sigma_\varepsilon^2,&amp;t=s,\\0,&amp;t\ne s.\end{cases}}\]</div>
+<p>
+<strong>Same date: keep the term. Different dates: the term vanishes.</strong>
+</p>
+</div>
+<div class="equation-stack">\[E(\varepsilon_t^2)=\sigma_\varepsilon^2,\]\[E(\varepsilon_t\varepsilon_{t-1})=0,\]\[E(\varepsilon_{t-1}\varepsilon_{t-3})=0.\]</div>
+<div class="lecture-block">
+<h3>Strong white noise</h3>
+<div class="equation-stack">\[\varepsilon_t\overset{iid}{\sim}F,\]\[E(\varepsilon_t)=0,\qquad \operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2&lt;\infty.\]</div>
+<p>The shocks are <strong>independent and identically distributed</strong> over time. Independence implies zero covariance, so strong white noise is weak white noise. The converse does not hold.</p>
+</div>
+<div class="lecture-block">
+<h3>Gaussian white noise</h3>
+<div class="equation-stack">\[\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2).\]</div>
+<p>This is the Gaussian case of strong white noise.</p>
+</div>
+<div class="result-box">
+<div class="rule-flow">
+<span>Gaussian WN</span>
+<span aria-hidden="true">⊂</span>
+<span>Strong WN</span>
+<span aria-hidden="true">⊂</span>
+<span>Weak WN</span>
+</div>
+</div></div>
+  </div>
+</div><div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — characteristic and inverse roots</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-4" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-2.html#roots">Lecture 2 · Characteristic roots &amp; stability</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>Characteristic equation, inverse characteristic equation and quadratic roots</h4><div class="equation-stack">\[A(L)=1-a_1L-\cdots-a_pL^p,\]\[A(z)=1-a_1z-\cdots-a_pz^p.\]</div>
+<p>The 2026/27 convention distinguishes two equations:</p>
+<div class="lecture-block">
+<h3>Characteristic equation</h3>
+<div class="equation-stack">\[A(z)=0\]</div>
+<p>Its roots are \(z_1,\ldots,z_p\).</p>
+</div>
+<div class="lecture-block">
+<h3>Inverse characteristic equation</h3>
+<div class="equation-stack">\[B(r)=r^pA(r^{-1})=0\]</div>
+<p>Its roots are \(r_1,\ldots,r_p\). The two sets of roots are reciprocals:</p>
+<div class="equation-stack">\[r_i=\frac1{z_i}.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Stability</h3>
+<p>Every characteristic root must lie outside the unit circle; equivalently, every inverse root must lie inside it:</p>
+<div class="result-box">
+<div class="equation-stack">\[|z_i|&gt;1\quad\Longleftrightarrow\quad|r_i|&lt;1.\]</div>
+<p>This condition must hold for <strong>every</strong> \(i\).</p>
+</div>
+</div>
+<div class="lecture-block">
+<h3>Quadratic roots</h3>
+<p>For \(az^2+bz+c=0\), with \(a\ne0\),</p>
+<div class="equation-stack">\[\Delta=b^2-4ac,\]\[z_{1,2}=\frac{-b\pm\sqrt{\Delta}}{2a}.\]</div>
+<p>Here \(\Delta\) is the discriminant. If \(\Delta&lt;0\), the roots are complex conjugates.</p>
+</div></div>
+  </div>
+</div>
+</section>
+<!-- Lecture 3, slides 12–17. -->
+<section class="concept-card violet-top lecture-section" id="fundamental-representations" aria-labelledby="fundamental-representations-title">
+  <div class="section-header"><span class="section-label">Representations</span><h2 id="fundamental-representations-title">Fundamental and causal representations</h2></div>
+  <div class="lecture-block">
+    <h3>Fundamental representation</h3>
+    <p>A representation is <strong>fundamental</strong> when the model is stationary and its white-noise shocks are recoverable from the present and past of the observed process (the MA component is invertible).</p>
+    <div class="equation-stack">\[\boxed{\text{Stationarity: }\Phi(z_i)=0\Rightarrow|z_i|\ne1,\qquad \text{Invertibility: }\Theta(w_i)=0\Rightarrow|w_i|>1.}\]</div>
+    <p>Fundamentality does <em>not</em> require the stationary solution itself to be causal. A stationary AR solution can depend on future shocks even when its innovations can be recovered from the data.</p>
+    <div class="lecture-note"><span class="note-label">Source wording</span><p>In the supplied transcription, the <em>Fundamental representation</em> slide gives the AR-root condition as \(|z_i|\le1\), which conflicts with the stationarity criterion \(|z_i|\ne1\) stated immediately before and with the lecture's stable AR(1) case. The logical condition used in this note is stationarity (no AR roots on the unit circle), alongside MA-root invertibility. The discrepancy is recorded here rather than silently reproduced as a mathematical rule.</p></div>
+  </div>
+  <div class="lecture-block">
+    <h3>Causal and fundamental representation</h3>
+    <p>The model is <strong>causal and fundamental</strong> when it is both stable in the AR part and invertible in the MA part.</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\text{AR roots: }&\Phi(z_i)=0\ \Rightarrow\ |z_i|>1,\\ \text{MA roots: }&\Theta(w_i)=0\ \Rightarrow\ |w_i|>1.\end{aligned}}\]</div></div>
+    <p><strong>Causality</strong> means that \(X_t\) can be constructed from present and past shocks. <strong>Fundamentality</strong> means those shocks can in turn be recovered from current and past observations.</p>
+  </div>
+  <div class="lecture-block">
+    <h3>Proposition: innovations and both infinite representations</h3>
+    <p>If the representation is causal and fundamental, the lecture gives two results: \(\{\varepsilon_t\}_{t\in\mathbb Z}\) is the <strong>innovation process</strong> of \(X_t\), and the following convergent representations exist for suitable coefficient sequences:</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\sum_{k=0}^{+\infty}a_k\varepsilon_{t-k}}\]\[\text{MA}(\infty)\text{ representation}\]</div></div>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\varepsilon_t=m_X^*+\sum_{k=0}^{+\infty}b_kX_{t-k}}\]\[\text{AR}(\infty)\text{ / inverted representation}\]</div></div>
+    <p>The MA(∞) coefficients come from \(\Psi(L)=\Theta(L)/\Phi(L)\). The inverted coefficients come from \(\Phi(L)/\Theta(L)\). These are the <strong>general ARMA(p,q) versions</strong> of the inversions already studied for AR(1), MA(1), AR(2) and MA(2).</p>
+  </div>
+  <div class="lecture-block">
+    <h3>AR(1) example: three distinct cases</h3>
+    <p>Consider \((1-\rho L)X_t=\varepsilon_t\), with \(\varepsilon_t\overset{iid}{\sim}\mathcal N(0,\sigma_\varepsilon^2)\). Its characteristic root is \(z_1=1/\rho\) (for \(\rho\ne0\)). The lecture distinguishes:</p>
+    <div class="condition-list">
+      <div><h4>\(|\rho|<1\): stationary and stable (causal)</h4><div class="equation-stack">\[\Phi(L)^{-1}=\sum_{k=0}^{\infty}\rho^kL^k\]\[\boxed{X_t=\sum_{k=0}^{\infty}\rho^k\varepsilon_{t-k}}\]</div><p>The process depends on current and <strong>past</strong> shocks.</p></div>
+      <div><h4>\(|\rho|>1\): stationary but not stable (non-causal)</h4><p>The inverse cannot be expanded as a convergent sum of non-negative powers of \(L\). Using the <strong>lead operator</strong> \(F=L^{-1}\):</p><div class="equation-stack">\[\frac1{1-\rho L}=\frac{-\rho^{-1}F}{1-\rho^{-1}F}\]\[=-\sum_{k=1}^{\infty}\rho^{-k}F^k\]\[\boxed{X_t=-\sum_{k=1}^{\infty}\rho^{-k}\varepsilon_{t+k}}\]</div><p>This stationary solution depends on <strong>future</strong> shocks. This case is why stationarity does not imply stability.</p></div>
+      <div><h4>\(|\rho|=1\): no stationary solution</h4><p>The AR root is on the unit circle, so neither stability nor stationarity holds.</p></div>
+    </div>
+  </div>
+  <div class="lecture-block">
+    <h3>MA(1) example: stationarity versus invertibility</h3>
+    <p>Consider \(X_t=\varepsilon_t+\theta\varepsilon_{t-1}\), with \(\varepsilon_t\overset{iid}{\sim}\mathcal N(0,\sigma_\varepsilon^2)\) and \(\Theta(L)=1+\theta L\). The MA characteristic root is \(z_1=-1/\theta\) for \(\theta\ne0\).</p>
+    <div class="equation-stack">\[\boxed{\text{Stationary for every finite }\theta.}\]\[\boxed{\text{Causally invertible if }|z_1|>1\iff|\theta|<1.}\]</div>
+    <p>When \(|\theta|<1\), we can recover shocks from present and past \(X\):</p>
+    <div class="equation-stack">\[\varepsilon_t=(1+\theta L)^{-1}X_t\]\[=\sum_{k=0}^{\infty}(-\theta)^kX_{t-k}.\]</div>
+    <p>At \(|\theta|\ge1\), this <em>one-sided convergent</em> expansion is not available, even though the finite MA(1) remains stationary.</p>
+  </div>
+<div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — innovations and Wold decomposition — full Lecture 2 theory</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-3" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-2.html#innovation">Lecture 2 · Innovation</a> <a href="lecture-2.html#wold">Lecture 2 · Wold decomposition</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>Lecture 2: linear prediction and innovations</h4><p>For a zero-mean weakly stationary process, \(P(X_t\mid H_{t-1})\) is the best linear prediction of \(X_t\) using its past observations. The innovation is the prediction error:</p>
+<div class="result-box">
+<div class="equation-stack">\[\varepsilon_t=X_t-P(X_t\mid H_{t-1}).\]</div>
+</div>
+<p>It is orthogonal to the linear past:</p>
+<div class="equation-stack">\[E(\varepsilon_tX_{t-k})=0,\qquad k\ge1.\]</div>
+<p>Innovations have zero mean and are serially uncorrelated:</p>
+<div class="equation-stack">\[E(\varepsilon_t)=0,\]\[E(\varepsilon_t\varepsilon_{t-k})=0\quad(k\ne0).\]</div></div><div class="lecture-block"><h4>Lecture 2: Wold decomposition and MA(∞)</h4><p>Any zero-mean covariance-stationary process can be decomposed as</p>
+<div class="result-box">
+<div class="equation-stack">\[X_t=\kappa_t+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}.\]</div>
+</div>
+<p>Here \(\kappa_t\) is the <strong>deterministic component</strong>, perfectly predictable from its past. The infinite sum is the <strong>nondeterministic component</strong>, built from current and past innovations, with \(\psi_0=1\). The deterministic component is uncorrelated with the innovations.</p>
+<p>For a purely nondeterministic stationary process, \(\kappa_t=0\):</p>
+<div class="equation-stack">\[X_t=\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}.\]</div>
+<p>This is an MA\((\infty)\) representation.</p></div>
+  </div>
+</div><div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-5"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — AR(1) to MA(∞) — complete derivation</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-5" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-2.html#ar1-ma">Lecture 2 · From an AR(1) to an MA(∞)</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>AR(1): full derivation with lag polynomial and geometric expansion</h4><p>An AR(1) is written with its own past values. The aim is to rewrite it using only current and past innovations.</p>
+<div class="lecture-block">
+<h3>Write the model with \(L\)</h3>
+<div class="equation-stack">\[X_t=\phi X_{t-1}+\varepsilon_t,\]\[X_t=\phi LX_t+\varepsilon_t,\]\[(1-\phi L)X_t=\varepsilon_t.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Check stability</h3>
+<p>Before expanding the inverse, use the AR polynomial \(\Phi(L)=1-\phi L\) to find the roots:</p>
+<div class="equation-stack">\[\Phi(z)=1-\phi z=0\qquad\Longrightarrow\qquad z_1=\frac{1}{\phi},\]\[r\Phi(r^{-1})=r(1-\phi r^{-1})=r-\phi=0\qquad\Longrightarrow\qquad r_1=\phi.\]</div>
+<p>The AR(1) is stable when the characteristic root is outside the unit circle, or equivalently when the inverse root is inside it:</p>
+<div class="result-box"><div class="equation-stack">\[|z_1|&gt;1\quad\Longleftrightarrow\quad|r_1|&lt;1\quad\Longleftrightarrow\quad|\phi|&lt;1.\]</div></div>
+</div>
+<div class="lecture-block">
+<h3>Invert and expand</h3>
+<p>Under this condition, the inverse uses current and past dates only:</p>
+<div class="equation-stack">\[X_t=(1-\phi L)^{-1}\varepsilon_t.\]</div>
+<div class="equation-stack">\[(1-\phi L)^{-1}=\sum_{j=0}^{\infty}\phi^jL^j,\]\[X_t=\sum_{j=0}^{\infty}\phi^jL^j\varepsilon_t.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Read the resulting MA\((\infty)\)</h3>
+<p>Since \(L^j\varepsilon_t=\varepsilon_{t-j}\),</p>
+<div class="result-box">
+<div class="equation-stack">\[X_t=\sum_{j=0}^{\infty}\phi^j\varepsilon_{t-j}.\]</div>
+</div>
+<div class="equation-chain">
+<span>\(X_t=\varepsilon_t+\phi\varepsilon_{t-1}\)</span>
+<span>\({}+\phi^2\varepsilon_{t-2}+\cdots.\)</span>
+</div>
+</div></div>
+  </div>
+</div><div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-6"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — MA(1) to AR(∞) — complete derivation</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-6" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-2.html#ma1">Lecture 2 · From an MA(1) to an AR(∞)</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>MA(1): full inversion and autoregressive representation</h4><p>This is the same method in the other direction. An MA(1) is written with innovations; now the aim is to express it using its own past values and the current innovation.</p>
+<div class="lecture-block">
+<h3>Write the model with \(L\)</h3>
+<div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1},\]\[U_t=(1+\theta L)\varepsilon_t,\]\[\Theta(L)=1+\theta L.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Check invertibility</h3>
+<p>Before using an infinite series, check the inverse root. Following the exercise convention,</p>
+<div class="equation-stack">\[r\Theta(r^{-1})=r(1+\theta r^{-1})=r+\theta=0\qquad\Longrightarrow\qquad r_1=-\theta.\]</div>
+<p>The MA(1) is invertible when</p>
+<div class="result-box"><div class="equation-stack">\[|r_1|&lt;1\quad\Longleftrightarrow\quad|\theta|&lt;1.\]</div></div>
+</div>
+<div class="lecture-block">
+<h3>Invert and expand</h3>
+<p>Only under this condition can the polynomial be inverted as a series in current and past values of \(U\):</p>
+<div class="equation-stack">\[\varepsilon_t=(1+\theta L)^{-1}U_t,\]\[(1+\theta L)^{-1}=\sum_{j=0}^{\infty}(-\theta)^jL^j.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Read the resulting AR\((\infty)\)</h3>
+<p>Apply the series, separate the current value \(U_t\), then move the past terms to the other side:</p>
+<div class="equation-stack">\[\varepsilon_t=U_t+\sum_{j=1}^{\infty}(-\theta)^jU_{t-j}.\]</div>
+<div class="result-box">
+<div class="equation-stack">\[U_t=-\sum_{j=1}^{\infty}(-\theta)^jU_{t-j}+\varepsilon_t.\]</div>
+</div>
+</div></div>
+  </div>
+</div>
+</section>
+<!-- Lecture 3, slides 18–22. -->
+<section class="concept-card violet-top lecture-section" id="acf-general" aria-labelledby="acf-general-title">
+  <div class="section-header"><span class="section-label">Identification tools</span><h2 id="acf-general-title">ACF of MA(q), AR(p) and ARMA(p,q)</h2></div>
+  <p>For a stationary process, the ACF is \(\rho_X(h)=\gamma_X(h)/\gamma_X(0)\). What changes between AR, MA and ARMA models is <strong>how the autocovariance is obtained and how long it persists</strong>.</p>
+  <div class="lecture-block">
+    <h3>MA(q): an exact formula and a finite ACF cutoff</h3>
+    <p>For the fundamental MA(q) form \(X_t=\mu+\sum_{j=0}^q\theta_j\varepsilon_{t-j}\), with \(\theta_0=1\), the demeaned observation is \(\widetilde X_t=\sum_{j=0}^q\theta_j\varepsilon_{t-j}\).</p>
+    <p>At lag zero, the white-noise cross-products between <em>different dates</em> are zero, leaving only squares:</p>
+    <div class="equation-stack">\[\gamma_X(0)=E\bigl(\widetilde X_t^2\bigr)\]\[=\sigma_\varepsilon^2\sum_{j=0}^{q}\theta_j^2.\]</div>
+    <p>At lag \(h>0\), write \(\widetilde X_{t-h}=\sum_{k=0}^q\theta_k\varepsilon_{t-h-k}\). The shocks match precisely when \(t-j=t-h-k\), or \(j=h+k\). Thus only \(k=0,\ldots,q-h\) can contribute:</p>
+    <div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2\sum_{k=0}^{q-h}\theta_{k+h}\theta_k\qquad(1\le h\le q).\]</div>
+    <p>Divide by \(\gamma_X(0)\):</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(h)=\begin{cases}\displaystyle\frac{\sum_{j=0}^{q-h}\theta_j\theta_{j+h}}{\sum_{j=0}^{q}\theta_j^2},&1\le h\le q,\\[8pt]0,&h>q.\end{cases}}\]</div></div>
+    <div class="equation-stack">\[\rho_X(q)=\frac{\theta_q}{\sum_{j=0}^q\theta_j^2},\qquad \rho_X(-h)=\rho_X(h).\]</div>
+    <p>The ACF <strong>cuts off after lag \(q\)</strong>: there are no common shock dates beyond that point. Also \(\rho_X(0)=1\).</p>
+  </div>
+  <div class="lecture-block">
+    <h3>AR(p): Yule–Walker recurrence and a decaying ACF</h3>
+    <p>For a stationary <strong>causal</strong> AR(p), the demeaned process satisfies</p>
+    <div class="equation-stack">\[\widetilde X_t=\phi_1\widetilde X_{t-1}+\cdots+\phi_p\widetilde X_{t-p}+\varepsilon_t.\]</div>
+    <p>Multiply only the current equation by \(\widetilde X_{t-h}\) and take expectations:</p>
+    <div class="equation-stack">\[E(\widetilde X_t\widetilde X_{t-h})\]\[=\sum_{i=1}^p\phi_iE(\widetilde X_{t-i}\widetilde X_{t-h})+E(\varepsilon_t\widetilde X_{t-h}).\]</div>
+    <p>For \(h\ge1\), the final term is zero because the current innovation is orthogonal to the past. By stationarity, \(E(\widetilde X_{t-i}\widetilde X_{t-h})=\gamma_X(h-i)\). Therefore</p>
+    <div class="equation-stack">\[\gamma_X(h)=\phi_1\gamma_X(h-1)+\cdots+\phi_p\gamma_X(h-p).\]</div>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(h)=\phi_1\rho_X(h-1)+\cdots+\phi_p\rho_X(h-p),\qquad h\ge1.}\]</div></div>
+    <p>For \(h\lt p\), symmetry \(\rho_X(-h)=\rho_X(h)\) handles negative lags. For \(h\ge p\), this is a homogeneous recurrence of order \(p\). In the causal case the ACF <strong>tails off</strong> toward zero, possibly alternating or oscillating, instead of cutting off.</p>
+  </div>
+  <div class="lecture-block">
+    <h3>ARMA(p,q): the MA effect at early lags</h3>
+    <p>Start from \(\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t\). Under causality, write its MA(∞) form as</p>
+    <div class="equation-stack">\[\widetilde X_t=\Psi(L)\varepsilon_t=\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j},\qquad \Psi(L)=\frac{\Theta(L)}{\Phi(L)}.\]</div>
+    <p>Multiply the ARMA equation by \(\widetilde X_{t-h}\), and take expectations:</p>
+    <div class="equation-stack">\[\gamma_X(h)=\sum_{i=1}^p\phi_i\gamma_X(h-i)+\sum_{j=0}^q\theta_jE(\varepsilon_{t-j}\widetilde X_{t-h}).\]</div>
+    <p>Here the innovation term is different from a pure AR(p): some <em>lagged shocks</em> in \(\Theta(L)\varepsilon_t\) may also occur in \(\widetilde X_{t-h}\). For \(1\le h\le q\), the matching shock contributes \(\psi_{j-h}\sigma_\varepsilon^2\) when \(j\ge h\). For \(h>q\), no MA shock overlaps.</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(h)=\begin{cases}\displaystyle\sum_{i=1}^p\phi_i\rho_X(h-i)+\frac{\sigma_\varepsilon^2}{\gamma_X(0)}\sum_{j=0}^{q-h}\theta_{j+h}\psi_j,&1\le h\le q,\\[12pt]\displaystyle\sum_{i=1}^p\phi_i\rho_X(h-i),&h>q.\end{cases}}\]</div></div>
+    <p><strong>New consequence:</strong> beyond \(q\), the ACF follows the <em>same recurrence as an AR(p)</em>. For a causal and fundamental ARMA(p,q), the ACF generally tails off toward zero, governed in the long run by the AR roots.</p>
+    <div class="equation-stack">\[\boxed{\rho_X(h)=\phi_1\rho_X(h-1)+\cdots+\phi_p\rho_X(h-p),\quad h>q.}\]</div>
+  </div>
+<div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-7"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — MA(1) ACF — complete common-shock calculation</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-7" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-2.html#ma1-acf-pacf">Lecture 2 · MA(1) autocovariance and ACF</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>MA(1): full covariance calculations for each lag</h4><div class="equation-stack">\[U_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad E(\varepsilon_t)=0,\qquad\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2.\]</div>
+<p>The process has mean zero. Write the two observations involved at each lag, expand their product, and keep only products of shocks with the same date.</p>
+<div class="lecture-block">
+<h3>Lag zero: the variance</h3>
+<div class="equation-stack">\[\gamma_U(0)=E(U_t^2)\]\[=E\!\left[(\varepsilon_t+\theta\varepsilon_{t-1})^2\right]\]\[=E(\varepsilon_t^2)+2\theta E(\varepsilon_t\varepsilon_{t-1})+\theta^2E(\varepsilon_{t-1}^2)\]\[=(1+\theta^2)\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Lag one: one common shock</h3>
+<div class="equation-stack">\[U_{t-1}=\varepsilon_{t-1}+\theta\varepsilon_{t-2}.\]</div>
+<p>The innovation \(\varepsilon_{t-1}\) is the only shock present in both \(U_t\) and \(U_{t-1}\):</p>
+<div class="equation-stack">\[\gamma_U(1)=E(U_tU_{t-1})\]\[=E\!\left[(\varepsilon_t+\theta\varepsilon_{t-1})(\varepsilon_{t-1}+\theta\varepsilon_{t-2})\right]\]\[=\theta E(\varepsilon_{t-1}^2)=\theta\sigma_\varepsilon^2.\]</div>
+</div>
+<div class="lecture-block">
+<h3>Lags greater than one: no common shock</h3>
+<p>For \(h&gt;1\), \(U_t\) uses the shock dates \(t\) and \(t-1\), while \(U_{t-h}\) uses \(t-h\) and \(t-h-1\). No dates coincide, so</p>
+<div class="equation-stack">\[\gamma_U(h)=0\quad(h&gt;1).\]</div>
+</div>
+<div class="lecture-block">
+<h3>Divide by the variance</h3>
+<div class="result-box">
+<div class="equation-stack">\[\rho_U(0)=1,\qquad\rho_U(1)=\frac{\theta}{1+\theta^2},\qquad\rho_U(h)=0\quad(h&gt;1).\]</div>
+</div>
+<p>The ACF of an MA(1) cuts off after lag one.</p>
+</div></div>
+  </div>
+</div><div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-9"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — MA(2) ACF — numeric worked calculation</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-9" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="problem-set-2.html#exercise-2">Problem Set 2 · Exercise 2, Question 3</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>MA(2): full worked autocovariances and ACF up to lag 3</h4><h3><span>Question 3</span> ACF up to lag 3</h3>
+<div class="target-form"><span class="target-label">What to find · Formula</span><p>Start from the expected product at each lag. Keep the factor 12 visible in both processes, then divide each autocovariance by the variance.</p><div class="equation-stack">\[\gamma_Y(h)=E(\widetilde Y_t\widetilde Y_{t-h}),\qquad \rho_Y(h)=\frac{\gamma_Y(h)}{\gamma_Y(0)}.\]</div></div>
+<p>Start from the demeaned process and factor out 12:</p>
+<div class="equation-stack">\[\widetilde Y_t=12\varepsilon_t-7\varepsilon_{t-1}+\varepsilon_{t-2}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\widetilde Y_t=12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right).}\]</div></div>
+<p>Since \(E(\widetilde Y_t)=0\), the autocovariance is</p>
+<div class="equation-stack">\[\boxed{\gamma_Y(h)=E(\widetilde Y_t\widetilde Y_{t-h}).}\]</div>
+<h4>\(h=0\)</h4>
+<p>Start from the definition:</p>
+<div class="equation-stack">\[\gamma_Y(0)=E(\widetilde Y_t\widetilde Y_t)=E(\widetilde Y_t^2).\]</div>
+<p>Substitute the factored expression into both copies of \(\widetilde Y_t\):</p>
+<div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(0)=E\Bigg[&amp;12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &amp;\times12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\Bigg].
+            \end{aligned}\]</div>
+<p class="key-note"><strong>Where does 144 come from?</strong> Each process contributes a factor 12, so \(12\times12=144\). This constant can be taken outside the expectation.</p>
+<div class="equation-stack">\[\gamma_Y(0)=144E\left[\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)^2\right].\]</div>
+<p>Expand the square using</p>
+<div class="equation-stack">\[(a+b+c)^2=a^2+b^2+c^2+2ab+2ac+2bc.\]</div>
+<p>Products of innovations from different dates have expectation zero because the innovations are white noise. Only the squared terms contribute:</p>
+<div class="equation-stack">\[\gamma_Y(0)=144E\left[\varepsilon_t^2+\frac{49}{144}\varepsilon_{t-1}^2+\frac1{144}\varepsilon_{t-2}^2\right].\]</div>
+<p>At every date, the innovations have zero mean and variance \(\sigma_\varepsilon^2\), so</p>
+<div class="equation-stack">\[E(\varepsilon_t^2)=E(\varepsilon_{t-1}^2)=E(\varepsilon_{t-2}^2)=\sigma_\varepsilon^2.\]
+            \[\begin{aligned}\gamma_Y(0)&amp;=144\left(1+\frac{49}{144}+\frac1{144}\right)\sigma_\varepsilon^2\\&amp;=144\left(\frac{194}{144}\right)\sigma_\varepsilon^2.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\gamma_Y(0)=194\sigma_\varepsilon^2.}\]</div></div>
+<h4>\(h=1\)</h4>
+<p>Start again from the definition:</p>
+<div class="equation-stack">\[\gamma_Y(1)=E(\widetilde Y_t\widetilde Y_{t-1}).\]</div>
+<p>Shift every innovation date by one period to write the second process:</p>
+<div class="equation-stack">\[\widetilde Y_t=12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right),\]
+            \[\widetilde Y_{t-1}=12\left(\varepsilon_{t-1}-\frac7{12}\varepsilon_{t-2}+\frac1{12}\varepsilon_{t-3}\right).\]</div>
+<p>Substitute both processes:</p>
+<div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(1)=E\Bigg[&amp;12\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &amp;\times12\left(\varepsilon_{t-1}-\frac7{12}\varepsilon_{t-2}+\frac1{12}\varepsilon_{t-3}\right)\Bigg].
+            \end{aligned}\]</div>
+<p>Again, \(12\times12=144\), so</p>
+<div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(1)=144E\Bigg[&amp;\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &amp;\times\left(\varepsilon_{t-1}-\frac7{12}\varepsilon_{t-2}+\frac1{12}\varepsilon_{t-3}\right)\Bigg].
+            \end{aligned}\]</div>
+<p>Look for <strong>same-date innovations</strong>. The two brackets share only \(\varepsilon_{t-1}\) and \(\varepsilon_{t-2}\). Only these two products have nonzero expectations:</p>
+<div class="equation-stack">\[\left(-\frac7{12}\varepsilon_{t-1}\right)(\varepsilon_{t-1}),\qquad \left(\frac1{12}\varepsilon_{t-2}\right)\left(-\frac7{12}\varepsilon_{t-2}\right).\]</div>
+<div class="equation-stack">\[\gamma_Y(1)=144E\left[-\frac7{12}\varepsilon_{t-1}^2-\frac7{144}\varepsilon_{t-2}^2\right].\]
+            \[\begin{aligned}\gamma_Y(1)&amp;=144\left(-\frac7{12}-\frac7{144}\right)\sigma_\varepsilon^2\\&amp;=144\left(-\frac{84}{144}-\frac7{144}\right)\sigma_\varepsilon^2\\&amp;=144\left(-\frac{91}{144}\right)\sigma_\varepsilon^2.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\gamma_Y(1)=-91\sigma_\varepsilon^2.}\]</div></div>
+<h4>\(h=2\)</h4>
+<p>Start again from the definition:</p>
+<div class="equation-stack">\[\gamma_Y(2)=E(\widetilde Y_t\widetilde Y_{t-2}).\]</div>
+<p>Shift every innovation date by two periods:</p>
+<div class="equation-stack">\[\widetilde Y_{t-2}=12\left(\varepsilon_{t-2}-\frac7{12}\varepsilon_{t-3}+\frac1{12}\varepsilon_{t-4}\right).\]</div>
+<p>Substitute both processes and take \(12\times12=144\) outside the expectation:</p>
+<div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(2)=144E\Bigg[&amp;\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &amp;\times\left(\varepsilon_{t-2}-\frac7{12}\varepsilon_{t-3}+\frac1{12}\varepsilon_{t-4}\right)\Bigg].
+            \end{aligned}\]</div>
+<p>There is now <strong>only one common innovation</strong>: \(\varepsilon_{t-2}\). Its coefficients in the two brackets are \(\frac1{12}\) and \(1\), so</p>
+<div class="equation-stack">\[\gamma_Y(2)=144E\left[\frac1{12}\varepsilon_{t-2}^2\right]=144\left(\frac1{12}\right)\sigma_\varepsilon^2.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\gamma_Y(2)=12\sigma_\varepsilon^2.}\]</div></div>
+<h4>\(h=3\)</h4>
+<p>Start again from the definition:</p>
+<div class="equation-stack">\[\gamma_Y(3)=E(\widetilde Y_t\widetilde Y_{t-3}).\]</div>
+<p>Shift every innovation date by three periods:</p>
+<div class="equation-stack">\[\widetilde Y_{t-3}=12\left(\varepsilon_{t-3}-\frac7{12}\varepsilon_{t-4}+\frac1{12}\varepsilon_{t-5}\right).\]</div>
+<p>Substitute both processes and take \(12\times12=144\) outside the expectation:</p>
+<div class="equation-stack">\[\begin{aligned}
+              \gamma_Y(3)=144E\Bigg[&amp;\left(\varepsilon_t-\frac7{12}\varepsilon_{t-1}+\frac1{12}\varepsilon_{t-2}\right)\\
+              &amp;\times\left(\varepsilon_{t-3}-\frac7{12}\varepsilon_{t-4}+\frac1{12}\varepsilon_{t-5}\right)\Bigg].
+            \end{aligned}\]</div>
+<p>Compare the innovation dates in the two brackets:</p>
+<div class="equation-stack">\[\{t,t-1,t-2\}\qquad\text{and}\qquad\{t-3,t-4,t-5\}.\]</div>
+<p>There is <strong>no common date</strong>, so every product has expectation zero. The same is true at every lag greater than 2:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\gamma_Y(3)=0,\qquad\gamma_Y(h)=0\quad(h&gt;2).}\]</div></div>
+<h4>Convert autocovariances into the ACF</h4>
+<p>We have \(\gamma_Y(0)=194\sigma_\varepsilon^2\), \(\gamma_Y(1)=-91\sigma_\varepsilon^2\), \(\gamma_Y(2)=12\sigma_\varepsilon^2\), and \(\gamma_Y(h)=0\) for \(h&gt;2\). Divide each autocovariance by \(\gamma_Y(0)\):</p>
+<div class="equation-stack">\[\rho_Y(h)=\frac{\gamma_Y(h)}{\gamma_Y(0)}.\]
+            \[\rho_Y(0)=\frac{194\sigma_\varepsilon^2}{194\sigma_\varepsilon^2}=1,\]
+            \[\rho_Y(1)=\frac{-91\sigma_\varepsilon^2}{194\sigma_\varepsilon^2}=-\frac{91}{194}\simeq-0.4691,\]
+            \[\rho_Y(2)=\frac{12\sigma_\varepsilon^2}{194\sigma_\varepsilon^2}=\frac{12}{194}=\frac6{97}\simeq0.0619,\]
+            \[\rho_Y(h)=0\qquad(h&gt;2).\]</div>
+<div class="result-box"><table class="results-table"><caption>MA(2) ACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">\(\rho_Y(h)\)</th><td>\(1\)</td><td>\(-\frac{91}{194}\)</td><td>\(\frac6{97}\)</td><td>\(0\)</td></tr></tbody></table><p class="table-note">\(-\frac{91}{194}\simeq-0.4691\) and \(\frac6{97}\simeq0.0619\).</p></div>
+<p>The ACF of this MA(2) is zero for every lag greater than 2: \(\rho_Y(h)=0\) for \(h&gt;2\).</p></div>
+  </div>
+</div><div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-8"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — AR(1) ACF — complete Yule–Walker derivation</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-8" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-2.html#ar1-acf">Lecture 2 · AR(1) autocovariance and ACF</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>AR(1): full variance and positive-lag autocovariance calculation</h4><div class="equation-stack">\[X_t=\phi X_{t-1}+\varepsilon_t,\qquad|\phi|&lt;1,\]\[\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2).\]</div>
+<p>The process has mean zero. To find its ACF, first calculate the variance, which is \(\gamma_X(0)\).</p>
+<div class="lecture-block">
+<h3>Lag zero: the variance</h3>
+<p>Square the AR(1) equation and take expectations. The cross term is zero because \(\varepsilon_t\) is uncorrelated with the past value \(X_{t-1}\):</p>
+<div class="equation-stack">\[\gamma_X(0)=E(X_t^2)\]\[=E\!\left[(\phi X_{t-1}+\varepsilon_t)^2\right]\]\[=\phi^2\gamma_X(0)+\sigma_\varepsilon^2.\]</div>
+<p>Move the first term to the left:</p>
+<div class="equation-stack">\[(1-\phi^2)\gamma_X(0)=\sigma_\varepsilon^2,\]\[\boxed{\gamma_X(0)=\frac{\sigma_\varepsilon^2}{1-\phi^2}.}\]</div>
+</div>
+<div class="lecture-block">
+<h3>Positive lags: the autocovariance recursion</h3>
+<p>For \(h\ge1\), multiply the AR(1) equation by \(X_{t-h}\) and take expectations:</p>
+<div class="equation-stack">\[\gamma_X(h)=E(X_tX_{t-h})\]\[=E\!\left[(\phi X_{t-1}+\varepsilon_t)X_{t-h}\right]\]\[=\phi\gamma_X(h-1)+E(\varepsilon_tX_{t-h}).\]</div>
+<p>Again, the last term is zero because \(X_{t-h}\) belongs to the past. Hence</p>
+<div class="equation-stack">\[\gamma_X(h)=\phi\gamma_X(h-1).\]</div>
+<p>Applying this recursion repeatedly gives</p>
+<div class="equation-stack">\[\gamma_X(h)=\phi^h\gamma_X(0)\quad(h\ge0),\]\[\gamma_X(h)=\phi^{|h|}\frac{\sigma_\varepsilon^2}{1-\phi^2}\quad(h\in\mathbb Z).\]</div>
+</div>
+<div class="lecture-block">
+<h3>Divide by the variance</h3>
+<div class="equation-stack">\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}\]\[=\frac{\phi^{|h|}\sigma_\varepsilon^2/(1-\phi^2)}{\sigma_\varepsilon^2/(1-\phi^2)}\]\[=\phi^{|h|}.\]</div>
+<div class="result-box">
+<div class="equation-stack">\[\rho_X(h)=\phi^{|h|}.\]</div>
+</div>
+<div class="equation-stack">\[\rho_X(0)=1,\quad\rho_X(1)=\phi,\quad\rho_X(2)=\phi^2.\]</div>
+<p>The ACF follows successive powers of \(\phi\); it does not generally cut off after lag one.</p>
+</div></div>
+  </div>
+</div>
+</section>
+<!-- Lecture 3, slides 23–24. -->
+<section class="concept-card violet-top lecture-section" id="yule-walker-system" aria-labelledby="yule-walker-system-title">
+  <div class="section-header"><span class="section-label">General system</span><h2 id="yule-walker-system-title">Yule–Walker equations</h2></div>
+  <p>The preceding AR(p) recurrence can be written as a <strong>matrix system</strong> for the AR coefficients \(\phi_1,\ldots,\phi_p\), once the first \(p\) autocorrelations are known.</p>
+  <div class="lecture-block">
+    <h3>The AR(p) Toeplitz system</h3>
+    <p>Using \(\rho_X(0)=1\) and the symmetry \(\rho_X(-h)=\rho_X(h)\), put the equations for \(h=1,\ldots,p\) together:</p>
+    <div class="equation-stack">\[\underbrace{\begin{pmatrix}1&\rho_X(1)&\cdots&\rho_X(p-1)\\\rho_X(1)&1&\cdots&\rho_X(p-2)\\\vdots&\vdots&\ddots&\vdots\\\rho_X(p-1)&\rho_X(p-2)&\cdots&1\end{pmatrix}}_{R_p}\underbrace{\begin{pmatrix}\phi_1\\\phi_2\\\vdots\\\phi_p\end{pmatrix}}_{\boldsymbol\phi}=\underbrace{\begin{pmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(p)\end{pmatrix}}_{\boldsymbol\rho_p}.\]</div>
+    <div class="result-box"><div class="equation-stack">\[\boxed{R_p\boldsymbol\phi=\boldsymbol\rho_p.}\]</div></div>
+    <p>\(R_p\) is a symmetric Toeplitz autocorrelation matrix. This system expresses the connection between the <strong>AR parameters</strong> and the <strong>observed autocorrelations</strong>; it is not itself the definition of the PACF.</p>
+  </div>
+  <div class="lecture-block">
+    <h3>AR(2) example: solve symbolically</h3>
+    <p>Consider \(\widetilde X_t=\phi_1\widetilde X_{t-1}+\phi_2\widetilde X_{t-2}+\varepsilon_t\). For \(h=1,2\):</p>
+    <div class="equation-stack">\[\begin{pmatrix}1&\rho_X(1)\\\rho_X(1)&1\end{pmatrix}\begin{pmatrix}\phi_1\\\phi_2\end{pmatrix}=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\end{pmatrix}.\]</div>
+    <p>Row one gives \(\phi_1+\phi_2\rho_X(1)=\rho_X(1)\). Move the term in \(\rho_X(1)\) to the left:</p>
+    <div class="equation-stack">\[(1-\phi_2)\rho_X(1)=\phi_1\]\[\boxed{\rho_X(1)=\frac{\phi_1}{1-\phi_2}.}\]</div>
+    <p>Row two gives \(\rho_X(2)=\phi_1\rho_X(1)+\phi_2\). Substituting the previous result:</p>
+    <div class="equation-stack">\[\boxed{\rho_X(2)=\frac{\phi_1^2}{1-\phi_2}+\phi_2.}\]</div>
+    <p>From lag 3 onward, use the original recurrence:</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(h)=\phi_1\rho_X(h-1)+\phi_2\rho_X(h-2),\quad h\ge3.}\]</div></div>
+    <p>This is the <strong>symbolic, general</strong> version of the specific AR(2) ACF calculation already carried out in <a href="problem-set-2.html#exercise-1">Problem Set 2, Exercise 1, Question 3</a>.</p>
+  </div>
+<div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-10"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — AR(2) ACF — numeric worked calculation</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-10" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="problem-set-2.html#exercise-1">Problem Set 2 · Exercise 1, Question 3</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>AR(2): complete worked ACF up to lag 3 from PS2</h4><h3><span>Question 3</span> ACF up to lag 3</h3>
+<div class="target-form"><span class="target-label">What to find · Formula</span><p>Use the AR(2) recursion with \(\phi_1=-\frac16\), \(\phi_2=\frac16\), and \(\rho_X(0)=1\).</p><div class="equation-stack">\[\rho_X(h)=\phi_1\rho_X(h-1)+\phi_2\rho_X(h-2).\]</div></div>
+<p>Multiply the demeaned AR(2) equation by \(\widetilde X_{t-h}\) and take expectations. For \(h\geq1\), \(E(\varepsilon_t\widetilde X_{t-h})=0\), so</p>
+<div class="equation-stack">\[\begin{aligned}E(\widetilde X_t\widetilde X_{t-h})&amp;=-\frac16E(\widetilde X_{t-1}\widetilde X_{t-h})\\&amp;\quad+\frac16E(\widetilde X_{t-2}\widetilde X_{t-h}).\end{aligned}\]
+            \[\gamma_X(h)=-\frac16\gamma_X(h-1)+\frac16\gamma_X(h-2).\]</div>
+<p>Divide the entire equation by \(\gamma_X(0)\):</p>
+<div class="equation-stack">\[\rho_X(h)=-\frac16\rho_X(h-1)+\frac16\rho_X(h-2),\qquad h\geq1.\]</div>
+<p>At lag one, use \(\rho_X(-1)=\rho_X(1)\):</p>
+<div class="equation-stack">\[\rho_X(1)=\phi_1+\phi_2\rho_X(1),\]\[\rho_X(1)(1-\phi_2)=\phi_1,\]\[\rho_X(1)=\frac{-1/6}{1-1/6}=-\frac15.\]</div>
+<p>Then apply the recursion at lags two and three:</p>
+<div class="equation-stack">\[\rho_X(2)=-\frac16\left(-\frac15\right)+\frac16(1)=\frac1{30}+\frac5{30}=\frac15,\]\[\rho_X(3)=-\frac16\left(\frac15\right)+\frac16\left(-\frac15\right)=-\frac1{15}.\]</div>
+<div class="result-box"><table class="results-table"><caption>AR(2) ACF up to lag 3</caption><thead><tr><th scope="col">Lag \(h\)</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th></tr></thead><tbody><tr><th scope="row">\(\rho_X(h)\)</th><td>\(1\)</td><td>\(-\frac15\)</td><td>\(\frac15\)</td><td>\(-\frac1{15}\)</td></tr></tbody></table></div></div>
+  </div>
+</div>
+</section>
+<!-- Lecture 3, slides 25–27 and ACF/PACF summary. -->
+<section class="concept-card violet-top lecture-section" id="pacf-identification" aria-labelledby="pacf-identification-title">
+  <div class="section-header"><span class="section-label">Identification</span><h2 id="pacf-identification-title">PACF properties and ARMA identification</h2></div>
+  <p>Recall that the PACF at lag \(h\) is the coefficient on the <strong>last lag</strong> in the linear projection of \(X_t\) onto \(X_{t-1},\ldots,X_{t-h}\):</p>
+  <div class="equation-stack">\[X_t=a_{h1}X_{t-1}+\cdots+a_{hh}X_{t-h}+u_t^{(h)}\]\[\boxed{\alpha_X(h)=a_{hh}.}\]</div>
+  <div class="lecture-block">
+    <h3>AR(p): the PACF cuts off at order p</h3>
+    <p>For a stationary causal AR(p), after controlling for the first \(p\) lags, more distant lags do not add a nonzero population linear-projection coefficient:</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=\begin{cases}a_{hh},&1\le h\le p,\\0,&h>p.\end{cases}}\]</div></div>
+    <p>The cutoff is a property of the <strong>PACF</strong>, not the ACF. In the AR(2) from PS2, the ACF may remain nonzero at \(h=3\), while the PACF is exactly zero for \(h>2\).</p>
+  </div>
+  <div class="lecture-block">
+    <h3>MA(q): the PACF tails off</h3>
+    <p>For a fundamental MA(q), the <strong>ACF</strong> cuts off after \(q\), but the <strong>PACF</strong> generally does not. Instead, it approaches zero as \(h\to\infty\). The finite MA structure concerns common shocks, not an exact cutoff in partial correlations.</p>
+    <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)\longrightarrow 0\quad\text{as }h\to\infty\qquad\text{(generally no finite cutoff).}}\]</div></div>
+  </div>
+  <div class="lecture-block">
+    <h3>ARMA(p,q): both functions tail off</h3>
+    <p>For a causal and fundamental ARMA(p,q), the ACF and PACF both tend to zero without generally displaying a finite cutoff at lag \(p\) or \(q\).</p>
+    <div class="result-box"><table class="results-table"><caption>ACF and PACF patterns in the lecture</caption><thead><tr><th scope="col">Model</th><th scope="col">ACF</th><th scope="col">PACF</th></tr></thead><tbody><tr><th scope="row">AR(p)</th><td>Tails off</td><td>Cuts off after \(p\)</td></tr><tr><th scope="row">MA(q)</th><td>Cuts off after \(q\)</td><td>Tails off</td></tr><tr><th scope="row">ARMA(p,q)</th><td>Tails off</td><td>Tails off</td></tr></tbody></table></div>
+    <p>These are <strong>theoretical population ACF/PACF patterns</strong>. Their principal use here is to distinguish the characteristic dependence structure of the three model classes.</p>
+  </div>
+<div class="answer-item lecture-recall">
+  <button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="lecture-3-recall-11"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> full previous explanation — PACF and Cramer’s rule — complete prior explanations</button>
+  <div class="collapsible answer-panel" id="lecture-3-recall-11" hidden>
+    <p class="recall-links"><strong>Previously covered:</strong> <a href="lecture-2.html#pacf">Lecture 2 · PACF</a> <a href="lecture-2.html#ar1-pacf">Lecture 2 · PACF of AR(1)</a> <a href="lecture-2.html#ma1-pacf">Lecture 2 · PACF of MA(1)</a> <a href="problem-set-1.html#pacf-guide-title">Problem Set 1 · Full PACF matrices and Cramer</a>. The complete earlier development is reproduced below, so you can review it without leaving this page.</p>
+    <div class="lecture-block"><h4>PACF definition and projection coefficients</h4><p>The ACF measures the correlation between \(X_t\) and \(X_{t-h}\). The PACF measures their linear correlation <strong>after controlling for the intermediate lags</strong> \(X_{t-1},\ldots,X_{t-h+1}\).</p>
+<p>For a zero-mean process, write the projection onto the first \(h\) lags as</p>
+<div class="equation-chain">
+<span>\(X_t=a_{h1}X_{t-1}+\cdots\)</span>
+<span>\({}+a_{hh}X_{t-h}+u_t^{(h)}.\)</span>
+</div>
+<p>The PACF is the coefficient on the last lag:</p>
+<div class="result-box">
+<div class="equation-stack">\[\alpha_X(h)=a_{hh}.\]</div>
+</div>
+<p>For the calculations below,</p>
+<div class="equation-stack">\[\alpha_X(1)=\rho_X(1),\]\[\alpha_X(2)=\frac{\rho_X(2)-[\rho_X(1)]^2}{1-[\rho_X(1)]^2}.\]</div></div><div class="lecture-block"><h4>PACF of an AR(1)</h4><p>The ACF calculation above gives \(\rho_X(1)=\phi\) and \(\rho_X(2)=\phi^2\).</p>
+<div class="equation-stack">\[\alpha_X(1)=\phi,\]\[\alpha_X(2)=\frac{\phi^2-\phi^2}{1-\phi^2}=0.\]</div>
+<div class="result-box">
+<div class="equation-chain">
+<span>\(\alpha_X(1)=\phi,\)</span>
+<span>\(\alpha_X(h)=0\quad(h\ge2).\)</span>
+</div>
+</div>
+<p>The PACF of an AR(1) cuts off after lag 1.</p></div><div class="lecture-block"><h4>PACF of an MA(1)</h4><p>The ACF calculation above gives \(\rho_U(1)=\dfrac{\theta}{1+\theta^2}\) and \(\rho_U(2)=0\).</p>
+<div class="equation-stack">\[\alpha_U(1)=\frac{\theta}{1+\theta^2},\]\[\alpha_U(2)=\frac{-\left[\dfrac{\theta}{1+\theta^2}\right]^2}{1-\left[\dfrac{\theta}{1+\theta^2}\right]^2}.\]</div></div><div class="lecture-block"><h4>Problem Set 1: detailed Yule–Walker matrices and Cramer’s rule</h4><div class="equation-stack pacf-matrix">\[\boxed{X_t=a_{h1}X_{t-1}+a_{h2}X_{t-2}+\cdots+a_{hh}X_{t-h}+u_t^{(h)}}\]</div>
+<p>The PACF at lag \(h\) is the last coefficient in the projection of \(X_t\) on its first \(h\) lags: \(\alpha_X(h)=a_{hh}\).</p>
+<h3>General autocorrelation matrix and system</h3>
+<p>The autocorrelation matrix among the lagged values is</p>
+<div class="equation-stack pacf-matrix">\[R_h=\begin{pmatrix}
+        \rho_X(0)&amp;\rho_X(1)&amp;\cdots&amp;\rho_X(h-1)\\
+        \rho_X(1)&amp;\rho_X(0)&amp;\cdots&amp;\rho_X(h-2)\\
+        \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+        \rho_X(h-1)&amp;\rho_X(h-2)&amp;\cdots&amp;\rho_X(0)
+        \end{pmatrix}.\]</div>
+<p>The coefficients satisfy the system \(R_h a_h=\rho_h\), where</p>
+<div class="matrix-pair"><div>\[a_h=\begin{pmatrix}a_{h1}\\a_{h2}\\\vdots\\a_{hh}\end{pmatrix}\]</div><div>\[\rho_h=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(h)\end{pmatrix}.\]</div></div>
+<p>The PACF is the last coefficient, \(a_{hh}\).</p>
+<h3>Cramer’s rule: replace the last column</h3>
+<p>For \(a_{hh}\), Cramer’s rule replaces the last column of \(R_h\) with \(\rho_h\):</p>
+<div class="matrix-pair pacf-matrix"><div>\[R_h=\begin{pmatrix}
+        \rho_X(0)&amp;\rho_X(1)&amp;\cdots&amp;\rho_X(h-1)\\
+        \rho_X(1)&amp;\rho_X(0)&amp;\cdots&amp;\rho_X(h-2)\\
+        \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+        \rho_X(h-1)&amp;\rho_X(h-2)&amp;\cdots&amp;\rho_X(0)
+        \end{pmatrix}\]</div><div>\[\rho_h=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(h)\end{pmatrix}.\]</div></div>
+<p>Replace the last column with this vector:</p>
+<div class="equation-stack pacf-matrix">\[R_h^\star=\begin{pmatrix}
+        \rho_X(0)&amp;\rho_X(1)&amp;\cdots&amp;\rho_X(1)\\
+        \rho_X(1)&amp;\rho_X(0)&amp;\cdots&amp;\rho_X(2)\\
+        \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+        \rho_X(h-1)&amp;\rho_X(h-2)&amp;\cdots&amp;\rho_X(h)
+        \end{pmatrix}.\]</div>
+<h3>General result</h3>
+<div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=a_{hh}=\frac{\det(R_h^\star)}{\det(R_h)}}\]</div></div>
+<p>The denominator uses the original matrix; the numerator uses the matrix with its last column replaced.</p>
+<h3>Case \(h=2\)</h3>
+<p>For lag 2,</p>
+<div class="matrix-pair"><div>\[R_2=\begin{pmatrix}1&amp;\rho_X(1)\\\rho_X(1)&amp;1\end{pmatrix}\]</div><div>\[\rho_2=\begin{pmatrix}\rho_X(1)\\\rho_X(2)\end{pmatrix}.\]</div></div>
+<p>The PACF is \(\alpha_X(2)=a_{22}\), so replace column 2:</p>
+<div class="equation-stack">\[R_2^\star=\begin{pmatrix}1&amp;\rho_X(1)\\\rho_X(1)&amp;\rho_X(2)\end{pmatrix}.\]</div>
+<div class="equation-stack pacf-matrix">\[
+        \alpha_X(2)=\frac{\det(R_2^\star)}{\det(R_2)}=
+        \frac{\begin{vmatrix}1&amp;\rho_X(1)\\\rho_X(1)&amp;\rho_X(2)\end{vmatrix}}
+        {\begin{vmatrix}1&amp;\rho_X(1)\\\rho_X(1)&amp;1\end{vmatrix}}.
+        \]</div>
+<div class="equation-stack">\[\det(R_2^\star)=\rho_X(2)-\rho_X(1)^2,\qquad
+        \det(R_2)=1-\rho_X(1)^2.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(2)=\frac{\rho_X(2)-\rho_X(1)^2}{1-\rho_X(1)^2}}\]</div></div></div>
+  </div>
+</div>
+</section>
+    </main>
+  </div>
+</body>
+</html>
