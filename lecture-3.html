@@ -28,7 +28,6 @@
     .answer-toggle { max-width: 100%; line-height: 1.5; }
     .lecture-recall .matrix-pair { max-width: 100%; }
     .lecture-page p { font-size: 1rem; line-height: 1.8; }
-    .lecture-page .page-title-block > p:last-child { max-width: 58ch; margin-top: 14px; }
     .lecture-page .lecture-section { gap: 28px; }
     .lecture-page .section-header { align-items: flex-start; flex-direction: column; gap: 12px; }
     .lecture-page .section-header h2 { font-size: 1.45rem; line-height: 1.35; font-weight: 700; }
@@ -42,7 +41,6 @@
     .lecture-page .answer-toggle { padding: 13px 16px; font-weight: 500; }
     .lecture-page .recall-links { font-size: .82rem; color: var(--text-3); }
     .lecture-page .recall-links a { display: inline-block; margin-right: 10px; }
-    .lecture-page .lecture-jumps a { color: var(--text-2); padding: 9px 12px; }
     @media (max-width: 767px) {
       .lecture-page p { font-size: .96rem; }
       .lecture-page .section-header h2 { font-size: 1.25rem; }
@@ -83,16 +81,7 @@
         <div class="page-label">MACROECONOMETRICS · TIME SERIES</div>
         <h1>LECTURE 3</h1>
         <p class="lecture-subtitle">Understanding ARMA processes</p>
-        <p>Build the model, check its roots, then read its dependence through the ACF and PACF.</p>
       </div>
-      <nav class="lecture-jumps" aria-label="On this page">
-        <a href="#arma-processes">The model</a>
-        <a href="#root-conditions">Root conditions</a>
-        <a href="#fundamental-representations">Representations</a>
-        <a href="#acf-general">ACF</a>
-        <a href="#yule-walker-system">Yule–Walker</a>
-        <a href="#pacf-identification">PACF</a>
-      </nav>
 
 <!-- Lecture 3, slides 3–6. General model is new in scope; old operator mechanics live in the optional disclosure. -->
 <section class="concept-card violet-top lecture-section" id="arma-processes" aria-labelledby="arma-processes-title">
