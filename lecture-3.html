@@ -79,9 +79,8 @@
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-lag-polynomials"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — lag-polynomial notation</button>
 <div class="collapsible lecture-calculation" id="derive-lag-polynomials" hidden>
-<p>Subtract the AR terms:</p>
-<div class="equation-stack">\[\begin{aligned}X_t-\sum_{i=1}^p\phi_iX_{t-i}&amp;=\mu+\varepsilon_t+\sum_{j=1}^q\theta_j\varepsilon_{t-j}\\\left(1-\sum_{i=1}^p\phi_iL^i\right)X_t&amp;=\mu+\left(1+\sum_{j=1}^q\theta_jL^j\right)\varepsilon_t.\end{aligned}\]</div>
-<p>The brackets define \(\Phi(L)\) and \(\Theta(L)\).</p>
+<p>Move the AR terms left and use \(L^iX_t=X_{t-i}\):</p>
+<div class="equation-stack">\[X_t-\sum_{i=1}^p\phi_iX_{t-i}=\mu+\varepsilon_t+\sum_{j=1}^q\theta_j\varepsilon_{t-j},\]\[\left(1-\sum_{i=1}^p\phi_iL^i\right)X_t=\mu+\left(1+\sum_{j=1}^q\theta_jL^j\right)\varepsilon_t.\]\[\Phi(L)X_t=\mu+\Theta(L)\varepsilon_t.\]</div>
 </div>
 </div>
 </div>
@@ -101,23 +100,15 @@
 </div>
 <div class="lecture-block">
 <h3>The intercept and the mean</h3>
-<p>For a stationary solution, \(E(X_t)=m_X\) and \(\Phi(1)\ne0\). Take expectations:</p><div class="equation-stack">\[\begin{aligned}\underbrace{E(X_t)}_{m_X}={}&amp;\mu+\sum_{i=1}^{p}\phi_i\underbrace{E(X_{t-i})}_{m_X}\\&amp;+\underbrace{E[\Theta(L)\varepsilon_t]}_{0}.\end{aligned}\]</div>
+<p>For a stationary solution, the mean \(m_X=E(X_t)\) is:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{m_X=\frac{\mu}{1-\sum_{i=1}^p\phi_i}=\frac{\mu}{\Phi(1)}.}\]</div>
 </div>
 <p>\(\Phi(1)=1-\sum_{i=1}^p\phi_i\). For an MA, \(\Phi(1)=1\), so \(m_X=\mu\).</p>
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-arma-mean"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the mean</button>
 <div class="collapsible lecture-calculation" id="derive-arma-mean" hidden>
-<h4>1. Take expectations term by term</h4>
-<div class="equation-stack">\[E(X_t)=\mu+\sum_{i=1}^p\phi_iE(X_{t-i})+E(\varepsilon_t)+\sum_{j=1}^q\theta_jE(\varepsilon_{t-j}).\]</div>
-<p><strong>Stationarity:</strong> \(E(X_{t-i})=m_X\). <strong>White noise:</strong> \(E(\varepsilon_{t-j})=0\).</p>
-<div class="equation-stack">\[m_X=\mu+\sum_{i=1}^p\phi_i m_X.\]</div>
-<h4>2. Collect the terms in the mean</h4>
-<div class="equation-stack">\[m_X-\left(\sum_{i=1}^p\phi_i\right)m_X=\mu,\]\[\left(1-\sum_{i=1}^p\phi_i\right)m_X=\mu,\]\[\Phi(1)m_X=\mu.\]</div>
-<h4>3. Divide by the nonzero coefficient</h4>
-<p>No root at \(z=1\) means \(\Phi(1)\ne0\), so division is valid:</p>
-<div class="equation-stack">\[m_X=\frac{\mu}{\Phi(1)}.\]</div>
-<p>\(\mu=0\Rightarrow m_X=0\).</p>
+<p>Take expectations: \(E(X_{t-i})=m_X\) and \(E(\varepsilon_{t-j})=0\).</p>
+<div class="equation-stack">\[m_X=\mu+\sum_{i=1}^p\phi_i m_X,\]\[m_X\left(1-\sum_{i=1}^p\phi_i\right)=\mu,\]\[m_X=\frac{\mu}{\Phi(1)}\qquad\bigl(\Phi(1)\ne0\bigr).\]</div>
 </div>
 </div>
 </div>
@@ -130,12 +121,8 @@
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-centering"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — centring the equation</button>
 <div class="collapsible lecture-calculation" id="derive-centering" hidden>
-<p>Substitute \(X_t=\widetilde X_t+m_X\):</p>
-<div class="equation-stack">\[\widetilde X_t+m_X=\mu+\sum_{i=1}^p\phi_i(\widetilde X_{t-i}+m_X)+\Theta(L)\varepsilon_t.\]\[\widetilde X_t=\sum_{i=1}^p\phi_i\widetilde X_{t-i}+\Theta(L)\varepsilon_t+\left[\mu+\sum_{i=1}^p\phi_i m_X-m_X\right].\]</div>
-<p>Use \(\mu=\Phi(1)m_X\):</p>
-<div class="equation-stack">\[\mu+\sum_{i=1}^p\phi_i m_X-m_X=\mu-\Phi(1)m_X=0.\]\[\widetilde X_t-\sum_{i=1}^p\phi_i\widetilde X_{t-i}=\Theta(L)\varepsilon_t.\]\[\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t.\]</div>
-<p>Fixed constants do not affect covariance:</p>
-<div class="equation-stack">\[\operatorname{Cov}(X_t-m_X,X_s-m_X)=\operatorname{Cov}(X_t,X_s).\]</div>
+<p>Substitute \(X_t=\widetilde X_t+m_X\), using \(\Phi(1)m_X=\mu\):</p>
+<div class="equation-stack">\[\Phi(L)(\widetilde X_t+m_X)=\mu+\Theta(L)\varepsilon_t,\]\[\Phi(L)\widetilde X_t+\Phi(1)m_X=\mu+\Theta(L)\varepsilon_t,\]\[\Phi(L)\widetilde X_t=\underbrace{\mu-\Phi(1)m_X}_{0}+\Theta(L)\varepsilon_t=\Theta(L)\varepsilon_t.\]</div>
 </div>
 </div>
 </div>
@@ -154,11 +141,8 @@
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-inverse-roots"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — characteristic and inverse roots</button>
 <div class="collapsible lecture-calculation" id="derive-inverse-roots" hidden>
-<p>\(\Phi(0)=1\Rightarrow z_i\ne0\). Set \(r_i=1/z_i\):</p>
-<div class="equation-stack">\[r_i^p\Phi(1/r_i)=r_i^p\Phi(z_i)=0.\]</div>
-<p>Conversely, \(\phi_p\ne0\Rightarrow r_i\ne0\). Divide by \(r_i^p\):</p><div class="equation-stack">\[r_i^p\Phi(1/r_i)=0\quad\Longrightarrow\quad\Phi(1/r_i)=0.\]</div>
-<div class="equation-stack">\[|r_i|=\frac1{|z_i|},\]\[|z_i|&gt;1\iff|r_i|&lt;1,\qquad |z_i|\ne1\iff|r_i|\ne1.\]</div>
-<p>For the MA polynomial, use roots \(w_i\) and inverse roots \(s_i\):</p><div class="equation-stack">\[\Theta(w_i)=0,\qquad s_i^q\Theta(1/s_i)=0,\qquad s_i=1/w_i.\]</div>
+<p>If \(\Phi(z_i)=0\), substitute \(r_i=1/z_i\):</p>
+<div class="equation-stack">\[r_i^p\Phi(1/r_i)=r_i^p\Phi(z_i)=0,\]\[|r_i|=\frac1{|z_i|},\]\[|z_i|&gt;1\iff|r_i|&lt;1,\qquad |z_i|\ne1\iff|r_i|\ne1.\]</div>
 </div>
 </div>
 </div>
@@ -167,42 +151,23 @@
 <p><strong>Stationarity:</strong> no AR root lies on the unit circle. Equivalently,</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\Phi(z_i)=0\implies |z_i|\ne1\quad\text{for every }i.}\]\[\boxed{r_i^p\Phi(1/r_i)=0\implies |r_i|\ne1\quad\text{for every }i.}\]</div>
 </div>
-<p>Inside and outside roots are allowed; roots <strong>on</strong> the circle are excluded.</p>
+<p>Inside and outside roots are allowed; roots on the circle are excluded.</p>
 <h4>Theorem — unique stationary solution</h4>
-<p>Under weak white noise, no common roots, and \(|z_i|\ne1\) for every AR root, the <strong>unique stationary solution</strong> is</p>
+<p>Assume weak white noise, no common AR/MA roots, and no AR root on the unit circle. The unique stationary solution of \(\Phi(L)X_t=\mu+\Theta(L)\varepsilon_t\) is</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\Psi(L)\varepsilon_t,}\]\[\Psi(L)=\frac{\Theta(L)}{\Phi(L)},\qquad m_X=\frac{\mu}{\Phi(1)}.\]</div>
 </div>
-<p>\(\Phi(L)^{-1}\) is an inverse filter. A <strong>bilateral Laurent series</strong> allows both lags and leads:</p>
-<div class="equation-stack">\[\Psi(L)=\sum_{j=-\infty}^{\infty}\psi_jL^j,\]\[X_t=m_X+\sum_{j=-\infty}^{\infty}\psi_j\varepsilon_{t-j}.\]</div>
-<div class="equation-stack">\[j&gt;0:\ \varepsilon_{t-j}\text{ (past)},\qquad j=0:\ \varepsilon_t,\]\[j&lt;0:\ \varepsilon_{t-j}\text{ (future)},\qquad\sum_{j\in\mathbb Z}|\psi_j|&lt;\infty.\]</div><p>The weights are absolutely summable; truncation errors tend to zero in mean square.</p>
-<div class="lecture-note"><span class="note-label">Boundary in the source statement</span>
-<p>The source states:</p>
+<h4>Bilateral representation — source remark</h4>
 <div class="equation-stack">\[|z_i|\le1\ \Longrightarrow\ \Psi(L)=\sum_{j=-\infty}^{\infty}\psi_jL^j.\]</div>
-<p><strong>Boundary issue:</strong> \(|z_i|=1\) contradicts the theorem. Strictly inside roots require leads; mixed inside/outside roots generally require both leads and lags.</p>
-</div>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-stationary-solution"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the stationary solution</button>
-<div class="collapsible lecture-calculation" id="derive-stationary-solution" hidden>
-<h4>1. Remove the mean and invert the AR polynomial</h4>
-<div class="equation-stack">\[\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t,\]\[\widetilde X_t=\Phi(L)^{-1}\Theta(L)\varepsilon_t=\Psi(L)\varepsilon_t.\]</div>
-<p>Factor \(\Phi\) using \(r_i=1/z_i\):</p><div class="equation-stack">\[\Phi(L)=\prod_{i=1}^p(1-r_iL).\]</div><p>Invert each factor by a convergent geometric series:</p>
-<div class="equation-stack">\[(1-r_iL)^{-1}=\sum_{k=0}^{\infty}r_i^kL^k\quad(|r_i|&lt;1),\]\[(1-r_iL)^{-1}=-\sum_{k=1}^{\infty}r_i^{-k}L^{-k}\quad(|r_i|&gt;1).\]</div>
-<p>Each series is absolutely summable. Finite products, and multiplication by \(\Theta\), preserve this property. The excluded case is \(|r_i|=1\).</p>
-<h4>2. Check the moments</h4>
-<div class="equation-stack">\[\sum_j|\psi_j|&lt;\infty\quad\Longrightarrow\quad\sum_j\psi_j^2&lt;\infty,\]\[E\!\left[\left(\sum_{|j|&gt;N}\psi_j\varepsilon_{t-j}\right)^2\right]=\sigma_\varepsilon^2\sum_{|j|&gt;N}\psi_j^2\longrightarrow0.\]</div><p>White-noise orthogonality gives:</p>
-<div class="equation-stack">\[E(X_t)=m_X,\]\[\operatorname{Var}(X_t)=\sigma_\varepsilon^2\sum_{j\in\mathbb Z}\psi_j^2&lt;\infty.\]\[\begin{aligned}\operatorname{Cov}(X_t,X_{t-h})&amp;=\sum_{j,k\in\mathbb Z}\psi_j\psi_k E(\varepsilon_{t-j}\varepsilon_{t-h-k})\\&amp;=\sigma_\varepsilon^2\sum_{j\in\mathbb Z}\psi_j\psi_{j-h}.\end{aligned}\]</div>
-<p>Equal dates: \(t-j=t-h-k\iff k=j-h\). Covariance depends only on \(h\): stationarity.</p>
-<h4>3. Check the equation and uniqueness</h4>
-<div class="equation-stack">\[\begin{aligned}\Phi(L)X_t&amp;=\Phi(1)m_X+\Phi(L)\Psi(L)\varepsilon_t\\&amp;=\mu+\Theta(L)\varepsilon_t.\end{aligned}\]</div>
-<p>Applying the same convergent inverse to any stationary solution fixes \(\widetilde X_t=\Psi(L)\varepsilon_t\). The mean equation fixes \(m_X\): uniqueness.</p>
-</div>
+<p>This bilateral (Laurent) series allows past shocks (\(j&gt;0\)) and future shocks (\(j&lt;0\)).</p>
+<div class="lecture-note"><span class="note-label">Source ambiguity</span>
+<p>The remark includes \(|z_i|=1\), but the theorem excludes it. The source inequality is retained as supplied; this boundary wording needs clarification.</p>
 </div>
 </div>
 <div class="lecture-block">
 <h3>Why every finite MA(q) is stationary</h3>
-<p>\(\Phi(L)=1\): no AR roots to restrict. With \(\theta_0=1\),</p>
-<div class="equation-stack">\[E(X_t)=\mu,\qquad \operatorname{Var}(X_t)=\sigma_\varepsilon^2\sum_{j=0}^q\theta_j^2,\qquad\theta_0=1.\]</div>
-<p>Finite MA coefficients give finite variance and covariance depending only on the lag. <strong>Invertibility is not required for stationarity.</strong></p>
+<p>For an MA\((q)\), \(\Phi(L)=1\): there are no AR roots to restrict.</p>
+<div class="result-box"><p>A stationary solution always exists for a finite MA process, regardless of its MA roots.</p>
+</div>
 </div>
 <div class="lecture-block">
 <h3>Stability: a causal representation</h3>
@@ -214,67 +179,37 @@
 <div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}.}\]</div>
 </div>
 <p><strong>Causal:</strong> current and past shocks only. Stability implies stationarity; stationarity alone also allows future shocks.</p>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-causal-ma"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the causal MA(∞) expansion</button>
-<div class="collapsible lecture-calculation" id="derive-causal-ma" hidden>
-<p>Multiply a finite geometric sum by \(1-rL\):</p>
-<div class="equation-stack">\[(1-rL)\sum_{k=0}^{n}r^kL^k=1-r^{n+1}L^{n+1}.\]</div>
-<p>For \(|r|&lt;1\), the remainder vanishes in mean square. For white noise:</p><div class="equation-stack">\[E|r^{n+1}\varepsilon_{t-n-1}|^2=|r|^{2n+2}\sigma_\varepsilon^2\longrightarrow0.\]</div><p>Multiply the inverse factors:</p>
-<div class="equation-stack">\[\Phi(L)^{-1}=\prod_{i=1}^p\left(\sum_{k=0}^{\infty}r_i^kL^k\right),\]\[\Psi(L)=\Theta(L)\Phi(L)^{-1}=\sum_{j=0}^{\infty}\psi_jL^j.\]</div>
-<p>Use \(L^j\varepsilon_t=\varepsilon_{t-j}\). To find the weights, match powers in \(\Phi(L)\Psi(L)=\Theta(L)\):</p>
-<div class="equation-stack">\[\psi_0=1,\qquad \psi_j-\sum_{i=1}^{\min(p,j)}\phi_i\psi_{j-i}=\theta_j\quad(j\ge1),\]</div>
-<p>Set \(\theta_j=0\) for \(j&gt;q\).</p>
-</div>
-</div>
+
 </div>
 <div class="lecture-block">
 <h3>Invertibility: recovering the shocks</h3>
 <p>To recover unobserved shocks from observations, isolate \(\Theta(L)\varepsilon_t\) and invert it. Assume \(X_t\) stationary and all MA roots outside the unit circle:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\Theta(w_i)=0\implies |w_i|&gt;1\quad\text{for every MA root}.}\]\[\boxed{\varepsilon_t=m_X^*+\frac{\Phi(L)}{\Theta(L)}X_t,}\]\[\boxed{m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Theta(z_i)=0\implies |z_i|&gt;1\quad\text{for every MA root}.}\]\[\boxed{\varepsilon_t=m_X^*+\frac{\Phi(L)}{\Theta(L)}X_t,}\]\[\boxed{m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.}\]</div>
 </div>
 <p>\(m_X^*\) corrects for the observation mean. With causality as well, the recovered shocks are <strong>innovations</strong>.</p>
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-innovation-recovery"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — recovering the innovations</button>
 <div class="collapsible lecture-calculation" id="derive-innovation-recovery" hidden>
-<h4>1. Start from the ARMA equation</h4>
-<div class="equation-stack">\[\Phi(L)X_t=\mu+\Theta(L)\varepsilon_t.\]</div>
-<p>Subtract the intercept:</p>
-<div class="equation-stack">\[\Theta(L)\varepsilon_t=\Phi(L)X_t-\mu.\]</div>
-<h4>2. Apply the inverse MA filter</h4>
-<p>All \(|w_i|&gt;1\): the causal inverse converges. Apply it to both terms:</p>
-<div class="equation-stack">\[\varepsilon_t=\frac1{\Theta(L)}\Phi(L)X_t-\frac1{\Theta(L)}\mu.\]</div>
-<h4>3. Work out what the filter does to the constant</h4>
-<p>Lagging a constant leaves it unchanged:</p>
-<div class="equation-stack">\[L\mu=\mu,\qquad L^j\mu=\mu.\]\[\begin{aligned}\Theta(L)\mu&amp;=\mu+\theta_1L\mu+\cdots+\theta_qL^q\mu\\&amp;=(1+\theta_1+\cdots+\theta_q)\mu\\&amp;=\Theta(1)\mu.\end{aligned}\]</div>
-<p>\(\Theta(1)\ne0\). Check the inverse image of the constant:</p>
-<div class="equation-stack">\[\Theta(L)\left(\frac{\mu}{\Theta(1)}\right)=\Theta(1)\frac{\mu}{\Theta(1)}=\mu,\]\[\frac1{\Theta(L)}\mu=\frac{\mu}{\Theta(1)}.\]</div>
-<h4>4. Identify the recovered-shock constant</h4>
-<div class="equation-stack">\[\varepsilon_t=\frac{\Phi(L)}{\Theta(L)}X_t-\frac{\mu}{\Theta(1)}.\]\[m_X^*=-\frac{\mu}{\Theta(1)}.\]</div>
-<p>Substitute \(\mu=\Phi(1)m_X\):</p>
-<div class="equation-stack">\[m_X^*=-\frac{\Phi(1)m_X}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.\]</div>
-<p>The shock is recovered from current and past observations, with the constant correcting their nonzero mean.</p>
+<div class="equation-stack">\[\Theta(L)\varepsilon_t=\Phi(L)X_t-\mu,\]\[\varepsilon_t=\frac{\Phi(L)}{\Theta(L)}X_t-\frac1{\Theta(L)}\mu.\]</div>
+<p>A lag leaves a constant unchanged: \(L\mu=\mu\). Therefore, with \(\Theta(1)\ne0\),</p>
+<div class="equation-stack">\[\Theta(L)\mu=\Theta(1)\mu\quad\Longrightarrow\quad\frac1{\Theta(L)}\mu=\frac{\mu}{\Theta(1)},\]\[m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X\qquad\bigl(\mu=\Phi(1)m_X\bigr).\]</div>
 </div>
 </div>
 </div>
 <div class="lecture-block">
 <h3>Recap of conditions</h3>
-<p>The source uses “invertibility” below in the broader, two-sided sense:</p>
 <div class="condition-list">
-<div><h4>Stationarity</h4>
-<div class="equation-stack">\[\text{All AR roots: }|z_i|\ne1.\]</div>
-<p>A stationary solution; future shocks are allowed.</p>
+<div><h4>Stationarity</h4><div class="equation-stack">\[\text{All AR roots: }|z_i|\ne1.\]</div>
+<p>A stationary solution exists.</p>
 </div>
-<div><h4>Stability</h4>
-<div class="equation-stack">\[\text{All AR roots: }|z_i|&gt;1.\]</div>
-<p>Current and past shocks only.</p>
+<div><h4>Stability</h4><div class="equation-stack">\[\text{All AR roots: }|z_i|&gt;1.\]</div>
+<p>The solution uses current and past shocks only.</p>
 </div>
-<div><h4>Invertibility — wording of the recap</h4>
-<div class="equation-stack">\[\text{All MA roots: }|w_i|\ne1.\]</div>
-<p>A two-sided inverse; future observations are allowed.</p>
+<div><h4>Invertibility — source recap</h4><div class="equation-stack">\[\text{All MA roots: }|z_i|\ne1.\]</div>
 </div>
 </div>
-<div class="lecture-note"><span class="note-label">Two meanings of invertibility</span>
-<div class="equation-stack">\[|w_i|\ne1:\quad\text{bilateral inverse allowed},\]\[|w_i|&gt;1:\quad\text{causal inverse}.\]</div><p>Inside MA roots require leads. The recap’s weaker condition does not guarantee recovery from the present and past only.</p>
+<div class="lecture-note"><span class="note-label">Source ambiguity</span>
+<p>The recap uses \(|z_i|\ne1\) for MA roots; the detailed inversion definition uses \(|z_i|&gt;1\). These are different conditions. Recovery from current and past observations above uses the latter.</p>
 </div>
 </div>
 </section>
@@ -282,53 +217,32 @@
 <div class="section-header"><span class="section-label">Part 3</span><h2 id="fundamental-representations-title">Representations</h2></div>
 <div class="lecture-block">
 <h3>Fundamental representation</h3>
-<p><strong>Fundamental:</strong> shocks are recoverable from present and past observations. This requires a stationary solution and a causal MA inverse.</p>
-<div class="lecture-note"><span class="note-label">AR condition in the supplied definition</span>
-<p>The supplied definition states, for every respective root:</p>
-<div class="equation-stack">\[\text{AR roots: }|z_i|\le1\quad\text{(labelled “stationarity only”)},\]\[\text{MA roots: }|w_i|&gt;1\quad\text{(invertibility)}.\]</div>
-<p><strong>AR condition issue:</strong> \(|z_i|\le1\) includes forbidden unit roots and excludes stable roots. It conflicts with the theorem and the causal AR(1) case.</p>
-<p>Use the distinction:</p><div class="equation-stack">\[\underbrace{|z_i|\ne1}_{\text{stationarity}},\qquad\underbrace{|w_i|&gt;1}_{\text{shock recovery}}.\]</div><p>Causality is a separate AR condition.</p>
+<p>The supplied definition calls the representation fundamental when all respective roots satisfy:</p>
+<div class="result-box"><div class="equation-stack">\[\text{AR roots: }|z_i|\le1\quad\text{(“stationarity only”)},\]\[\text{MA roots: }|z_i|&gt;1\quad\text{(invertibility)}.\]</div>
 </div>
-<p>Recoverable shocks are not necessarily prediction errors: identifying innovations also requires causality.</p>
+<div class="lecture-note"><span class="note-label">Source ambiguity</span>
+<p>The AR condition \(|z_i|\le1\) conflicts with the stationarity condition \(|z_i|\ne1\) and the causal AR(1) case below. It is retained as written, pending clarification.</p>
+</div>
 </div>
 <div class="lecture-block">
 <h3>Causal and fundamental representation</h3>
 <p><strong>Causal and fundamental:</strong> both filters use the present and past only:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\Phi(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every AR root},\\\Theta(w_i)=0&amp;\implies |w_i|&gt;1\quad\text{for every MA root}.\end{aligned}}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\Phi(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every AR root},\\\Theta(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every MA root}.\end{aligned}}\]</div>
 </div>
-<div class="equation-stack">\[\text{AR roots outside}\ \Longrightarrow\ X_t\text{ from current/past shocks},\]\[\text{MA roots outside}\ \Longrightarrow\ \varepsilon_t\text{ from current/past observations}.\]</div>
+<p>Current and past shocks build observations; current and past observations recover shocks.</p>
 </div>
 <div class="lecture-block">
 <h3>Proposition: innovations and infinite representations</h3>
-<p>For a <strong>causal and fundamental</strong> representation, \(\varepsilon_t\) is the innovation: the one-step linear prediction error.</p>
-<p>There exist real coefficient sequences \((a_k)_{k\ge0}\) and \((b_k)_{k\ge0}\) such that:</p>
-<h4>MA(∞): observations as weighted shocks</h4>
+<p>For a <strong>causal and fundamental</strong> representation, \(\{\varepsilon_t\}_{t\in\mathbb Z}\) is the innovation process: the one-step linear prediction errors.</p>
+<p>There exist two sequences of real numbers, \((a_k)_{k\ge0}\) and \((b_k)_{k\ge0}\), such that:</p>
+<h4>MA(∞) representation</h4>
 <div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\sum_{k=0}^{\infty}a_k\varepsilon_{t-k}.}\]</div>
 </div>
-<p>\(a_k\): weight of the shock \(k\) periods ago.</p><div class="equation-stack">\[\sum_{k=0}^{\infty}a_kL^k=\frac{\Theta(L)}{\Phi(L)},\qquad a_k=\psi_k,\quad a_0=1.\]</div>
-<h4>AR(∞): shocks recovered from observations</h4>
+<p>\(a_k\) is the weight on the shock \(k\) periods ago.</p>
+<h4>AR(∞) representation</h4>
 <div class="result-box"><div class="equation-stack">\[\boxed{\varepsilon_t=m_X^*+\sum_{k=0}^{\infty}b_kX_{t-k}.}\]</div>
 </div>
-<p>\(b_k\): weight of the observation \(k\) periods ago.</p><div class="equation-stack">\[\sum_{k=0}^{\infty}b_kL^k=\frac{\Phi(L)}{\Theta(L)},\qquad b_0=1.\]</div><p>Isolate the current observation:</p>
-<div class="equation-stack">\[X_t=-m_X^*-\sum_{k=1}^{\infty}b_kX_{t-k}+\varepsilon_t.\]</div>
-<p>The corresponding AR coefficients are \(-b_k\).</p>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-innovations-proposition"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the innovation and the two representations</button>
-<div class="collapsible lecture-calculation" id="derive-innovations-proposition" hidden>
-<h4>1. Expand each valid inverse filter</h4>
-<div class="equation-stack">\[\frac{\Theta(L)}{\Phi(L)}=\sum_{k=0}^{\infty}a_kL^k,\qquad \frac{\Phi(L)}{\Theta(L)}=\sum_{k=0}^{\infty}b_kL^k.\]</div>
-<p>Both filters converge under the root conditions. Since \(\Phi(0)=\Theta(0)=1\), matching \(L^0\) gives \(a_0=b_0=1\).</p>
-<h4>2. Separate the predictable part</h4>
-<div class="equation-stack">\[X_t=m_X+\varepsilon_t+\sum_{k=1}^{\infty}a_k\varepsilon_{t-k}.\]</div>
-<p><strong>Invertibility:</strong> past shocks are recoverable from past observations, so the sum is predictable.</p>
-<p><strong>Causality + white noise:</strong> \(\varepsilon_t\) is orthogonal to past observations. Hence</p>
-<div class="equation-stack">\[\varepsilon_t=X_t-\widehat X_{t\mid t-1},\qquad \widehat X_{t\mid t-1}=m_X+\sum_{k=1}^{\infty}a_k\varepsilon_{t-k}.\]</div>
-<p>\(\widehat X_{t\mid t-1}\): best linear predictor from all past observations.</p>
-<h4>3. Recover the AR form and its intercept</h4>
-<div class="equation-stack">\[\varepsilon_t=m_X^*+b_0X_t+\sum_{k=1}^{\infty}b_kX_{t-k},\]\[X_t=-m_X^*-\sum_{k=1}^{\infty}b_kX_{t-k}+\varepsilon_t.\]</div>
-<p>Check the mean of the recovered shock:</p><div class="equation-stack">\[\sum_{k=0}^{\infty}b_k=\frac{\Phi(1)}{\Theta(1)},\]\[E(\varepsilon_t)=m_X^*+m_X\sum_{k=0}^{\infty}b_k=-\frac{\Phi(1)}{\Theta(1)}m_X+\frac{\Phi(1)}{\Theta(1)}m_X=0.\]</div>
-</div>
-</div>
+<p>\(b_k\) is the weight on the observation \(k\) periods ago.</p>
 </div>
 <div class="lecture-block">
 <h3>Example: AR(1)</h3>
@@ -344,77 +258,42 @@
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-ar1-causal"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the causal AR(1) solution</button>
 <div class="collapsible lecture-calculation" id="derive-ar1-causal" hidden>
-<p>Substitute \(X_{t-1}=\rho X_{t-2}+\varepsilon_{t-1}\):</p>
-<div class="equation-stack">\[\begin{aligned}X_t&amp;=\rho(\rho X_{t-2}+\varepsilon_{t-1})+\varepsilon_t\\&amp;=\varepsilon_t+\rho\varepsilon_{t-1}+\rho^2X_{t-2}.\end{aligned}\]</div>
-<p>After \(n+1\) substitutions,</p>
-<div class="equation-stack">\[X_t=\sum_{k=0}^{n}\rho^k\varepsilon_{t-k}+\rho^{n+1}X_{t-n-1}.\]</div>
-<p>The stationary remainder vanishes in mean square:</p><div class="equation-stack">\[E[(\rho^{n+1}X_{t-n-1})^2]=\rho^{2n+2}E(X_t^2)\longrightarrow0\qquad(|\rho|&lt;1).\]</div>
+<p>For \(|\rho|&lt;1\), use the geometric expansion and \(L^k\varepsilon_t=\varepsilon_{t-k}\):</p>
+<div class="equation-stack">\[(1-\rho L)^{-1}=1+\rho L+\rho^2L^2+\cdots,\]\[X_t=(1+\rho L+\rho^2L^2+\cdots)\varepsilon_t,\]\[X_t=\varepsilon_t+\rho\varepsilon_{t-1}+\rho^2\varepsilon_{t-2}+\cdots=\sum_{k=0}^{\infty}\rho^k\varepsilon_{t-k}.\]</div>
 </div>
 </div>
 <h4>Case 2: |ρ| > 1 — stationary and noncausal</h4>
 <p>Lag weights grow. Use decaying lead weights instead:</p><div class="equation-stack">\[F=L^{-1},\qquad F^k\varepsilon_t=\varepsilon_{t+k},\qquad |\rho^{-1}|&lt;1.\]</div>
 <div class="result-box"><div class="equation-stack">\[\Phi(L)^{-1}=-\sum_{k=1}^{\infty}\rho^{-k}F^k,\]\[\boxed{X_t=-\sum_{k=1}^{\infty}\rho^{-k}\varepsilon_{t+k}.}\]</div>
 </div>
-<p><strong>Fundamental but noncausal:</strong> shocks remain recoverable, although observations use future shocks.</p><div class="equation-stack">\[\varepsilon_t=X_t-\rho X_{t-1}.\]</div><p>These driving shocks are not the innovations of the causal-and-fundamental proposition.</p>
+<p>This is the fundamental but noncausal solution: it uses future shocks.</p>
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-ar1-noncausal"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the noncausal AR(1) solution</button>
 <div class="collapsible lecture-calculation" id="derive-ar1-noncausal" hidden>
-<h4>1. Factor the operator using a lead</h4>
-<p>Use \(LF=1\):</p>
-<div class="equation-stack">\[-\rho L(1-\rho^{-1}F)=-\rho L+LF=1-\rho L.\]</div>
-<h4>2. Invert the factors</h4>
-<div class="equation-stack">\[\frac1{1-\rho L}=-\rho^{-1}F\frac1{1-\rho^{-1}F}.\]</div>
-<p>\(|\rho^{-1}|&lt;1\): expand geometrically in \(F\):</p>
-<div class="equation-stack">\[\begin{aligned}\frac1{1-\rho L}&amp;=-\rho^{-1}F\sum_{j=0}^{\infty}\rho^{-j}F^j\\&amp;=-\sum_{j=0}^{\infty}\rho^{-(j+1)}F^{j+1}\\&amp;=-\sum_{k=1}^{\infty}\rho^{-k}F^k.\end{aligned}\]</div>
-<h4>3. Apply the inverse to the shocks</h4>
-<div class="equation-stack">\[X_t=-\sum_{k=1}^{\infty}\rho^{-k}\varepsilon_{t+k}.\]</div>
-<div class="equation-stack">\[\operatorname{Var}(X_t)=\sigma_\varepsilon^2\sum_{k=1}^{\infty}\rho^{-2k}=\frac{\sigma_\varepsilon^2}{\rho^2-1}&lt;\infty.\]</div><p>Square-summable weights give mean-square convergence.</p>
-<h4>4. Check that it solves the original equation</h4>
-<div class="equation-stack">\[\begin{aligned}\rho X_{t-1}&amp;=-\sum_{k=1}^{\infty}\rho^{1-k}\varepsilon_{t-1+k}\\&amp;=-\varepsilon_t-\sum_{j=1}^{\infty}\rho^{-j}\varepsilon_{t+j}\\&amp;=-\varepsilon_t+X_t.\end{aligned}\]</div>
-<p>Thus \(X_t-\rho X_{t-1}=\varepsilon_t\).</p>
+<p>Use \(F=L^{-1}\), \(LF=1\), and \(|\rho^{-1}|&lt;1\) to expand in leads:</p>
+<div class="equation-stack">\[1-\rho L=-\rho L(1-\rho^{-1}F),\]\[(1-\rho L)^{-1}=-\rho^{-1}F(1-\rho^{-1}F)^{-1},\]\[\begin{aligned}(1-\rho L)^{-1}&amp;=-\rho^{-1}F\sum_{j=0}^{\infty}\rho^{-j}F^j\\&amp;=-\sum_{k=1}^{\infty}\rho^{-k}F^k,\qquad k=j+1,\end{aligned}\]\[X_t=-\sum_{k=1}^{\infty}\rho^{-k}F^k\varepsilon_t=-\sum_{k=1}^{\infty}\rho^{-k}\varepsilon_{t+k}.\]</div>
 </div>
 </div>
 <h4>Case 3: |ρ| = 1 — no stationary solution</h4>
 <p>Unit-circle root; neither lag nor lead weights decay. <strong>No stationary finite-variance solution; no stability.</strong></p>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-ar1-unit-root"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — why the boundary fails</button>
-<div class="collapsible lecture-calculation" id="derive-ar1-unit-root" hidden>
-<p>Suppose a stationary finite-variance solution exists. Repeated substitution gives</p>
-<div class="equation-stack">\[X_t-\rho^{n+1}X_{t-n-1}=\sum_{k=0}^{n}\rho^k\varepsilon_{t-k}.\]</div>
-<p>For \(|\rho|=1\), uncorrelated shocks give:</p><div class="equation-stack">\[\operatorname{Var}\!\left(\sum_{k=0}^n\rho^k\varepsilon_{t-k}\right)=(n+1)\sigma_\varepsilon^2\longrightarrow\infty.\]</div>
-<p>But stationarity and the covariance bound give:</p><div class="equation-stack">\[|\gamma_X(h)|\le\gamma_X(0),\]\[\begin{aligned}\operatorname{Var}(X_t-\rho^{n+1}X_{t-n-1})&amp;=2\gamma_X(0)-2\rho^{n+1}\gamma_X(n+1)\\&amp;\le4\gamma_X(0)&lt;\infty.\end{aligned}\]</div><p><strong>Contradiction:</strong> the same variance cannot diverge and remain bounded.</p>
-</div>
-</div>
+
 </div>
 <div class="lecture-block">
 <h3>Example: MA(1)</h3>
 <p>Take the finite moving average:</p>
-<div class="equation-stack">\[X_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad \varepsilon_t\overset{iid}{\sim}\mathcal N(0,\sigma_\varepsilon^2).\]</div>
-<p>For \(\theta\ne0\),</p><div class="equation-stack">\[\Theta(z)=1+\theta z=0\quad\Longrightarrow\quad z_1=-\frac1\theta.\]</div><p>The MA root controls inversion; finite MA processes are always stationary.</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\text{Stationary for every finite }\theta.}\]\[\boxed{\text{Causally invertible: }|z_1|&gt;1\iff|\theta|&lt;1.}\]</div>
+<div class="equation-stack">\[X_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad\varepsilon_t\overset{iid}{\sim}\mathcal N(0,\sigma_\varepsilon^2).\]</div>
+<p>For \(\theta\ne0\), calculate the MA root:</p>
+<div class="equation-stack">\[\Theta(z)=1+\theta z=0\quad\Longrightarrow\quad\theta z=-1\quad\Longrightarrow\quad z_1=-\frac1\theta.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\text{Stationary regardless of the MA root.}}\]\[\boxed{\text{Invertible: }|z_1|&gt;1\iff\frac1{|\theta|}&gt;1\iff|\theta|&lt;1.}\]</div>
 </div>
-<p>\(|\theta|&lt;1\): a convergent inverse in present and past observations:</p>
-<div class="equation-stack">\[\varepsilon_t=\sum_{k=0}^{\infty}(-\theta)^kX_{t-k}.\]</div>
-<p>\(|\theta|\ge1\): no such causal stable inverse, but stationarity remains. \(\theta=0\): white noise, with no root to check.</p>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-ma1-inverse"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — inverting MA(1)</button>
-<div class="collapsible lecture-calculation" id="derive-ma1-inverse" hidden>
-<p>Use \(X_t=(1+\theta L)\varepsilon_t\) and the geometric identity:</p>
-<div class="equation-stack">\[(1+\theta L)\sum_{k=0}^{n}(-\theta)^kL^k=1-(-\theta)^{n+1}L^{n+1}.\]</div>
-<p>For stationary finite-variance \(X_t\) and \(|\theta|&lt;1\),</p><div class="equation-stack">\[E|(-\theta)^{n+1}X_{t-n-1}|^2=|\theta|^{2n+2}E(X_t^2)\longrightarrow0.\]</div><p>Therefore:</p>
-<div class="equation-stack">\[(1+\theta L)^{-1}=\sum_{k=0}^{\infty}(-\theta)^kL^k,\]\[\begin{aligned}\varepsilon_t&amp;=(1+\theta L)^{-1}X_t\\&amp;=X_t-\theta X_{t-1}+\theta^2X_{t-2}-\cdots.\end{aligned}\]</div>
-<p>Isolate the current observation:</p>
-<div class="equation-stack">\[X_t=-\sum_{k=1}^{\infty}(-\theta)^kX_{t-k}+\varepsilon_t.\]</div>
-<p>The same process now has an AR(∞) representation.</p>
-</div>
-</div>
+<p>If \(\theta=0\), \(X_t=\varepsilon_t\): white noise, with no MA root to check.</p>
 </div>
 </section>
 <section class="concept-card violet-top lecture-section" id="acf-general" aria-labelledby="acf-general-title">
 <div class="section-header"><span class="section-label">Part 4</span><h2 id="acf-general-title">Properties of the Autocorrelation Function</h2></div>
 <p>For stationary \(X_t\) with positive variance:</p>
-<div class="equation-stack">\[\gamma_X(h)=E[(X_t-m_X)(X_{t-h}-m_X)],\]\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)},\qquad \rho_X(0)=1.\]</div>
-<p>\(\gamma_X(h)\): autocovariance; \(\gamma_X(0)\): variance. The source’s mean notation \(\mu_X=m_X\) differs from the intercept \(\mu\).</p>
+<div class="equation-stack">\[\gamma_X(h)=E[(X_t-\mu_X)(X_{t-h}-\mu_X)],\]\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)},\qquad \rho_X(0)=1.\]</div>
+<p>\(\gamma_X(h)\): autocovariance; \(\gamma_X(0)\): variance. Here \(\mu_X=m_X=E(X_t)\) is the mean, not the intercept \(\mu\).</p>
 <div class="lecture-block">
 <h3>ACF of an MA(q) process</h3>
 <p>For a fundamental MA\((q)\), set \(\theta_0=1\):</p>
@@ -429,30 +308,17 @@
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-maq-acf"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the MA(q) autocovariances</button>
 <div class="collapsible lecture-calculation" id="derive-maq-acf" hidden>
-<h4>1. Expand the variance</h4>
-<div class="equation-stack">\[\begin{aligned}\gamma_X(0)&amp;=E\left[\left(\sum_{j=0}^q\theta_j\varepsilon_{t-j}\right)\left(\sum_{k=0}^q\theta_k\varepsilon_{t-k}\right)\right]\\&amp;=\sum_{j=0}^q\sum_{k=0}^q\theta_j\theta_k E(\varepsilon_{t-j}\varepsilon_{t-k}).\end{aligned}\]</div>
-<div class="equation-stack">\[E(\varepsilon_{t-j}\varepsilon_{t-k})=\begin{cases}\sigma_\varepsilon^2,&amp;j=k,\\0,&amp;j\ne k.\end{cases}\]</div>
-<div class="equation-stack">\[\gamma_X(0)=\sigma_\varepsilon^2\sum_{j=0}^q\theta_j^2.\]</div>
-<h4>2. Match dates at a positive lag</h4>
-<div class="equation-stack">\[\widetilde X_{t-h}=\sum_{k=0}^q\theta_k\varepsilon_{t-h-k},\]\[\gamma_X(h)=\sum_{j=0}^q\sum_{k=0}^q\theta_j\theta_k E(\varepsilon_{t-j}\varepsilon_{t-h-k}).\]</div>
-<p>The dates must be equal for a term to survive:</p>
-<div class="equation-stack">\[t-j=t-h-k\iff j=h+k.\]</div>
-<div class="equation-stack">\[j=h+k\le q\quad\Longrightarrow\quad0\le k\le q-h.\]</div>
-<div class="equation-stack">\[\gamma_X(h)=\sigma_\varepsilon^2\sum_{k=0}^{q-h}\theta_{h+k}\theta_k.\]</div>
-<p>\(h&gt;q\Rightarrow q-h&lt;0\): no surviving pair, so \(\gamma_X(h)=0\).</p>
-<h4>3. Divide by the variance</h4>
-<div class="equation-stack">\[\rho_X(h)=\frac{\sigma_\varepsilon^2\sum_{k=0}^{q-h}\theta_{h+k}\theta_k}{\sigma_\varepsilon^2\sum_{j=0}^q\theta_j^2}=\frac{\sum_{k=0}^{q-h}\theta_{h+k}\theta_k}{\sum_{j=0}^q\theta_j^2}.\]</div>
-<p>At \(h=q\), only \(k=0\) remains. For symmetry, swap observations and shift dates:</p>
-<div class="equation-stack">\[\begin{aligned}\gamma_X(-h)&amp;=\operatorname{Cov}(X_t,X_{t+h})\\&amp;=\operatorname{Cov}(X_{t+h},X_t)\\&amp;=\operatorname{Cov}(X_t,X_{t-h})=\gamma_X(h).\end{aligned}\]</div>
-<p>Divide by \(\gamma_X(0)\): \(\rho_X(-h)=\rho_X(h)\).</p>
+<p>Only equal shock dates contribute \(\sigma_\varepsilon^2\); all other expected products are zero. For \(1\le h\le q\):</p>
+<div class="equation-stack">\[\gamma_X(h)=\sum_{j=0}^q\sum_{k=0}^q\theta_j\theta_kE(\varepsilon_{t-j}\varepsilon_{t-h-k}),\]\[t-j=t-h-k\iff j=h+k,\qquad 0\le k\le q-h,\]\[\gamma_X(h)=\sigma_\varepsilon^2\sum_{k=0}^{q-h}\theta_{h+k}\theta_k,\qquad\gamma_X(0)=\sigma_\varepsilon^2\sum_{j=0}^q\theta_j^2,\]\[\rho_X(h)=\frac{\sigma_\varepsilon^2\sum_{k=0}^{q-h}\theta_{h+k}\theta_k}{\sigma_\varepsilon^2\sum_{j=0}^q\theta_j^2}=\frac{\sum_{k=0}^{q-h}\theta_{h+k}\theta_k}{\sum_{j=0}^q\theta_j^2}.\]</div>
+<p>If \(h&gt;q\), no dates match, so \(\gamma_X(h)=\rho_X(h)=0\).</p>
 </div>
 </div>
 </div>
 <div class="lecture-block">
 <h3>ACF of a stationary causal AR(p)</h3>
 <p><strong>Assume causality:</strong> current shocks are orthogonal to past observations. Centre the AR equation:</p>
-<div class="equation-stack">\[X_t-m_X=\phi_1(X_{t-1}-m_X)+\cdots+\phi_p(X_{t-p}-m_X)+\varepsilon_t.\]</div>
-<p>Multiply by \(X_{t-h}-m_X\), take expectations, and use \(E[\varepsilon_t(X_{t-h}-m_X)]=0\) for \(h\ge1\):</p>
+<div class="equation-stack">\[X_t-\mu_X=\phi_1(X_{t-1}-\mu_X)+\cdots+\phi_p(X_{t-p}-\mu_X)+\varepsilon_t.\]</div>
+<p>Multiply by \(X_{t-h}-\mu_X\), take expectations, and use \(E[\varepsilon_t(X_{t-h}-\mu_X)]=0\) for \(h\ge1\):</p>
 <div class="equation-stack">\[\gamma_X(h)=\phi_1\gamma_X(h-1)+\cdots+\phi_p\gamma_X(h-p),\qquad h\ge1.\]</div>
 <p>Divide by \(\gamma_X(0)&gt;0\): the <strong>Yule–Walker recurrence</strong>.</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(h)=\phi_1\rho_X(h-1)+\cdots+\phi_p\rho_X(h-p),\quad h\ge1.}\]</div>
@@ -460,17 +326,8 @@
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-arp-acf"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the AR(p) Yule–Walker recurrence</button>
 <div class="collapsible lecture-calculation" id="derive-arp-acf" hidden>
-<h4>1. Multiply by the lagged centred observation</h4>
-<div class="equation-stack">\[\widetilde X_t=\sum_{i=1}^p\phi_i\widetilde X_{t-i}+\varepsilon_t,\]\[\widetilde X_t\widetilde X_{t-h}=\sum_{i=1}^p\phi_i\widetilde X_{t-i}\widetilde X_{t-h}+\varepsilon_t\widetilde X_{t-h}.\]</div>
-<h4>2. Take expectations and identify the lags</h4>
-<div class="equation-stack">\[E(\widetilde X_t\widetilde X_{t-h})=\sum_{i=1}^p\phi_iE(\widetilde X_{t-i}\widetilde X_{t-h})+E(\varepsilon_t\widetilde X_{t-h}).\]</div>
-<div class="equation-stack">\[E(\widetilde X_{t-i}\widetilde X_{t-h})=\gamma_X(h-i)=\gamma_X(|h-i|).\]</div><p>Stationarity identifies the lag; symmetry handles negative lags.</p>
-<h4>3. Explain the zero cross-product</h4>
-<p>Causality gives \(\widetilde X_{t-h}=\sum_{k\ge0}\psi_k\varepsilon_{t-h-k}\). Since \(h+k\ge1\), every shock date is before \(t\):</p>
-<div class="equation-stack">\[E[\varepsilon_t(X_{t-h}-m_X)]=\sum_{k=0}^{\infty}\psi_k E(\varepsilon_t\varepsilon_{t-h-k})=0.\]</div>
-<p>Different dates give zero covariance. Mean-square convergence permits the limit; independence is unnecessary.</p>
-<h4>4. Normalise each covariance</h4>
-<div class="equation-stack">\[\gamma_X(h)=\sum_{i=1}^p\phi_i\gamma_X(h-i),\]\[\frac{\gamma_X(h)}{\gamma_X(0)}=\sum_{i=1}^p\phi_i\frac{\gamma_X(h-i)}{\gamma_X(0)},\]\[\rho_X(h)=\sum_{i=1}^p\phi_i\rho_X(h-i).\]</div>
+<p>For \(h\ge1\), causality makes \(\widetilde X_{t-h}\) depend only on past shocks, uncorrelated with \(\varepsilon_t\). Multiply and take expectations:</p>
+<div class="equation-stack">\[\widetilde X_t\widetilde X_{t-h}=\sum_{i=1}^p\phi_i\widetilde X_{t-i}\widetilde X_{t-h}+\varepsilon_t\widetilde X_{t-h},\]\[\underbrace{E(\widetilde X_t\widetilde X_{t-h})}_{\gamma_X(h)}=\sum_{i=1}^p\phi_i\underbrace{E(\widetilde X_{t-i}\widetilde X_{t-h})}_{\gamma_X(h-i)}+\underbrace{E(\varepsilon_t\widetilde X_{t-h})}_{0},\]\[\gamma_X(h)=\sum_{i=1}^p\phi_i\gamma_X(h-i),\]\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=\sum_{i=1}^p\phi_i\frac{\gamma_X(h-i)}{\gamma_X(0)}=\sum_{i=1}^p\phi_i\rho_X(h-i).\]</div>
 </div>
 </div>
 </div>
@@ -478,21 +335,13 @@
 <h3>What the AR recurrence implies</h3>
 <p>\(h&lt;p\): use \(\rho_X(-h)=\rho_X(h)\) and \(\rho_X(0)=1\) to find the initial values.</p>
 <p>\(h\ge p\): a homogeneous difference equation of order \(p\), governed by the inverse AR roots.</p>
-<div class="equation-stack">\[|r_i|&lt;1\quad\Longrightarrow\quad r_i^h\longrightarrow0.\]</div><p>The ACF <strong>tails off</strong>: exponential decay, alternating signs, or damped oscillations.</p>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-arp-decay"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the shape of the AR(p) ACF</button>
-<div class="collapsible lecture-calculation" id="derive-arp-decay" hidden>
-<p>Try \(\rho_X(h)=Cr^h\), with \(C,r\ne0\), then divide by \(Cr^{h-p}\):</p>
-<div class="equation-stack">\[Cr^h=\phi_1Cr^{h-1}+\cdots+\phi_pCr^{h-p},\]\[r^p=\phi_1r^{p-1}+\cdots+\phi_p,\]\[r^p\Phi(1/r)=0.\]</div>
-<p>The same inverse AR roots govern the ACF:</p><div class="equation-stack">\[\rho_X(h)=\sum_i C_ir_i^h\quad\text{(distinct roots)}.\]\[h^m r_i^h\longrightarrow0\quad\text{if }|r_i|&lt;1\quad\text{(repeated roots)}.\]</div>
-<p>Negative roots alternate signs. For a complex-conjugate pair:</p><div class="equation-stack">\[r_{1,2}=Re^{\pm i\omega},\quad R&lt;1,\]\[C_1r_1^h+C_2r_2^h=R^h[A\cos(h\omega)+B\sin(h\omega)].\]</div><p>Oscillation is damped by the shrinking factor \(R^h\).</p>
-</div>
-</div>
+<p>The same characteristic roots govern the AR dynamics and the ACF. The ACF <strong>tails off</strong> geometrically, possibly with alternating signs or damped oscillations.</p>
+
 </div>
 <div class="lecture-block">
 <h3>ACF of a stationary causal ARMA(p,q)</h3>
 <p>At early lags, the finite MA shocks can overlap with the past observation. Start from</p>
-<div class="equation-stack">\[\Phi(L)(X_t-m_X)=\Theta(L)\varepsilon_t,\]\[\widetilde X_t=\sum_{k=0}^{\infty}\psi_k\varepsilon_{t-k}.\]</div>
+<div class="equation-stack">\[\Phi(L)(X_t-\mu_X)=\Theta(L)\varepsilon_t,\]\[\widetilde X_t=\sum_{k=0}^{\infty}\psi_k\varepsilon_{t-k}.\]</div>
 <div class="condition-list"><div><p>\(\theta_j\): finite MA weights, \(\theta_0=1\).</p><p>\(\psi_k\): weights of \(\Theta(L)/\Phi(L)\), \(\psi_0=1\).</p><p>\(\sigma_\varepsilon^2\): variance contributed by a matching shock.</p></div></div>
 <p>For positive lags there are two cases; separately, \(\rho_X(0)=1\):</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(h)=\begin{cases}\begin{aligned}&amp;\displaystyle\sum_{i=1}^p\phi_i\rho_X(h-i)\\&amp;\displaystyle\quad+\frac{\sigma_\varepsilon^2}{\gamma_X(0)}\sum_{j=0}^{q-h}\theta_{j+h}\psi_j\end{aligned},&amp;1\le h\le q,\\[12pt]\displaystyle\sum_{i=1}^p\phi_i\rho_X(h-i),&amp;h&gt;q.\end{cases}}\]</div>
@@ -504,23 +353,9 @@
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-arma-acf"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the ARMA correction term</button>
 <div class="collapsible lecture-calculation" id="derive-arma-acf" hidden>
-<h4>1. Expand the centred model</h4>
-<div class="equation-stack">\[\widetilde X_t=\sum_{i=1}^p\phi_i\widetilde X_{t-i}+\sum_{j=0}^q\theta_j\varepsilon_{t-j}.\]</div>
-<p>Multiply by \(\widetilde X_{t-h}\) and take expectations:</p>
-<div class="equation-stack">\[\gamma_X(h)=\sum_{i=1}^p\phi_i\gamma_X(h-i)+\sum_{j=0}^q\theta_jE(\varepsilon_{t-j}\widetilde X_{t-h}).\]</div>
-<h4>2. Expand the earlier observation into shocks</h4>
-<div class="equation-stack">\[\widetilde X_{t-h}=\sum_{k=0}^{\infty}\psi_k\varepsilon_{t-h-k},\]\[E(\varepsilon_{t-j}\widetilde X_{t-h})=\sum_{k=0}^{\infty}\psi_kE(\varepsilon_{t-j}\varepsilon_{t-h-k}).\]</div>
-<div class="equation-stack">\[t-j=t-h-k\quad\Longleftrightarrow\quad k=j-h\ge0.\]</div>
-<div class="equation-stack">\[E(\varepsilon_{t-j}\widetilde X_{t-h})=\begin{cases}\sigma_\varepsilon^2\psi_{j-h},&amp;j\ge h,\\0,&amp;j&lt;h.\end{cases}\]</div>
-<h4>3. Sum the matching shocks</h4>
-<p>For \(1\le h\le q\), keep \(j=h,\ldots,q\):</p>
-<div class="equation-stack">\[\gamma_X(h)=\sum_{i=1}^p\phi_i\gamma_X(h-i)+\sigma_\varepsilon^2\sum_{j=h}^q\theta_j\psi_{j-h}.\]</div>
-<p>Reindex with \(\ell=j-h\), so \(0\le\ell\le q-h\):</p>
-<div class="equation-stack">\[\sum_{j=h}^q\theta_j\psi_{j-h}=\sum_{\ell=0}^{q-h}\theta_{\ell+h}\psi_\ell.\]</div>
-<p>\(h&gt;q\): no \(j\le q\) can satisfy \(j\ge h\). The MA sum is zero.</p>
-<h4>4. Divide by the observation variance</h4>
-<div class="equation-stack">\[\rho_X(h)=\sum_{i=1}^p\phi_i\rho_X(h-i)+\frac{\sigma_\varepsilon^2}{\gamma_X(0)}\sum_{\ell=0}^{q-h}\theta_{\ell+h}\psi_\ell\quad(1\le h\le q).\]</div>
-<p>For \(h&gt;q\), keep only the AR sum. The index \(\ell\) can be renamed \(j\).</p>
+<p>Expand \(\widetilde X_{t-h}=\sum_{k\ge0}\psi_k\varepsilon_{t-h-k}\). Shock dates match only if \(j=h+k\).</p>
+<div class="equation-stack">\[\gamma_X(h)=\sum_{i=1}^p\phi_i\gamma_X(h-i)+\sum_{j=0}^q\theta_jE(\varepsilon_{t-j}\widetilde X_{t-h}),\]\[E(\varepsilon_{t-j}\widetilde X_{t-h})=\begin{cases}\sigma_\varepsilon^2\psi_{j-h},&amp;j\ge h,\\0,&amp;j&lt;h,\end{cases}\]\[\sum_{j=h}^q\theta_j\psi_{j-h}=\sum_{\ell=0}^{q-h}\theta_{\ell+h}\psi_\ell\qquad(\ell=j-h),\]\[\rho_X(h)=\sum_{i=1}^p\phi_i\rho_X(h-i)+\frac{\sigma_\varepsilon^2}{\gamma_X(0)}\sum_{\ell=0}^{q-h}\theta_{\ell+h}\psi_\ell\quad(1\le h\le q).\]</div>
+<p>The last line divides by \(\gamma_X(0)\). If \(h&gt;q\), no \(j\le q\) can match, so only the AR sum remains.</p>
 </div>
 </div>
 </div>
@@ -530,14 +365,12 @@
 <div class="equation-stack">\[\underbrace{\begin{bmatrix}1&amp;\rho_X(1)&amp;\cdots&amp;\rho_X(p-1)\\\rho_X(1)&amp;1&amp;\cdots&amp;\rho_X(p-2)\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\rho_X(p-1)&amp;\rho_X(p-2)&amp;\cdots&amp;1\end{bmatrix}}_{R_p}\underbrace{\begin{bmatrix}\phi_1\\\phi_2\\\vdots\\\phi_p\end{bmatrix}}_{\boldsymbol\phi}=\underbrace{\begin{bmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(p)\end{bmatrix}}_{\boldsymbol r_p}.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{R_p\boldsymbol\phi=\boldsymbol r_p.}\]</div>
 </div>
-<div class="equation-stack">\[(R_p)_{hi}=\rho_X(|h-i|),\qquad(R_p)_{hh}=1.\]</div><p>\(R_p\): symmetric Toeplitz correlation matrix (constant diagonals). \(\boldsymbol\phi\): AR coefficients. \(\boldsymbol r_p\): first \(p\) correlations, not inverse roots.</p>
+<div class="equation-stack">\[(R_p)_{hi}=\rho_X(|h-i|),\qquad(R_p)_{hh}=1.\]</div><p>\(R_p\) contains correlations; \(\boldsymbol\phi\) contains AR coefficients; \(\boldsymbol r_p\) contains the first \(p\) autocorrelations.</p>
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-yule-walker-matrix"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — constructing the matrix</button>
 <div class="collapsible lecture-calculation" id="derive-yule-walker-matrix" hidden>
-<p>Write the first two rows:</p>
-<div class="equation-stack">\[\rho_X(1)=\phi_1\rho_X(0)+\phi_2\rho_X(-1)+\cdots+\phi_p\rho_X(1-p),\]\[\rho_X(2)=\phi_1\rho_X(1)+\phi_2\rho_X(0)+\cdots+\phi_p\rho_X(2-p).\]</div>
-<p>Use \(\rho_X(0)=1\) and \(\rho_X(-h)=\rho_X(h)\):</p><div class="equation-stack">\[\text{Row 1: }(1,\rho_X(1),\ldots,\rho_X(p-1)),\]\[\text{Row 2: }(\rho_X(1),1,\ldots,\rho_X(p-2)).\]</div>
-<p>Continue to row \(p\):</p><div class="equation-stack">\[\sum_{i=1}^p\rho_X(h-i)\phi_i=\rho_X(h),\qquad h=1,\ldots,p.\]\[R_p\boldsymbol\phi=\boldsymbol r_p.\]</div>
+<p>Use \(\rho_X(0)=1\) and \(\rho_X(-h)=\rho_X(h)\). The first equations become the first matrix rows:</p>
+<div class="equation-stack">\[\rho_X(1)=\phi_1+\phi_2\rho_X(1)+\cdots+\phi_p\rho_X(p-1),\]\[\rho_X(2)=\phi_1\rho_X(1)+\phi_2+\cdots+\phi_p\rho_X(p-2),\]\[\sum_{i=1}^p\rho_X(|h-i|)\phi_i=\rho_X(h)\quad(h=1,\ldots,p)\quad\Longrightarrow\quad R_p\boldsymbol\phi=\boldsymbol r_p.\]</div>
 </div>
 </div>
 </div>
@@ -556,14 +389,8 @@
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-ar2-example"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — solving the AR(2) example</button>
 <div class="collapsible lecture-calculation" id="derive-ar2-example" hidden>
-<h4>1. Solve the lag-one equation</h4>
-<div class="equation-stack">\[\rho_X(1)=\phi_1\rho_X(0)+\phi_2\rho_X(-1),\]\[\rho_X(1)=\phi_1+\phi_2\rho_X(1),\]\[\rho_X(1)-\phi_2\rho_X(1)=\phi_1,\]\[(1-\phi_2)\rho_X(1)=\phi_1,\]\[\rho_X(1)=\frac{\phi_1}{1-\phi_2}.\]</div>
-<p>Stability justifies the division:</p><div class="equation-stack">\[|r_1|,|r_2|&lt;1,\quad r_1r_2=-\phi_2\quad\Longrightarrow\quad|\phi_2|&lt;1\quad\Longrightarrow\quad1-\phi_2\ne0.\]</div>
-<h4>2. Substitute into the lag-two equation</h4>
-<div class="equation-stack">\[\begin{aligned}\rho_X(2)&amp;=\phi_1\rho_X(1)+\phi_2\rho_X(0)\\&amp;=\phi_1\left(\frac{\phi_1}{1-\phi_2}\right)+\phi_2\\&amp;=\frac{\phi_1^2}{1-\phi_2}+\phi_2.\end{aligned}\]</div>
-<h4>3. Continue recursively</h4>
-<div class="equation-stack">\[\begin{aligned}\rho_X(3)&amp;=\phi_1\rho_X(2)+\phi_2\rho_X(1)\\&amp;=\phi_1\left(\frac{\phi_1^2}{1-\phi_2}+\phi_2\right)+\phi_2\frac{\phi_1}{1-\phi_2},\end{aligned}\]\[\rho_X(4)=\phi_1\rho_X(3)+\phi_2\rho_X(2).\]</div>
-<p>Repeat for later lags: the ACF tails off rather than cutting off after lag 2.</p>
+<p>Use \(\rho_X(0)=1\) and \(\rho_X(-1)=\rho_X(1)\):</p>
+<div class="equation-stack">\[\rho_X(1)=\phi_1+\phi_2\rho_X(1),\]\[(1-\phi_2)\rho_X(1)=\phi_1\quad\Longrightarrow\quad\rho_X(1)=\frac{\phi_1}{1-\phi_2},\]\[\rho_X(2)=\phi_1\rho_X(1)+\phi_2,\]\[\rho_X(2)=\phi_1\frac{\phi_1}{1-\phi_2}+\phi_2=\frac{\phi_1^2}{1-\phi_2}+\phi_2.\]</div>
 </div>
 </div>
 </div>
@@ -572,55 +399,34 @@
 <div class="section-header"><span class="section-label">Part 5</span><h2 id="pacf-identification-title">Properties of the Partial Autocorrelation Function</h2></div>
 <div class="lecture-block">
 <h3>Partial autocorrelation and linear projection</h3>
-<p>Use a centred process. Project \(X_t\) onto its first \(h\) lags:</p>
+<p>For a centred process, project \(X_t\) onto its first \(h\) lags:</p>
 <div class="equation-stack">\[X_t=a_{h1}X_{t-1}+\cdots+a_{hh}X_{t-h}+u_t^{(h)}.\]</div>
-<p>\(a_{hj}\): coefficient on lag \(j\) in an \(h\)-lag projection. Least squares gives</p><div class="equation-stack">\[E[u_t^{(h)}X_{t-j}]=0,\qquad j=1,\ldots,h.\]</div>
+<p>\(a_{hj}\) is the coefficient on lag \(j\) in the \(h\)-lag projection; \(u_t^{(h)}\) is the prediction error.</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=a_{hh}.}\]</div>
 </div>
-<p>The <strong>last coefficient</strong> measures dependence at lag \(h\), controlling for lags \(1,\ldots,h-1\). It need not equal the infinite-AR coefficient \(-b_h\).</p>
+<p>The PACF is the last coefficient, after controlling for the intermediate lags.</p>
 </div>
 <div class="lecture-block">
 <h3>PACF of an AR(p) process</h3>
-<p>A stationary causal AR\((p)\) uses only \(p\) lags to predict \(X_t\):</p>
+<p>For a stationary causal AR\((p)\),</p>
 <div class="equation-stack">\[X_t=\phi_1X_{t-1}+\cdots+\phi_pX_{t-p}+\varepsilon_t.\]</div>
-<div class="equation-stack">\[E(\varepsilon_tX_{t-j})=0\quad(j\ge1).\]</div><p>After the first \(p\) lags, no additional lag improves the projection:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=\begin{cases}a_{hh},&amp;1\le h\le p,\\0,&amp;h&gt;p.\end{cases}}\]</div>
 </div>
-<p><strong>Cuts off after \(p\).</strong> At \(h=p\), \(a_{pp}=\phi_p\ne0\). For \(h&lt;p\), omitted lags can change the coefficients.</p>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-arp-pacf"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — why the AR(p) PACF cuts off</button>
-<div class="collapsible lecture-calculation" id="derive-arp-pacf" hidden>
-<h4>1. Include at least the p model lags</h4>
-<p>For \(h&gt;p\), consider the candidate projection coefficients</p>
-<div class="equation-stack">\[(a_{h1},\ldots,a_{hh})=(\phi_1,\ldots,\phi_p,0,\ldots,0).\]</div>
-<p>Substituting them into the projection leaves exactly \(u_t^{(h)}=\varepsilon_t\).</p>
-<h4>2. Check the projection conditions</h4>
-<p>Check orthogonality to every included lag:</p>
-<div class="equation-stack">\[E(u_t^{(h)}X_{t-j})=E(\varepsilon_tX_{t-j})=0,\qquad j=1,\ldots,h.\]</div>
-<p>These are the projection’s normal equations. For uniqueness, let \(j_0\) be the most recent lag with nonzero coefficient:</p><div class="equation-stack">\[j_0=\min\{j:c_j\ne0\},\]\[\sum_{j=1}^h c_jX_{t-j}=c_{j_0}\varepsilon_{t-j_0}+\text{older-shock terms},\]\[\operatorname{Var}\!\left(\sum_{j=1}^h c_jX_{t-j}\right)\ge c_{j_0}^2\sigma_\varepsilon^2&gt;0.\]</div><p>The covariance matrix is nonsingular, so the coefficients are unique.</p>
-<h4>3. Read the last coefficient</h4>
-<div class="equation-stack">\[a_{hh}=0\quad(h&gt;p),\qquad\alpha_X(h)=0\quad(h&gt;p).\]</div>
-<p>\(h=p\): \(a_{pp}=\phi_p\). For \(h&lt;p\), do not replace \(a_{hh}\) by \(\phi_h\).</p>
-</div>
-</div>
+<p>The PACF <strong>cuts off after \(p\)</strong>: once the first \(p\) lags are included, more distant lags add no linear predictive information.</p>
 </div>
 <div class="lecture-block">
 <h3>PACF of an MA(q) process</h3>
-<p>For a fundamental MA\((q)\), with \(\theta_0=1\):</p>
+<p>For a stationary process with a fundamental MA\((q)\) representation, \(\theta_0=1\):</p>
 <div class="equation-stack">\[X_t=\mu+\sum_{j=0}^q\theta_j\varepsilon_{t-j}.\]</div>
-<div class="equation-stack">\[\rho_X(h)=0\ (h&gt;q)\quad\not\Rightarrow\quad\alpha_X(h)=0.\]</div><p>The PACF controls for intermediate observations; the ACF does not.</p>
-<p>The causal inverse generally has infinitely many AR terms. Predictive dependence therefore <strong>tails off</strong>:</p>
+<p>Its PACF <strong>tails off toward zero</strong>:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)\longrightarrow0\quad\text{as }h\to\infty.}\]</div>
 </div>
-<p>No general finite cutoff. PACF coefficients are finite-projection coefficients, not the inverse-filter weights.</p>
 </div>
 <div class="lecture-block">
 <h3>PACF of a causal and fundamental ARMA(p,q)</h3>
-<p>Assume both \(p,q&gt;0\), no common roots, and all AR/MA roots outside the unit circle.</p>
-<div class="equation-stack">\[\frac{\Theta(L)}{\Phi(L)}:\ \operatorname{MA}(\infty),\qquad\frac{\Phi(L)}{\Theta(L)}:\ \operatorname{AR}(\infty).\]</div><p>Both dependence patterns generally persist: the ACF and PACF <strong>tail off</strong>.</p>
+<p>For a causal and fundamental ARMA\((p,q)\), the PACF <strong>tails off toward zero</strong>:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)\longrightarrow0\quad\text{as }h\to\infty.}\]</div>
 </div>
-<p>Pure AR and pure MA models retain their respective cutoff patterns below.</p>
 </div>
 <div class="lecture-block">
 <h3>ACF and PACF identification</h3>
