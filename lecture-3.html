@@ -59,7 +59,7 @@
         <p class="lecture-subtitle">ARMA Processes and Their Properties</p>
       </div>
 <section class="concept-card violet-top lecture-section" id="arma-processes" aria-labelledby="arma-processes-title">
-<div class="section-header"><span class="section-label">Part 1</span><h2 id="arma-processes-title">Class of ARMA Processes</h2></div>
+<div class="section-header"><span class="section-label">Part 1</span><h2 id="arma-processes-title">The ARMA model</h2></div>
 <div class="lecture-block">
 <h3>Definition of an ARMA(p,q) process</h3>
 <p>An <strong>ARMA\((p,q)\)</strong> combines past observations and shocks:</p>
@@ -67,7 +67,7 @@
 <div class="condition-list"><div><h4>AR part</h4><p>\(p\) lags of \(X_t\); \(\phi_i\) multiplies \(X_{t-i}\). For \(p&gt;0\), \(\phi_p\ne0\).</p></div><div><h4>MA part</h4><p>\(q\) lagged shocks; \(\theta_j\) multiplies \(\varepsilon_{t-j}\). For \(q&gt;0\), \(\theta_q\ne0\).</p></div></div>
 <p>Assume <strong>weak white noise</strong> with positive variance:</p>
 <div class="equation-stack">\[E(\varepsilon_t)=0,\qquad 0&lt;\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2&lt;\infty,\]\[E(\varepsilon_t\varepsilon_s)=0\quad(t\ne s).\]</div>
-<p>\(\mu\) is the <strong>intercept</strong>, generally different from \(E(X_t)\). The earlier zero-mean models use \(\mu=0\).</p>
+<p>\(\mu\) is the <strong>intercept</strong>; \(m_X=E(X_t)\) is the <strong>mean</strong>.</p>
 </div>
 <div class="lecture-block">
 <h3>Lag-polynomial representation</h3>
@@ -117,7 +117,7 @@
 <p>Subtract the mean:</p><div class="equation-stack">\[\widetilde X_t=X_t-m_X,\qquad E(\widetilde X_t)=m_X-m_X=0.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde X_t=X_t-\frac{\mu}{1-\sum_{i=1}^p\phi_i}=X_t-\frac{\mu}{\Phi(1)}.}\]\[\boxed{\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t.}\]</div>
 </div>
-<p>Centring removes the intercept; the AR/MA coefficients, covariances and correlations stay the same.</p>
+<p>Centring removes the intercept and leaves the AR/MA coefficients, covariances and correlations unchanged.</p>
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-centering"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — centring the equation</button>
 <div class="collapsible lecture-calculation" id="derive-centering" hidden>
@@ -128,8 +128,8 @@
 </div>
 </section>
 <section class="concept-card violet-top lecture-section" id="root-conditions" aria-labelledby="root-conditions-title">
-<div class="section-header"><span class="section-label">Part 2</span><h2 id="root-conditions-title">Stationarity, Stability and Invertibility Conditions</h2></div>
-<div class="condition-list"><div><h4>Stationarity</h4><p>Does a stationary solution exist?</p></div><div><h4>Stability / causality</h4><p>Can observations be built from current and past shocks?</p></div><div><h4>Causal invertibility</h4><p>Can shocks be recovered from current and past observations?</p></div></div>
+<div class="section-header"><span class="section-label">Part 2</span><h2 id="root-conditions-title">Root conditions</h2></div>
+<p>Check \(\Phi\) for <strong>stationarity and stability</strong>; check \(\Theta\) for <strong>invertibility</strong>.</p>
 <div class="lecture-block">
 <h3>Unit circle and root conventions</h3>
 <div class="equation-stack">\[z=a+ib,\qquad |z|=\sqrt{a^2+b^2}.\]</div><p>The <strong>unit circle</strong> contains points at distance 1 from zero:</p>
@@ -159,7 +159,7 @@
 <h4>What does it allow us to do?</h4>
 <p>A <strong>stationary solution exists and is unique</strong>. We can write it as <strong>mean + weighted shocks</strong>.</p>
 <p><strong>Theorem — stationary representation</strong></p>
-<p>Under the assumptions above, centre the equation and invert \(\Phi(L)\):</p>
+<p>Centre the equation, then invert \(\Phi(L)\):</p>
 <div class="equation-stack">\[\Phi(L)(X_t-m_X)=\Theta(L)\varepsilon_t.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{X_t=\underbrace{m_X}_{\text{mean}}+\underbrace{\Psi(L)\varepsilon_t}_{\text{weighted shocks}},}\]\[\Psi(L)=\frac{\Theta(L)}{\Phi(L)},\qquad m_X=\frac{\mu}{\Phi(1)}.\]</div>
 </div>
@@ -205,7 +205,7 @@
 <h4>What does it allow us to do?</h4>
 <p><strong>From observations to shocks:</strong> recover \(\varepsilon_t\) using \(X_t,X_{t-1},\ldots\). No future observations are needed.</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\varepsilon_t=m_X^*+\underbrace{\frac{\Phi(L)}{\Theta(L)}X_t}_{b_0X_t+b_1X_{t-1}+b_2X_{t-2}+\cdots}.}\]\[m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.\]</div></div>
-<p>\(m_X^*\) is the constant that makes \(E(\varepsilon_t)=0\). If the model is also causal, \(\varepsilon_t\) is the <strong>innovation</strong>: the error in predicting \(X_t\) from past observations.</p>
+<p>\(m_X^*\) is the constant that makes \(E(\varepsilon_t)=0\).</p>
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-innovation-recovery"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — recovering the shocks</button>
 <div class="collapsible lecture-calculation" id="derive-innovation-recovery" hidden>
@@ -220,50 +220,61 @@
 </div>
 </section>
 <div class="lecture-block">
-<h3>Recap of conditions</h3>
-<div class="condition-list">
-<div><h4>Stationarity</h4><div class="equation-stack">\[\text{All AR roots: }|z_i|\ne1.\]</div>
-<p>A stationary solution exists.</p>
-</div>
-<div><h4>Stability</h4><div class="equation-stack">\[\text{All AR roots: }|z_i|&gt;1.\]</div>
-<p>The solution uses current and past shocks only.</p>
-</div>
-<div><h4>Invertibility</h4><div class="equation-stack">\[\text{All MA roots: }|z_i|&gt;1.\]</div>
-<p>Shocks can be recovered from current and past observations.</p>
-</div>
-</div>
+<h3>Conditions at a glance</h3>
+<table class="results-table"><caption>Root conditions and their consequences</caption>
+<thead><tr><th scope="col">Property</th><th scope="col">Roots</th><th scope="col">Meaning</th></tr></thead>
+<tbody>
+<tr><th scope="row">Stationarity</th><td>AR<div class="equation-stack">\[|z_i|\ne1\]</div></td><td>A stationary solution exists.</td></tr>
+<tr><th scope="row">Stability</th><td>AR<div class="equation-stack">\[|z_i|&gt;1\]</div></td><td>Current and past shocks give \(X_t\).</td></tr>
+<tr><th scope="row">Invertibility</th><td>MA<div class="equation-stack">\[|z_i|&gt;1\]</div></td><td>Current and past observations give \(\varepsilon_t\).</td></tr>
+</tbody></table>
 </div>
 </section>
 <section class="concept-card violet-top lecture-section" id="fundamental-representations" aria-labelledby="fundamental-representations-title">
-<div class="section-header"><span class="section-label">Part 3</span><h2 id="fundamental-representations-title">Representations</h2></div>
+<div class="section-header"><span class="section-label">Part 3</span><h2 id="fundamental-representations-title">Representations and examples</h2></div>
+<p><strong>Causal = stable.</strong> <strong>Fundamental = invertible.</strong> Each name describes a different direction:</p>
+<div class="lecture-grid">
 <div class="lecture-block">
-<h3>Fundamental representation</h3>
-<p>A fundamental representation allows recovery of \(\varepsilon_t\) from current and past observations:</p>
-<div class="result-box"><div class="equation-stack">\[\text{AR roots: }|z_i|\ne1\quad\text{(stationarity)},\]\[\text{MA roots: }|z_i|&gt;1\quad\text{(invertibility)}.\]</div>
-</div>
-</div>
-<div class="lecture-block">
-<h3>Causal and fundamental representation</h3>
-<p><strong>Causal and fundamental:</strong> both filters use the present and past only:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\Phi(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every AR root},\\\Theta(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every MA root}.\end{aligned}}\]</div>
-</div>
-<p>Current and past shocks build observations; current and past observations recover shocks.</p>
+<h3>Causal: shocks → observations</h3>
+<div class="equation-stack">\[\varepsilon_t,\varepsilon_{t-1},\ldots\ \longrightarrow\ X_t.\]</div>
+<p>Use current and past shocks. <strong>Stability:</strong> all AR roots are outside the unit circle.</p>
 </div>
 <div class="lecture-block">
-<h3>Proposition: innovations and infinite representations</h3>
-<p>For a <strong>causal and fundamental</strong> representation, \(\{\varepsilon_t\}_{t\in\mathbb Z}\) is the innovation process: the one-step linear prediction errors.</p>
-<p>There exist two sequences of real numbers, \((a_k)_{k\ge0}\) and \((b_k)_{k\ge0}\), such that:</p>
-<h4>MA(∞) representation</h4>
-<div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\sum_{k=0}^{\infty}a_k\varepsilon_{t-k}.}\]</div>
+<h3>Fundamental: observations → shocks</h3>
+<div class="equation-stack">\[X_t,X_{t-1},\ldots\ \longrightarrow\ \varepsilon_t.\]</div>
+<p>Recover shocks from current and past observations. The root conditions are:</p>
+<div class="equation-stack">\[\text{AR roots: }|z_i|\ne1\quad\text{(stationarity)},\]\[\text{MA roots: }|z_i|&gt;1\quad\text{(invertibility)}.\]</div>
 </div>
-<p>\(a_k\) is the weight on the shock \(k\) periods ago.</p>
-<h4>AR(∞) representation</h4>
-<div class="result-box"><div class="equation-stack">\[\boxed{\varepsilon_t=m_X^*+\sum_{k=0}^{\infty}b_kX_{t-k}.}\]</div>
-</div>
-<p>\(b_k\) is the weight on the observation \(k\) periods ago.</p>
 </div>
 <div class="lecture-block">
-<h3>Example: AR(1)</h3>
+<h3>Causal and fundamental: both directions</h3>
+<p>Both hold when <strong>all AR and MA roots are outside the unit circle</strong>:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\Phi(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every AR root},\\\Theta(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every MA root}.\end{aligned}}\]</div></div>
+</div>
+<div class="lecture-block">
+<h3>Proposition — two infinite representations</h3>
+<p>For a <strong>causal and fundamental</strong> model, the two directions give:</p>
+<div class="lecture-grid">
+<div class="lecture-block">
+<h4>MA(∞): calculate \(X_t\)</h4>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\sum_{k=0}^{\infty}a_k\varepsilon_{t-k}.}\]</div></div>
+<p>\(a_k\) weights the shock \(k\) periods ago; \(a_k=\psi_k\):</p>
+<div class="equation-stack">\[\sum_{k=0}^{\infty}a_kL^k=\frac{\Theta(L)}{\Phi(L)}.\]</div>
+</div>
+<div class="lecture-block">
+<h4>AR(∞): calculate \(\varepsilon_t\)</h4>
+<div class="result-box"><div class="equation-stack">\[\boxed{\varepsilon_t=m_X^*+\sum_{k=0}^{\infty}b_kX_{t-k}.}\]</div></div>
+<p>\(b_k\) weights the observation \(k\) periods ago:</p>
+<div class="equation-stack">\[\sum_{k=0}^{\infty}b_kL^k=\frac{\Phi(L)}{\Theta(L)}.\]</div>
+</div>
+</div>
+<h4>The shocks are innovations</h4>
+<p>These shocks \(\{\varepsilon_t\}_{t\in\mathbb Z}\) are the <strong>one-step prediction errors</strong>:</p>
+<div class="equation-stack">\[\underbrace{\varepsilon_t}_{\text{innovation}}=\underbrace{X_t}_{\text{observed}}-\underbrace{\widehat X_{t\mid t-1}}_{\text{predicted}}.\]</div>
+<p>\(\widehat X_{t\mid t-1}\) is the best linear prediction using \(X_{t-1},X_{t-2},\ldots\).</p>
+</div>
+<div class="lecture-block">
+<h3>AR(1): from its root to its representation</h3>
 <p>Take the zero-intercept model with Gaussian white noise:</p>
 <div class="equation-stack">\[(1-\rho L)X_t=\varepsilon_t,\qquad \varepsilon_t\overset{iid}{\sim}\mathcal N(0,\sigma_\varepsilon^2).\]</div>
 <p>For \(\rho\ne0\), solve the characteristic equation:</p><div class="equation-stack">\[\Phi(z)=1-\rho z=0\quad\Longrightarrow\quad z_1=\frac1\rho.\]</div>
@@ -281,10 +292,10 @@
 </div>
 </div>
 <h4>Case 2: |ρ| > 1 — stationary and noncausal</h4>
-<p>Lag weights grow. Use decaying lead weights instead:</p><div class="equation-stack">\[F=L^{-1},\qquad F^k\varepsilon_t=\varepsilon_{t+k},\qquad |\rho^{-1}|&lt;1.\]</div>
+<p>The expansion in past shocks does not converge. Since \(|\rho^{-1}|&lt;1\), expand in future shocks:</p><div class="equation-stack">\[F=L^{-1},\qquad F^k\varepsilon_t=\varepsilon_{t+k},\qquad |\rho^{-1}|&lt;1.\]</div>
 <div class="result-box"><div class="equation-stack">\[\Phi(L)^{-1}=-\sum_{k=1}^{\infty}\rho^{-k}F^k,\]\[\boxed{X_t=-\sum_{k=1}^{\infty}\rho^{-k}\varepsilon_{t+k}.}\]</div>
 </div>
-<p>This is the fundamental but noncausal solution: it uses future shocks.</p>
+<p><strong>Noncausal:</strong> \(X_t\) uses future shocks. <strong>Fundamental:</strong> recover the shock as \(\varepsilon_t=X_t-\rho X_{t-1}\).</p>
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-ar1-noncausal"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — the noncausal AR(1) solution</button>
 <div class="collapsible lecture-calculation" id="derive-ar1-noncausal" hidden>
@@ -297,7 +308,7 @@
 
 </div>
 <div class="lecture-block">
-<h3>Example: MA(1)</h3>
+<h3>MA(1): check stationarity and invertibility</h3>
 <p>Take the finite moving average:</p>
 <div class="equation-stack">\[X_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad\varepsilon_t\overset{iid}{\sim}\mathcal N(0,\sigma_\varepsilon^2).\]</div>
 <p>For \(\theta\ne0\), calculate the MA root:</p>
@@ -308,12 +319,12 @@
 </div>
 </section>
 <section class="concept-card violet-top lecture-section" id="acf-general" aria-labelledby="acf-general-title">
-<div class="section-header"><span class="section-label">Part 4</span><h2 id="acf-general-title">Properties of the Autocorrelation Function</h2></div>
-<p>For stationary \(X_t\) with positive variance:</p>
+<div class="section-header"><span class="section-label">Part 4</span><h2 id="acf-general-title">ACF: correlation across lags</h2></div>
+<p>The ACF measures the correlation between \(X_t\) and \(X_{t-h}\). For stationary \(X_t\) with positive variance:</p>
 <div class="equation-stack">\[\gamma_X(h)=E[(X_t-\mu_X)(X_{t-h}-\mu_X)],\]\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)},\qquad \rho_X(0)=1.\]</div>
 <p>\(\gamma_X(h)\): autocovariance; \(\gamma_X(0)\): variance. Here \(\mu_X=m_X=E(X_t)\) is the mean, not the intercept \(\mu\).</p>
 <div class="lecture-block">
-<h3>ACF of an MA(q) process</h3>
+<h3>MA(q): the ACF stops after lag q</h3>
 <p>For a fundamental MA\((q)\), set \(\theta_0=1\):</p>
 <div class="equation-stack">\[X_t=\mu+\sum_{j=0}^q\theta_j\varepsilon_{t-j},\qquad \widetilde X_t=\sum_{j=0}^q\theta_j\varepsilon_{t-j}.\]</div>
 <p><strong>Match shock dates.</strong> Different dates contribute zero:</p>
@@ -333,7 +344,7 @@
 </div>
 </div>
 <div class="lecture-block">
-<h3>ACF of a stationary causal AR(p)</h3>
+<h3>AR(p): the ACF follows a recurrence</h3>
 <p><strong>Assume causality:</strong> current shocks are orthogonal to past observations. Centre the AR equation:</p>
 <div class="equation-stack">\[X_t-\mu_X=\phi_1(X_{t-1}-\mu_X)+\cdots+\phi_p(X_{t-p}-\mu_X)+\varepsilon_t.\]</div>
 <p>Multiply by \(X_{t-h}-\mu_X\), take expectations, and use \(E[\varepsilon_t(X_{t-h}-\mu_X)]=0\) for \(h\ge1\):</p>
@@ -348,16 +359,50 @@
 <div class="equation-stack">\[\widetilde X_t\widetilde X_{t-h}=\sum_{i=1}^p\phi_i\widetilde X_{t-i}\widetilde X_{t-h}+\varepsilon_t\widetilde X_{t-h},\]\[\underbrace{E(\widetilde X_t\widetilde X_{t-h})}_{\gamma_X(h)}=\sum_{i=1}^p\phi_i\underbrace{E(\widetilde X_{t-i}\widetilde X_{t-h})}_{\gamma_X(h-i)}+\underbrace{E(\varepsilon_t\widetilde X_{t-h})}_{0},\]\[\gamma_X(h)=\sum_{i=1}^p\phi_i\gamma_X(h-i),\]\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=\sum_{i=1}^p\phi_i\frac{\gamma_X(h-i)}{\gamma_X(0)}=\sum_{i=1}^p\phi_i\rho_X(h-i).\]</div>
 </div>
 </div>
-</div>
-<div class="lecture-block">
-<h3>What the AR recurrence implies</h3>
+<h4>Read the recurrence</h4>
 <p>\(h&lt;p\): use \(\rho_X(-h)=\rho_X(h)\) and \(\rho_X(0)=1\) to find the initial values.</p>
 <p>\(h\ge p\): a homogeneous difference equation of order \(p\), governed by the inverse AR roots.</p>
-<p>The same inverse AR roots govern the AR dynamics and the ACF. The ACF <strong>tails off</strong> geometrically, possibly with alternating signs or damped oscillations.</p>
+<p>The ACF <strong>tails off</strong> geometrically, possibly with alternating signs or damped oscillations.</p>
 
 </div>
+
+<div class="lecture-block" id="yule-walker-system">
+<h3>AR(p): calculate the first autocorrelations with Yule–Walker</h3>
+<p>For a stationary causal AR\((p)\), stack the equations for \(h=1,\ldots,p\):</p>
+<div class="equation-stack">\[\underbrace{\begin{bmatrix}1&amp;\rho_X(1)&amp;\cdots&amp;\rho_X(p-1)\\\rho_X(1)&amp;1&amp;\cdots&amp;\rho_X(p-2)\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\rho_X(p-1)&amp;\rho_X(p-2)&amp;\cdots&amp;1\end{bmatrix}}_{R_p}\underbrace{\begin{bmatrix}\phi_1\\\phi_2\\\vdots\\\phi_p\end{bmatrix}}_{\boldsymbol\phi}=\underbrace{\begin{bmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(p)\end{bmatrix}}_{\boldsymbol r_p}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{R_p\boldsymbol\phi=\boldsymbol r_p.}\]</div>
+</div>
+<div class="equation-stack">\[(R_p)_{hi}=\rho_X(|h-i|),\qquad(R_p)_{hh}=1.\]</div><p>\(R_p\) contains correlations; \(\boldsymbol\phi\) contains AR coefficients; \(\boldsymbol r_p\) contains the first \(p\) autocorrelations.</p>
+<div class="answer-item">
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-yule-walker-matrix"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — constructing the matrix</button>
+<div class="collapsible lecture-calculation" id="derive-yule-walker-matrix" hidden>
+<p>Use \(\rho_X(0)=1\) and \(\rho_X(-h)=\rho_X(h)\). The first equations become the first matrix rows:</p>
+<div class="equation-stack">\[\rho_X(1)=\phi_1+\phi_2\rho_X(1)+\cdots+\phi_p\rho_X(p-1),\]\[\rho_X(2)=\phi_1\rho_X(1)+\phi_2+\cdots+\phi_p\rho_X(p-2),\]\[\sum_{i=1}^p\rho_X(|h-i|)\phi_i=\rho_X(h)\quad(h=1,\ldots,p)\quad\Longrightarrow\quad R_p\boldsymbol\phi=\boldsymbol r_p.\]</div>
+</div>
+</div>
+</div>
 <div class="lecture-block">
-<h3>ACF of a stationary causal ARMA(p,q)</h3>
+<h3>AR(2): solve the first two lags, then continue</h3>
+<p>Take a <strong>stationary causal AR(2)</strong>:</p>
+<div class="equation-stack">\[X_t=\phi_1X_{t-1}+\phi_2X_{t-2}+\varepsilon_t.\]</div>
+<p>For \(h=1,2\):</p>
+<div class="equation-stack">\[\begin{bmatrix}1&amp;\rho_X(1)\\\rho_X(1)&amp;1\end{bmatrix}\begin{bmatrix}\phi_1\\\phi_2\end{bmatrix}=\begin{bmatrix}\rho_X(1)\\\rho_X(2)\end{bmatrix}.\]</div>
+<p>Use \(\rho_X(-1)=\rho_X(1)\), \(\rho_X(0)=1\); solve row 1, then row 2:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(1)=\frac{\phi_1}{1-\phi_2},}\]\[\boxed{\rho_X(2)=\frac{\phi_1^2}{1-\phi_2}+\phi_2.}\]</div>
+</div>
+<p>Then continue recursively:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(h)=\phi_1\rho_X(h-1)+\phi_2\rho_X(h-2),\quad h\ge3.}\]</div>
+</div>
+<div class="answer-item">
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-ar2-example"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — solving the AR(2) example</button>
+<div class="collapsible lecture-calculation" id="derive-ar2-example" hidden>
+<p>Use \(\rho_X(0)=1\) and \(\rho_X(-1)=\rho_X(1)\):</p>
+<div class="equation-stack">\[\rho_X(1)=\phi_1+\phi_2\rho_X(1),\]\[(1-\phi_2)\rho_X(1)=\phi_1\quad\Longrightarrow\quad\rho_X(1)=\frac{\phi_1}{1-\phi_2},\]\[\rho_X(2)=\phi_1\rho_X(1)+\phi_2,\]\[\rho_X(2)=\phi_1\frac{\phi_1}{1-\phi_2}+\phi_2=\frac{\phi_1^2}{1-\phi_2}+\phi_2.\]</div>
+</div>
+</div>
+</div>
+<div class="lecture-block">
+<h3>ARMA(p,q): include the MA effect at the first lags</h3>
 <p>At early lags, the finite MA shocks can overlap with the past observation. Start from</p>
 <div class="equation-stack">\[\Phi(L)(X_t-\mu_X)=\Theta(L)\varepsilon_t,\]\[\widetilde X_t=\sum_{k=0}^{\infty}\psi_k\varepsilon_{t-k}.\]</div>
 <div class="condition-list"><div><p>\(\theta_j\): finite MA weights, \(\theta_0=1\).</p><p>\(\psi_k\): weights of \(\Theta(L)/\Phi(L)\), \(\psi_0=1\).</p><p>\(\sigma_\varepsilon^2\): variance contributed by a matching shock.</p></div></div>
@@ -377,63 +422,20 @@
 </div>
 </div>
 </div>
-<div class="lecture-block" id="yule-walker-system">
-<h3>The Yule–Walker matrix system</h3>
-<p>For a stationary causal AR\((p)\), stack the equations for \(h=1,\ldots,p\):</p>
-<div class="equation-stack">\[\underbrace{\begin{bmatrix}1&amp;\rho_X(1)&amp;\cdots&amp;\rho_X(p-1)\\\rho_X(1)&amp;1&amp;\cdots&amp;\rho_X(p-2)\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\rho_X(p-1)&amp;\rho_X(p-2)&amp;\cdots&amp;1\end{bmatrix}}_{R_p}\underbrace{\begin{bmatrix}\phi_1\\\phi_2\\\vdots\\\phi_p\end{bmatrix}}_{\boldsymbol\phi}=\underbrace{\begin{bmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(p)\end{bmatrix}}_{\boldsymbol r_p}.\]</div>
-<div class="result-box"><div class="equation-stack">\[\boxed{R_p\boldsymbol\phi=\boldsymbol r_p.}\]</div>
-</div>
-<div class="equation-stack">\[(R_p)_{hi}=\rho_X(|h-i|),\qquad(R_p)_{hh}=1.\]</div><p>\(R_p\) contains correlations; \(\boldsymbol\phi\) contains AR coefficients; \(\boldsymbol r_p\) contains the first \(p\) autocorrelations.</p>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-yule-walker-matrix"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — constructing the matrix</button>
-<div class="collapsible lecture-calculation" id="derive-yule-walker-matrix" hidden>
-<p>Use \(\rho_X(0)=1\) and \(\rho_X(-h)=\rho_X(h)\). The first equations become the first matrix rows:</p>
-<div class="equation-stack">\[\rho_X(1)=\phi_1+\phi_2\rho_X(1)+\cdots+\phi_p\rho_X(p-1),\]\[\rho_X(2)=\phi_1\rho_X(1)+\phi_2+\cdots+\phi_p\rho_X(p-2),\]\[\sum_{i=1}^p\rho_X(|h-i|)\phi_i=\rho_X(h)\quad(h=1,\ldots,p)\quad\Longrightarrow\quad R_p\boldsymbol\phi=\boldsymbol r_p.\]</div>
-</div>
-</div>
-</div>
-<div class="lecture-block">
-<h3>Example: the AR(2) Yule–Walker system</h3>
-<p>Take a <strong>stationary causal AR(2)</strong>:</p>
-<div class="equation-stack">\[X_t=\phi_1X_{t-1}+\phi_2X_{t-2}+\varepsilon_t.\]</div>
-<p>For \(h=1,2\):</p>
-<div class="equation-stack">\[\begin{bmatrix}1&amp;\rho_X(1)\\\rho_X(1)&amp;1\end{bmatrix}\begin{bmatrix}\phi_1\\\phi_2\end{bmatrix}=\begin{bmatrix}\rho_X(1)\\\rho_X(2)\end{bmatrix}.\]</div>
-<p>Use \(\rho_X(-1)=\rho_X(1)\), \(\rho_X(0)=1\); solve row 1, then row 2:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(1)=\frac{\phi_1}{1-\phi_2},}\]\[\boxed{\rho_X(2)=\frac{\phi_1^2}{1-\phi_2}+\phi_2.}\]</div>
-</div>
-<p>Then continue recursively:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\rho_X(h)=\phi_1\rho_X(h-1)+\phi_2\rho_X(h-2),\quad h\ge3.}\]</div>
-</div>
-<div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-ar2-example"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — solving the AR(2) example</button>
-<div class="collapsible lecture-calculation" id="derive-ar2-example" hidden>
-<p>Use \(\rho_X(0)=1\) and \(\rho_X(-1)=\rho_X(1)\):</p>
-<div class="equation-stack">\[\rho_X(1)=\phi_1+\phi_2\rho_X(1),\]\[(1-\phi_2)\rho_X(1)=\phi_1\quad\Longrightarrow\quad\rho_X(1)=\frac{\phi_1}{1-\phi_2},\]\[\rho_X(2)=\phi_1\rho_X(1)+\phi_2,\]\[\rho_X(2)=\phi_1\frac{\phi_1}{1-\phi_2}+\phi_2=\frac{\phi_1^2}{1-\phi_2}+\phi_2.\]</div>
-</div>
-</div>
-</div>
 </section>
 <section class="concept-card violet-top lecture-section" id="pacf-identification" aria-labelledby="pacf-identification-title">
-<div class="section-header"><span class="section-label">Part 5</span><h2 id="pacf-identification-title">Properties of the Partial Autocorrelation Function</h2></div>
+<div class="section-header"><span class="section-label">Part 5</span><h2 id="pacf-identification-title">PACF and model identification</h2></div>
 <div class="lecture-block">
-<h3>Partial autocorrelation and linear projection</h3>
-<p>For a centred process, project \(X_t\) onto its first \(h\) lags:</p>
+<h3>PACF: the coefficient on the last lag</h3>
+<p>For a centred process, regress \(X_t\) on \(X_{t-1},\ldots,X_{t-h}\):</p>
 <div class="equation-stack">\[X_t=a_{h1}X_{t-1}+\cdots+a_{hh}X_{t-h}+u_t^{(h)}.\]</div>
 <p>\(a_{hj}\) is the coefficient on lag \(j\) in the \(h\)-lag projection; \(u_t^{(h)}\) is the prediction error.</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=a_{hh}.}\]</div>
 </div>
-<p>The PACF is the last coefficient, after controlling for the intermediate lags.</p>
+<p>At lag \(h\), read the coefficient on \(X_{t-h}\) after including \(X_{t-1},\ldots,X_{t-h+1}\). For \(h=1\), there are no intermediate lags.</p>
 </div>
 <div class="lecture-block">
-<h3>PACF of an AR(p) process</h3>
-<p>For a stationary causal AR\((p)\),</p>
-<div class="equation-stack">\[X_t=\phi_1X_{t-1}+\cdots+\phi_pX_{t-p}+\varepsilon_t.\]</div>
-<div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=\begin{cases}a_{hh},&amp;1\le h\le p,\\0,&amp;h&gt;p.\end{cases}}\]</div>
-</div>
-<p>The PACF <strong>cuts off after \(p\)</strong>: once the first \(p\) lags are included, more distant lags add no linear predictive information.</p>
-</div>
-<div class="lecture-block">
-<h3>PACF of an MA(q) process</h3>
+<h3>MA(q): the PACF tails off</h3>
 <p>For a stationary process with a fundamental MA\((q)\) representation, \(\theta_0=1\):</p>
 <div class="equation-stack">\[X_t=\mu+\sum_{j=0}^q\theta_j\varepsilon_{t-j}.\]</div>
 <p>Its PACF <strong>tails off toward zero</strong>:</p>
@@ -441,13 +443,22 @@
 </div>
 </div>
 <div class="lecture-block">
-<h3>PACF of a causal and fundamental ARMA(p,q)</h3>
+<h3>AR(p): the PACF stops after lag p</h3>
+<p>For a stationary causal AR\((p)\),</p>
+<div class="equation-stack">\[X_t=\phi_1X_{t-1}+\cdots+\phi_pX_{t-p}+\varepsilon_t.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)=\begin{cases}a_{hh},&amp;1\le h\le p,\\0,&amp;h&gt;p.\end{cases}}\]</div>
+</div>
+<p>The PACF <strong>cuts off after \(p\)</strong>: once the first \(p\) lags are included, more distant lags add no linear predictive information.</p>
+</div>
+
+<div class="lecture-block">
+<h3>ARMA(p,q): the PACF tails off</h3>
 <p>For a causal and fundamental ARMA\((p,q)\) with \(p,q&gt;0\), the PACF <strong>tails off toward zero</strong>:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)\longrightarrow0\quad\text{as }h\to\infty.}\]</div>
 </div>
 </div>
 <div class="lecture-block">
-<h3>ACF and PACF identification</h3>
+<h3>Identify the model from the ACF and PACF</h3>
 <div class="lecture-grid"><div class="lecture-block"><h4>Cuts off after k</h4><div class="equation-stack">\[f(h)=0\quad\text{for every }h&gt;k.\]</div></div><div class="lecture-block"><h4>Tails off</h4><div class="equation-stack">\[f(h)\longrightarrow0\quad(h\to\infty).\]</div><p>Generally no finite cutoff.</p></div></div><p>Population patterns under the assumptions above:</p>
 <div class="result-box"><table class="results-table"><caption>ACF and PACF identification patterns</caption><thead><tr><th scope="col">Process</th><th scope="col">ACF</th><th scope="col">PACF</th></tr></thead><tbody><tr><th scope="row">AR(p)</th><td>Tails off</td><td>Cuts off after p</td></tr><tr><th scope="row">MA(q)</th><td>Cuts off after q</td><td>Tails off</td></tr><tr><th scope="row">ARMA(p,q)</th><td>Tails off</td><td>Tails off</td></tr></tbody></table></div>
 </div>
