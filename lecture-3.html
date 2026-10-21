@@ -23,6 +23,60 @@
       .lecture-page .results-table th:first-child { width: 38%; }
       .lecture-page .results-table th[scope="row"] { white-space: nowrap; font-size: .84rem; }
     }
+    /* Consistent groups and comparison rows throughout Lecture 3. */
+    .lecture-page .lecture-section { gap: 24px; }
+    .lecture-page .lecture-section > .section-header { padding-bottom: 20px; }
+    .lecture-page .lecture-section > .lecture-block { gap: 14px; }
+    .lecture-page .lecture-panel,
+    .lecture-page .lecture-grid > .lecture-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .02);
+      gap: 14px;
+    }
+    .lecture-page .lecture-panel > h3,
+    .lecture-page .lecture-grid > .lecture-block > :is(h3, h4):first-child {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .lecture-page .lecture-panel + .lecture-panel { padding-top: 20px; }
+    .lecture-page .lecture-section > :is(.lecture-grid, section) + .lecture-block:not(.lecture-panel) {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .lecture-page .lecture-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+    .lecture-page .lecture-grid > .lecture-block { align-content: start; }
+    .lecture-page .lecture-panel > .lecture-panel { border-color: var(--border); border-left: 3px solid var(--accent-border); }
+    .lecture-page h5 {
+      font-size: .9rem;
+      line-height: 1.5;
+      color: var(--accent-bright);
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      margin-top: 6px;
+    }
+    .lecture-page .lecture-note { gap: 14px; }
+    .lecture-page .lecture-calculation { padding-top: 20px; }
+    .lecture-page .results-table { width: 100%; }
+    .lecture-page .results-table :is(th, td) { vertical-align: top; padding: 14px 12px; }
+    @media (min-width: 1101px) {
+      @supports (grid-template-rows: subgrid) {
+        .lecture-page .lecture-grid > .lecture-block { display: grid; grid-template-rows: subgrid; grid-row: span 4; }
+        .lecture-page #pacf-identification .lecture-grid > .lecture-block { grid-row: span 3; }
+      }
+    }
+    @media (max-width: 1100px) {
+      .lecture-page .lecture-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-section { gap: 20px; }
+      .lecture-page .lecture-panel,
+      .lecture-page .lecture-grid > .lecture-block { padding: 16px 12px; }
+      .lecture-page .lecture-panel + .lecture-panel { padding-top: 16px; }
+      .lecture-page .results-table :is(th, td) { padding: 12px 6px; }
+    }
   </style>
 </head>
 <body data-math class="lecture-page">
@@ -60,7 +114,7 @@
       </div>
 <section class="concept-card violet-top lecture-section" id="arma-processes" aria-labelledby="arma-processes-title">
 <div class="section-header"><span class="section-label">Part 1</span><h2 id="arma-processes-title">The ARMA model</h2></div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Definition of an ARMA(p,q) process</h3>
 <p>An <strong>ARMA\((p,q)\)</strong> combines past observations and shocks:</p>
 <div class="equation-stack">\[\begin{aligned}X_t={}&amp;\mu+\phi_1X_{t-1}+\cdots+\phi_pX_{t-p}\\&amp;+\varepsilon_t+\theta_1\varepsilon_{t-1}+\cdots+\theta_q\varepsilon_{t-q}.\end{aligned}\]</div>
@@ -69,7 +123,7 @@
 <div class="equation-stack">\[E(\varepsilon_t)=0,\qquad 0&lt;\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2&lt;\infty,\]\[E(\varepsilon_t\varepsilon_s)=0\quad(t\ne s).\]</div>
 <p>\(\mu\) is the <strong>intercept</strong>; \(m_X=E(X_t)\) is the <strong>mean</strong>.</p>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Lag-polynomial representation</h3>
 <div class="equation-stack">\[L^iX_t=X_{t-i}.\]</div><p>Move the AR terms to the left; keep the shocks on the right:</p>
 <div class="equation-stack">\[\Phi(L)=1-\phi_1L-\cdots-\phi_pL^p,\]\[\Theta(L)=1+\theta_1L+\cdots+\theta_qL^q.\]</div>
@@ -84,21 +138,25 @@
 </div>
 </div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>AR(p) and MA(q) as special cases</h3>
+<div class="lecture-block lecture-panel">
 <h4>Autoregressive process: AR(p)</h4>
 <p>\(q=0\), \(\Theta(L)=1\), and \(\phi_p\ne0\):</p>
 <div class="equation-stack">\[X_t=\mu+\phi_1X_{t-1}+\cdots+\phi_pX_{t-p}+\varepsilon_t.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{\Phi(L)X_t=\mu+\varepsilon_t.}\]</div>
 </div>
+</div>
+<div class="lecture-block lecture-panel">
 <h4>Moving-average process: MA(q)</h4>
 <p>\(p=0\), \(\Phi(L)=1\), and \(\theta_q\ne0\):</p>
 <div class="equation-stack">\[X_t=\mu+\varepsilon_t+\theta_1\varepsilon_{t-1}+\cdots+\theta_q\varepsilon_{t-q}.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{X_t=\mu+\Theta(L)\varepsilon_t.}\]</div>
 </div>
+</div>
 <p>The current-shock coefficient is 1. MA weights need not sum to 1.</p>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>The intercept and the mean</h3>
 <p>For a stationary solution, the mean \(m_X=E(X_t)\) is:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{m_X=\frac{\mu}{1-\sum_{i=1}^p\phi_i}=\frac{\mu}{\Phi(1)}.}\]</div>
@@ -112,7 +170,7 @@
 </div>
 </div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Mean-adjusted ARMA</h3>
 <p>Subtract the mean:</p><div class="equation-stack">\[\widetilde X_t=X_t-m_X,\qquad E(\widetilde X_t)=m_X-m_X=0.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde X_t=X_t-\frac{\mu}{1-\sum_{i=1}^p\phi_i}=X_t-\frac{\mu}{\Phi(1)}.}\]\[\boxed{\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t.}\]</div>
@@ -130,7 +188,7 @@
 <section class="concept-card violet-top lecture-section" id="root-conditions" aria-labelledby="root-conditions-title">
 <div class="section-header"><span class="section-label">Part 2</span><h2 id="root-conditions-title">Root conditions</h2></div>
 <p>Check \(\Phi\) for <strong>stationarity and stability</strong>; check \(\Theta\) for <strong>invertibility</strong>.</p>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Unit circle and root conventions</h3>
 <div class="equation-stack">\[z=a+ib,\qquad |z|=\sqrt{a^2+b^2}.\]</div><p>The <strong>unit circle</strong> contains points at distance 1 from zero:</p>
 <div class="equation-stack">\[\mathcal C=\{z\in\mathbb C:\ |z|=1\}.\]</div>
@@ -158,19 +216,19 @@
 <div class="lecture-block">
 <h4>What does it allow us to do?</h4>
 <p>A <strong>stationary solution exists and is unique</strong>. We can write it as <strong>mean + weighted shocks</strong>.</p>
-<p><strong>Theorem — stationary representation</strong></p>
+<h5>Theorem — stationary representation</h5>
 <p>Centre the equation, then invert \(\Phi(L)\):</p>
 <div class="equation-stack">\[\Phi(L)(X_t-m_X)=\Theta(L)\varepsilon_t.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{X_t=\underbrace{m_X}_{\text{mean}}+\underbrace{\Psi(L)\varepsilon_t}_{\text{weighted shocks}},}\]\[\Psi(L)=\frac{\Theta(L)}{\Phi(L)},\qquad m_X=\frac{\mu}{\Phi(1)}.\]</div>
 </div>
-<p><strong>Bilateral representation: past and future shocks</strong></p>
+<h5>Bilateral representation: past and future shocks</h5>
 <p>Both signs of \(j\) are allowed; \(L^j\varepsilon_t=\varepsilon_{t-j}\):</p>
 <div class="equation-stack">\[\Psi(L)=\sum_{j=-\infty}^{\infty}\psi_jL^j.\]</div>
 <div class="equation-chain"><span>\(\underbrace{j=1:\ \varepsilon_{t-1}}_{\text{past}}\qquad\)</span><span>\(\underbrace{j=0:\ \varepsilon_t}_{\text{present}}\qquad\)</span><span>\(\underbrace{j=-1:\ \varepsilon_{t+1}}_{\text{future}}\)</span></div>
 <p><strong>All AR roots \(|z_i|&gt;1\):</strong> current and past shocks only (\(\psi_j=0\) for \(j&lt;0\)).</p>
 <p><strong>At least one \(|z_i|&lt;1\), none \(|z_i|=1\):</strong> stationary, but future shocks are needed.</p>
 <p><strong>Any AR root \(|z_i|=1\):</strong> no stationary solution.</p>
-<p><strong>Why every finite MA(q) is stationary</strong></p>
+<h5>Why every finite MA(q) is stationary</h5>
 <div class="equation-stack">\[\Phi(L)=1\quad\Longrightarrow\quad X_t=\mu+\sum_{j=0}^{q}\theta_j\varepsilon_{t-j},\qquad\theta_0=1.\]</div>
 <div class="result-box"><p>Fixed weights give a constant mean and covariances depending only on the lag: every finite MA is stationary, regardless of its roots.</p>
 </div>
@@ -219,7 +277,7 @@
 </div>
 </div>
 </section>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Conditions at a glance</h3>
 <table class="results-table"><caption>Root conditions and their consequences</caption>
 <thead><tr><th scope="col">Property</th><th scope="col">Roots</th><th scope="col">Meaning</th></tr></thead>
@@ -234,24 +292,24 @@
 <div class="section-header"><span class="section-label">Part 3</span><h2 id="fundamental-representations-title">Representations and examples</h2></div>
 <p><strong>Causal = stable.</strong> <strong>Fundamental = invertible.</strong> Each name describes a different direction:</p>
 <div class="lecture-grid">
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Causal: shocks → observations</h3>
 <div class="equation-stack">\[\varepsilon_t,\varepsilon_{t-1},\ldots\ \longrightarrow\ X_t.\]</div>
 <p>Use current and past shocks. <strong>Stability:</strong> all AR roots are outside the unit circle.</p>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Fundamental: observations → shocks</h3>
 <div class="equation-stack">\[X_t,X_{t-1},\ldots\ \longrightarrow\ \varepsilon_t.\]</div>
 <p>Recover shocks from current and past observations. The root conditions are:</p>
 <div class="equation-stack">\[\text{AR roots: }|z_i|\ne1\quad\text{(stationarity)},\]\[\text{MA roots: }|z_i|&gt;1\quad\text{(invertibility)}.\]</div>
 </div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Causal and fundamental: both directions</h3>
 <p>Both hold when <strong>all AR and MA roots are outside the unit circle</strong>:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\Phi(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every AR root},\\\Theta(z_i)=0&amp;\implies |z_i|&gt;1\quad\text{for every MA root}.\end{aligned}}\]</div></div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Proposition — two infinite representations</h3>
 <p>For a <strong>causal and fundamental</strong> model, the two directions give:</p>
 <div class="lecture-grid">
@@ -268,18 +326,21 @@
 <div class="equation-stack">\[\sum_{k=0}^{\infty}b_kL^k=\frac{\Phi(L)}{\Theta(L)}.\]</div>
 </div>
 </div>
+<div class="lecture-note">
 <h4>The shocks are innovations</h4>
 <p>These shocks \(\{\varepsilon_t\}_{t\in\mathbb Z}\) are the <strong>one-step prediction errors</strong>:</p>
 <div class="equation-stack">\[\underbrace{\varepsilon_t}_{\text{innovation}}=\underbrace{X_t}_{\text{observed}}-\underbrace{\widehat X_{t\mid t-1}}_{\text{predicted}}.\]</div>
 <p>\(\widehat X_{t\mid t-1}\) is the best linear prediction using \(X_{t-1},X_{t-2},\ldots\).</p>
 </div>
-<div class="lecture-block">
+</div>
+<div class="lecture-block lecture-panel">
 <h3>AR(1): from its root to its representation</h3>
 <p>Take the zero-intercept model with Gaussian white noise:</p>
 <div class="equation-stack">\[(1-\rho L)X_t=\varepsilon_t,\qquad \varepsilon_t\overset{iid}{\sim}\mathcal N(0,\sigma_\varepsilon^2).\]</div>
 <p>For \(\rho\ne0\), solve the characteristic equation:</p><div class="equation-stack">\[\Phi(z)=1-\rho z=0\quad\Longrightarrow\quad z_1=\frac1\rho.\]</div>
 <div class="equation-stack">\[\text{Stationarity: }|z_1|\ne1\iff|\rho|\ne1,\]\[\text{Stability: }|z_1|&gt;1\iff|\rho|&lt;1.\]</div>
 <p>\(\rho=0\Rightarrow X_t=\varepsilon_t\): stationary and causal, with no AR root.</p>
+<div class="lecture-block lecture-panel">
 <h4>Case 1: |ρ| < 1 — stationary and causal</h4>
 <p>\(|\rho|&lt;1\): geometric weights decay. Also \(\Theta(L)=1\), so the representation is <strong>causal and fundamental</strong>.</p>
 <div class="result-box"><div class="equation-stack">\[\Phi(L)^{-1}=\frac1{1-\rho L}=\sum_{k=0}^{\infty}\rho^kL^k,\]\[\boxed{X_t=\sum_{k=0}^{\infty}\rho^k\varepsilon_{t-k}.}\]</div>
@@ -291,6 +352,8 @@
 <div class="equation-stack">\[(1-\rho L)^{-1}=1+\rho L+\rho^2L^2+\cdots,\]\[X_t=(1+\rho L+\rho^2L^2+\cdots)\varepsilon_t,\]\[X_t=\varepsilon_t+\rho\varepsilon_{t-1}+\rho^2\varepsilon_{t-2}+\cdots=\sum_{k=0}^{\infty}\rho^k\varepsilon_{t-k}.\]</div>
 </div>
 </div>
+</div>
+<div class="lecture-block lecture-panel">
 <h4>Case 2: |ρ| > 1 — stationary and noncausal</h4>
 <p>The expansion in past shocks does not converge. Since \(|\rho^{-1}|&lt;1\), expand in future shocks:</p><div class="equation-stack">\[F=L^{-1},\qquad F^k\varepsilon_t=\varepsilon_{t+k},\qquad |\rho^{-1}|&lt;1.\]</div>
 <div class="result-box"><div class="equation-stack">\[\Phi(L)^{-1}=-\sum_{k=1}^{\infty}\rho^{-k}F^k,\]\[\boxed{X_t=-\sum_{k=1}^{\infty}\rho^{-k}\varepsilon_{t+k}.}\]</div>
@@ -303,11 +366,14 @@
 <div class="equation-stack">\[1-\rho L=-\rho L(1-\rho^{-1}F),\]\[(1-\rho L)^{-1}=-\rho^{-1}F(1-\rho^{-1}F)^{-1},\]\[\begin{aligned}(1-\rho L)^{-1}&amp;=-\rho^{-1}F\sum_{j=0}^{\infty}\rho^{-j}F^j\\&amp;=-\sum_{k=1}^{\infty}\rho^{-k}F^k,\qquad k=j+1,\end{aligned}\]\[X_t=-\sum_{k=1}^{\infty}\rho^{-k}F^k\varepsilon_t=-\sum_{k=1}^{\infty}\rho^{-k}\varepsilon_{t+k}.\]</div>
 </div>
 </div>
+</div>
+<div class="lecture-block lecture-panel">
 <h4>Case 3: |ρ| = 1 — no stationary solution</h4>
 <p>Unit-circle root; neither lag nor lead weights decay. <strong>No stationary finite-variance solution; no stability.</strong></p>
 
 </div>
-<div class="lecture-block">
+</div>
+<div class="lecture-block lecture-panel">
 <h3>MA(1): check stationarity and invertibility</h3>
 <p>Take the finite moving average:</p>
 <div class="equation-stack">\[X_t=\varepsilon_t+\theta\varepsilon_{t-1},\qquad\varepsilon_t\overset{iid}{\sim}\mathcal N(0,\sigma_\varepsilon^2).\]</div>
@@ -323,7 +389,7 @@
 <p>The ACF measures the correlation between \(X_t\) and \(X_{t-h}\). For stationary \(X_t\) with positive variance:</p>
 <div class="equation-stack">\[\gamma_X(h)=E[(X_t-\mu_X)(X_{t-h}-\mu_X)],\]\[\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)},\qquad \rho_X(0)=1.\]</div>
 <p>\(\gamma_X(h)\): autocovariance; \(\gamma_X(0)\): variance. Here \(\mu_X=m_X=E(X_t)\) is the mean, not the intercept \(\mu\).</p>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>MA(q): the ACF stops after lag q</h3>
 <p>For a fundamental MA\((q)\), set \(\theta_0=1\):</p>
 <div class="equation-stack">\[X_t=\mu+\sum_{j=0}^q\theta_j\varepsilon_{t-j},\qquad \widetilde X_t=\sum_{j=0}^q\theta_j\varepsilon_{t-j}.\]</div>
@@ -343,7 +409,7 @@
 </div>
 </div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>AR(p): the ACF follows a recurrence</h3>
 <p><strong>Assume causality:</strong> current shocks are orthogonal to past observations. Centre the AR equation:</p>
 <div class="equation-stack">\[X_t-\mu_X=\phi_1(X_{t-1}-\mu_X)+\cdots+\phi_p(X_{t-p}-\mu_X)+\varepsilon_t.\]</div>
@@ -366,7 +432,7 @@
 
 </div>
 
-<div class="lecture-block" id="yule-walker-system">
+<div class="lecture-block lecture-panel" id="yule-walker-system">
 <h3>AR(p): calculate the first autocorrelations with Yule–Walker</h3>
 <p>For a stationary causal AR\((p)\), stack the equations for \(h=1,\ldots,p\):</p>
 <div class="equation-stack">\[\underbrace{\begin{bmatrix}1&amp;\rho_X(1)&amp;\cdots&amp;\rho_X(p-1)\\\rho_X(1)&amp;1&amp;\cdots&amp;\rho_X(p-2)\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\rho_X(p-1)&amp;\rho_X(p-2)&amp;\cdots&amp;1\end{bmatrix}}_{R_p}\underbrace{\begin{bmatrix}\phi_1\\\phi_2\\\vdots\\\phi_p\end{bmatrix}}_{\boldsymbol\phi}=\underbrace{\begin{bmatrix}\rho_X(1)\\\rho_X(2)\\\vdots\\\rho_X(p)\end{bmatrix}}_{\boldsymbol r_p}.\]</div>
@@ -381,7 +447,7 @@
 </div>
 </div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>AR(2): solve the first two lags, then continue</h3>
 <p>Take a <strong>stationary causal AR(2)</strong>:</p>
 <div class="equation-stack">\[X_t=\phi_1X_{t-1}+\phi_2X_{t-2}+\varepsilon_t.\]</div>
@@ -401,7 +467,7 @@
 </div>
 </div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>ARMA(p,q): include the MA effect at the first lags</h3>
 <p>At early lags, the finite MA shocks can overlap with the past observation. Start from</p>
 <div class="equation-stack">\[\Phi(L)(X_t-\mu_X)=\Theta(L)\varepsilon_t,\]\[\widetilde X_t=\sum_{k=0}^{\infty}\psi_k\varepsilon_{t-k}.\]</div>
@@ -425,7 +491,7 @@
 </section>
 <section class="concept-card violet-top lecture-section" id="pacf-identification" aria-labelledby="pacf-identification-title">
 <div class="section-header"><span class="section-label">Part 5</span><h2 id="pacf-identification-title">PACF and model identification</h2></div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>PACF: the coefficient on the last lag</h3>
 <p>For a centred process, regress \(X_t\) on \(X_{t-1},\ldots,X_{t-h}\):</p>
 <div class="equation-stack">\[X_t=a_{h1}X_{t-1}+\cdots+a_{hh}X_{t-h}+u_t^{(h)}.\]</div>
@@ -434,7 +500,7 @@
 </div>
 <p>At lag \(h\), read the coefficient on \(X_{t-h}\) after including \(X_{t-1},\ldots,X_{t-h+1}\). For \(h=1\), there are no intermediate lags.</p>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>MA(q): the PACF tails off</h3>
 <p>For a stationary process with a fundamental MA\((q)\) representation, \(\theta_0=1\):</p>
 <div class="equation-stack">\[X_t=\mu+\sum_{j=0}^q\theta_j\varepsilon_{t-j}.\]</div>
@@ -442,7 +508,7 @@
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)\longrightarrow0\quad\text{as }h\to\infty.}\]</div>
 </div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>AR(p): the PACF stops after lag p</h3>
 <p>For a stationary causal AR\((p)\),</p>
 <div class="equation-stack">\[X_t=\phi_1X_{t-1}+\cdots+\phi_pX_{t-p}+\varepsilon_t.\]</div>
@@ -451,13 +517,13 @@
 <p>The PACF <strong>cuts off after \(p\)</strong>: once the first \(p\) lags are included, more distant lags add no linear predictive information.</p>
 </div>
 
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>ARMA(p,q): the PACF tails off</h3>
 <p>For a causal and fundamental ARMA\((p,q)\) with \(p,q&gt;0\), the PACF <strong>tails off toward zero</strong>:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)\longrightarrow0\quad\text{as }h\to\infty.}\]</div>
 </div>
 </div>
-<div class="lecture-block">
+<div class="lecture-block lecture-panel">
 <h3>Identify the model from the ACF and PACF</h3>
 <div class="lecture-grid"><div class="lecture-block"><h4>Cuts off after k</h4><div class="equation-stack">\[f(h)=0\quad\text{for every }h&gt;k.\]</div></div><div class="lecture-block"><h4>Tails off</h4><div class="equation-stack">\[f(h)\longrightarrow0\quad(h\to\infty).\]</div><p>Generally no finite cutoff.</p></div></div><p>Population patterns under the assumptions above:</p>
 <div class="result-box"><table class="results-table"><caption>ACF and PACF identification patterns</caption><thead><tr><th scope="col">Process</th><th scope="col">ACF</th><th scope="col">PACF</th></tr></thead><tbody><tr><th scope="row">AR(p)</th><td>Tails off</td><td>Cuts off after p</td></tr><tr><th scope="row">MA(q)</th><td>Cuts off after q</td><td>Tails off</td></tr><tr><th scope="row">ARMA(p,q)</th><td>Tails off</td><td>Tails off</td></tr></tbody></table></div>
