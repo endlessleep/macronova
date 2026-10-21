@@ -150,15 +150,15 @@
 <div class="section-header"><span class="section-label">2.1</span><h3 id="stationarity-condition-title">Stationarity</h3></div>
 <div class="lecture-block">
 <h4>Condition</h4>
-<p>Solve \(\Phi(z)=0\). Every <strong>AR root</strong> must satisfy \(|z_i|\ne1\): no root lies on the unit circle. Equivalently,</p>
+<p>Check the roots of the <strong>AR polynomial</strong> \(\Phi(z)=0\). They may be inside or outside the unit circle, but <strong>none may be on it</strong>:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\Phi(z_i)=0\implies |z_i|\ne1\quad\text{for every }i.}\]\[\boxed{r_i^p\Phi(1/r_i)=0\implies |r_i|\ne1\quad\text{for every }i.}\]</div>
 </div>
-<p>Inside and outside roots are allowed; roots on the circle are excluded.</p>
+
 </div>
 <div class="lecture-block">
 <h4>What does it allow us to do?</h4>
-<p>Work with a constant mean and covariances that depend only on the lag between dates. The ARMA equation has a unique stationary solution.</p>
-<p><strong>Theorem — unique stationary solution</strong></p>
+<p>A <strong>stationary solution exists and is unique</strong>. We can write it as <strong>mean + weighted shocks</strong>.</p>
+<p><strong>Theorem — stationary representation</strong></p>
 <p>Under the assumptions above, centre the equation and invert \(\Phi(L)\):</p>
 <div class="equation-stack">\[\Phi(L)(X_t-m_X)=\Theta(L)\varepsilon_t.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{X_t=\underbrace{m_X}_{\text{mean}}+\underbrace{\Psi(L)\varepsilon_t}_{\text{weighted shocks}},}\]\[\Psi(L)=\frac{\Theta(L)}{\Phi(L)},\qquad m_X=\frac{\mu}{\Phi(1)}.\]</div>
@@ -180,17 +180,17 @@
 <div class="section-header"><span class="section-label">2.2</span><h3 id="stability-condition-title">Stability</h3></div>
 <div class="lecture-block">
 <h4>Condition</h4>
-<p>Solve \(\Phi(z)=0\). Every <strong>AR root</strong> must be strictly outside the unit circle: \(|z_i|&gt;1\). The inverse roots \(r_i=1/z_i\) are then inside it:</p>
+<p>Check the same <strong>AR roots</strong>, now requiring <strong>all of them to be outside</strong> the unit circle. Equivalently, their inverse roots \(r_i=1/z_i\) must be inside:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{|z_i|&gt;1\iff |r_i|&lt;1\quad\text{for every AR root}.}\]</div>
 </div>
 </div>
 <div class="lecture-block">
 <h4>What does it allow us to do?</h4>
-<p>Build \(X_t\) from <strong>current and past shocks only</strong>. This is a causal representation, written as a <strong>unilateral MA(∞)</strong>:</p>
+<p><strong>From shocks to observations:</strong> express \(X_t\) using \(\varepsilon_t,\varepsilon_{t-1},\ldots\). This is the <strong>causal MA(∞) representation</strong>:</p>
 <div class="equation-stack">\[\Psi(L)=\sum_{j=0}^{\infty}\psi_jL^j.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}.}\]</div>
 </div>
-<p>Stability implies stationarity; stationarity alone also allows future shocks.</p>
+<p><strong>Stability implies stationarity.</strong> It also ensures that the representation uses no future shocks.</p>
 
 </div>
 </section>
@@ -198,14 +198,14 @@
 <div class="section-header"><span class="section-label">2.3</span><h3 id="invertibility-condition-title">Invertibility</h3></div>
 <div class="lecture-block">
 <h4>Condition</h4>
-<p>For stationary \(X_t\), solve \(\Theta(z)=0\). Every <strong>MA root</strong> must be strictly outside the unit circle: \(|z_i|&gt;1\).</p>
+<p>For stationary \(X_t\), check the roots of the <strong>MA polynomial</strong> \(\Theta(z)=0\). They must <strong>all be outside</strong> the unit circle:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\Theta(z_i)=0\implies |z_i|&gt;1\quad\text{for every MA root}.}\]</div></div>
 </div>
 <div class="lecture-block">
 <h4>What does it allow us to do?</h4>
-<p>Recover the unobserved shock \(\varepsilon_t\) using only \(X_t,X_{t-1},X_{t-2},\ldots\), with no future observations.</p>
+<p><strong>From observations to shocks:</strong> recover \(\varepsilon_t\) using \(X_t,X_{t-1},\ldots\). No future observations are needed.</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\varepsilon_t=m_X^*+\underbrace{\frac{\Phi(L)}{\Theta(L)}X_t}_{b_0X_t+b_1X_{t-1}+b_2X_{t-2}+\cdots}.}\]\[m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.\]</div></div>
-<p>\(m_X^*\) is the constant term, not the shock mean: \(E(\varepsilon_t)=0\). With causality too, these shocks are <strong>innovations</strong> (one-step prediction errors).</p>
+<p>\(m_X^*\) is the constant that makes \(E(\varepsilon_t)=0\). If the model is also causal, \(\varepsilon_t\) is the <strong>innovation</strong>: the error in predicting \(X_t\) from past observations.</p>
 <div class="answer-item">
 <button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-innovation-recovery"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — recovering the shocks</button>
 <div class="collapsible lecture-calculation" id="derive-innovation-recovery" hidden>
