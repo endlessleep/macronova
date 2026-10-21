@@ -146,8 +146,9 @@
 </div>
 </div>
 </div>
+<section class="concept-card violet-top lecture-section" id="stationarity-condition" aria-labelledby="stationarity-condition-title">
+<div class="section-header"><span class="section-label">2.1</span><h3 id="stationarity-condition-title">Stationarity</h3></div>
 <div class="lecture-block">
-<h3>Stationarity: existence and uniqueness</h3>
 <p><strong>Stationarity:</strong> no AR root lies on the unit circle. Equivalently,</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\Phi(z_i)=0\implies |z_i|\ne1\quad\text{for every }i.}\]\[\boxed{r_i^p\Phi(1/r_i)=0\implies |r_i|\ne1\quad\text{for every }i.}\]</div>
 </div>
@@ -161,13 +162,15 @@
 <p>This bilateral (Laurent) series allows past shocks (\(j&gt;0\)) and future shocks (\(j&lt;0\)).</p>
 </div>
 <div class="lecture-block">
-<h3>Why every finite MA(q) is stationary</h3>
+<h4>Why every finite MA(q) is stationary</h4>
 <p>For an MA\((q)\), \(\Phi(L)=1\): there are no AR roots to restrict.</p>
 <div class="result-box"><p>A stationary solution always exists for a finite MA process, regardless of its MA roots.</p>
 </div>
 </div>
+</section>
+<section class="concept-card violet-top lecture-section" id="stability-condition" aria-labelledby="stability-condition-title">
+<div class="section-header"><span class="section-label">2.2</span><h3 id="stability-condition-title">Stability</h3></div>
 <div class="lecture-block">
-<h3>Stability: a causal representation</h3>
 <p><strong>Stability:</strong> every AR root is strictly outside the unit circle:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{|z_i|&gt;1\iff |r_i|&lt;1\quad\text{for every AR root}.}\]</div>
 </div>
@@ -178,8 +181,10 @@
 <p><strong>Causal:</strong> current and past shocks only. Stability implies stationarity; stationarity alone also allows future shocks.</p>
 
 </div>
+</section>
+<section class="concept-card violet-top lecture-section" id="invertibility-condition" aria-labelledby="invertibility-condition-title">
+<div class="section-header"><span class="section-label">2.3</span><h3 id="invertibility-condition-title">Invertibility</h3></div>
 <div class="lecture-block">
-<h3>Invertibility: recovering the shocks</h3>
 <p>To recover unobserved shocks from observations, isolate \(\Theta(L)\varepsilon_t\) and invert it. Assume \(X_t\) stationary and all MA roots outside the unit circle:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\Theta(z_i)=0\implies |z_i|&gt;1\quad\text{for every MA root}.}\]\[\boxed{\varepsilon_t=m_X^*+\frac{\Phi(L)}{\Theta(L)}X_t,}\]\[\boxed{m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.}\]</div>
 </div>
@@ -193,6 +198,7 @@
 </div>
 </div>
 </div>
+</section>
 <div class="lecture-block">
 <h3>Recap of conditions</h3>
 <div class="condition-list">
