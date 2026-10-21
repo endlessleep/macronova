@@ -190,16 +190,21 @@
 <section class="concept-card violet-top lecture-section" id="invertibility-condition" aria-labelledby="invertibility-condition-title">
 <div class="section-header"><span class="section-label">2.3</span><h3 id="invertibility-condition-title">Invertibility</h3></div>
 <div class="lecture-block">
-<p>To recover unobserved shocks from observations, isolate \(\Theta(L)\varepsilon_t\) and invert it. Assume \(X_t\) stationary and all MA roots outside the unit circle:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\Theta(z_i)=0\implies |z_i|&gt;1\quad\text{for every MA root}.}\]\[\boxed{\varepsilon_t=m_X^*+\frac{\Phi(L)}{\Theta(L)}X_t,}\]\[\boxed{m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.}\]</div>
-</div>
-<p>\(m_X^*\) corrects for the observation mean. With causality as well, the recovered shocks are <strong>innovations</strong>.</p>
+<p><strong>Invertibility:</strong> recover the unobserved shock \(\varepsilon_t\) using only \(X_t,X_{t-1},X_{t-2},\ldots\), with no future observations.</p>
+<p>For stationary \(X_t\), this requires all roots of the <strong>MA polynomial</strong> to lie outside the unit circle:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Theta(z_i)=0\implies |z_i|&gt;1\quad\text{for every MA root}.}\]</div></div>
+<p>The inverse filter turns observations back into shocks:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\varepsilon_t=m_X^*+\underbrace{\frac{\Phi(L)}{\Theta(L)}X_t}_{b_0X_t+b_1X_{t-1}+b_2X_{t-2}+\cdots}.}\]\[m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X.\]</div></div>
+<p>\(m_X^*\) is the constant term, not the shock mean: \(E(\varepsilon_t)=0\). With causality too, these shocks are <strong>innovations</strong> (one-step prediction errors).</p>
 <div class="answer-item">
-<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-innovation-recovery"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — recovering the innovations</button>
+<button class="toggle-btn" type="button" data-disclosure aria-expanded="false" aria-controls="derive-innovation-recovery"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> derivation — recovering the shocks</button>
 <div class="collapsible lecture-calculation" id="derive-innovation-recovery" hidden>
-<div class="equation-stack">\[\Theta(L)\varepsilon_t=\Phi(L)X_t-\mu,\]\[\varepsilon_t=\frac{\Phi(L)}{\Theta(L)}X_t-\frac1{\Theta(L)}\mu.\]</div>
-<p>A lag leaves a constant unchanged: \(L\mu=\mu\). Therefore, with \(\Theta(1)\ne0\),</p>
-<div class="equation-stack">\[\Theta(L)\mu=\Theta(1)\mu\quad\Longrightarrow\quad\frac1{\Theta(L)}\mu=\frac{\mu}{\Theta(1)},\]\[m_X^*=-\frac{\mu}{\Theta(1)}=-\frac{\Phi(1)}{\Theta(1)}m_X\qquad\bigl(\mu=\Phi(1)m_X\bigr).\]</div>
+<p>Isolate the shock term, then apply \(\Theta(L)^{-1}\):</p>
+<div class="equation-stack">\[\Theta(L)\varepsilon_t=\Phi(L)X_t-\mu,\]\[\varepsilon_t=\frac{\Phi(L)}{\Theta(L)}X_t-c,\qquad \Theta(L)c=\mu.\]</div>
+<p>To find the constant \(c\), use \(Lc=L^2c=\cdots=c\):</p>
+<div class="equation-stack">\[\begin{aligned}\Theta(L)c&amp;=c+\theta_1c+\cdots+\theta_qc\\&amp;=\underbrace{(1+\theta_1+\cdots+\theta_q)}_{\Theta(1)}c=\mu\\&amp;\Longrightarrow\quad c=\frac{\mu}{\Theta(1)}.\end{aligned}\]</div>
+<p>Substitute \(c\); the constant in the recovered-shock equation is \(m_X^*=-c\):</p>
+<div class="equation-stack">\[\varepsilon_t=\underbrace{-\frac{\mu}{\Theta(1)}}_{m_X^*}+\frac{\Phi(L)}{\Theta(L)}X_t.\]</div>
 </div>
 </div>
 </div>
