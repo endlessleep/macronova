@@ -154,17 +154,22 @@
 </div>
 <p>Inside and outside roots are allowed; roots on the circle are excluded.</p>
 <h4>Theorem — unique stationary solution</h4>
-<p>Assume weak white noise, no common AR/MA roots, and no AR root on the unit circle. The unique stationary solution of \(\Phi(L)X_t=\mu+\Theta(L)\varepsilon_t\) is</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{X_t=m_X+\Psi(L)\varepsilon_t,}\]\[\Psi(L)=\frac{\Theta(L)}{\Phi(L)},\qquad m_X=\frac{\mu}{\Phi(1)}.\]</div>
+<p>Under the assumptions above, centre the equation and invert \(\Phi(L)\):</p>
+<div class="equation-stack">\[\Phi(L)(X_t-m_X)=\Theta(L)\varepsilon_t.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_t=\underbrace{m_X}_{\text{mean}}+\underbrace{\Psi(L)\varepsilon_t}_{\text{weighted shocks}},}\]\[\Psi(L)=\frac{\Theta(L)}{\Phi(L)},\qquad m_X=\frac{\mu}{\Phi(1)}.\]</div>
 </div>
-<h4>Bilateral representation</h4>
-<div class="equation-stack">\[|z_i|\le1\ \Longrightarrow\ \Psi(L)=\sum_{j=-\infty}^{\infty}\psi_jL^j.\]</div>
-<p>This bilateral (Laurent) series allows past shocks (\(j&gt;0\)) and future shocks (\(j&lt;0\)).</p>
+<h4>Bilateral representation: past and future shocks</h4>
+<p>Both signs of \(j\) are allowed; \(L^j\varepsilon_t=\varepsilon_{t-j}\):</p>
+<div class="equation-stack">\[\Psi(L)=\sum_{j=-\infty}^{\infty}\psi_jL^j.\]</div>
+<div class="equation-chain"><span>\(\underbrace{j=1:\ \varepsilon_{t-1}}_{\text{past}}\qquad\)</span><span>\(\underbrace{j=0:\ \varepsilon_t}_{\text{present}}\qquad\)</span><span>\(\underbrace{j=-1:\ \varepsilon_{t+1}}_{\text{future}}\)</span></div>
+<p><strong>All AR roots \(|z_i|&gt;1\):</strong> current and past shocks only (\(\psi_j=0\) for \(j&lt;0\)).</p>
+<p><strong>At least one \(|z_i|&lt;1\), none \(|z_i|=1\):</strong> stationary, but future shocks are needed.</p>
+<p><strong>Any AR root \(|z_i|=1\):</strong> no stationary solution.</p>
 </div>
 <div class="lecture-block">
 <h4>Why every finite MA(q) is stationary</h4>
-<p>For an MA\((q)\), \(\Phi(L)=1\): there are no AR roots to restrict.</p>
-<div class="result-box"><p>A stationary solution always exists for a finite MA process, regardless of its MA roots.</p>
+<div class="equation-stack">\[\Phi(L)=1\quad\Longrightarrow\quad X_t=\mu+\sum_{j=0}^{q}\theta_j\varepsilon_{t-j},\qquad\theta_0=1.\]</div>
+<div class="result-box"><p>Fixed weights give a constant mean and covariances depending only on the lag: every finite MA is stationary, regardless of its roots.</p>
 </div>
 </div>
 </section>
@@ -208,7 +213,8 @@
 <div><h4>Stability</h4><div class="equation-stack">\[\text{All AR roots: }|z_i|&gt;1.\]</div>
 <p>The solution uses current and past shocks only.</p>
 </div>
-<div><h4>Invertibility</h4><div class="equation-stack">\[\text{All MA roots: }|z_i|\ne1.\]</div>
+<div><h4>Invertibility</h4><div class="equation-stack">\[\text{All MA roots: }|z_i|&gt;1.\]</div>
+<p>Shocks can be recovered from current and past observations.</p>
 </div>
 </div>
 </div>
@@ -217,8 +223,8 @@
 <div class="section-header"><span class="section-label">Part 3</span><h2 id="fundamental-representations-title">Representations</h2></div>
 <div class="lecture-block">
 <h3>Fundamental representation</h3>
-<p>The representation is fundamental when all respective roots satisfy:</p>
-<div class="result-box"><div class="equation-stack">\[\text{AR roots: }|z_i|\le1\quad\text{(“stationarity only”)},\]\[\text{MA roots: }|z_i|&gt;1\quad\text{(invertibility)}.\]</div>
+<p>A fundamental representation allows recovery of \(\varepsilon_t\) from current and past observations:</p>
+<div class="result-box"><div class="equation-stack">\[\text{AR roots: }|z_i|\ne1\quad\text{(stationarity)},\]\[\text{MA roots: }|z_i|&gt;1\quad\text{(invertibility)}.\]</div>
 </div>
 </div>
 <div class="lecture-block">
@@ -332,7 +338,7 @@
 <h3>What the AR recurrence implies</h3>
 <p>\(h&lt;p\): use \(\rho_X(-h)=\rho_X(h)\) and \(\rho_X(0)=1\) to find the initial values.</p>
 <p>\(h\ge p\): a homogeneous difference equation of order \(p\), governed by the inverse AR roots.</p>
-<p>The same characteristic roots govern the AR dynamics and the ACF. The ACF <strong>tails off</strong> geometrically, possibly with alternating signs or damped oscillations.</p>
+<p>The same inverse AR roots govern the AR dynamics and the ACF. The ACF <strong>tails off</strong> geometrically, possibly with alternating signs or damped oscillations.</p>
 
 </div>
 <div class="lecture-block">
@@ -421,7 +427,7 @@
 </div>
 <div class="lecture-block">
 <h3>PACF of a causal and fundamental ARMA(p,q)</h3>
-<p>For a causal and fundamental ARMA\((p,q)\), the PACF <strong>tails off toward zero</strong>:</p>
+<p>For a causal and fundamental ARMA\((p,q)\) with \(p,q&gt;0\), the PACF <strong>tails off toward zero</strong>:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\alpha_X(h)\longrightarrow0\quad\text{as }h\to\infty.}\]</div>
 </div>
 </div>
