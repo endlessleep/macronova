@@ -219,6 +219,35 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <h4>2. AR(∞) representation</h4>
 <p>Multiplying the centred equation by \(\Theta(L)^{-1}\) gives</p>
 <div class="equation-stack">\[\varepsilon_t=\left[\sum_{j=0}^{\infty}\left(\frac17\right)^jL^j\right]\left(1-\frac56L+\frac16L^2\right)\widetilde X_t.\]</div>
+<p>Distributing the AR polynomial gives three sums:</p>
+<div class="equation-stack">\[\begin{aligned}\varepsilon_t={}&\sum_{j=0}^{\infty}\left(\frac17\right)^j\widetilde X_{t-j}\\&-\frac56\sum_{j=0}^{\infty}\left(\frac17\right)^j\widetilde X_{t-j-1}\\&+\frac16\sum_{j=0}^{\infty}\left(\frac17\right)^j\widetilde X_{t-j-2}.\end{aligned}\]</div>
+<h4>Reindexing the shifted sums (algebraic method)</h4>
+<p>We want all three sums to contain the same observation, \(\widetilde X_{t-j}\).</p>
+<p><strong>Second sum — shift the index by one:</strong></p>
+<div class="equation-stack">\[j_{\text{new}}=j_{\text{old}}+1\quad\Longrightarrow\quad j_{\text{old}}=j_{\text{new}}-1.\]</div>
+<p>This changes:</p>
+<ul>
+<li><strong>Lower bound:</strong> \(0+1=1\).</li>
+<li><strong>Coefficient:</strong> \((1/7)^{j_{\text{old}}}=(1/7)^{j_{\text{new}}-1}\).</li>
+<li><strong>Observation:</strong> \(\widetilde X_{t-j_{\text{old}}-1}=\widetilde X_{t-(j_{\text{new}}-1)-1}=\widetilde X_{t-j_{\text{new}}}\).</li>
+</ul>
+<p>Renaming the new index \(j\),</p>
+<div class="equation-stack">\[\sum_{j=0}^{\infty}\left(\frac17\right)^j\widetilde X_{t-j-1}=\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}\widetilde X_{t-j}.\]</div>
+<p><strong>Third sum — shift the index by two:</strong></p>
+<div class="equation-stack">\[j_{\text{new}}=j_{\text{old}}+2\quad\Longrightarrow\quad j_{\text{old}}=j_{\text{new}}-2.\]</div>
+<p>This changes:</p>
+<ul>
+<li><strong>Lower bound:</strong> \(0+2=2\).</li>
+<li><strong>Coefficient:</strong> \((1/7)^{j_{\text{old}}}=(1/7)^{j_{\text{new}}-2}\).</li>
+<li><strong>Observation:</strong> \(\widetilde X_{t-j_{\text{old}}-2}=\widetilde X_{t-(j_{\text{new}}-2)-2}=\widetilde X_{t-j_{\text{new}}}\).</li>
+</ul>
+<p>Renaming the new index \(j\),</p>
+<div class="equation-stack">\[\sum_{j=0}^{\infty}\left(\frac17\right)^j\widetilde X_{t-j-2}=\sum_{j=2}^{\infty}\left(\frac17\right)^{j-2}\widetilde X_{t-j}.\]</div>
+<p>Reindexing does not change any sum; it only allows us to group the coefficients of the same observation.</p>
+<p>Substituting both reindexed sums into the original expression gives</p>
+<div class="equation-stack">\[\begin{aligned}\varepsilon_t={}&\sum_{j=0}^{\infty}\left(\frac17\right)^j\widetilde X_{t-j}\\&-\frac56\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}\widetilde X_{t-j}\\&+\frac16\sum_{j=2}^{\infty}\left(\frac17\right)^{j-2}\widetilde X_{t-j}.\end{aligned}\]</div>
+<p>To give all remaining sums the same lower bound, we isolate the \(j=0\) and \(j=1\) terms of the first sum, and the \(j=1\) term of the second sum. The third sum already starts at \(j=2\). Combining the coefficients gives</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\varepsilon_t={}&\widetilde X_t+\left(\frac17-\frac56\right)\widetilde X_{t-1}\\&+\sum_{j=2}^{\infty}\left[\left(\frac17\right)^j-\frac56\left(\frac17\right)^{j-1}+\frac16\left(\frac17\right)^{j-2}\right]\widetilde X_{t-j}.\end{aligned}}\]</div></div>
 <p>The coefficient of \(\widetilde X_t\) is 1. At lag one, the coefficient is</p>
 <div class="equation-stack">\[\frac17-\frac56=-\frac{29}{42}.\]</div>
 <p>For \(j\ge2\), the coefficient of \(\widetilde X_{t-j}\) is</p>
