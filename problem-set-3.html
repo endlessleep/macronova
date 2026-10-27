@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=542e1f2dfb98">
+  <link rel="stylesheet" href="assets/styles.css?v=5dce0f857a5c">
   <script src="assets/app.js?v=725a7f169a2f" defer></script>
   <style>
     .solution mjx-container[display="true"] svg { max-width: 100%; height: auto; }
@@ -31,6 +31,7 @@
       <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
       <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
       <a href="lecture-3.html" class="sidebar-link">LECTURE 3</a>
+      <a href="lecture-4.html" class="sidebar-link">LECTURE 4</a>
       <hr class="sidebar-divider">
       <div class="sidebar-group">
         <a href="training.html" class="sidebar-link">TRAINING</a>
@@ -69,8 +70,8 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <p>where \(\varepsilon_t\) is a zero-mean weak white noise with variance \(\sigma_\varepsilon^2&gt;0\).</p><ol><li>Write the process using the polynomial operators.</li><li>Show that \(X_t\) is stationary and that the representation is causal and fundamental.</li><li>Give the AR(\(\infty\)) and MA(\(\infty\)) representations of \(X_t\).</li><li>Determine the autocorrelation function of this process.</li><li>Determine the first 3 terms of the partial autocorrelation function of this process.</li><li>Determine the best linear forecast for \(h=1,2,3,\ldots,\infty\).</li><li>Determine the forecast errors and their variance for \(h=1,2,3,\ldots,\infty\).</li><li>Determine the prediction interval.</li></ol></div>
 <div class="collapsible solution" id="solution-1">
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
-<section class="solution-step answer-panel" id="exercise-1-q1" hidden><h3><span>Question 1</span>Lag polynomials and demeaned process</h3><div class="solution-givens"><h4>Given information</h4><p>The process has intercept 2, AR coefficients \(5/6,-1/6\), and MA coefficient \(-1/7\).</p></div>
-<div class="target-form"><span class="target-label">What to find · Formula</span><p>The unconditional mean, the demeaned process, and the polynomials \(\Phi(L)\) and \(\Theta(L)\).</p></div>
+<section class="solution-step answer-panel" id="exercise-1-q1" hidden><h3><span>Question 1</span>Lag polynomials and demeaned process</h3><div class="target-form"><span class="target-label">What to find · Formula</span><p>The unconditional mean, the demeaned process, and the polynomials \(\Phi(L)\) and \(\Theta(L)\).</p><div class="equation-stack">\[m_X=\frac{c}{\Phi(1)},\qquad \widetilde X_t=X_t-m_X.\]\[\Phi(L)=1-\phi_1L-\phi_2L^2,\qquad\Theta(L)=1+\theta_1L.\]\[\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t.\]</div><p>First identify the intercept \(c=2\) and coefficients; then remove the mean and group terms with the lag operator.</p></div>
+<div class="solution-givens"><h4>Given information</h4><p>The process has intercept 2, AR coefficients \(5/6,-1/6\), and MA coefficient \(-1/7\).</p></div>
 <p>We start with</p>
 <div class="equation-stack">\[
 X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
@@ -145,8 +146,8 @@ LX_t=X_{t-1},\qquad L^2X_t=X_{t-2}.
 <p>Sign convention: AR terms change signs when moved to the left; MA terms retain their original signs.</p></section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
-<section class="solution-step answer-panel" id="exercise-1-q2" hidden><h3><span>Question 2</span>Stationarity, causality and fundamentalness</h3><div class="solution-givens"><h4>Given information</h4><p>From Question 1, \(\widetilde X_t=X_t-6\), \(\Phi(L)=1-5L/6+L^2/6\), and \(\Theta(L)=1-L/7\).</p></div>
-<div class="target-form"><span class="target-label">What to find · Formula</span><p>AR characteristic roots, MA characteristic roots, and their implications.</p></div>
+<section class="solution-step answer-panel" id="exercise-1-q2" hidden><h3><span>Question 2</span>Stationarity, causality and fundamentalness</h3><div class="target-form"><span class="target-label">What to find · Formula</span><p>AR characteristic roots, MA characteristic roots, and their implications.</p><div class="equation-stack">\[r^2\Phi(r^{-1})=0,\qquad r\Theta(r^{-1})=0.\]\[|r_{\mathrm{AR},i}|&lt;1,\qquad |r_{\mathrm{MA}}|&lt;1.\]</div><p>Find inverse roots. The AR condition gives a stable causal stationary representation; the MA condition gives fundamentalness.</p></div>
+<div class="solution-givens"><h4>Given information</h4><p>From Question 1, \(\widetilde X_t=X_t-6\), \(\Phi(L)=1-5L/6+L^2/6\), and \(\Theta(L)=1-L/7\).</p></div>
 <p>We have</p>
 <div class="equation-stack">\[
 \Phi(L)=1-\frac56L+\frac16L^2
@@ -257,8 +258,8 @@ A=3,\qquad B=-2.
 <p>These statements refer to the unique causal stationary solution (with an infinite past). Arbitrary initial conditions can introduce transient terms. Absolute summability of the geometric coefficients ensures convergence in mean square. Invertibility recovers innovations from current and past observations; causality makes each innovation orthogonal to earlier observations.</p></section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
-<section class="solution-step answer-panel" id="exercise-1-q3" hidden><h3><span>Question 3</span>MA(∞) and AR(∞) representations</h3><div class="solution-givens"><h4>Given information</h4><p>From Question 2, \(\Phi(L)=(1-L/2)(1-L/3)\) and \(\Theta(L)=1-L/7\).</p></div>
-<div class="target-form"><span class="target-label">What to find · Formula</span><p>Express \(X_t\) using past innovations only, and express innovations using present and past observations.</p></div>
+<section class="solution-step answer-panel" id="exercise-1-q3" hidden><h3><span>Question 3</span>MA(∞) and AR(∞) representations</h3><div class="target-form"><span class="target-label">What to find · Formula</span><p>Express \(X_t\) using past innovations only, and express innovations using present and past observations.</p><div class="equation-stack">\[\widetilde X_t=\frac{\Theta(L)}{\Phi(L)}\varepsilon_t,\qquad\varepsilon_t=\frac{\Phi(L)}{\Theta(L)}\widetilde X_t.\]\[(1-aL)^{-1}=\sum_{j=0}^{\infty}a^jL^j,\quad |a|&lt;1.\]</div><p>Invert the appropriate polynomial, expand the geometric series, and collect the coefficient of each lag.</p></div>
+<div class="solution-givens"><h4>Given information</h4><p>From Question 2, \(\Phi(L)=(1-L/2)(1-L/3)\) and \(\Theta(L)=1-L/7\).</p></div>
 <h4>Part A — MA(∞) representation</h4>
 <p>Start from</p>
 <div class="equation-stack">\[
@@ -442,8 +443,8 @@ X_t=6+\varepsilon_t
 <p><strong>Key distinction:</strong> MA(∞) expresses \(X_t\) through past shocks; AR(∞) recovers the current innovation from current and past observations.</p></section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button>
-<section class="solution-step answer-panel" id="exercise-1-q4" hidden><h3><span>Question 4</span>Autocorrelation function</h3><div class="solution-givens"><h4>Given information</h4><p>The innovations are uncorrelated, with mean zero and variance \(\sigma_\varepsilon^2\). The MA coefficient at lag one is \(29/42\).</p></div>
-<div class="target-form"><span class="target-label">What to find · Formula</span><p>\(\gamma(h)\), \(\rho(h)\) and the recurrence for all lags.</p></div>
+<section class="solution-step answer-panel" id="exercise-1-q4" hidden><h3><span>Question 4</span>Autocorrelation function</h3><div class="target-form"><span class="target-label">What to find · Formula</span><p>\(\gamma(h)\), \(\rho(h)\) and the recurrence for all lags.</p><div class="equation-stack">\[\gamma(h)=E[\widetilde X_t\widetilde X_{t-h}],\qquad\rho(h)=\frac{\gamma(h)}{\gamma(0)}.\]\[\gamma(h)=\phi_1\gamma(h-1)+\phi_2\gamma(h-2),\quad h&gt;1.\]</div><p>Use Yule–Walker equations at lags 0 and 1 to obtain the starting values, then apply the recurrence and normalize.</p></div>
+<div class="solution-givens"><h4>Given information</h4><p>The innovations are uncorrelated, with mean zero and variance \(\sigma_\varepsilon^2\). The MA coefficient at lag one is \(29/42\).</p></div>
 <p>Use the Yule–Walker equations for a causal ARMA(2,1):</p>
 <div class="equation-stack">\[
 \widetilde X_t=
@@ -589,8 +590,8 @@ g_2=\frac{45}{49}-\frac{14}{49}=\frac{31}{49}.
 <p>For negative lags, symmetry gives \(\gamma(-h)=\gamma(h)\) and \(\rho(-h)=\rho(h)\).</p></section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q5"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 5</button>
-<section class="solution-step answer-panel" id="exercise-1-q5" hidden><h3><span>Question 5</span>First three terms of the PACF</h3><div class="solution-givens"><h4>Given information</h4><p>Use the exact ACF values from Question 4 and the projection normal equations.</p></div>
-<div class="target-form"><span class="target-label">What to find · Formula</span><p>\(\alpha(1),\alpha(2),\alpha(3)\).</p></div>
+<section class="solution-step answer-panel" id="exercise-1-q5" hidden><h3><span>Question 5</span>First three terms of the PACF</h3><div class="target-form"><span class="target-label">What to find · Formula</span><p>\(\alpha(1),\alpha(2),\alpha(3)\).</p><div class="equation-stack">\[R_ha_h=(\rho(1),\ldots,\rho(h))^\mathsf T.\]\[\alpha(h)=a_{hh}=\frac{\det(R_h^\star)}{\det(R_h)}.\]</div><p>The PACF is the last projection coefficient. Replace the last column of the autocorrelation matrix and use Cramer’s rule.</p></div>
+<div class="solution-givens"><h4>Given information</h4><p>Use the exact ACF values from Question 4 and the projection normal equations.</p></div>
 <p>Use autocorrelation matrices and Cramer’s rule.</p>
 <p>We already know</p>
 <div class="equation-stack">\[
@@ -725,8 +726,8 @@ b-a^2=-\frac{13}{294},\qquad 1-a^2=\frac{115}{196},\qquad
 <p><strong>Numerical correction:</strong> The exact fraction above gives \(-0.010765\), correcting the old lag-three approximation.</p></section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q6"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 6</button>
-<section class="solution-step answer-panel" id="exercise-1-q6" hidden><h3><span>Question 6</span>Best linear forecast for all horizons</h3><div class="solution-givens"><h4>Given information</h4><p>Use the causal MA representation and the entire observed past; model parameters are treated as known.</p></div>
-<div class="target-form"><span class="target-label">What to find · Formula</span><p>\(\widehat X_{t+h\mid t}\) for \(h=1,2,3,\ldots,\infty\).</p></div>
+<section class="solution-step answer-panel" id="exercise-1-q6" hidden><h3><span>Question 6</span>Best linear forecast for all horizons</h3><div class="target-form"><span class="target-label">What to find · Formula</span><p>\(\widehat X_{t+h\mid t}\) for \(h=1,2,3,\ldots,\infty\).</p><div class="equation-stack">\[\widehat X_{t+h\mid t}=m_X+\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j}.\]</div><p>Keep innovations dated at or before the forecast origin. Future innovations have zero best linear forecast.</p></div>
+<div class="solution-givens"><h4>Given information</h4><p>Use the causal MA representation and the entire observed past; model parameters are treated as known.</p></div>
 <p>Let \(\mathcal H_t=\overline{\operatorname{span}}\{1,X_t,X_{t-1},\ldots\}\) be the closed linear space of the entire observed history. The best linear forecast is the orthogonal projection onto this space. Because the process is causal and fundamental, current and past innovations can be recovered from observed history.</p>
 <p>From Question 3,</p>
 <div class="equation-stack">\[
@@ -818,8 +819,8 @@ X_{t+2}
 <p>With weak white noise these are linear projections, not necessarily conditional expectations. Invertibility is understood in mean square using the infinite observed past; finite samples require initialization. The long-horizon forecast converges to 6 in mean square.</p></section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q7"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 7</button>
-<section class="solution-step answer-panel" id="exercise-1-q7" hidden><h3><span>Question 7</span>Forecast errors and their variances</h3><div class="solution-givens"><h4>Given information</h4><p>Use the MA coefficients and best linear forecast derived in Questions 3 and 6.</p></div>
-<div class="target-form"><span class="target-label">What to find · Formula</span><p>The error of each forecast, its variance and its infinite-horizon limit.</p></div>
+<section class="solution-step answer-panel" id="exercise-1-q7" hidden><h3><span>Question 7</span>Forecast errors and their variances</h3><div class="target-form"><span class="target-label">What to find · Formula</span><p>The error of each forecast, its variance and its infinite-horizon limit.</p><div class="equation-stack">\[e_t(h)=X_{t+h}-\widehat X_{t+h\mid t}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{t+h-j}.\]\[V_h=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.\]</div><p>Subtract the forecast to keep only future shocks; uncorrelated shocks make the variance a sum of squared weights.</p></div>
+<div class="solution-givens"><h4>Given information</h4><p>Use the MA coefficients and best linear forecast derived in Questions 3 and 6.</p></div>
 <h4>Step 1 — Forecast error definition</h4>
 <p>Define</p>
 <div class="result-box"><div class="equation-stack">\[
@@ -983,8 +984,8 @@ e_t(3)=
 <p><strong>Intuition:</strong> Longer forecasts contain more unknown future shocks. Their error variance increases and approaches the unconditional variance of the process.</p></section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q8"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 8</button>
-<section class="solution-step answer-panel" id="exercise-1-q8" hidden><h3><span>Question 8</span>Prediction interval</h3><div class="solution-givens"><h4>Given information</h4><p>The forecast and its error variance are known from Questions 6 and 7; Gaussianity is an additional assumption.</p></div>
-<div class="target-form"><span class="target-label">What to find · Formula</span><p>A general prediction interval for \(X_{t+h}\), using the best linear forecast and forecast error variance.</p></div>
+<section class="solution-step answer-panel" id="exercise-1-q8" hidden><h3><span>Question 8</span>Prediction interval</h3><div class="target-form"><span class="target-label">What to find · Formula</span><p>A general prediction interval for \(X_{t+h}\), using the best linear forecast and forecast error variance.</p><div class="equation-stack">\[PI_{1-\alpha}(h)=\widehat X_{t+h\mid t}\pm z_{1-\alpha/2}\sqrt{V_h}.\]</div><p>Under the additional iid Gaussian assumption, combine the forecast with its error standard deviation. At 95%, the normal quantile is approximately 1.96.</p></div>
+<div class="solution-givens"><h4>Given information</h4><p>The forecast and its error variance are known from Questions 6 and 7; Gaussianity is an additional assumption.</p></div>
 <h4>Step 1 — The objective</h4>
 <p>A prediction interval describes the uncertainty around a forecast of the future observation \(X_{t+h}\).</p>
 <p>A forecast is a point estimate. A prediction interval gives a range around that estimate.</p>

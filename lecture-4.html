@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — Lecture 4: Forecasting with ARMA models and impulse-response functions.">
+  <title>Lecture 4 — Forecasting | MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=5dce0f857a5c">
+  <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    .lecture-section, .answer-item, .result-box { min-width: 0; }
+    .lecture-page .toggle-btn { max-width: 100%; text-align: left; line-height: 1.5; }
+    .lecture-page .lecture-calculation { margin-top: 16px; gap: 12px; }
+    .equation-stack, .equation-chain > span, .matrix-pair > div { max-width: 100%; min-width: 0; }
+    .lecture-page .results-table { table-layout: fixed; }
+    .lecture-page .results-table th, .lecture-page .results-table td { overflow-wrap: anywhere; line-height: 1.55; }
+    @media (max-width: 767px) {
+      .lecture-page .results-table th:first-child { width: 38%; }
+      .lecture-page .results-table th[scope="row"] { white-space: nowrap; font-size: .84rem; }
+    }
+    /* Consistent groups and comparison rows throughout Lecture 4. */
+    .lecture-page .lecture-section { gap: 24px; }
+    .lecture-page .lecture-section > .section-header { padding-bottom: 20px; }
+    .lecture-page .lecture-section > .lecture-block { gap: 14px; }
+    .lecture-page .lecture-panel,
+    .lecture-page .lecture-grid > .lecture-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .02);
+      gap: 14px;
+    }
+    .lecture-page .lecture-panel > h3,
+    .lecture-page .lecture-grid > .lecture-block > :is(h3, h4):first-child {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .lecture-page .lecture-panel + .lecture-panel { padding-top: 20px; }
+    .lecture-page .lecture-section > :is(.lecture-grid, section) + .lecture-block:not(.lecture-panel) {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .lecture-page .lecture-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+    .lecture-page .lecture-grid > .lecture-block { align-content: start; }
+    .lecture-page .lecture-panel > .lecture-panel { border-color: var(--border); border-left: 3px solid var(--accent-border); }
+    .lecture-page h5 {
+      font-size: .9rem;
+      line-height: 1.5;
+      color: var(--accent-bright);
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      margin-top: 6px;
+    }
+    .lecture-page .lecture-note { gap: 14px; }
+    .lecture-page .lecture-calculation { padding-top: 20px; }
+    .lecture-page .results-table { width: 100%; }
+    .lecture-page .results-table :is(th, td) { vertical-align: top; padding: 14px 12px; }
+    @media (min-width: 1101px) {
+      @supports (grid-template-rows: subgrid) {
+        .lecture-page .lecture-grid > .lecture-block { display: grid; grid-template-rows: subgrid; grid-row: span 4; }
+        .lecture-page #pacf-identification .lecture-grid > .lecture-block { grid-row: span 3; }
+      }
+    }
+    @media (max-width: 1100px) {
+      .lecture-page .lecture-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-section { gap: 20px; }
+      .lecture-page .lecture-panel,
+      .lecture-page .lecture-grid > .lecture-block { padding: 16px 12px; }
+      .lecture-page .lecture-panel + .lecture-panel { padding-top: 16px; }
+      .lecture-page .results-table :is(th, td) { padding: 12px 6px; }
+    }
+    #ar-irf .results-table th:first-child { width: 20%; }
+    .lecture-page mjx-container[display="true"] { max-width: 100%; }
+    .lecture-page mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body data-math class="lecture-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span></a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
+      <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
+      <a href="lecture-3.html" class="sidebar-link">LECTURE 3</a>
+      <a href="lecture-4.html" class="sidebar-link active" aria-current="page">LECTURE 4</a>
+      <hr class="sidebar-divider">
+      <div class="sidebar-group">
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+        <a href="problem-set-2.html" class="sidebar-link">Problem Set 2</a>
+        <a href="problem-set-3.html" class="sidebar-link">Problem Set 3</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar"><img src="images/avatar.png" width="44" height="44" alt=""><span class="user-dot" aria-hidden="true"></span></div><div class="user-info"><div class="user-name">STAR NOVA</div></div></div></div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden></button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb"><span>MACRO</span><span class="sep" aria-hidden="true">›</span><strong>Lecture 4</strong></nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">MACROECONOMETRICS · REVISION NOTES</div>
+        <h1>LECTURE 4</h1>
+        <p class="lecture-subtitle">Forecasting</p>
+      </div>
+<section class="concept-card violet-top lecture-section" id="framework" aria-labelledby="framework-title">
+<div class="section-header"><span class="section-label">Definition</span><h2 id="framework-title">Forecasting framework</h2></div>
+<p>A forecast combines a model, an information set, an origin \(T\), and a horizon \(h&gt;0\). The target is the future observation \(X_{T+h}\).</p>
+<div class="lecture-block"><h3>Origin and information</h3>
+<div class="equation-stack">\[\Omega_T=\{X_T,X_{T-1},\ldots\}.\]</div>
+<p>A one-step forecast targets \(T+1\); an \(h\)-step forecast targets \(T+h\). Multi-step forecasts use the same origin for \(h=1,\ldots,H\).</p>
+</div>
+<div class="lecture-block"><h3>Causal and fundamental ARMA</h3>
+<div class="equation-stack">\[\Phi(L)X_t=\mu+\Theta(L)\varepsilon_t,\]</div>
+<div class="equation-stack">\[\Phi(L)=1-\sum_{j=1}^{p}\phi_jL^j,\]\[\Theta(L)=1+\sum_{k=1}^{q}\theta_kL^k.\]</div>
+<p>The innovation process is weak white noise. The causal and fundamental representation lets us use past observations or recoverable past innovations as forecasting information.</p>
+<div class="equation-stack">\[X_t=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j},\]</div>
+<div class="equation-stack">\[m_X=\frac{\mu}{\Phi(1)},\qquad \Psi(L)=\frac{\Theta(L)}{\Phi(L)}.\]\[\psi_0=1.\]</div>
+</div>
+<div class="lecture-block"><h3>Best linear predictor</h3>
+<p>The optimal linear forecast is the linear expectation given the information available at \(T\):</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}X_{T+h|T}&amp;=\mathbb E_L[X_{T+h}\mid X_T,X_{T-1},\ldots]\\&amp;=\mathbb E_L[X_{T+h}\mid\varepsilon_T,\varepsilon_{T-1},\ldots].\end{aligned}}\]</div></div>
+<p>It minimizes the mean-squared forecast error among linear predictors:</p>
+<div class="equation-stack">\[\operatorname{MSE}(h)=\mathbb E[(X_{T+h}-X_{T+h|T})^2].\]</div>
+<div class="equation-stack">\[e_{T+h|T}=X_{T+h}-X_{T+h|T},\]</div>
+<div class="equation-stack">\[\operatorname V(e_{T+h|T})=\operatorname V(X_{T+h}-X_{T+h|T}).\]</div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="ma-representation" aria-labelledby="ma-representation-title">
+<div class="section-header"><span class="section-label">Representation</span><h2 id="ma-representation-title">Forecasts from the MA(∞) representation</h2></div>
+<p>Separate innovations by whether they occur before or after the forecast origin:</p>
+<div class="equation-stack">\[\begin{aligned}X_{T+h}=m_X&amp;+\underbrace{\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}}_{\text{known at }T}\\&amp;+\underbrace{\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}}_{\text{future innovations}}.\end{aligned}\]</div>
+<p>For \(j\ge h\), the innovation date \(T+h-j\) is at most \(T\). The future innovations have zero linear forecast.</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}=m_X+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.}\]</div></div>
+<p>Subtracting this forecast cancels all terms known at \(T\):</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.}\]</div></div>
+<p>Uncorrelated innovations leave only the squared coefficients in the variance:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.}\]</div></div>
+<p>These representations apply to the causal and fundamental AR, MA and ARMA models below.</p>
+</section>
+<section class="concept-card violet-top lecture-section" id="ar-forecasts" aria-labelledby="ar-forecasts-title">
+<div class="section-header"><span class="section-label">AR models</span><h2 id="ar-forecasts-title">Autoregressive forecasts</h2></div>
+<p>The AR examples in the slides assume iid Gaussian innovations with mean zero and variance \(\sigma_\varepsilon^2\).</p>
+<div class="lecture-block"><h3>Stationary AR(1)</h3>
+<div class="equation-stack">\[X_t=\mu+\phi X_{t-1}+\varepsilon_t,\qquad |\phi|&lt;1.\]</div>
+<p>Iterate the equation forward:</p>
+<div class="equation-stack">\[X_{T+1}=\mu+\phi X_T+\varepsilon_{T+1},\]</div>
+<div class="equation-stack">\[\begin{aligned}X_{T+2}&amp;=\mu(1+\phi)+\phi^2X_T\\&amp;\quad+\varepsilon_{T+2}+\phi\varepsilon_{T+1},\end{aligned}\]</div>
+<div class="equation-stack">\[\begin{aligned}X_{T+h}&amp;=\mu\sum_{j=0}^{h-1}\phi^j+\phi^hX_T\\&amp;\quad+\sum_{j=0}^{h-1}\phi^j\varepsilon_{T+h-j}.\end{aligned}\]</div>
+<p>Since \(m_X=\mu/(1-\phi)\), the deterministic sum is \(m_X(1-\phi^h)\). Therefore,</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}=m_X+\phi^h(X_T-m_X),\quad h\ge1.}\]</div></div>
+<p>The remaining terms form the error:</p>
+<div class="equation-stack">\[e_{T+h|T}=\sum_{j=0}^{h-1}\phi^j\varepsilon_{T+h-j},\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\operatorname V(e_{T+h|T})&amp;=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\phi^{2j}\\&amp;=\sigma_\varepsilon^2\frac{1-\phi^{2h}}{1-\phi^2}.\end{aligned}}\]</div></div>
+</div>
+<div class="lecture-block"><h3>Stationary and causal AR(p)</h3>
+<div class="equation-stack">\[X_t=\mu+\sum_{j=1}^{p}\phi_jX_{t-j}+\varepsilon_t.\]</div>
+<p>At each horizon, use actual observations for dates already observed and forecasts for later dates:</p>
+<div class="equation-stack">\[\widetilde X_{T+s|T}=\begin{cases}X_{T+s},&amp;s\le0,\\X_{T+s|T},&amp;s&gt;0.\end{cases}\]</div>
+<p>Here the tilde is the slide's observed-or-forecast notation; it does not denote demeaning.</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}=\mu+\sum_{j=1}^{p}\phi_j\widetilde X_{T+h-j|T}.}\]</div></div>
+<p>The MA coefficients used in the error and variance formulas satisfy</p>
+<div class="equation-stack">\[\psi_0=1,\qquad \psi_j=\sum_{i=1}^{\min(p,j)}\phi_i\psi_{j-i},\quad j\ge1.\]</div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="ma-forecasts" aria-labelledby="ma-forecasts-title">
+<div class="section-header"><span class="section-label">MA models</span><h2 id="ma-forecasts-title">Moving-average forecasts</h2></div>
+<p>Use the fundamental representation so that the past innovations in the formulas are recoverable from \(\Omega_T\). The MA examples assume iid Gaussian innovations.</p>
+<div class="lecture-block"><h3>MA(1)</h3>
+<div class="equation-stack">\[X_t=\mu+\varepsilon_t+\theta\varepsilon_{t-1},\]</div>
+<div class="equation-stack">\[X_{T+h}=\mu+\varepsilon_{T+h}+\theta\varepsilon_{T+h-1}.\]</div>
+<p>At \(h=1\), the second innovation is \(\varepsilon_T\), which is known. For \(h&gt;1\), both innovations are future shocks.</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}=\begin{cases}\mu+\theta\varepsilon_T,&amp;h=1,\\\mu,&amp;h&gt;1.\end{cases}}\]</div></div>
+<div class="equation-stack">\[e_{T+h|T}=\begin{cases}\varepsilon_{T+1},&amp;h=1,\\\varepsilon_{T+h}+\theta\varepsilon_{T+h-1},&amp;h&gt;1,\end{cases}\]</div>
+<div class="equation-stack">\[\operatorname V(e_{T+h|T})=\begin{cases}\sigma_\varepsilon^2,&amp;h=1,\\\sigma_\varepsilon^2(1+\theta^2),&amp;h&gt;1.\end{cases}\]</div>
+</div>
+<div class="lecture-block"><h3>MA(q)</h3>
+<div class="equation-stack">\[X_t=\mu+\varepsilon_t+\sum_{k=1}^{q}\theta_k\varepsilon_{t-k}.\]</div>
+<p>At \(T+h\), only terms with \(k\ge h\) have innovation dates at or before \(T\):</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}=\begin{cases}\mu+\displaystyle\sum_{k=h}^{q}\theta_k\varepsilon_{T+h-k},&amp;h\le q,\\\mu,&amp;h&gt;q.\end{cases}}\]</div></div>
+<p>The forecast returns exactly to \(\mu\) after the MA order. The error and variance are</p>
+<div class="equation-stack">\[e_{T+h|T}=\sum_{k=0}^{h-1}\theta_k\varepsilon_{T+h-k},\]</div>
+<div class="equation-stack">\[\operatorname V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{k=0}^{h-1}\theta_k^2.\]</div>
+<div class="lecture-note"><p>Notation in slide 17: these sums include the current-shock coefficient \(\theta_0=1\). Terms beyond the MA order are absent, so \(\theta_k=0\) for \(k&gt;q\). The slide leaves these endpoint conventions implicit.</p></div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="arma-forecasts" aria-labelledby="arma-forecasts-title">
+<div class="section-header"><span class="section-label">ARMA models</span><h2 id="arma-forecasts-title">ARMA forecasts</h2></div>
+<p>Consider a stationary, causal and fundamental ARMA\((p,q)\), with the iid Gaussian innovations assumed in the forecasting examples:</p>
+<div class="equation-stack">\[\begin{aligned}X_t&amp;=\mu+\sum_{j=1}^{p}\phi_jX_{t-j}\\&amp;\quad+\varepsilon_t+\sum_{k=1}^{q}\theta_k\varepsilon_{t-k}.\end{aligned}\]</div>
+<p>Project the equation at \(T+h\). Replace future observations with their forecasts and retain only innovations dated at or before \(T\):</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}X_{T+h|T}&amp;=\mu+\sum_{j=1}^{p}\phi_j\widetilde X_{T+h-j|T}\\&amp;\quad+\sum_{k=h}^{q}\theta_k\varepsilon_{T+h-k}.\end{aligned}}\]</div></div>
+<p>Use the same observed-or-forecast definition of \(\widetilde X_{T+s|T}\) as for AR\((p)\). The last sum is empty when \(h&gt;q\); the MA component then makes no direct contribution.</p>
+<div class="lecture-block"><h3>Coefficients of the forecast error</h3>
+<p>In the MA\((\infty)\) representation, the coefficients satisfy</p>
+<div class="equation-stack">\[\psi_0=1,\]</div>
+<div class="equation-stack">\[\psi_j=\theta_j+\sum_{i=1}^{\min(p,j)}\phi_i\psi_{j-i},\qquad j\ge1,\]</div>
+<p>with \(\theta_j=0\) for \(j&gt;q\). Insert these coefficients into the general forecast-error and variance formulas above.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="prediction-intervals" aria-labelledby="prediction-intervals-title">
+<div class="section-header"><span class="section-label">Uncertainty</span><h2 id="prediction-intervals-title">Prediction intervals</h2></div>
+<p>Under the iid Gaussian innovation assumption used in the model examples, the future observation has the conditional distribution stated in the lecture:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h}\mid\Omega_T\sim\mathcal N\!\left(X_{T+h|T},\operatorname V(e_{T+h|T})\right).}\]</div></div>
+<p>A 95% prediction interval is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}\ \pm\ 1.96\sqrt{\operatorname V(e_{T+h|T})}.}\]</div></div>
+<p>Its centre is the forecast; its width depends on the accumulated squared MA coefficients through the forecast-error variance.</p>
+<div class="lecture-note"><p>Slide 20 writes only the marginal normal notation. Here it is read with the iid Gaussian assumption explicitly given in the preceding AR, MA and ARMA examples. The initial weak-white-noise framework alone does not state this assumption.</p></div>
+</section>
+<section class="concept-card violet-top lecture-section" id="long-horizons" aria-labelledby="long-horizons-title">
+<div class="section-header"><span class="section-label">Comparison</span><h2 id="long-horizons-title">Random walk and long horizons</h2></div>
+<div class="lecture-block"><h3>Random walk with drift</h3>
+<div class="equation-stack">\[X_t=\mu+X_{t-1}+\varepsilon_t,\qquad \varepsilon_t\sim\mathcal N(0,\sigma^2).\]</div>
+<p>The one-step forecast and its continuation are</p>
+<div class="equation-stack">\[X_{T+1|T}=\mu+X_T,\]</div>
+<div class="equation-stack">\[X_{T+h|T}=\mu+X_{T+h-1|T},\qquad h&gt;1.\]</div>
+<p>Each additional step adds the same drift:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}=h\mu+X_T.}\]</div></div>
+<div class="equation-stack">\[e_{T+1|T}=\varepsilon_{T+1},\]\[e_{T+h|T}=\sum_{j=1}^{h}\varepsilon_{T+j}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname V(e_{T+h|T})=h\sigma^2.}\]</div></div>
+<p>The slides use \(\sigma^2\) for the innovation variance in this comparison and the ARMA\((1,1)\) example.</p>
+</div>
+<div class="lecture-block"><h3>Stationarity and persistence</h3>
+<table class="results-table"><caption>Long-horizon forecasts and uncertainty</caption><thead><tr><th scope="col">Stationary AR(1)</th><th scope="col">Random walk</th></tr></thead><tbody><tr><td>Forecast tends to \(m_X\).</td><td>Forecast is \(h\mu+X_T\).</td></tr><tr><td>Current information eventually vanishes from the forecast.</td><td>The forecast retains \(X_T\); shocks have permanent effects.</td></tr><tr><td>\(\operatorname V(e_{T+h|T})\) tends to \(\frac{\sigma^2}{1-\phi^2}\).</td><td>Variance \(h\sigma^2\) grows without bound.</td></tr></tbody></table>
+<div class="lecture-note"><p>Source discrepancy — slide 25 lists \(m_X+\phi^hX_T\), whereas slide 13 gives \(m_X+\phi^h(X_T-m_X)\). The AR(1) derivation above retains slide 13's centred expression; the comparison slide omits the subtraction of the mean.</p></div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="arma11" aria-labelledby="arma11-title">
+<div class="section-header"><span class="section-label">Example</span><h2 id="arma11-title">ARMA(1,1) example</h2></div>
+<div class="equation-stack">\[\begin{aligned}X_t&amp;=\mu+\phi X_{t-1}+\varepsilon_t+\theta\varepsilon_{t-1},\\\varepsilon_t&amp;\sim\mathcal N(0,\sigma^2).\end{aligned}\]</div>
+<p>Use the lecture's stationary, causal and fundamental setting. In this case \(m_X=\mu/(1-\phi)\), \(\psi_0=1\), and</p>
+<div class="equation-stack">\[\psi_j=(\phi+\theta)\phi^{j-1},\qquad j\ge1.\]</div>
+<p>Substituting these coefficients into the MA forecast gives</p>
+<div class="equation-stack">\[\begin{aligned}X_{T+h|T}&amp;=m_X+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}\\&amp;=m_X+(\phi+\theta)\sum_{j=h}^{\infty}\phi^{j-1}\varepsilon_{T+h-j}.\end{aligned}\]</div>
+<p>The error retains the current shock, with coefficient 1:</p>
+<div class="equation-stack">\[\begin{aligned}e_{T+h|T}&amp;=\varepsilon_{T+h}\\&amp;\quad+(\phi+\theta)\sum_{j=1}^{h-1}\phi^{j-1}\varepsilon_{T+h-j}.\end{aligned}\]</div>
+<div class="equation-stack">\[\operatorname V(e_{T+h|T})=\sigma^2\sum_{j=0}^{h-1}\psi_j^2.\]</div>
+<p>With \(|\phi|&lt;1\), the geometric sum converges:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\lim_{h\to\infty}\operatorname V(e_{T+h|T})=\sigma^2\left[1+\frac{(\phi+\theta)^2}{1-\phi^2}\right].}\]</div></div>
+</section>
+<section class="concept-card violet-top lecture-section" id="impulse-responses" aria-labelledby="impulse-responses-title">
+<div class="section-header"><span class="section-label">Definition</span><h2 id="impulse-responses-title">Impulse responses and forecasts</h2></div>
+<p>An impulse-response function traces the effect of a one-unit innovation at date \(t\) on the subsequent path of \(X\):</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{IRF}(h)=\frac{\partial X_{t+h}}{\partial\varepsilon_t},\qquad h=0,1,2,\ldots.}\]</div></div>
+<p>The derivative holds the other innovations fixed. A shock can also be measured in standard-deviation units; linearity allows the effects of several shocks to be added.</p>
+<div class="lecture-block"><h3>Wold coefficients</h3>
+<p>For the causal ARMA representation, or the purely nondeterministic stationary Wold representation,</p>
+<div class="equation-stack">\[X_{t+h}=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t+h-j}.\]</div>
+<p>Only the term with \(j=h\) contains \(\varepsilon_t\). Therefore,</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{IRF}(h)=\psi_h.}\]</div></div>
+<p>The same coefficients determine shock propagation and forecast uncertainty:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\operatorname{IRF}(j)^2.}\]</div></div>
+</div>
+<div class="lecture-block"><h3>Forecast revision</h3>
+<p>At date \(T\), a newly observed innovation changes the forecast for the same target date \(T+h\):</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}-X_{T+h|T-1}=\psi_h\varepsilon_T.}\]</div></div>
+<p>Before \(T\), the term \(\psi_h\varepsilon_T\) was unknown. After observing it, it enters the forecast. For a unit innovation, the revision equals \(\operatorname{IRF}(h)\).</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="ma-irf" aria-labelledby="ma-irf-title">
+<div class="section-header"><span class="section-label">MA models</span><h2 id="ma-irf-title">Moving-average impulse responses</h2></div>
+<div class="equation-stack">\[X_t=\varepsilon_t+\sum_{k=1}^{q}\theta_k\varepsilon_{t-k}.\]</div>
+<p>A temporary unit shock means \(\varepsilon_t=1\), with all other innovations set to zero in the response calculation.</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{IRF}(h)=\psi_h=\begin{cases}\theta_h,&amp;0\le h\le q,\\0,&amp;h&gt;q,\end{cases}}\]</div></div>
+<p>where \(\theta_0=1\). The response sequence is</p>
+<div class="equation-stack">\[\psi_0=1,\quad\psi_1=\theta_1,\quad\psi_2=\theta_2,\quad\ldots,\quad\psi_q=\theta_q.\]</div>
+<p>After horizon \(q\), the shock has no remaining effect. Before the shock date the response is zero.</p>
+</section>
+<section class="concept-card violet-top lecture-section" id="ar-irf" aria-labelledby="ar-irf-title">
+<div class="section-header"><span class="section-label">AR models</span><h2 id="ar-irf-title">Autoregressive impulse responses</h2></div>
+<div class="lecture-block"><h3>AR(1)</h3>
+<div class="equation-stack">\[X_t=\phi X_{t-1}+\varepsilon_t\]\[\Rightarrow\quad X_t=\sum_{j=0}^{\infty}\phi^j\varepsilon_{t-j}.\]</div>
+<p>For the causal stationary representation,</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{IRF}(h)=\psi_h=\phi^h,\qquad h\ge0.}\]</div></div>
+<p>The sequence is \(1,\phi,\phi^2,\phi^3,\ldots\); a temporary innovation can affect many later observations.</p>
+</div>
+<div class="lecture-block"><h3>AR(2): characteristic-root form</h3>
+<p>Slide 36 expresses the MA coefficients using characteristic roots \(z_1,z_2\) of \(\Phi\):</p>
+<div class="equation-stack">\[X_t=\sum_{j=0}^{\infty}\underbrace{\left(\alpha z_1^{-j}+\beta z_2^{-j}\right)}_{\psi_j}\varepsilon_{t-j}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{IRF}(h)=\alpha z_1^{-h}+\beta z_2^{-h},\qquad h\ge1.}\]</div></div>
+<p>The initial response is \(\psi_0=1\). Subsequent responses are obtained by inserting \(h=1,2,\ldots\) into the root expression.</p>
+<div class="lecture-note"><p>Source notation — slide 36 writes the second AR lag as \(\phi_2X_{t-p}\) under the heading AR(2), leaving \(p\) in the second lag. It also gives the root expression without specifying its coefficients or the coincident-root case. The recurrence below is explicitly supplied in the lecture.</p></div>
+</div>
+<div class="lecture-block"><h3>AR(p): dynamic recurrence</h3>
+<p>At horizon \(h\),</p>
+<div class="equation-stack">\[X_{t+h}=\sum_{j=1}^{p}\phi_jX_{t+h-j}+\varepsilon_{t+h}.\]</div>
+<p>For \(h\ge1\), differentiate with respect to the initial shock:</p>
+<div class="equation-stack">\[\frac{\partial X_{t+h}}{\partial\varepsilon_t}=\sum_{j=1}^{p}\phi_j\frac{\partial X_{t+h-j}}{\partial\varepsilon_t}+\underbrace{\frac{\partial\varepsilon_{t+h}}{\partial\varepsilon_t}}_{0}.\]</div>
+<p>With \(\psi_0=1\) and \(\psi_h=0\) for \(h&lt;0\), this gives</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\psi_h=\sum_{j=1}^{\min(p,h)}\phi_j\psi_{h-j},\qquad h\ge1.}\]</div></div>
+<p>For \(h\ge p\), the upper limit is simply \(p\). The IRF follows the same dynamic recurrence as the AR process.</p>
+</div>
+<div class="lecture-block"><h3>First responses by AR order</h3>
+<p>For all three orders, \(\psi_0=1\) and \(\psi_1=\phi_1\).</p>
+<table class="results-table"><caption>First impulse responses for AR orders one to three</caption><thead><tr><th scope="col">Order</th><th scope="col">\(\psi_2\)</th><th scope="col">\(\psi_3\)</th></tr></thead><tbody><tr><th scope="row">\(p=1\)</th><td>\(\phi_1\psi_1\)</td><td>\(\phi_1\psi_2\)</td></tr><tr><th scope="row">\(p=2\)</th><td>\(\phi_1\psi_1\)<br>\({}+\phi_2\)</td><td>\(\phi_1\psi_2\)<br>\({}+\phi_2\psi_1\)</td></tr><tr><th scope="row">\(p=3\)</th><td>\(\phi_1\psi_1\)<br>\({}+\phi_2\)</td><td>\(\phi_1\psi_2\)<br>\({}+\phi_2\psi_1\)<br>\({}+\phi_3\)</td></tr></tbody></table>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" id="arma-irf" aria-labelledby="arma-irf-title">
+<div class="section-header"><span class="section-label">ARMA models</span><h2 id="arma-irf-title">ARMA impulse responses</h2></div>
+<p>At horizon \(h\), the centred dynamics in the slides are</p>
+<div class="equation-stack">\[\begin{aligned}X_{t+h}&amp;=\sum_{j=1}^{p}\phi_jX_{t+h-j}\\&amp;\quad+\varepsilon_{t+h}+\sum_{k=1}^{q}\theta_k\varepsilon_{t+h-k}.\end{aligned}\]</div>
+<p>Differentiating with respect to \(\varepsilon_t\) gives</p>
+<div class="equation-stack">\[\begin{aligned}\frac{\partial X_{t+h}}{\partial\varepsilon_t}&amp;=\sum_{j=1}^{p}\phi_j\frac{\partial X_{t+h-j}}{\partial\varepsilon_t}\\&amp;\quad+\frac{\partial\varepsilon_{t+h}}{\partial\varepsilon_t}\\&amp;\quad+\sum_{k=1}^{q}\theta_k\frac{\partial\varepsilon_{t+h-k}}{\partial\varepsilon_t}.\end{aligned}\]</div>
+<p>For \(h\ge1\), the current-innovation derivative is zero. In the MA sum, the derivative equals 1 only if \(h=k\), and zero otherwise.</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\operatorname{IRF}(h)=\psi_h&amp;=\theta_h+\sum_{j=1}^{\min(p,h)}\phi_j\psi_{h-j},\\&amp;\hspace{3em}h\ge1,\qquad \theta_h=0\text{ for }h&gt;q.\end{aligned}}\]</div></div>
+<p>The initial conditions are \(\psi_0=1\) and \(\psi_h=0\) for \(h&lt;0\).
+For \(1\le h\le q\), both AR propagation and the direct MA term contribute. When \(h&gt;q\), the direct MA term vanishes:</p>
+<div class="equation-stack">\[\psi_h=\sum_{j=1}^{\min(p,h)}\phi_j\psi_{h-j}.\]</div>
+<p>If also \(h\ge p\), the sum runs from 1 to \(p\). These are the three horizon ranges displayed in slide 41.
+The long-run shape is governed by the AR roots. The MA part mainly determines the initial responses.</p>
+</section>
+</main></div></body></html>
