@@ -170,14 +170,24 @@ LX_t=X_{t-1},\qquad L^2X_t=X_{t-2}.
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
 <section class="solution-step answer-panel" id="exercise-1-q2" hidden><h3><span>Question 2</span>Stationarity, causality and fundamentalness</h3><div class="target-form"><span class="target-label">Formulas to use — Question 2</span>
-<p><strong>AR inverse roots:</strong></p>
-<div class="equation-stack">\[r^p\Phi(r^{-1})=0,\qquad |r_i|&lt;1\]</div>
-<p>Factorize \(\Phi(L)\), then find \(\Phi(L)^{-1}\) using partial fractions and:</p>
-<div class="equation-stack">\[(1-aL)^{-1}=\sum_{j=0}^{\infty}a^jL^j\]</div>
-<p><strong>MA inverse roots:</strong></p>
-<div class="equation-stack">\[r^q\Theta(r^{-1})=0,\qquad |r_i|&lt;1\]</div>
-<p>Find \(\Theta(L)^{-1}\) using a geometric series.</p>
-<p><strong>Conclusion:</strong> AR condition → stationary and causal; MA condition → fundamental.</p>
+<p><strong>AR — Roots and condition:</strong></p>
+<div class="equation-stack">\[r^p\Phi(r^{-1})=0,\qquad |r_i|&lt;1.\]</div>
+<p>Solve the AR equation and check each inverse root. For an AR(2) with distinct inverse roots \(r_1,r_2\), factorize:</p>
+<div class="equation-stack">\[\Phi(L)=(1-r_1L)(1-r_2L).\]</div>
+<p><strong>AR — Inverse and series:</strong></p>
+<div class="equation-stack">\[\Phi(L)^{-1}=\frac{A}{1-r_1L}+\frac{B}{1-r_2L},\]\[1=A(1-r_2L)+B(1-r_1L).\]</div>
+<p>Match the constant and the coefficient of \(L\) to find \(A,B\). Expand each fraction as a geometric series:</p>
+<div class="equation-stack">\[\Phi(L)^{-1}=\sum_{j=0}^{\infty}\left(A r_1^j+B r_2^j\right)L^j.\]</div>
+<p><strong>MA — Roots and condition:</strong></p>
+<div class="equation-stack">\[s^q\Theta(s^{-1})=0,\qquad |s_i|&lt;1.\]</div>
+<p>Solve the MA equation and check each inverse root. For an MA(1), write its inverse root as \(s=-\theta_1\), then factorize:</p>
+<div class="equation-stack">\[\Theta(L)=1+\theta_1L=1-sL.\]</div>
+<p><strong>MA — Inverse and series:</strong></p>
+<div class="equation-stack">\[\Theta(L)^{-1}=\frac{1}{1-sL},\]\[\Theta(L)^{-1}=\sum_{j=0}^{\infty}s^jL^j=\sum_{j=0}^{\infty}(-\theta_1)^jL^j.\]</div>
+<p>Use the geometric-series identity with \(s=-\theta_1\). Keep the sign inside the power when calculating the coefficients.</p>
+<p><strong>Conclusion — what each condition proves:</strong></p>
+<div class="equation-stack">\[\forall i,\ |r_i|&lt;1\ \Longrightarrow\ \text{stationary and causal},\]\[\forall i,\ |s_i|&lt;1\ \Longrightarrow\ \text{fundamental}.\]</div>
+<p>The first inverse expresses observations using current and past shocks; the second recovers shocks using current and past observations. Roots strictly inside the unit circle make these inverse-series coefficients absolutely summable.</p>
 </div>
 <div class="solution-givens"><h4>Given information</h4><p>From Question 1, \(\widetilde X_t=X_t-6\), \(\Phi(L)=1-5L/6+L^2/6\), and \(\Theta(L)=1-L/7\).</p></div>
 <p>We have</p>
