@@ -170,7 +170,7 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <p><strong>Constants:</strong> the lag operator leaves a constant unchanged, so evaluate the inverse polynomial at \(L=1\).</p>
 <div class="equation-stack">\[\mu_\Phi=\frac{\mu}{\Phi(1)},\qquad\mu_\Theta=-\frac{\mu}{\Theta(1)}.\]</div>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>We use the two inverse polynomials from Question 2 and write the representations in terms of \(X_t\), as in the course correction.</p></div>
+<div class="solution-givens"><h4>Solution</h4><p>We use the two inverse polynomials from Question 2 and write the representations in terms of \(X_t\).</p></div>
 <h4>1. MA(∞) representation</h4>
 <p>Our aim is to express \(X_t\) using current and past innovations. Start from Question 1 and multiply both sides by \(\Phi(L)^{-1}\), which exists by Question 2:</p>
 <div class="equation-stack">\[\begin{aligned}\Phi(L)X_t&=2+\Theta(L)\varepsilon_t,\\X_t&=\Phi(L)^{-1}2+\Phi(L)^{-1}\Theta(L)\varepsilon_t.\end{aligned}\]</div>
@@ -257,7 +257,7 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <h4>Reindexing the shifted sums (algebraic method)</h4>
 <p>First distribute the brackets into three sums. The constant \(\mu_\Theta\) stays outside:</p>
 <div class="equation-stack">\[\begin{aligned}\varepsilon_t={}&\mu_\Theta+\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j}\\&-\frac56\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j-1}\\&+\frac16\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j-2}.\end{aligned}\]</div>
-<p>To obtain the course’s final expression, we want each remaining sum to start at \(j=1\) and to share the weight \((1/7)^{j-1}\). The bracket will contain both \(X_{t-j}\) and \(X_{t-j-1}\).</p>
+<p>To combine the three sums, we want each remaining sum to start at \(j=1\) and to share the weight \((1/7)^{j-1}\). The bracket will contain both \(X_{t-j}\) and \(X_{t-j-1}\).</p>
 <p><strong>First sum — isolate the current observation:</strong></p>
 <p>Its \(j=0\) term is \(X_t\). Remove this term from the sum, then write \((1/7)^j=(1/7)(1/7)^{j-1}\):</p>
 <div class="equation-stack">\[\begin{aligned}\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j}&=X_t+\sum_{j=1}^{\infty}\left(\frac17\right)^jX_{t-j}\\&=X_t+\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}\frac17X_{t-j}.\end{aligned}\]</div>
@@ -296,7 +296,6 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 </div>
 <p>where</p>
 <div class="equation-stack">\[\mu_\Theta=-2\sum_{j=0}^{\infty}\left(\frac17\right)^j=-\frac73,\qquad\Theta(1)^{-1}=\frac{1}{1-1/7}=\frac76.\]</div>
-<p><strong>Two typos corrected in the handout:</strong> the left-hand side of the final AR(∞) equation is \(\varepsilon_t\), and the inverse used for \(\mu_\Theta\) is \(\Theta(1)^{-1}\).</p>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button>
@@ -351,7 +350,6 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <div class="equation-stack">\[\begin{aligned}\rho(0)&=1,\\[4pt]\rho(1)&=\frac{(54/49)\sigma^2}{(12/7)\sigma^2}=\frac9{14}\approx0.6429,\\[4pt]\rho(2)&=\frac{(31/49)\sigma^2}{(12/7)\sigma^2}=\frac{31}{84}\approx0.3690,\\[4pt]\rho(3)&=\frac{(101/294)\sigma^2}{(12/7)\sigma^2}=\frac{101}{504}\approx0.2004.\end{aligned}\]</div>
 <div class="result-box"><div class="equation-stack">\[\rho(h)=\frac56\rho(h-1)-\frac16\rho(h-2)\quad(h\ge2),\qquad\rho(-h)=\rho(h).\]</div>
 </div>
-<p><strong>Corrections to the handout:</strong> the numerator of \(\gamma(0)\) contains \(-\phi_2\theta_1\) inside the brackets; the numerator of \(\gamma(3)\) contains the factor \(\phi_1\) shown above. Keeping exact fractions gives \(\rho(3)\approx0.2004\), rather than \(0.2061\) printed in the handout. The earlier decimals above also avoid intermediate rounding.</p>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q5"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 5</button>
@@ -389,7 +387,6 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <div class="equation-stack">\[r_{33}=\frac{-13/3528}{16907/49392}=-\frac{182}{16907}\approx-0.0108.\]</div>
 <div class="result-box"><div class="equation-stack">\[r_{11}\approx0.6429,\qquad r_{22}\approx-0.0754,\qquad r_{33}\approx-0.0108.\]</div>
 </div>
-<p><strong>Numerical correction:</strong> the same Cramer formula, using the corrected \(\rho(3)\), gives \(r_{33}\approx-0.0108\), rather than \(-0.0011\) printed in the handout.</p>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q6"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 6</button>
