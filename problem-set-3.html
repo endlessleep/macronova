@@ -85,17 +85,23 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <p>Keep the shocks on the right, then factor out \(\varepsilon_t\). Read \(\phi_j\) and \(\theta_k\) from the original equation, keeping their signs.</p>
 <p><strong>Conclusion:</strong> identify \(\Phi(L)\) and \(\Theta(L)\), then write the equation using these two operators.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>First, for ease of analysis, rewrite the process in mean-deviation:</p></div>
+<div class="solution-givens"><h4>Solution</h4><p>We first centre the process to remove its constant. For a stationary solution, the mean is the same at every date: \(E[X_t]=E[X_{t-1}]=E[X_{t-2}]=m_X\). The innovations have mean zero, so taking expectations of the original equation gives</p></div>
+<div class="equation-stack">\[m_X=2+\frac56m_X-\frac16m_X.\]</div>
+<p>Collect the terms in \(m_X\) on the left, then divide by their coefficient:</p>
+<div class="equation-stack">\[\left(1-\frac56+\frac16\right)m_X=2\quad\Longrightarrow\quad m_X=\frac{2}{1-\frac56+\frac16}=6.\]</div>
+<p>Define \(\widetilde X_t=X_t-6\). Substitute \(X_s=\widetilde X_s+6\) at each date \(s\):</p>
+<div class="equation-stack">\[\widetilde X_t+6=2+\frac56(\widetilde X_{t-1}+6)-\frac16(\widetilde X_{t-2}+6)+\varepsilon_t-\frac17\varepsilon_{t-1}.\]</div>
+<p>The constants on the right add up to \(2+5-1=6\), which cancels the 6 on the left. This gives the mean-deviation equation:</p>
 <div class="equation-stack">\[\widetilde X_t=\frac56\widetilde X_{t-1}-\frac16\widetilde X_{t-2}+\varepsilon_t-\frac17\varepsilon_{t-1}.\]</div>
-<p>where \(\widetilde X_t=X_t-m_X\), with <strong>unconditional mean</strong></p>
-<div class="equation-stack">\[m_X=\frac{2}{1-\frac56+\frac16}=6.\]</div>
-<p>Then rewrite the process as:</p>
+<p>Move the two lagged observations to the left; their signs change:</p>
 <div class="equation-stack">\[\widetilde X_t-\frac56\widetilde X_{t-1}+\frac16\widetilde X_{t-2}=\varepsilon_t-\frac17\varepsilon_{t-1}.\]</div>
-<p>Rewrite using the lag operators:</p>
-<div class="equation-stack">\[\left(1-\frac56L+\frac16L^2\right)\widetilde X_t=\left(1-\frac17L\right)\varepsilon_t.\]</div>
-<p>and define</p>
-<div class="result-box"><div class="equation-stack">\[\Phi(L)=1-\frac56L+\frac16L^2,\qquad\Theta(L)=1-\frac17L.\]</div>
-</div>
+<p>Now use \(L\widetilde X_t=\widetilde X_{t-1}\), \(L^2\widetilde X_t=\widetilde X_{t-2}\), and \(L\varepsilon_t=\varepsilon_{t-1}\). Factoring out the current variable on each side gives</p>
+<div class="equation-stack">\[\underbrace{\left(1-\frac56L+\frac16L^2\right)}_{\Phi(L)}\widetilde X_t=\underbrace{\left(1-\frac17L\right)}_{\Theta(L)}\varepsilon_t.\]</div>
+<p>Thus the two lag polynomials are</p>
+<div class="result-box"><div class="equation-stack">\[\Phi(L)=1-\frac56L+\frac16L^2,\qquad\Theta(L)=1-\frac17L.\]</div></div>
+<p>We will also use the original-variable equation in Question 3:</p>
+<div class="equation-stack">\[\Phi(L)X_t=2+\Theta(L)\varepsilon_t.\]</div>
+<p>The 2 here is the original intercept. Centring removes it because \(\Phi(L)6=6(1-5/6+1/6)=2\). Stationarity is checked in Question 2.</p>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
@@ -108,9 +114,6 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <div class="equation-stack">\[\Phi(L)^{-1}=\frac{A}{1-r_1L}+\frac{B}{1-r_2L},\]\[1=A(1-r_2L)+B(1-r_1L).\]</div>
 <p>Match the constant and the coefficient of \(L\) to find \(A,B\). Expand each fraction as a geometric series:</p>
 <div class="equation-stack">\[\Phi(L)^{-1}=\sum_{j=0}^{\infty}\left(A r_1^j+B r_2^j\right)L^j.\]</div>
-<p><strong>AR — Homogeneous solution:</strong></p>
-<div class="equation-stack">\[\Phi(L)H_t=0,\qquad H_t=C_1r_1^t+C_2r_2^t.\]</div>
-<p>For two distinct AR inverse roots, use the roots in the homogeneous solution. The constants \(C_1,C_2\) depend on the initial conditions. Check whether \(H_t\to0\) as \(t\to\infty\).</p>
 <p><strong>MA — Roots and condition:</strong></p>
 <div class="equation-stack">\[s^q\Theta(s^{-1})=0,\qquad |s_i|&lt;1.\]</div>
 <p>Solve the MA equation and check each inverse root. For an MA(1), write its inverse root as \(s=-\theta_1\), then factorize:</p>
@@ -124,25 +127,35 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 </div>
 <div class="solution-givens"><h4>Solution</h4><p>For the AR part, we check stationarity and causality by computing the inverse roots. The characteristic equation is:</p></div>
 <div class="equation-stack">\[z^2\Phi(z^{-1})=0\quad\Longleftrightarrow\quad z^2-\frac56z+\frac16=0.\]</div>
-<p>The roots are given by:</p>
+<p>To obtain this equation, replace \(L\) by \(z^{-1}\), then multiply by \(z^2\) to remove the negative powers:</p>
+<div class="equation-stack">\[z^2\left(1-\frac56z^{-1}+\frac16z^{-2}\right)=z^2-\frac56z+\frac16.\]</div>
+<p>Apply the quadratic formula. The discriminant is \(25/36-4/6=1/36\), so its square root is \(1/6\). The roots are:</p>
+
 <div class="equation-stack">\[\begin{aligned}z_1&=\frac{5/6+\sqrt{(-5/6)^2-4(1/6)}}{2}=\frac12,\\[6pt]z_2&=\frac{5/6-\sqrt{(-5/6)^2-4(1/6)}}{2}=\frac13.\end{aligned}\]</div>
-<p>Since \(|z_i|<1\), the AR lag polynomial can be inverted as a convergent series. We compute:</p>
+<p>Since \(|z_i|&lt;1\), the AR lag polynomial can be inverted as a convergent series. We compute:</p>
 <div class="equation-stack">\[\left(1-\frac56L+\frac16L^2\right)^{-1}=\left[\left(1-\frac12L\right)\left(1-\frac13L\right)\right]^{-1}.\]</div>
 <p>We look for \(\alpha\) and \(\beta\) such that</p>
 <div class="equation-stack">\[\left[(1-L/2)(1-L/3)\right]^{-1}=\alpha(1-L/2)^{-1}+\beta(1-L/3)^{-1}.\]</div>
-<p>By identification:</p>
+<p>Multiply both sides by \((1-L/2)(1-L/3)\). This removes the denominators:</p>
+<div class="equation-stack">\[1=\alpha(1-L/3)+\beta(1-L/2)=(\alpha+\beta)-\left(\frac\alpha3+\frac\beta2\right)L.\]</div>
+<p>The constant must equal 1 and the coefficient of \(L\) must equal zero. Hence</p>
+<div class="equation-stack">\[\alpha+\beta=1,\qquad\frac\alpha3+\frac\beta2=0.\]</div>
+<p>Multiplying the second equation by 6 gives \(2\alpha+3\beta=0\). Subtracting twice the first equation gives \(\beta=-2\), then \(\alpha=3\). Equivalently, using the inverse roots:</p>
+
 <div class="equation-stack">\[\begin{aligned}\alpha&=\frac{z_1}{z_1-z_2}=\frac{1/2}{1/2-1/3}=3,\\[6pt]\beta&=-\frac{z_2}{z_1-z_2}=-\frac{1/3}{1/2-1/3}=-2.\end{aligned}\]</div>
 <p>Then</p>
 <div class="equation-stack">\[[(1-L/2)(1-L/3)]^{-1}=3(1-L/2)^{-1}-2(1-L/3)^{-1}.\]</div>
-<p>Hence, we rewrite the inverse lag polynomial:</p>
+<p>Each term now has the form \((1-aL)^{-1}\). Since \(|a|&lt;1\), use the geometric series \((1-aL)^{-1}=\sum_{j=0}^{\infty}a^jL^j\):</p>
+
 <div class="equation-stack">\[\begin{aligned}\Phi(L)^{-1}&=\left[\left(1-\frac12L\right)\left(1-\frac13L\right)\right]^{-1}\\&=3\left(1-\frac12L\right)^{-1}-2\left(1-\frac13L\right)^{-1}\\&=3\sum_{j=0}^{\infty}\left(\frac12\right)^jL^j-2\sum_{j=0}^{\infty}\left(\frac13\right)^jL^j.\end{aligned}\]</div>
-<p>For the MA part, the characteristic equation is</p>
+<p>For the MA part, apply the same inverse-root construction to \(\Theta(L)=1-L/7\): replacing \(L\) by \(z^{-1}\) and multiplying by \(z\) gives</p>
+
 <div class="equation-stack">\[z\Theta(z^{-1})=0\quad\Longleftrightarrow\quad z-\frac17=0.\]</div>
-<p>The unique inverse root is \(z=1/7\). Since \(|z|<1\), the MA lag polynomial can also be inverted. Hence:</p>
+<p>The unique inverse root is \(z=1/7\). Since \(|z|&lt;1\), the MA lag polynomial can also be inverted. Hence:</p>
 <div class="equation-stack">\[\Theta(L)^{-1}=\left(1-\frac17L\right)^{-1}=\sum_{j=0}^{\infty}\left(\frac17L\right)^j.\]</div>
 <h4>Conclusion</h4>
-<p>The AR inverse roots \(1/2\) and \(1/3\) satisfy \(|z_i|<1\), so \(\Phi(L)^{-1}\) exists as a convergent series, ensuring stationarity and causality.</p>
-<p>The MA inverse root \(1/7\) also satisfies \(|z|<1\), so \(\Theta(L)^{-1}\) exists as a convergent series, ensuring fundamentalness (invertibility).</p>
+<p>The AR inverse roots \(1/2\) and \(1/3\) satisfy \(|z_i|&lt;1\), so \(\Phi(L)^{-1}\) exists as a convergent series, ensuring stationarity and causality.</p>
+<p>The MA inverse root \(1/7\) also satisfies \(|z|&lt;1\), so \(\Theta(L)^{-1}\) exists as a convergent series, ensuring fundamentalness (invertibility).</p>
 <p>The AR and MA polynomials have no common roots, so this ARMA(2,1) representation is also minimal.</p>
 </section></div>
 
@@ -159,10 +172,18 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 </div>
 <div class="solution-givens"><h4>Solution</h4><p>We use the two inverse polynomials from Question 2 and write the representations in terms of \(X_t\), as in the course correction.</p></div>
 <h4>1. MA(∞) representation</h4>
+<p>Our aim is to express \(X_t\) using current and past innovations. Start from Question 1 and multiply both sides by \(\Phi(L)^{-1}\), which exists by Question 2:</p>
+<div class="equation-stack">\[\begin{aligned}\Phi(L)X_t&=2+\Theta(L)\varepsilon_t,\\X_t&=\Phi(L)^{-1}2+\Phi(L)^{-1}\Theta(L)\varepsilon_t.\end{aligned}\]</div>
 <p>To keep the coefficients easy to follow, let</p>
 <div class="equation-stack">\[a_j=3\left(\frac12\right)^j-2\left(\frac13\right)^j,\qquad j\ge0,\qquad a_0=1.\]</div>
-<p>These are the coefficients of \(\Phi(L)^{-1}\). The MA(∞) representation (using \(X_t\)) is:</p>
+<p>A lag does not change a constant: \(L^j2=2\). Using \(\Phi(L)^{-1}=\sum_{j=0}^{\infty}a_jL^j\), the constant term is therefore</p>
+<div class="equation-stack">\[\Phi(L)^{-1}2=2\sum_{j=0}^{\infty}a_j=2\Phi(1)^{-1}=: \mu_\Phi=6.\]</div>
+<p>The notation \(\Phi(1)\) means evaluating the polynomial at 1; it appears because every lag acts as the identity on a constant.</p>
+
+<p>These are the coefficients found in Question 2. Since \(L^j\varepsilon_t=\varepsilon_{t-j}\), the AR inverse produces \(\sum_{j=0}^{\infty}a_j\varepsilon_{t-j}\). The two lag filters commute, so we can apply \(\Theta(L)=1-L/7\) to this sum. Its \(L\) term shifts every shock back by one date:</p>
+
 <div class="equation-stack">\[\begin{aligned}X_t&=2\Phi(1)^{-1}+\left(1-\frac17L\right)\sum_{j=0}^{\infty}a_j\varepsilon_{t-j}\\&=\mu_\Phi+\sum_{j=0}^{\infty}a_j\left(\varepsilon_{t-j}-\frac17\varepsilon_{t-j-1}\right).\end{aligned}\]</div>
+<p>Each value of \(j\) contributes two shocks, at dates \(t-j\) and \(t-j-1\). We write these contributions separately to see which dates appear more than once.</p>
 <p>For \(j\in\{0,1,2,\ldots\}\):</p>
 <button class="toggle-btn method-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="q3-ma-reindexing"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> reindexing details — MA(∞)</button>
 <div class="method-panel" id="q3-ma-reindexing" hidden>
@@ -203,55 +224,74 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <div class="equation-stack">\[\begin{aligned}j=0\quad\Rightarrow\quad&\varepsilon_t\quad{\color{#fb7185}\boxed{-\frac17\varepsilon_{t-1}}}\\[12pt]j=1\quad\Rightarrow\quad&{\color{#fb7185}\boxed{a_1\varepsilon_{t-1}}}\quad{\color{#60a5fa}\boxed{-\frac17a_1\varepsilon_{t-2}}}\\[12pt]j=2\quad\Rightarrow\quad&{\color{#60a5fa}\boxed{a_2\varepsilon_{t-2}}}\quad{\color{#4ade80}\boxed{-\frac17a_2\varepsilon_{t-3}}}\\&\vdots\end{aligned}\]</div>
 <p>Let’s regroup the terms by factoring out. The same colour identifies terms multiplying the same shock:</p>
 <div class="equation-stack">\[\begin{aligned}\varepsilon_t&+{\color{#fb7185}\boxed{\left\{a_1-\frac17\right\}\varepsilon_{t-1}}}\\&+{\color{#60a5fa}\boxed{\left\{a_2-\frac17a_1\right\}\varepsilon_{t-2}}}+\cdots.\end{aligned}\]</div>
-<p>From which we obtain, since \(a_0=1\):</p>
+<p>For a given shock \(\varepsilon_{t-j}\) with \(j\ge1\), the first part of the sum contributes \(a_j\); the second part contributes \(-a_{j-1}/7\). Their combined coefficient is therefore \(a_j-a_{j-1}/7\). The current shock has coefficient \(a_0=1\):</p>
+
 <div class="equation-stack">\[X_t=\mu_\Phi+\varepsilon_t+\sum_{j=1}^{\infty}\left(a_j-\frac17a_{j-1}\right)\varepsilon_{t-j}.\]</div>
 <p>Now substitute \(a_j\) and</p>
 <div class="equation-stack">\[a_{j-1}=3\left(\frac12\right)^{j-1}-2\left(\frac13\right)^{j-1}:\]</div>
 <div class="equation-stack">\[X_t=\mu_\Phi+\varepsilon_t+\sum_{j=1}^{\infty}\left\{\left[3\left(\frac12\right)^{j}-2\left(\frac13\right)^{j}\right]-\frac17\left[3\left(\frac12\right)^{j-1}-2\left(\frac13\right)^{j-1}\right]\right\}\varepsilon_{t-j}.\]</div>
+<p>Factor out \((1/2)^{j-1}\) and \((1/3)^{j-1}\), using \(a^j=a\,a^{j-1}\). This turns each difference of two powers into a common power times a difference:</p>
 <div class="equation-stack">\[=\mu_\Phi+\varepsilon_t+\sum_{j=1}^{\infty}\left[3\left(\frac12-\frac17\right)\left(\frac12\right)^{j-1}-2\left(\frac13-\frac17\right)\left(\frac13\right)^{j-1}\right]\varepsilon_{t-j}.\]</div>
 <p>where</p>
 <div class="equation-stack">\[\mu_\Phi=2\sum_{j=0}^{\infty}\left[3\left(\frac12\right)^{j}-2\left(\frac13\right)^{j}\right]=6,\qquad\Phi(1)^{-1}=\frac{1}{1-5/6+1/6}=3.\]</div>
 <div class="result-box"><div class="equation-stack">\[X_t=6+\varepsilon_t+\sum_{j=1}^{\infty}\underbrace{\left[\frac{15}{14}\left(\frac12\right)^{j-1}-\frac8{21}\left(\frac13\right)^{j-1}\right]}_{\psi_j}\varepsilon_{t-j},\qquad\psi_0=1.\]</div>
 </div>
 <h4>2. AR(∞) representation</h4>
-<p>The AR(∞) representation is:</p>
+<p>Our aim is now to recover \(\varepsilon_t\) from current and past observations. Start again from the original-variable equation and move the intercept to the other side:</p>
+<div class="equation-stack">\[\Phi(L)X_t=2+\Theta(L)\varepsilon_t\quad\Longrightarrow\quad\Theta(L)\varepsilon_t=\Phi(L)X_t-2.\]</div>
+<p>Multiply <strong>both terms on the right</strong> by \(\Theta(L)^{-1}\). On the left, \(\Theta(L)^{-1}\Theta(L)=1\), so only \(\varepsilon_t\) remains:</p>
+<div class="equation-stack">\[\varepsilon_t=\Theta(L)^{-1}\Phi(L)X_t-\Theta(L)^{-1}2.\]</div>
+<p>From Question 2, \(\Theta(L)^{-1}=\sum_{j=0}^{\infty}(1/7)^jL^j\). For the constant, every lag still gives 2, so</p>
+<div class="equation-stack">\[-\Theta(L)^{-1}2=-2\sum_{j=0}^{\infty}\left(\frac17\right)^j=-\frac{2}{1-1/7}=-\frac73=: \mu_\Theta.\]</div>
+<p>This is the source of the term \(-2\Theta(1)^{-1}\). The minus sign comes from moving 2 to the right before applying the inverse.</p>
+<p>For the observations, \(\Phi(L)\) and \(\Theta(L)^{-1}\) can be applied in either order because both are filters in the same lag operator. Use \(L^jX_t=X_{t-j}\):</p>
+<div class="equation-stack">\[\Theta(L)^{-1}\Phi(L)X_t=\Phi(L)\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j}.\]</div>
+<p>Finally, distribute \(\Phi(L)=1-5L/6+L^2/6\) over the sum. On each observation, it gives</p>
+<div class="equation-stack">\[\Phi(L)X_{t-j}=X_{t-j}-\frac56X_{t-j-1}+\frac16X_{t-j-2}.\]</div>
+<p>Putting the constant and the observation terms together gives the two equivalent lines:</p>
+
 <div class="equation-stack">\[\begin{aligned}\varepsilon_t&=-2\Theta(1)^{-1}+\left(1-\frac56L+\frac16L^2\right)\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j}\\&=\mu_\Theta+\sum_{j=0}^{\infty}\left(\frac17\right)^j\left(X_{t-j}-\frac56X_{t-j-1}+\frac16X_{t-j-2}\right).\end{aligned}\]</div>
 <p>For \(j\in\{0,1,2,\ldots\}\):</p>
 <button class="toggle-btn method-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="q3-ar-reindexing"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> reindexing details — AR(∞)</button>
 <div class="method-panel" id="q3-ar-reindexing" hidden>
 <h4>Reindexing the shifted sums (algebraic method)</h4>
-
-<p>We want all three sums to contain the same observation, \(X_{t-j}\).</p>
+<p>First distribute the brackets into three sums. The constant \(\mu_\Theta\) stays outside:</p>
+<div class="equation-stack">\[\begin{aligned}\varepsilon_t={}&\mu_\Theta+\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j}\\&-\frac56\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j-1}\\&+\frac16\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j-2}.\end{aligned}\]</div>
+<p>To obtain the course’s final expression, we want each remaining sum to start at \(j=1\) and to share the weight \((1/7)^{j-1}\). The bracket will contain both \(X_{t-j}\) and \(X_{t-j-1}\).</p>
+<p><strong>First sum — isolate the current observation:</strong></p>
+<p>Its \(j=0\) term is \(X_t\). Remove this term from the sum, then write \((1/7)^j=(1/7)(1/7)^{j-1}\):</p>
+<div class="equation-stack">\[\begin{aligned}\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j}&=X_t+\sum_{j=1}^{\infty}\left(\frac17\right)^jX_{t-j}\\&=X_t+\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}\frac17X_{t-j}.\end{aligned}\]</div>
 <p><strong>Second sum — shift the index by one:</strong></p>
-<div class="equation-stack">\[j_{\text{new}}=j_{\text{old}}+1\quad\Longrightarrow\quad j_{\text{old}}=j_{\text{new}}-1.\]</div>
-<p>This changes:</p>
+<div class="equation-stack">\[j_{\mathrm{new}}=j_{\mathrm{old}}+1\quad\Longrightarrow\quad j_{\mathrm{old}}=j_{\mathrm{new}}-1.\]</div>
 <ul>
 <li><strong>Lower bound:</strong> \(0+1=1\).</li>
-<li><strong>Coefficient:</strong> \((1/7)^{j_{\text{old}}}=(1/7)^{j_{\text{new}}-1}\).</li>
-<li><strong>Observation:</strong> \(X_{t-j_{\text{old}}-1}=X_{t-(j_{\text{new}}-1)-1}=X_{t-j_{\text{new}}}\).</li>
+<li><strong>Coefficient:</strong> \((1/7)^{j_{\mathrm{old}}}=(1/7)^{j_{\mathrm{new}}-1}\).</li>
+<li><strong>Observation:</strong> \(X_{t-j_{\mathrm{old}}-1}=X_{t-(j_{\mathrm{new}}-1)-1}=X_{t-j_{\mathrm{new}}}\).</li>
 </ul>
-<p>Renaming the new index \(j\),</p>
-<div class="equation-stack">\[\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j-1}=\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}X_{t-j}.\]</div>
-<p><strong>Third sum — shift the index by two:</strong></p>
-<div class="equation-stack">\[j_{\text{new}}=j_{\text{old}}+2\quad\Longrightarrow\quad j_{\text{old}}=j_{\text{new}}-2.\]</div>
-<p>This changes:</p>
+<p>Rename the new index \(j\). The multiplier \(-5/6\) is unchanged:</p>
+<div class="equation-stack">\[-\frac56\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j-1}=-\frac56\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}X_{t-j}.\]</div>
+<p><strong>Third sum — also shift the index by one:</strong></p>
+<p>Use the same change of index so that this sum also begins at 1. Its observation keeps one extra lag:</p>
+<div class="equation-stack">\[j_{\mathrm{new}}=j_{\mathrm{old}}+1\quad\Longrightarrow\quad j_{\mathrm{old}}=j_{\mathrm{new}}-1.\]</div>
 <ul>
-<li><strong>Lower bound:</strong> \(0+2=2\).</li>
-<li><strong>Coefficient:</strong> \((1/7)^{j_{\text{old}}}=(1/7)^{j_{\text{new}}-2}\).</li>
-<li><strong>Observation:</strong> \(X_{t-j_{\text{old}}-2}=X_{t-(j_{\text{new}}-2)-2}=X_{t-j_{\text{new}}}\).</li>
+<li><strong>Lower bound:</strong> \(0+1=1\).</li>
+<li><strong>Coefficient:</strong> \((1/7)^{j_{\mathrm{old}}}=(1/7)^{j_{\mathrm{new}}-1}\).</li>
+<li><strong>Observation:</strong> \(X_{t-j_{\mathrm{old}}-2}=X_{t-(j_{\mathrm{new}}-1)-2}=X_{t-j_{\mathrm{new}}-1}\).</li>
 </ul>
-<p>Renaming the new index \(j\),</p>
-<div class="equation-stack">\[\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j-2}=\sum_{j=2}^{\infty}\left(\frac17\right)^{j-2}X_{t-j}.\]</div>
-<p>Reindexing does not change any sum; it only allows us to group the coefficients of the same observation.</p>
-<p>Substituting both reindexed sums into the original expression gives</p>
-<div class="equation-stack">\[\begin{aligned}\varepsilon_t={}&\mu_\Theta+\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j}\\&-\frac56\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}X_{t-j}\\&+\frac16\sum_{j=2}^{\infty}\left(\frac17\right)^{j-2}X_{t-j}.\end{aligned}\]</div>
-<p>To give all remaining sums the same lower bound, we isolate the \(j=0\) and \(j=1\) terms of the first sum, and the \(j=1\) term of the second sum. The third sum already starts at \(j=2\). Combining the coefficients gives</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\varepsilon_t={}&\mu_\Theta+X_t+\left(\frac17-\frac56\right)X_{t-1}\\&+\sum_{j=2}^{\infty}\left[\left(\frac17\right)^j-\frac56\left(\frac17\right)^{j-1}+\frac16\left(\frac17\right)^{j-2}\right]X_{t-j}.\end{aligned}}\]</div></div>
+<p>Rename the new index \(j\). The multiplier \(1/6\) is unchanged:</p>
+<div class="equation-stack">\[\frac16\sum_{j=0}^{\infty}\left(\frac17\right)^jX_{t-j-2}=\frac16\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}X_{t-j-1}.\]</div>
+<p>Reindexing only relabels the terms; it does not change their dates or their coefficients. In particular, the third sum now contains \(X_{t-j-1}\).</p>
+<p><strong>Combine the three sums:</strong> they now have the same lower bound and the same geometric weight.</p>
+<div class="equation-stack">\[\begin{aligned}\varepsilon_t={}&\mu_\Theta+X_t+\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}\frac17X_{t-j}\\&-\frac56\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}X_{t-j}\\&+\frac16\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}X_{t-j-1}.\end{aligned}\]</div>
+<p>Bring the terms inside one sum. The first two terms multiply \(X_{t-j}\), so their coefficients add to \(1/7-5/6\). The third term remains \((1/6)X_{t-j-1}\):</p>
+<div class="result-box"><div class="equation-stack">\[\varepsilon_t=\mu_\Theta+X_t+\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}\left[\left(\frac17-\frac56\right)X_{t-j}+\frac16X_{t-j-1}\right].\]</div></div>
+
 </div>
 <div class="equation-stack">\[\begin{aligned}j=0\quad\Rightarrow\quad&X_t\quad{\color{#fb7185}\boxed{-\frac56X_{t-1}}}\quad{\color{#60a5fa}\boxed{+\frac16X_{t-2}}}\\[12pt]j=1\quad\Rightarrow\quad&{\color{#fb7185}\boxed{\left(\frac17\right)^{1}X_{t-1}}}\quad{\color{#60a5fa}\boxed{-\frac56\left(\frac17\right)^{1}X_{t-2}}}\quad{\color{#4ade80}\boxed{+\frac16\left(\frac17\right)^{1}X_{t-3}}}\\[12pt]j=2\quad\Rightarrow\quad&{\color{#60a5fa}\boxed{\left(\frac17\right)^{2}X_{t-2}}}\quad{\color{#4ade80}\boxed{-\frac56\left(\frac17\right)^{2}X_{t-3}}}\quad{\color{#f0abfc}\boxed{+\frac16\left(\frac17\right)^{2}X_{t-4}}}\\&\vdots\end{aligned}\]</div>
 <p>Let’s regroup the terms by factoring out. The same colour identifies terms multiplying the same observation:</p>
 <div class="equation-stack">\[X_t+{\color{#fb7185}\boxed{\left[\left(\frac17\right)^1-\frac56\right]X_{t-1}}}+{\color{#60a5fa}\boxed{\left[\left(\frac17\right)^2-\frac56\left(\frac17\right)^1+\frac16\right]X_{t-2}}}+\cdots.\]</div>
-<p>From which we obtain:</p>
+<p>To write the remaining terms as one sum starting at \(j=1\), isolate \(X_t\), then shift the second and third original sums by one index. Their common weight is \((1/7)^{j-1}\). The first two contributions combine into \((1/7-5/6)X_{t-j}\), while the third remains \((1/6)X_{t-j-1}\). The button above shows each change of index. This gives:</p>
+
 <div class="result-box"><div class="equation-stack">\[\varepsilon_t=\mu_\Theta+X_t+\sum_{j=1}^{\infty}\left(\frac17\right)^{j-1}\left[\left(\frac17-\frac56\right)X_{t-j}+\frac16X_{t-j-1}\right].\]</div>
 </div>
 <p>where</p>
@@ -274,23 +314,37 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <div class="solution-givens"><h4>Solution</h4><p>To compute the autocorrelation function, let’s use the Yule–Walker equations. For a generic mean-adjusted ARMA(2,1) process:</p></div>
 <div class="equation-stack">\[\widetilde X_t=\phi_1\widetilde X_{t-1}+\phi_2\widetilde X_{t-2}+\varepsilon_t+\theta_1\varepsilon_{t-1}.\]</div>
 <p>Multiply by \(\widetilde X_{t-h}\) and take expectations to get the autocovariance \(\gamma(h)\). Here \(\phi_1=5/6\), \(\phi_2=-1/6\), \(\theta_1=-1/7\), and \(\sigma^2=\operatorname{Var}(\varepsilon_t)\).</p>
+<p>Because the process is centred, \(\gamma(h)=E[\widetilde X_t\widetilde X_{t-h}]\). Stationarity means that the distance between the dates determines the covariance. Causality also tells us that an innovation is uncorrelated with earlier observations:</p>
+<div class="equation-stack">\[E[\varepsilon_s\widetilde X_u]=0\quad(u&lt;s),\qquad E[\varepsilon_s\widetilde X_s]=\sigma^2.\]</div>
+<p>The second identity holds because \(\widetilde X_s\) contains \(\varepsilon_s\) with coefficient 1, and its other terms involve earlier innovations.</p>
 <h4>Lag 0</h4>
 <div class="equation-stack">\[\begin{aligned}E[\widetilde X_t\widetilde X_{t}]={}&\phi_1E[\widetilde X_{t-1}\widetilde X_{t}]+\phi_2E[\widetilde X_{t-2}\widetilde X_{t}]\\&+E[\varepsilon_t\widetilde X_{t}]+\theta_1E[\varepsilon_{t-1}\widetilde X_{t}].\end{aligned}\]</div>
+<p>The contemporaneous shock contributes \(E[\varepsilon_t\widetilde X_t]=\sigma^2\). For the lagged shock, substitute the model for \(\widetilde X_t\): only \(\phi_1\widetilde X_{t-1}\) and \(\theta_1\varepsilon_{t-1}\) contribute, giving \((\phi_1+\theta_1)\sigma^2\).</p>
 <div class="equation-stack">\[\begin{aligned}\gamma(0)&=\phi_1\gamma(1)+\phi_2\gamma(2)+\sigma^2+\theta_1E[\varepsilon_{t-1}\widetilde X_t]\\&=\phi_1\gamma(1)+\phi_2\gamma(2)+\sigma^2\\&\quad+\theta_1E[(\phi_1\widetilde X_{t-1}+\phi_2\widetilde X_{t-2}+\varepsilon_t+\theta_1\varepsilon_{t-1})\varepsilon_{t-1}]\\&=\phi_1\gamma(1)+\phi_2\gamma(2)+\sigma^2+\theta_1(\phi_1+\theta_1)\sigma^2\\&=\phi_1\gamma(1)+\phi_2\gamma(2)+\sigma^2[1+\theta_1(\phi_1+\theta_1)].\end{aligned}\]</div>
 <h4>Lag 1</h4>
+<p>Now \(\varepsilon_t\) is uncorrelated with \(\widetilde X_{t-1}\), while \(E[\varepsilon_{t-1}\widetilde X_{t-1}]=\sigma^2\). Move \(\phi_2\gamma(1)\) to the left and divide by \(1-\phi_2\) to isolate \(\gamma(1)\).</p>
+
 <div class="equation-stack">\[\begin{aligned}E[\widetilde X_t\widetilde X_{t-1}]={}&\phi_1E[\widetilde X_{t-1}\widetilde X_{t-1}]+\phi_2E[\widetilde X_{t-2}\widetilde X_{t-1}]\\&+E[\varepsilon_t\widetilde X_{t-1}]+\theta_1E[\varepsilon_{t-1}\widetilde X_{t-1}].\end{aligned}\]</div>
 <div class="equation-stack">\[\begin{aligned}\gamma(1)&=\phi_1\gamma(0)+\phi_2\gamma(1)+\theta_1\sigma^2\\&=\frac{\phi_1}{1-\phi_2}\gamma(0)+\frac{\theta_1}{1-\phi_2}\sigma^2.\end{aligned}\]</div>
 <h4>Lag 2</h4>
+<p>Both innovations in the model occur after date \(t-2\), so their covariances with \(\widetilde X_{t-2}\) are zero. Then substitute the expression for \(\gamma(1)\) from the previous step and collect the terms multiplying \(\gamma(0)\).</p>
+
 <div class="equation-stack">\[\begin{aligned}E[\widetilde X_t\widetilde X_{t-2}]={}&\phi_1E[\widetilde X_{t-1}\widetilde X_{t-2}]+\phi_2E[\widetilde X_{t-2}\widetilde X_{t-2}]\\&+E[\varepsilon_t\widetilde X_{t-2}]+\theta_1E[\varepsilon_{t-1}\widetilde X_{t-2}].\end{aligned}\]</div>
 <div class="equation-stack">\[\begin{aligned}\gamma(2)&=\phi_1\gamma(1)+\phi_2\gamma(0)\\&=\frac{\phi_1^2}{1-\phi_2}\gamma(0)+\frac{\phi_1\theta_1}{1-\phi_2}\sigma^2+\phi_2\gamma(0)\\&=\frac{\phi_1^2+\phi_2-\phi_2^2}{1-\phi_2}\gamma(0)+\frac{\phi_1\theta_1}{1-\phi_2}\sigma^2.\end{aligned}\]</div>
 <h4>Lag 3</h4>
+<p>The same reasoning removes both innovation terms. The observations on the right are two and one periods away from \(t-3\), which gives \(\gamma(2)\) and \(\gamma(1)\).</p>
+
 <div class="equation-stack">\[\begin{aligned}E[\widetilde X_t\widetilde X_{t-3}]={}&\phi_1E[\widetilde X_{t-1}\widetilde X_{t-3}]+\phi_2E[\widetilde X_{t-2}\widetilde X_{t-3}]\\&+E[\varepsilon_t\widetilde X_{t-3}]+\theta_1E[\varepsilon_{t-1}\widetilde X_{t-3}].\end{aligned}\]</div>
 <div class="equation-stack">\[\gamma(3)=\phi_1\gamma(2)+\phi_2\gamma(1).\]</div>
 <p>More generally, for \(h\ge2\):</p>
 <div class="equation-stack">\[\gamma(h)=\phi_1\gamma(h-1)+\phi_2\gamma(h-2).\]</div>
 <h4>Autocovariances</h4>
-<p>Substitute the expressions for \(\gamma(1)\) and \(\gamma(2)\) into the equation for \(\gamma(0)\). Hence:</p>
+<p>Substitute the expressions for \(\gamma(1)\) and \(\gamma(2)\) into the lag-0 equation. Multiply by \(1-\phi_2\) to remove their denominators, then collect every term containing \(\gamma(0)\) on the left:</p>
+<div class="equation-stack">\[\begin{aligned}&\left[(1-\phi_2)-\phi_1^2-\phi_2(\phi_1^2+\phi_2-\phi_2^2)\right]\gamma(0)\\&\quad=\left[\phi_1\theta_1+\phi_2\phi_1\theta_1+(1-\phi_2)\{1+\theta_1(\phi_1+\theta_1)\}\right]\sigma^2.\end{aligned}\]</div>
+<p>Expand the brackets and divide by the coefficient of \(\gamma(0)\). Finally insert \(\phi_1=5/6\), \(\phi_2=-1/6\), and \(\theta_1=-1/7\):</p>
+
 <div class="equation-stack">\[\begin{aligned}\gamma(0)&=\frac{(1-\phi_2)+\theta_1[2\phi_1+\theta_1-\phi_2\theta_1]}{(1-\phi_2)-\phi_1^2(1+\phi_2)-\phi_2^2+\phi_2^3}\sigma^2\\&=\frac{12}{7}\sigma^2\approx1.7143\sigma^2.\end{aligned}\]</div>
+<p>We now know the variance. Put \(\gamma(0)=(12/7)\sigma^2\) into the lag-1 and lag-2 expressions, then use \(\gamma(3)=\phi_1\gamma(2)+\phi_2\gamma(1)\). This gives the remaining autocovariances:</p>
 <div class="equation-stack">\[\begin{aligned}\gamma(1)&=\frac{(12/7)\phi_1+\theta_1}{1-\phi_2}\sigma^2=\frac{54}{49}\sigma^2\approx1.1020\sigma^2,\\[6pt]\gamma(2)&=\frac{(12/7)(\phi_1^2+\phi_2-\phi_2^2)+\phi_1\theta_1}{1-\phi_2}\sigma^2=\frac{31}{49}\sigma^2\approx0.6327\sigma^2,\\[6pt]\gamma(3)&=\frac{(12/7)\phi_1(\phi_1^2+2\phi_2-\phi_2^2)+\theta_1(\phi_1^2+\phi_2)}{1-\phi_2}\sigma^2\\&=\frac{101}{294}\sigma^2\approx0.3435\sigma^2.\end{aligned}\]</div>
 <h4>Autocorrelation function</h4>
 <p>The ACF is \(\rho(h)=\gamma(h)/\gamma(0)\). Therefore:</p>
@@ -311,13 +365,25 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <p><strong>Conclusion:</strong> report \(\alpha(1),\alpha(2),\alpha(3)\), the first three PACF terms.</p>
 </div>
 <div class="solution-givens"><h4>Solution</h4><p>The PACF is obtained via Cramer’s rule: \(r_{kk}=\det(R_{kk}^{\star})/\det(R_{kk})\). Replace the last column of the correlation matrix by \((\rho(1),\ldots,\rho(k))^{\mathsf T}\).</p></div>
+<p>Here \(r_{kk}\) is the same PACF value denoted by \(\alpha(k)\) in the formula box. It is the coefficient on \(\widetilde X_{t-k}\) when projecting \(\widetilde X_t\) on its first \(k\) lags. The projection equations are</p>
+<div class="equation-stack">\[R_{kk}\begin{pmatrix}r_{k1}\\\vdots\\r_{kk}\end{pmatrix}=\begin{pmatrix}\rho(1)\\\vdots\\\rho(k)\end{pmatrix},\qquad (R_{kk})_{ij}=\rho(|i-j|).\]</div>
+<p>The diagonal entries are \(\rho(0)=1\). Cramer’s rule isolates the last coefficient by replacing the last column with the right-hand-side vector.</p>
 <h4>First term</h4>
+<p>With a single lag, the equation is \(1\cdot r_{11}=\rho(1)\).</p>
+
 <div class="equation-stack">\[r_{11}=\rho(1)=\frac9{14}\approx0.6429.\]</div>
 <h4>Second term</h4>
+<p>For two lags, replace the second column by \((\rho(1),\rho(2))^{\mathsf T}\). Each 2×2 determinant is the product of the diagonal entries minus the product of the off-diagonal entries.</p>
+
 <div class="equation-stack">\[\begin{aligned}r_{22}&=\frac{\begin{vmatrix}1&\rho(1)\\\rho(1)&\rho(2)\end{vmatrix}}{\begin{vmatrix}1&\rho(1)\\\rho(1)&1\end{vmatrix}}\\&=\frac{\rho(2)-\rho(1)^2}{1-\rho(1)^2}\\&=\frac{31/84-(9/14)^2}{1-(9/14)^2}=-\frac{26}{345}\approx-0.0754.\end{aligned}\]</div>
 <h4>Third term</h4>
+<p>For three lags, replace the third column by \((\rho(1),\rho(2),\rho(3))^{\mathsf T}\). The first two columns stay unchanged.</p>
+
 <div class="equation-stack">\[r_{33}=\frac{\begin{vmatrix}1&\rho(1)&\rho(1)\\\rho(1)&1&\rho(2)\\\rho(2)&\rho(1)&\rho(3)\end{vmatrix}}{\begin{vmatrix}1&\rho(1)&\rho(2)\\\rho(1)&1&\rho(1)\\\rho(2)&\rho(1)&1\end{vmatrix}}.\]</div>
-<p>Expanding the determinants gives:</p>
+<p>Expand each determinant along its first row, with alternating signs \(+, -, +\). To keep this step readable, write \(u=\rho(1)\), \(v=\rho(2)\), and \(w=\rho(3)\):</p>
+<div class="equation-stack">\[\begin{aligned}\det R_{33}&=(1-u^2)-u(u-uv)+v(u^2-v)\\&=1-2u^2(1-v)-v^2,\\\det R_{33}^{\star}&=(w-uv)-u(uw-v^2)+u(u^2-v)\\&=w-u(2v+uw-v^2-u^2).\end{aligned}\]</div>
+<p>Replace \(u,v,w\) by the correlations and divide the two determinants:</p>
+
 <div class="equation-stack">\[r_{33}=\frac{\rho(3)-\rho(1)[2\rho(2)+\rho(1)\rho(3)-\rho(2)^2-\rho(1)^2]}{1-2\rho(1)^2[1-\rho(2)]-\rho(2)^2}.\]</div>
 <p>Substitute \(\rho(1)=9/14\), \(\rho(2)=31/84\), and \(\rho(3)=101/504\):</p>
 <div class="equation-stack">\[r_{33}=\frac{-13/3528}{16907/49392}=-\frac{182}{16907}\approx-0.0108.\]</div>
@@ -359,11 +425,14 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <div class="equation-stack">\[\widehat X_{t+h\mid t}=2+\frac56\widehat X_{t+h-1\mid t}-\frac16\widehat X_{t+h-2\mid t},\]\[\widehat X_{t\mid t}=X_t.\]</div>
 <p>To solve the recurrence, let \(d_h=\widehat X_{t+h\mid t}-6\). Then \(d_h=(5/6)d_{h-1}-(1/6)d_{h-2}\), with</p>
 <div class="equation-stack">\[d_0=X_t-6,\]\[d_1=\frac56(X_t-6)-\frac16(X_{t-1}-6)-\frac17\varepsilon_t.\]</div>
-<p>The roots are \(1/2\) and \(1/3\), so \(d_h=C(1/2)^h+D(1/3)^h\). From \(C+D=d_0\) and \(C/2+D/3=d_1\),</p>
+<p>To solve this second-order recurrence, try \(d_h=r^h\). Substitution gives \(r^2-(5/6)r+1/6=0\), the same characteristic equation as in Question 2. Its roots are \(1/2\) and \(1/3\), so \(d_h=C(1/2)^h+D(1/3)^h\).</p>
+<p>Set \(h=0\) and \(h=1\) to match the two initial forecasts: \(C+D=d_0\) and \(C/2+D/3=d_1\). Multiply the second equation by 6, then subtract twice the first to get \(C=6d_1-2d_0\). Finally use \(D=d_0-C\):</p>
+
 <div class="equation-stack">\[C=6d_1-2d_0,\qquad D=3d_0-6d_1.\]</div>
 <p>Hence the forecast at any horizon is</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\widehat X_{t+h\mid t}=6&+(6d_1-2d_0)\left(\frac12\right)^h\\&+(3d_0-6d_1)\left(\frac13\right)^h.\end{aligned}}\]</div></div>
-<p>The same forecast follows from the MA representation by keeping the shocks dated at or before \(t\):</p>
+<p>The same forecast follows from the MA representation. A shock \(\varepsilon_{t+h-j}\) is known at date \(t\) exactly when \(t+h-j\le t\), or \(j\ge h\). This explains the lower bound of the forecast sum:</p>
+
 <div class="equation-stack">\[\widehat X_{t+h\mid t}=6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j}.\]</div>
 <h4>5. Infinite horizon</h4>
 <p>Both geometric terms tend to zero. Therefore,</p>
@@ -388,17 +457,22 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <div class="equation-stack">\[\begin{aligned}e_t(h)&=X_{t+h}-\widehat X_{t+h\mid t}\\&=\left(6+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t+h-j}\right)-\left(6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j}\right).\end{aligned}\]</div>
 <p>The known terms cancel, leaving only future shocks:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{e_t(h)=\sum_{j=0}^{h-1}\psi_j\varepsilon_{t+h-j}.}\]</div></div>
-<p>Using \(\psi_0=1\), \(\psi_1=29/42\), and \(\psi_2=103/252\),</p>
+<p>For a given horizon \(h\), the remaining indices run from 0 to \(h-1\). The weights come from Question 3: \(\psi_0=1\), \(\psi_1=15/14-8/21=29/42\), and \(\psi_2=15/28-8/63=103/252\). Substituting these weights gives</p>
+
 <div class="equation-stack">\[\begin{aligned}e_t(1)&=\varepsilon_{t+1},\\e_t(2)&=\varepsilon_{t+2}+\frac{29}{42}\varepsilon_{t+1},\\e_t(3)&=\varepsilon_{t+3}+\frac{29}{42}\varepsilon_{t+2}+\frac{103}{252}\varepsilon_{t+1}.\end{aligned}\]</div>
 <h4>2. Error variances</h4>
-<p>The innovations are uncorrelated and each has variance \(\sigma_\varepsilon^2\). Thus the cross-covariances vanish:</p>
+<p>The variance of a weighted sum equals the sum of the squared weights times the individual variances, plus cross-covariance terms. Here innovations at different dates are uncorrelated, so</p>
+<div class="equation-stack">\[\begin{aligned}\operatorname{Var}[e_t(h)]={}&\sum_{j=0}^{h-1}\psi_j^2\sigma_\varepsilon^2\\&+2\sum_{0\le i&lt;j\le h-1}\psi_i\psi_j\underbrace{\operatorname{Cov}(\varepsilon_{t+h-i},\varepsilon_{t+h-j})}_{0}.\end{aligned}\]</div>
+<p>Only the squared-weight terms remain:</p>
+
 <div class="result-box"><div class="equation-stack">\[\boxed{V_h:=\operatorname{Var}[e_t(h)]=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.}\]</div></div>
 <p>For the first three horizons,</p>
 <div class="equation-stack">\[\begin{aligned}V_1&=\sigma_\varepsilon^2,\\V_2&=\sigma_\varepsilon^2\left[1+\left(\frac{29}{42}\right)^2\right]=\frac{2605}{1764}\sigma_\varepsilon^2,\\V_3&=\sigma_\varepsilon^2\left[1+\left(\frac{29}{42}\right)^2+\left(\frac{103}{252}\right)^2\right]=\frac{104389}{63504}\sigma_\varepsilon^2.\end{aligned}\]</div>
 <h4>3. Variance at a general horizon</h4>
 <p>For \(j\ge1\), we have \(\psi_j=(15/14)(1/2)^{j-1}-(8/21)(1/3)^{j-1}\). Squaring and setting \(n=j-1\),</p>
 <div class="equation-stack">\[\psi_j^2=\frac{225}{196}\left(\frac14\right)^n+\frac{64}{441}\left(\frac19\right)^n-\frac{40}{49}\left(\frac16\right)^n.\]</div>
-<p>We apply \(\sum_{n=0}^{h-2}a^n=(1-a^{h-1})/(1-a)\) to each term:</p>
+<p>The term \(\psi_0^2=1\) is kept separately. For the other terms, \(j=1,\ldots,h-1\) becomes \(n=0,\ldots,h-2\). The identity \((A-B)^2=A^2+B^2-2AB\) explains the two positive terms and the negative cross term above. Apply \(\sum_{n=0}^{h-2}a^n=(1-a^{h-1})/(1-a)\) to each geometric sum:</p>
+
 <div class="equation-stack">\[\begin{aligned}\frac{V_h}{\sigma_\varepsilon^2}&=1+\frac{225}{196}\frac{1-(1/4)^{h-1}}{1-1/4}\\&\quad+\frac{64}{441}\frac{1-(1/9)^{h-1}}{1-1/9}-\frac{40}{49}\frac{1-(1/6)^{h-1}}{1-1/6}\\&=1+\frac{75}{49}[1-(1/4)^{h-1}]\\&\quad+\frac8{49}[1-(1/9)^{h-1}]-\frac{48}{49}[1-(1/6)^{h-1}].\end{aligned}\]</div>
 <p>Since \(1+75/49+8/49-48/49=12/7\), this simplifies to</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}V_h=\sigma_\varepsilon^2\Bigg[\frac{12}{7}&-\frac{75}{49}\left(\frac14\right)^{h-1}\\&-\frac8{49}\left(\frac19\right)^{h-1}+\frac{48}{49}\left(\frac16\right)^{h-1}\Bigg],\qquad h\ge1.\end{aligned}}\]</div></div>
@@ -421,14 +495,16 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 </div>
 <div class="solution-givens"><h4>Solution</h4><p>For a normal prediction interval, we additionally assume \(\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2)\). We treat the model parameters as known and use \(V_h\) from Question 7.</p></div>
 <h4>1. General prediction interval</h4>
-<p>The forecast error is a linear combination of future Gaussian innovations. Hence,</p>
+<p>The error in Question 7 contains only future innovations. Under the iid Gaussian assumption, they are independent of the information available at date \(t\); their weighted sum is Gaussian with mean zero and variance \(V_h\). Divide by its standard deviation \(\sqrt{V_h}\) to obtain a standard normal variable:</p>
+
 <div class="equation-stack">\[e_t(h)=X_{t+h}-\widehat X_{t+h\mid t}\sim N(0,V_h),\qquad\frac{e_t(h)}{\sqrt{V_h}}\sim N(0,1).\]</div>
 <p>If \(z_{1-\alpha/2}\) is the standard-normal quantile, then</p>
 <div class="equation-stack">\[P\left(-z_{1-\alpha/2}\le\frac{X_{t+h}-\widehat X_{t+h\mid t}}{\sqrt{V_h}}\le z_{1-\alpha/2}\right)=1-\alpha.\]</div>
 <p>Multiplying by \(\sqrt{V_h}\) and adding the forecast gives the interval</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{PI_{1-\alpha}(h)=\left[\widehat X_{t+h\mid t}-z_{1-\alpha/2}\sqrt{V_h},\;\widehat X_{t+h\mid t}+z_{1-\alpha/2}\sqrt{V_h}\right].}\]</div></div>
 <h4>2. Interval at 95%</h4>
-<p>For \(1-\alpha=0.95\), \(z_{0.975}\approx1.96\). Therefore,</p>
+<p>For 95% coverage, \(\alpha=0.05\). We leave \(\alpha/2=0.025\) in each tail of the normal distribution, so the upper quantile is \(z_{0.975}\approx1.96\). Since \(V_h=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2\), its square root is \(\sigma_\varepsilon\sqrt{\sum_{j=0}^{h-1}\psi_j^2}\). Therefore,</p>
+
 <div class="equation-stack">\[PI_{95\%}(h)=\widehat X_{t+h\mid t}\pm1.96\sigma_\varepsilon\sqrt{\sum_{j=0}^{h-1}\psi_j^2}.\]</div>
 <p>Using the forecasts in Question 6 and the variances in Question 7, the first three intervals are</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}PI_{95\%}(1)&=\widehat X_{t+1\mid t}\pm1.96\sigma_\varepsilon,\\PI_{95\%}(2)&=\widehat X_{t+2\mid t}\pm1.96\sigma_\varepsilon\sqrt{\frac{2605}{1764}},\\PI_{95\%}(3)&=\widehat X_{t+3\mid t}\pm1.96\sigma_\varepsilon\sqrt{\frac{104389}{63504}}.\end{aligned}}\]</div></div>
