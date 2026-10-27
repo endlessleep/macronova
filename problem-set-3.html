@@ -70,7 +70,7 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <p>where \(\varepsilon_t\) is a zero-mean weak white noise with variance \(\sigma_\varepsilon^2&gt;0\).</p><ol><li>Write the process using the polynomial operators.</li><li>Show that \(X_t\) is stationary and that the representation is causal and fundamental.</li><li>Give the AR(\(\infty\)) and MA(\(\infty\)) representations of \(X_t\).</li><li>Determine the autocorrelation function of this process.</li><li>Determine the first 3 terms of the partial autocorrelation function of this process.</li><li>Determine the best linear forecast for \(h=1,2,3,\ldots,\infty\).</li><li>Determine the forecast errors and their variance for \(h=1,2,3,\ldots,\infty\).</li><li>Determine the prediction interval.</li></ol></div>
 <div class="collapsible solution" id="solution-1">
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
-<section class="solution-step answer-panel" id="exercise-1-q1" hidden><h3><span>Question 1</span>Lag polynomials and demeaned process</h3><div class="target-form"><span class="target-label">Formulas to use — Question 1</span>
+<section class="solution-step answer-panel" id="exercise-1-q1" hidden><h3><span>Question 1</span>Lag polynomials and centred process</h3><div class="target-form"><span class="target-label">Formulas to use — Question 1</span>
 <p><strong>Lag operator:</strong></p>
 <div class="equation-stack">\[L^jX_t=X_{t-j},\qquad L^k\varepsilon_t=\varepsilon_{t-k}.\]</div>
 <p>Replace each lag by a power of \(L\).</p>
@@ -82,90 +82,24 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <p>Keep the shocks on the right, then factor out \(\varepsilon_t\). Read \(\phi_j\) and \(\theta_k\) from the original equation, keeping their signs.</p>
 <p><strong>Conclusion:</strong> identify \(\Phi(L)\) and \(\Theta(L)\), then write the equation using these two operators.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>The process has intercept 2, AR coefficients \(5/6,-1/6\), and MA coefficient \(-1/7\).</p></div>
-<p>We start with</p>
-<div class="equation-stack">\[
-X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
-+\varepsilon_t-\frac17\varepsilon_{t-1}.
-\]</div>
-<h4>1. Unconditional mean</h4>
-<p>For a stationary solution, let \(m_X=E(X_t)\). Taking expectations and using \(E(\varepsilon_t)=0\) gives</p>
-<div class="equation-stack">\[
-m_X=2+\frac56m_X-\frac16m_X.
-\]</div>
-<p>Rearranging,</p>
-<div class="equation-stack">\[
-\left(1-\frac56+\frac16\right)m_X=2.
-\]</div>
-<div class="equation-stack">\[
-\frac13m_X=2.
-\]</div>
-<p>Therefore,</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{m_X=6.}
-\]</div></div>
-<h4>2. Centred process</h4>
-<p>We set</p>
-<div class="equation-stack">\[
-\widetilde X_t=X_t-m_X=X_t-6.
-\]</div>
-<p>Substituting \(X_{t-j}=\widetilde X_{t-j}+6\) at each lag gives</p>
-<div class="equation-stack">\[\begin{aligned}\widetilde X_t+6&=2+\frac56(\widetilde X_{t-1}+6)\\&\quad-\frac16(\widetilde X_{t-2}+6)\\&\quad+\varepsilon_t-\frac17\varepsilon_{t-1}.\end{aligned}\]</div>
-<p>After subtracting 6, the constant term is</p>
-<div class="equation-stack">\[2+\frac56\times6-\frac16\times6-6\]\[=2+5-1-6=0.\]</div>
-<p>This is why the centred equation has no intercept:</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\widetilde X_t=
-\frac56\widetilde X_{t-1}
--\frac16\widetilde X_{t-2}
-+\varepsilon_t-\frac17\varepsilon_{t-1}.
-}
-\]</div></div>
-<p>Demeaning eliminates the intercept but does not change AR or MA coefficients. The new process has zero mean.</p>
-<h4>3. Lag polynomials</h4>
-<p>We have</p>
-<div class="equation-stack">\[
-LX_t=X_{t-1},\qquad L^2X_t=X_{t-2}.
-\]</div>
-<p>Moving the AR terms to the left gives</p>
-<div class="equation-stack">\[
-\widetilde X_t
--\frac56\widetilde X_{t-1}
-+\frac16\widetilde X_{t-2}
-=\varepsilon_t-\frac17\varepsilon_{t-1}.
-\]</div>
-<p>Hence,</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\left(1-\frac56L+\frac16L^2\right)\widetilde X_t
-=\left(1-\frac17L\right)\varepsilon_t.
-}
-\]</div></div>
-<p>We set</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\Phi(L)=1-\frac56L+\frac16L^2}
-\]</div></div>
-<p>and</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\Theta(L)=1-\frac17L.}
-\]</div></div>
-<p>The centered polynomial representation is</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t.}
-\]</div></div>
-<h4>Equation in the original variable</h4>
-<p>Since \(\widetilde X_t=X_t-6\), the centred polynomial equation becomes</p>
-<div class="equation-stack">\[\Phi(L)(X_t-6)=\Theta(L)\varepsilon_t.\]</div>
-<p>The operator \(\Phi(L)\) acts on both \(X_t\) and the constant 6. A lag leaves a constant unchanged: \(L(6)=6\) and \(L^2(6)=6\). Therefore,</p>
-<div class="equation-stack">\[\begin{aligned}\Phi(L)(6)&=6-\frac56\times6+\frac16\times6\\&=6-5+1=2.\end{aligned}\]</div>
-<p>By linearity,</p>
-<div class="equation-stack">\[\Phi(L)(X_t-6)=\Phi(L)X_t-\Phi(L)(6)\]\[=\Phi(L)X_t-2,\]\[\Phi(L)X_t-2=\Theta(L)\varepsilon_t.\]</div>
-<p>Thus the equation for the <strong>original observations \(X_t\)</strong> is</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\Phi(L)X_t=2+\Theta(L)\varepsilon_t.}
-\]</div></div>
-<p><strong>6 is the mean of \(X_t\); 2 is the intercept of its ARMA equation.</strong> The equation in \(\widetilde X_t\) has intercept 0 because its mean has been removed. The two polynomial equations describe the same process using different variables.</p>
+<div class="solution-givens"><h4>Solution</h4><p>We first collect the terms in \(X\) on the left and keep the constant and the shocks on the right.</p></div>
+<h4>1. Polynomial representation</h4>
+<div class="equation-stack">\[X_t-\frac56X_{t-1}+\frac16X_{t-2}=2+\varepsilon_t-\frac17\varepsilon_{t-1}.\]</div>
+<p>Since \(LX_t=X_{t-1}\) and \(L^2X_t=X_{t-2}\), this becomes</p>
+<div class="equation-stack">\[\left(1-\frac56L+\frac16L^2\right)X_t=2+\left(1-\frac17L\right)\varepsilon_t.\]</div>
+<p>Therefore, the AR and MA polynomials are</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Phi(L)=1-\frac56L+\frac16L^2,\qquad\Theta(L)=1-\frac17L.}\]\[\boxed{\Phi(L)X_t=2+\Theta(L)\varepsilon_t.}\]</div></div>
+<h4>2. Mean and centred form</h4>
+<p>For a stationary solution, \(E(X_t)=E(X_{t-1})=E(X_{t-2})=m_X\). Taking expectations in the original equation gives</p>
+<div class="equation-stack">\[m_X=2+\frac56m_X-\frac16m_X,\]\[\left(1-\frac56+\frac16\right)m_X=2\quad\Longrightarrow\quad\boxed{m_X=6.}\]</div>
+<p>We set \(\widetilde X_t=X_t-6\). Substituting \(X_{t-j}=\widetilde X_{t-j}+6\) at every lag gives</p>
+<div class="equation-stack">\[\begin{aligned}\widetilde X_t+6&=2+\frac56(\widetilde X_{t-1}+6)\\&\quad-\frac16(\widetilde X_{t-2}+6)+\varepsilon_t-\frac17\varepsilon_{t-1}.\end{aligned}\]</div>
+<p>The constant term after subtracting 6 is \(2+5-1-6=0\). Hence,</p>
+<div class="equation-stack">\[\widetilde X_t=\frac56\widetilde X_{t-1}-\frac16\widetilde X_{t-2}+\varepsilon_t-\frac17\varepsilon_{t-1},\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t,\qquad\widetilde X_t=X_t-6.}\]</div></div>
+<p>The constant 2 belongs to the equation in \(X_t\), while 6 is its mean. Indeed,</p>
+<div class="equation-stack">\[\Phi(L)(6)=6\left(1-\frac56+\frac16\right)=2,\]\[\Phi(L)(X_t-6)=\Phi(L)X_t-2.\]</div>
+<p>Thus the original equation has intercept 2, and the centred equation has intercept zero.</p>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
@@ -192,47 +126,39 @@ LX_t=X_{t-1},\qquad L^2X_t=X_{t-2}.
 <div class="equation-stack">\[\forall i,\ |r_i|&lt;1\ \Longrightarrow\ \text{stationary and causal},\]\[\forall i,\ |s_i|&lt;1\ \Longrightarrow\ \text{fundamental}.\]</div>
 <p>The first inverse expresses observations using current and past shocks; the second recovers shocks using current and past observations. Roots strictly inside the unit circle make these inverse-series coefficients absolutely summable.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>From Question 1, \(\widetilde X_t=X_t-6\) and \(\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t\), with</p>
-<div class="equation-stack">\[\Phi(L)=1-\frac56L+\frac16L^2,\qquad \Theta(L)=1-\frac17L.\]</div></div>
-<h4>1. Stationarity and causality</h4>
-<p>The AR inverse roots satisfy</p>
-<div class="equation-stack">\[r^2\Phi(r^{-1})=0\]\[\Longleftrightarrow\ r^2-\frac56r+\frac16=0\]\[\Longleftrightarrow\ 6r^2-5r+1=(2r-1)(3r-1)=0.\]</div>
-<p>Thus,</p>
-<div class="equation-stack">\[r_1=\frac12,\qquad r_2=\frac13,\qquad |r_1|&lt;1,\quad |r_2|&lt;1.\]</div>
-<p>Both AR inverse roots have modulus less than 1, so the process admits a stationary and causal solution. The factorization is</p>
+<div class="solution-givens"><h4>Solution</h4><p>We examine the inverse roots of \(\Phi(L)=1-5L/6+L^2/6\) and \(\Theta(L)=1-L/7\).</p></div>
+<h4>1. AR inverse roots</h4>
+<p>The AR inverse-root equation is</p>
+<div class="equation-stack">\[r^2\Phi(r^{-1})=r^2-\frac56r+\frac16=0.\]</div>
+<p>Multiplying by 6 and factorizing,</p>
+<div class="equation-stack">\[6r^2-5r+1=(2r-1)(3r-1)=0.\]</div>
+<p>Therefore,</p>
+<div class="equation-stack">\[r_1=\frac12,\qquad r_2=\frac13,\qquad |r_1|&lt;1,\quad |r_2|&lt;1,\]</div>
+<p>and</p>
 <div class="equation-stack">\[\Phi(L)=\left(1-\frac12L\right)\left(1-\frac13L\right).\]</div>
-<p>We decompose its inverse into partial fractions:</p>
+<h4>2. AR inverse and homogeneous solution</h4>
+<p>For the partial-fraction decomposition, we write</p>
 <div class="equation-stack">\[\Phi(L)^{-1}=\frac{A}{1-L/2}+\frac{B}{1-L/3}.\]</div>
-<p>Multiplying by \((1-L/2)(1-L/3)\) gives</p>
-<div class="equation-stack">\[1=A\left(1-\frac13L\right)+B\left(1-\frac12L\right).\]</div>
-<p>Identifying coefficients,</p>
-<div class="equation-stack">\[\begin{cases}A+B=1,\\\dfrac A3+\dfrac B2=0,\end{cases}\quad\Longleftrightarrow\quad\begin{cases}A+B=1,\\2A+3B=0.\end{cases}\]</div>
-<p>Subtracting twice the first equation from the second gives \(B=-2\), hence \(A=3\). Therefore,</p>
-<div class="equation-stack">\[\Phi(L)^{-1}=\frac{3}{1-L/2}-\frac{2}{1-L/3}\]\[=\sum_{j=0}^{\infty}\left[3\left(\frac12\right)^j-2\left(\frac13\right)^j\right]L^j.\]</div>
-<p>Writing \(a_j=3(1/2)^j-2(1/3)^j\), we obtain</p>
-<div class="equation-stack">\[\widetilde X_t=\sum_{j=0}^{\infty}a_j\left(\varepsilon_{t-j}-\frac17\varepsilon_{t-j-1}\right).\]</div>
-<p>This representation uses only current and past shocks. Its coefficients are absolutely summable because both geometric ratios have modulus less than 1, which confirms stationarity and causality.</p>
-<h4>Associated homogeneous equation</h4>
-<p>The homogeneous part satisfies</p>
+<p>Multiplying by the denominator and identifying coefficients gives</p>
+<div class="equation-stack">\[1=A\left(1-\frac13L\right)+B\left(1-\frac12L\right),\]\[\begin{cases}A+B=1,\\2A+3B=0.\end{cases}\]</div>
+<p>The second equation minus twice the first gives \(B=-2\), and then \(A=3\). Thus,</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\Phi(L)^{-1}&=\frac{3}{1-L/2}-\frac{2}{1-L/3}\\&=\sum_{j=0}^{\infty}\left[3\left(\frac12\right)^j-2\left(\frac13\right)^j\right]L^j.\end{aligned}}\]</div></div>
+<p>Both geometric series converge. The homogeneous equation is</p>
 <div class="equation-stack">\[H_t-\frac56H_{t-1}+\frac16H_{t-2}=0.\]</div>
-<p>Substituting \(H_t=r^t\) gives the same characteristic equation:</p>
-<div class="equation-stack">\[r^2-\frac56r+\frac16=0.\]</div>
-<p>Its two distinct roots are \(1/2\) and \(1/3\), so</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{H_t=C_1\left(\frac12\right)^t+C_2\left(\frac13\right)^t.}\]</div></div>
-<p>The constants \(C_1,C_2\) depend on the initial conditions. Since both roots have modulus less than 1,</p>
-<div class="equation-stack">\[\left(\frac12\right)^t\to0,\qquad\left(\frac13\right)^t\to0\quad\Longrightarrow\quad H_t\to0.\]</div>
-<p>Thus the effects of initial conditions vanish. The causal series derived above gives the stationary solution; adding a nonzero homogeneous term gives a transient that converges to zero.</p>
-<h4>2. Fundamentalness</h4>
-<p>The MA inverse root satisfies</p>
-<div class="equation-stack">\[s\Theta(s^{-1})=0\quad\Longleftrightarrow\quad s-\frac17=0.\]</div>
-<p>Hence \(s=1/7\) and \(|s|&lt;1\). We can therefore invert the MA polynomial:</p>
-<div class="equation-stack">\[\Theta(L)^{-1}=\frac{1}{1-L/7}=\sum_{j=0}^{\infty}\left(\frac17\right)^jL^j.\]</div>
+<p>Its characteristic roots are the same two inverse roots, so</p>
+<div class="equation-stack">\[H_t=C_1\left(\frac12\right)^t+C_2\left(\frac13\right)^t\longrightarrow0.\]</div>
+<p>The constants depend on the initial conditions; their contribution vanishes as \(t\) increases. The stationary solution is obtained from \(\widetilde X_t=\Phi(L)^{-1}\Theta(L)\varepsilon_t\), which uses only current and past shocks.</p>
+<h4>3. MA inverse root and inverse</h4>
+<p>The MA inverse-root equation gives</p>
+<div class="equation-stack">\[r\Theta(r^{-1})=r-\frac17=0\quad\Longrightarrow\quad r=\frac17.\]</div>
+<p>Since \(|r|&lt;1\), the geometric expansion is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Theta(L)^{-1}=\frac{1}{1-L/7}=\sum_{j=0}^{\infty}\left(\frac17\right)^jL^j.}\]</div></div>
 <p>Applying this inverse to the centred equation gives</p>
-<div class="equation-stack">\[\varepsilon_t=\Theta(L)^{-1}\Phi(L)\widetilde X_t\]\[=\sum_{j=0}^{\infty}\left(\frac17\right)^j\left(\widetilde X_{t-j}-\frac56\widetilde X_{t-j-1}+\frac16\widetilde X_{t-j-2}\right).\]</div>
-<p>The coefficients are absolutely summable, and the expression contains only current and past observations. Thus \(\varepsilon_t\) can be recovered from the observed history: the representation is fundamental.</p>
+<div class="equation-stack">\[\begin{aligned}\varepsilon_t&=\Theta(L)^{-1}\Phi(L)\widetilde X_t\\&=\sum_{j=0}^{\infty}\left(\frac17\right)^j\left(\widetilde X_{t-j}-\frac56\widetilde X_{t-j-1}+\frac16\widetilde X_{t-j-2}\right).\end{aligned}\]</div>
+<p>Thus the innovation can be recovered from current and past observations.</p>
 <h4>Conclusion</h4>
-<p>Since \(|1/2|&lt;1\) and \(|1/3|&lt;1\), the process has a stationary, causal solution. Since \(|1/7|&lt;1\), its representation is also fundamental.</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{X_t\text{ is stationary and causal; its representation is fundamental.}}\]</div></div>
+<div class="result-box"><p>The AR inverse roots \(1/2\) and \(1/3\) satisfy \(|r_i|&lt;1\), so \(\Phi(L)^{-1}\) exists as a convergent series, ensuring stationarity and causality.</p>
+<p>The MA inverse root \(1/7\) also satisfies \(|r|&lt;1\), so \(\Theta(L)^{-1}\) exists as a convergent series, ensuring fundamentalness (invertibility).</p></div>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
@@ -247,187 +173,35 @@ LX_t=X_{t-1},\qquad L^2X_t=X_{t-2}.
 <div class="equation-stack">\[X_t=m_X+\widetilde X_t.\]</div>
 <p><strong>Conclusion:</strong> write \(X_t\) in terms of shocks for MA(∞), and recover the current innovation from current and past observations for AR(∞).</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>From Question 2, \(\Phi(L)=(1-L/2)(1-L/3)\) and \(\Theta(L)=1-L/7\).</p></div>
-<h4>Part A — MA(∞) representation</h4>
-<p>From Question 1,</p>
-<div class="equation-stack">\[
-\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t.
-\]</div>
-<p>Multiplying by the AR inverse gives</p>
-<div class="equation-stack">\[
-\widetilde X_t=\Phi(L)^{-1}\Theta(L)\varepsilon_t.
-\]</div>
-<p>Using Question 2,</p>
-<div class="equation-stack">\[
-\widetilde X_t=
-\left[
-3\sum_{j=0}^{\infty}\left(\frac12\right)^jL^j
--2\sum_{j=0}^{\infty}\left(\frac13\right)^jL^j
-\right]
-\left(1-\frac17L\right)\varepsilon_t.
-\]</div>
-<p>Equivalently,</p>
-<div class="equation-stack">\[
-\widetilde X_t
-=
-\sum_{j=0}^{\infty}
-\left[
-3\left(\frac12\right)^j
--2\left(\frac13\right)^j
-\right]
-\left(\varepsilon_{t-j}-\frac17\varepsilon_{t-j-1}\right).
-\]</div>
-<p>We set</p>
-<div class="equation-stack">\[
-a_j=3\left(\frac12\right)^j-2\left(\frac13\right)^j.
-\]</div>
-<p>The first terms of the expansion are:</p>
-<p>For \(j=0\),</p>
-<div class="equation-stack">\[
-a_0\varepsilon_t-\frac17a_0\varepsilon_{t-1}
-=\varepsilon_t-\frac17\varepsilon_{t-1}.
-\]</div>
-<p>For \(j=1\),</p>
-<div class="equation-stack">\[
-a_1\varepsilon_{t-1}-\frac17a_1\varepsilon_{t-2}.
-\]</div>
-<p>For \(j=2\),</p>
-<div class="equation-stack">\[
-a_2\varepsilon_{t-2}-\frac17a_2\varepsilon_{t-3}.
-\]</div>
-<p>Collecting terms with the same shock date gives</p>
-<div class="equation-stack">\[
-\widetilde X_t
-=\varepsilon_t+
-\left(a_1-\frac17a_0\right)\varepsilon_{t-1}
-+\left(a_2-\frac17a_1\right)\varepsilon_{t-2}
-+\cdots
-\]</div>
-<p>Therefore the MA coefficients are</p>
-<div class="equation-stack">\[
-\psi_0=1,
-\]</div>
-<p>and for \(j\geq1\),</p>
-<div class="equation-stack">\[
-\psi_j=a_j-\frac17a_{j-1}.
-\]</div>
-<p>Substituting the expression for \(a_j\) gives</p>
-<div class="equation-stack">\[
-\psi_j=
-3\left(\frac12-\frac17\right)
-\left(\frac12\right)^{j-1}
--
-2\left(\frac13-\frac17\right)
-\left(\frac13\right)^{j-1}.
-\]</div>
+<div class="solution-givens"><h4>Solution</h4><p>We use \(\widetilde X_t=X_t-6\) and the two inverse polynomials obtained in Question 2.</p></div>
+<h4>1. MA(∞) representation</h4>
+<p>Multiplying \(\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t\) by \(\Phi(L)^{-1}\) gives</p>
+<div class="equation-stack">\[\widetilde X_t=\left(\sum_{j=0}^{\infty}a_jL^j\right)\left(1-\frac17L\right)\varepsilon_t.\]\[a_j=3\left(\frac12\right)^j-2\left(\frac13\right)^j.\]</div>
+<p>The first coefficient is \(a_0=1\). For \(j\ge1\), the coefficient of \(\varepsilon_{t-j}\) is \(a_j-a_{j-1}/7\). Therefore,</p>
+<div class="equation-stack">\[\psi_0=1,\qquad\psi_j=a_j-\frac17a_{j-1},\quad j\ge1.\]</div>
+<p>Substituting \(a_j\),</p>
+<div class="equation-stack">\[\begin{aligned}\psi_j&=3\left(\frac12-\frac17\right)\left(\frac12\right)^{j-1}\\&\quad-2\left(\frac13-\frac17\right)\left(\frac13\right)^{j-1}\\&=\frac{15}{14}\left(\frac12\right)^{j-1}-\frac8{21}\left(\frac13\right)^{j-1}.\end{aligned}\]</div>
+<p>In particular,</p>
+<div class="equation-stack">\[\begin{aligned}\psi_1&=\frac{15}{14}-\frac8{21}=\frac{29}{42},\\\psi_2&=\frac{15}{28}-\frac8{63}=\frac{103}{252},\\\psi_3&=\frac{15}{56}-\frac8{189}=\frac{341}{1512}.\end{aligned}\]</div>
+<p>Returning to \(X_t=6+\widetilde X_t\), the MA(∞) representation is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_t=6+\varepsilon_t+\sum_{j=1}^{\infty}\left[\frac{15}{14}\left(\frac12\right)^{j-1}-\frac8{21}\left(\frac13\right)^{j-1}\right]\varepsilon_{t-j}.}\]</div></div>
+<p>Its first terms are</p>
+<div class="equation-stack">\[X_t=6+\varepsilon_t+\frac{29}{42}\varepsilon_{t-1}+\frac{103}{252}\varepsilon_{t-2}+\frac{341}{1512}\varepsilon_{t-3}+\cdots.\]</div>
+<h4>2. AR(∞) representation</h4>
+<p>Multiplying the centred equation by \(\Theta(L)^{-1}\) gives</p>
+<div class="equation-stack">\[\varepsilon_t=\left[\sum_{j=0}^{\infty}\left(\frac17\right)^jL^j\right]\left(1-\frac56L+\frac16L^2\right)\widetilde X_t.\]</div>
+<p>The coefficient of \(\widetilde X_t\) is 1. At lag one, the coefficient is</p>
+<div class="equation-stack">\[\frac17-\frac56=-\frac{29}{42}.\]</div>
+<p>For \(j\ge2\), the coefficient of \(\widetilde X_{t-j}\) is</p>
+<div class="equation-stack">\[\begin{aligned}b_j&=\left(\frac17\right)^j-\frac56\left(\frac17\right)^{j-1}+\frac16\left(\frac17\right)^{j-2}\\&=\left(\frac1{49}-\frac5{42}+\frac16\right)\left(\frac17\right)^{j-2}\\&=\frac{10}{147}\left(\frac17\right)^{j-2}.\end{aligned}\]</div>
 <p>Hence,</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\psi_j=
-\frac{15}{14}\left(\frac12\right)^{j-1}
--\frac8{21}\left(\frac13\right)^{j-1},
-\quad j\ge1.
-}
-\]</div></div>
-<p>The first coefficients are</p>
-<div class="equation-stack">\[
-\psi_0=1,\quad
-\psi_1=\frac{29}{42},\quad
-\psi_2=\frac{103}{252},\quad
-\psi_3=\frac{341}{1512}.
-\]</div>
-<p>The final MA(∞) representation is</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-X_t=6+\varepsilon_t+
-\sum_{j=1}^{\infty}
-\left[
-\frac{15}{14}\left(\frac12\right)^{j-1}
--\frac8{21}\left(\frac13\right)^{j-1}
-\right]\varepsilon_{t-j}.
-}
-\]</div></div>
-<p>The first terms are therefore</p>
-<div class="equation-stack">\[
-X_t=6+\varepsilon_t
-+\frac{29}{42}\varepsilon_{t-1}
-+\frac{103}{252}\varepsilon_{t-2}
-+\frac{341}{1512}\varepsilon_{t-3}
-+\cdots
-\]</div>
-<p>The causal MA(∞) form uses current and past shocks only, and its coefficients decay toward zero.</p>
-<h4>Part B — AR(∞) representation</h4>
-<p>We again have</p>
-<div class="equation-stack">\[
-\Phi(L)\widetilde X_t=\Theta(L)\varepsilon_t.
-\]</div>
-<p>Multiplying by the MA inverse gives</p>
-<div class="equation-stack">\[
-\varepsilon_t=\Theta(L)^{-1}\Phi(L)\widetilde X_t.
-\]</div>
-<p>Using</p>
-<div class="equation-stack">\[
-\Theta(L)^{-1}=\sum_{j=0}^{\infty}\left(\frac17\right)^jL^j,
-\]</div>
-<p>we obtain</p>
-<div class="equation-stack">\[
-\varepsilon_t=
-\left(1-\frac56L+\frac16L^2\right)
-\sum_{j=0}^{\infty}\left(\frac17\right)^j
-\widetilde X_{t-j}.
-\]</div>
-<p>The first terms of the expansion are:</p>
-<p>For \(j=0\),</p>
-<div class="equation-stack">\[
-\widetilde X_t-\frac56\widetilde X_{t-1}
-+\frac16\widetilde X_{t-2}.
-\]</div>
-<p>For \(j=1\),</p>
-<div class="equation-stack">\[
-\frac17\widetilde X_{t-1}
--\frac5{42}\widetilde X_{t-2}
-+\frac1{42}\widetilde X_{t-3}.
-\]</div>
-<p>For \(j=2\),</p>
-<div class="equation-stack">\[
-\frac1{49}\widetilde X_{t-2}
--\frac5{294}\widetilde X_{t-3}
-+\frac1{294}\widetilde X_{t-4}.
-\]</div>
-<p>Collecting the coefficients at each lag gives:</p>
-<p>Coefficient of \(\widetilde X_{t-1}\):</p>
-<div class="equation-stack">\[
-\frac17-\frac56=-\frac{29}{42}.
-\]</div>
-<p>Coefficient of \(\widetilde X_{t-2}\):</p>
-<div class="equation-stack">\[
-\frac1{49}-\frac5{42}+\frac16
-=\frac{10}{147}.
-\]</div>
-<p>More generally, for \(j\ge2\), the coefficient of \(\widetilde X_{t-j}\) is</p>
-<div class="equation-stack">\[
-\frac{10}{147}\left(\frac17\right)^{j-2}.
-\]</div>
-<p>Therefore</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\varepsilon_t=
-\widetilde X_t-\frac{29}{42}\widetilde X_{t-1}
-+\sum_{j=2}^{\infty}
-\frac{10}{147}\left(\frac17\right)^{j-2}
-\widetilde X_{t-j}.
-}
-\]</div></div>
-<p>In original variables, the same expression is</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\varepsilon_t=
--\frac73+X_t-\frac{29}{42}X_{t-1}
-+\sum_{j=2}^{\infty}
-\frac{10}{147}\left(\frac17\right)^{j-2}X_{t-j}.
-}
-\]</div></div>
-<p>The constant \(-7/3=-2/\Theta(1)\) arises when using uncentered observations.</p>
+<div class="equation-stack">\[\varepsilon_t=\widetilde X_t-\frac{29}{42}\widetilde X_{t-1}+\sum_{j=2}^{\infty}\frac{10}{147}\left(\frac17\right)^{j-2}\widetilde X_{t-j}.\]</div>
+<p>Solving for \(\widetilde X_t\),</p>
+<div class="equation-stack">\[\widetilde X_t=\frac{29}{42}\widetilde X_{t-1}-\sum_{j=2}^{\infty}\frac{10}{147}\left(\frac17\right)^{j-2}\widetilde X_{t-j}+\varepsilon_t.\]</div>
+<p>In the original variable, the intercept is</p>
+<div class="equation-stack">\[\begin{aligned}6\left[1-\frac{29}{42}+\sum_{j=2}^{\infty}\frac{10}{147}\left(\frac17\right)^{j-2}\right]&=6\left(1-\frac{29}{42}+\frac5{63}\right)\\&=\frac73.\end{aligned}\]</div>
+<p>Thus the AR(∞) representation is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_t=\frac73+\frac{29}{42}X_{t-1}-\sum_{j=2}^{\infty}\frac{10}{147}\left(\frac17\right)^{j-2}X_{t-j}+\varepsilon_t.}\]</div></div>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button>
@@ -442,150 +216,40 @@ X_t=6+\varepsilon_t
 <div class="equation-stack">\[\rho(h)=\frac{\gamma(h)}{\gamma(0)}.\]</div>
 <p><strong>Conclusion:</strong> divide each autocovariance by the variance \(\gamma(0)\) to obtain the ACF.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>The innovations are uncorrelated, with mean zero and variance \(\sigma_\varepsilon^2\). From Question 3, the MA(∞) weight at lag one is \(\psi_1=29/42\).</p></div>
-<p>The centred model is</p>
-<div class="equation-stack">\[
-\widetilde X_t=
-\phi_1\widetilde X_{t-1}
-+\phi_2\widetilde X_{t-2}
-+\varepsilon_t+\theta_1\varepsilon_{t-1},
-\]</div>
-<p>where</p>
-<div class="equation-stack">\[
-\phi_1=\frac56,\qquad
-\phi_2=-\frac16,\qquad
-\theta_1=-\frac17.
-\]</div>
-<p>We have</p>
-<div class="equation-stack">\[
-\gamma(h)=E[\widetilde X_t\widetilde X_{t-h}],
-\qquad
-\rho(h)=\frac{\gamma(h)}{\gamma(0)}.
-\]</div>
-<h4>1. \(\gamma(0)\)</h4>
-<p>Multiplying the centred equation by \(\widetilde X_t\) and taking expectations gives</p>
-<div class="equation-stack">\[
-\gamma(0)=\phi_1\gamma(1)+\phi_2\gamma(2)
-+E[\varepsilon_t\widetilde X_t]
-+\theta_1E[\varepsilon_{t-1}\widetilde X_t].
-\]</div>
-<p>Because the process is causal,</p>
-<div class="equation-stack">\[
-E[\varepsilon_t\widetilde X_t]=\sigma_\varepsilon^2
-\]</div>
-<p>and</p>
-<div class="equation-stack">\[
-E[\varepsilon_{t-1}\widetilde X_t]
-=(\phi_1+\theta_1)\sigma_\varepsilon^2.
-\]</div>
-<p>Therefore</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\gamma(0)=
-\phi_1\gamma(1)+\phi_2\gamma(2)
-+\sigma_\varepsilon^2[1+\theta_1(\phi_1+\theta_1)].
-}
-\]</div></div>
-<h4>2. \(\gamma(1)\)</h4>
-<p>Multiplying by \(\widetilde X_{t-1}\) and taking expectations gives</p>
-<div class="equation-stack">\[
-\gamma(1)=\phi_1\gamma(0)+\phi_2\gamma(1)
-+\theta_1\sigma_\varepsilon^2.
-\]</div>
-<p>Rearranging,</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\gamma(1)=
-\frac{\phi_1\gamma(0)+\theta_1\sigma_\varepsilon^2}
-{1-\phi_2}.
-}
-\]</div></div>
-<h4>3. \(\gamma(2)\)</h4>
-<p>We multiply the equation by \(\widetilde X_{t-2}\) and take expectations.</p>
-<p>The innovation terms have zero covariance with this older observation, so</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\gamma(2)=\phi_1\gamma(1)+\phi_2\gamma(0).
-}
-\]</div></div>
-<h4>4. Solution of the system</h4>
-
-<p>Setting \(g_h=\gamma(h)/\sigma_\varepsilon^2\), the three equations become</p>
-<div class="equation-stack">\[
- g_0=\frac56g_1-\frac16g_2+\frac{265}{294},\qquad
- g_1=\frac57g_0-\frac6{49},\qquad
- g_2=\frac56g_1-\frac16g_0.
-\]</div>
-<p>Substituting the third equation into the first, then using the second, gives</p>
-<div class="equation-stack">\[
-\begin{aligned}
-\frac{35}{36}g_0&amp;=\frac{25}{36}g_1+\frac{265}{294},\\
-35g_0&amp;=25\left(\frac57g_0-\frac6{49}\right)+\frac{1590}{49},\\
-\frac{120}{7}g_0&amp;=\frac{1440}{49},\qquad g_0=\frac{12}{7}.
-\end{aligned}
-\]</div>
-<div class="equation-stack">\[
-g_1=\frac{60}{49}-\frac6{49}=\frac{54}{49},\qquad
-g_2=\frac{45}{49}-\frac{14}{49}=\frac{31}{49}.
-\]</div>
-<p>With \(\phi_1=5/6,\phi_2=-1/6,\theta_1=-1/7\), we therefore obtain</p>
-
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\gamma(0)=\frac{12}{7}\sigma_\varepsilon^2}
-\]</div></div>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\gamma(1)=\frac{54}{49}\sigma_\varepsilon^2}
-\]</div></div>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\gamma(2)=\frac{31}{49}\sigma_\varepsilon^2}.
-\]</div></div>
-<h4>5. higher lags</h4>
-<p>Since \(q=1\), for \(h&gt;1\) the autocovariances satisfy the AR(2) recurrence:</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\gamma(h)=\frac56\gamma(h-1)-\frac16\gamma(h-2),
-\quad h\ge2.
-}
-\]</div></div>
-<p>For \(h=3\),</p>
-<div class="equation-stack">\[
-\gamma(3)=\frac56\gamma(2)-\frac16\gamma(1).
-\]</div>
-<p>Thus</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\gamma(3)=\frac{101}{294}\sigma_\varepsilon^2}.
-\]</div></div>
-<h4>6. Autocorrelation function</h4>
-<p>Dividing by \(\gamma(0)\) gives</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\rho(0)=1}
-\]</div></div>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\rho(1)=\frac9{14}\approx0.642857}
-\]</div></div>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\rho(2)=\frac{31}{84}\approx0.369048}
-\]</div></div>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{\rho(3)=\frac{101}{504}\approx0.200397}.
-\]</div></div>
-<p>For all \(h\ge2\),</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\rho(h)=\frac56\rho(h-1)-\frac16\rho(h-2).
-}
-\]</div></div>
-<p>Solving this recurrence using its two characteristic roots gives</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\rho(h)=\frac{13}{7}\left(\frac12\right)^h
--\frac67\left(\frac13\right)^h,
-\quad h\ge0.
-}
-\]</div></div>
-<p>The ACF tails off rather than cutting off, because this is a mixed ARMA model.</p>
-
-<p>For negative lags, symmetry gives \(\gamma(-h)=\gamma(h)\) and \(\rho(-h)=\rho(h)\).</p></section></div>
+<div class="solution-givens"><h4>Solution</h4><p>We work with the centred process and write \(\gamma(h)=E[\widetilde X_t\widetilde X_{t-h}]\). From Question 3, \(\psi_0=1\) and \(\psi_1=29/42\).</p></div>
+<h4>1. Equations for the first autocovariances</h4>
+<p>The centred equation is</p>
+<div class="equation-stack">\[\widetilde X_t=\frac56\widetilde X_{t-1}-\frac16\widetilde X_{t-2}+\varepsilon_t-\frac17\varepsilon_{t-1}.\]</div>
+<p>Multiplying by \(\widetilde X_t\) and taking expectations,</p>
+<div class="equation-stack">\[\gamma(0)=\frac56\gamma(1)-\frac16\gamma(2)+E[\varepsilon_t\widetilde X_t]-\frac17E[\varepsilon_{t-1}\widetilde X_t].\]</div>
+<p>The MA representation gives \(E[\varepsilon_t\widetilde X_t]=\sigma_\varepsilon^2\) and \(E[\varepsilon_{t-1}\widetilde X_t]=(29/42)\sigma_\varepsilon^2\). Therefore,</p>
+<div class="equation-stack">\[\gamma(0)=\frac56\gamma(1)-\frac16\gamma(2)+\frac{265}{294}\sigma_\varepsilon^2.\]</div>
+<p>Multiplying instead by \(\widetilde X_{t-1}\), the current innovation is uncorrelated with this observation, while \(E[\varepsilon_{t-1}\widetilde X_{t-1}]=\sigma_\varepsilon^2\). Thus,</p>
+<div class="equation-stack">\[\gamma(1)=\frac56\gamma(0)-\frac16\gamma(1)-\frac17\sigma_\varepsilon^2,\]\[\gamma(1)=\frac57\gamma(0)-\frac6{49}\sigma_\varepsilon^2.\]</div>
+<p>Finally, both innovations are uncorrelated with \(\widetilde X_{t-2}\), so</p>
+<div class="equation-stack">\[\gamma(2)=\frac56\gamma(1)-\frac16\gamma(0).\]</div>
+<h4>2. Solution of the system</h4>
+<p>Setting \(g_h=\gamma(h)/\sigma_\varepsilon^2\), we have</p>
+<div class="equation-stack">\[\begin{cases}g_0=\dfrac56g_1-\dfrac16g_2+\dfrac{265}{294},\\g_1=\dfrac57g_0-\dfrac6{49},\\g_2=\dfrac56g_1-\dfrac16g_0.\end{cases}\]</div>
+<p>Substituting the third equation into the first yields</p>
+<div class="equation-stack">\[\frac{35}{36}g_0=\frac{25}{36}g_1+\frac{265}{294}.\]</div>
+<p>Using the second equation,</p>
+<div class="equation-stack">\[\begin{aligned}\frac{35}{36}g_0&=\frac{25}{36}\left(\frac57g_0-\frac6{49}\right)+\frac{265}{294},\\\frac{10}{21}g_0&=\frac{40}{49},\qquad g_0=\frac{12}{7}.\end{aligned}\]</div>
+<p>It follows that</p>
+<div class="equation-stack">\[g_1=\frac57\cdot\frac{12}{7}-\frac6{49}=\frac{54}{49},\]\[g_2=\frac56\cdot\frac{54}{49}-\frac16\cdot\frac{12}{7}=\frac{31}{49}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\gamma(0)=\frac{12}{7}\sigma_\varepsilon^2,\quad\gamma(1)=\frac{54}{49}\sigma_\varepsilon^2,\quad\gamma(2)=\frac{31}{49}\sigma_\varepsilon^2.}\]</div></div>
+<h4>3. Autocorrelation function</h4>
+<p>Dividing by \(\gamma(0)\),</p>
+<div class="equation-stack">\[\rho(0)=1,\]\[\rho(1)=\frac{54/49}{12/7}=\frac9{14},\qquad\rho(2)=\frac{31/49}{12/7}=\frac{31}{84}.\]</div>
+<p>For \(h\ge2\), both shocks in the centred equation are uncorrelated with \(\widetilde X_{t-h}\). Hence,</p>
+<div class="equation-stack">\[\rho(h)=\frac56\rho(h-1)-\frac16\rho(h-2).\]</div>
+<p>In particular,</p>
+<div class="equation-stack">\[\rho(3)=\frac56\cdot\frac{31}{84}-\frac16\cdot\frac9{14}=\frac{101}{504}.\]</div>
+<p>The recurrence has roots \(1/2\) and \(1/3\), so \(\rho(h)=C(1/2)^h+D(1/3)^h\) for \(h\ge0\). The initial conditions give</p>
+<div class="equation-stack">\[\begin{cases}C+D=1,\\\dfrac C2+\dfrac D3=\dfrac9{14},\end{cases}\quad\Longrightarrow\quad C=\frac{13}{7},\quad D=-\frac67.\]</div>
+<p>Using \(\rho(-h)=\rho(h)\), the ACF at every integer lag is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\rho(h)=\frac{13}{7}\left(\frac12\right)^{|h|}-\frac67\left(\frac13\right)^{|h|},\qquad h\in\mathbb Z.}\]</div></div>
+</section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q5"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 5</button>
 <section class="solution-step answer-panel" id="exercise-1-q5" hidden><h3><span>Question 5</span>First three terms of the PACF</h3><div class="target-form"><span class="target-label">Formulas to use — Question 5</span>
@@ -597,136 +261,28 @@ g_2=\frac{45}{49}-\frac{14}{49}=\frac{31}{49}.
 <p>Replace the last column of \(R_h\) by \(\boldsymbol\rho_h\) to obtain \(R_h^\star\). Calculate both determinants, then divide.</p>
 <p><strong>Conclusion:</strong> report \(\alpha(1),\alpha(2),\alpha(3)\), the first three PACF terms.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>From Question 4, the first three autocorrelations determine the projection equations.</p></div>
-<p>We solve the projection equations by Cramer’s rule.</p>
-<p>We already know</p>
-<div class="equation-stack">\[
-\rho(1)=\frac9{14},\qquad
-\rho(2)=\frac{31}{84},\qquad
-\rho(3)=\frac{101}{504}.
-\]</div>
-<p>The PACF at lag \(h\) is the last coefficient in the linear projection of \(\widetilde X_t\) onto its first \(h\) lags.</p>
-<p>Let \(R_h\) be the autocorrelation matrix and \(R_h^\star\) the same matrix with its last column replaced by the vector of autocorrelations.</p>
-<p>Then</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\alpha(h)=\frac{\det(R_h^\star)}{\det(R_h)}.
-}
-\]</div></div>
-<h4>Lag 1</h4>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\alpha(1)=\rho(1)=\frac9{14}\approx0.642857.
-}
-\]</div></div>
-<h4>Lag 2</h4>
-<div class="equation-stack">\[
-R_2=
-\begin{pmatrix}
-1&amp;\rho(1)\\
-\rho(1)&amp;1
-\end{pmatrix}.
-\]</div>
-<p>Replacing the second column gives</p>
-<div class="equation-stack">\[
-R_2^\star=
-\begin{pmatrix}
-1&amp;\rho(1)\\
-\rho(1)&amp;\rho(2)
-\end{pmatrix}.
-\]</div>
-<p>By Cramer's rule,</p>
-<div class="equation-stack">\[
-\alpha(2)=
-\frac{
-\begin{vmatrix}
-1&amp;\rho(1)\\
-\rho(1)&amp;\rho(2)
-\end{vmatrix}
-}{
-\begin{vmatrix}
-1&amp;\rho(1)\\
-\rho(1)&amp;1
-\end{vmatrix}
-}.
-\]</div>
-<p>Expanding the determinants gives</p>
-<div class="equation-stack">\[
-\alpha(2)=
-\frac{\rho(2)-\rho(1)^2}{1-\rho(1)^2}.
-\]</div>
-<p>Writing \(a=9/14\) and \(b=31/84\),</p><div class="equation-stack">\[
-b-a^2=-\frac{13}{294},\qquad 1-a^2=\frac{115}{196},\qquad
-\frac{-13/294}{115/196}=-\frac{26}{345}.
-\]</div>
-<p>Substituting,</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\alpha(2)=-\frac{26}{345}\approx-0.075362.
-}
-\]</div></div>
-<h4>Lag 3</h4>
-<p>The original autocorrelation matrix is</p>
-<div class="equation-stack">\[
-R_3=
-\begin{pmatrix}
-1&amp;\rho(1)&amp;\rho(2)\\
-\rho(1)&amp;1&amp;\rho(1)\\
-\rho(2)&amp;\rho(1)&amp;1
-\end{pmatrix}.
-\]</div>
-<p>Replacing the last column gives</p>
-<div class="equation-stack">\[
-R_3^\star=
-\begin{pmatrix}
-1&amp;\rho(1)&amp;\rho(1)\\
-\rho(1)&amp;1&amp;\rho(2)\\
-\rho(2)&amp;\rho(1)&amp;\rho(3)
-\end{pmatrix}.
-\]</div>
-<p>Then</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\alpha(3)=\frac{\det(R_3^\star)}{\det(R_3)}.
-}
-\]</div></div>
-<p>With \(a=9/14,\ b=31/84,\ c=101/504\),</p><p>Expanding both three-by-three determinants along the first row gives</p>
-<div class="equation-stack">\[
-\begin{aligned}
-\det(R_3)&amp;=(1-a^2)-a(a-ab)+b(a^2-b)\\
-&amp;=1-2a^2+2a^2b-b^2\\
-&amp;=1-\frac{81}{98}+\frac{837}{2744}-\frac{961}{7056}\\
-&amp;=\frac{16907}{49392},\\
-\det(R_3^\star)&amp;=(c-ab)-a(ac-b^2)+a(a^2-b)\\
-&amp;=c(1-a^2)-2ab+ab^2+a^3\\
-&amp;=\frac{11615-46872+8649+26244}{98784}\\
-&amp;=-\frac{13}{3528}.
-\end{aligned}
-\]</div>
-<p>After inserting the exact ACF coefficients,</p>
-<div class="equation-stack">\[
-\det(R_3^\star)=-\frac{13}{3528},
-\]</div>
-<div class="equation-stack">\[
-\det(R_3)=\frac{16907}{49392}.
-\]</div>
-<p>Therefore</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\alpha(3)=-\frac{182}{16907}\approx-0.010765.
-}
-\]</div></div>
-<h4>Final PACF results</h4>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\begin{aligned}
-\alpha(1)&amp;\approx0.642857,\\
-\alpha(2)&amp;\approx-0.075362,\\
-\alpha(3)&amp;\approx-0.010765.
-\end{aligned}
-}
-\]</div></div>
-<p>The PACF of a mixed ARMA(2,1) generally tails off. It does not necessarily become exactly zero after lag 2.</p>
+<div class="solution-givens"><h4>Solution</h4><p>From Question 4, \(\rho(1)=9/14\), \(\rho(2)=31/84\), and \(\rho(3)=101/504\). We use Cramer’s rule to find the last coefficient in each projection.</p></div>
+<h4>1. Lag one</h4>
+<p>With only one lag, the projection coefficient equals its correlation with the current observation:</p>
+<div class="equation-stack">\[\alpha(1)=\rho(1)=\frac9{14}.\]</div>
+<h4>2. Lag two</h4>
+<p>The correlation matrix and the matrix with its last column replaced are</p>
+<div class="equation-stack">\[R_2=\begin{pmatrix}1&9/14\\9/14&1\end{pmatrix},\qquad R_2^\star=\begin{pmatrix}1&9/14\\9/14&31/84\end{pmatrix}.\]</div>
+<p>Therefore,</p>
+<div class="equation-stack">\[\alpha(2)=\frac{\det R_2^\star}{\det R_2}=\frac{\frac{31}{84}-\left(\frac9{14}\right)^2}{1-\left(\frac9{14}\right)^2}.\]</div>
+<p>The numerator is \(-13/294\), and the denominator is \(115/196\). Hence,</p>
+<div class="equation-stack">\[\alpha(2)=\frac{-13/294}{115/196}=-\frac{26}{345}.\]</div>
+<h4>3. Lag three</h4>
+<p>We write \(a=9/14\), \(b=31/84\), and \(c=101/504\). Then</p>
+<div class="equation-stack">\[R_3=\begin{pmatrix}1&a&b\\a&1&a\\b&a&1\end{pmatrix},\qquad R_3^\star=\begin{pmatrix}1&a&a\\a&1&b\\b&a&c\end{pmatrix}.\]</div>
+<p>Expanding the determinant of \(R_3\) along the first row,</p>
+<div class="equation-stack">\[\begin{aligned}\det R_3&=(1-a^2)-a(a-ab)+b(a^2-b)\\&=1-2a^2+2a^2b-b^2\\&=1-\frac{81}{98}+\frac{837}{2744}-\frac{961}{7056}\\&=\frac{16907}{49392}.\end{aligned}\]</div>
+<p>Similarly, for the numerator,</p>
+<div class="equation-stack">\[\begin{aligned}\det R_3^\star&=(c-ab)-a(ac-b^2)+a(a^2-b)\\&=c(1-a^2)-2ab+ab^2+a^3\\&=\frac{11615-46872+8649+26244}{98784}\\&=-\frac{13}{3528}.\end{aligned}\]</div>
+<p>Thus,</p>
+<div class="equation-stack">\[\alpha(3)=\frac{-13/3528}{16907/49392}=-\frac{182}{16907}.\]</div>
+<p>The first three PACF values are therefore</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\alpha(1)&=\frac9{14}\approx0.642857,\\\alpha(2)&=-\frac{26}{345}\approx-0.075362,\\\alpha(3)&=-\frac{182}{16907}\approx-0.010765.\end{aligned}}\]</div></div>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q6"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 6</button>
@@ -739,96 +295,39 @@ R_3^\star=
 <p>Keep the intercept \(c\) from the original equation. Use observed values for past dates and previously calculated forecasts for future dates. An empty MA sum is zero.</p>
 <p><strong>Conclusion:</strong> calculate horizons 1, 2 and 3, write the general forecast, then take its limit as \(h\to\infty\).</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>We forecast from date \(t\), using the observed history and treating the parameters as known.</p></div>
-<p>Since the representation is fundamental, shocks dated at or before \(t\) are recoverable from the observed history. Future shocks have zero best linear forecast.</p>
-<p>From Question 3,</p>
-<div class="equation-stack">\[
-X_t=6+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}.
-\]</div>
-<p>Thus</p>
-<div class="equation-stack">\[
-X_{t+h}
-=6+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t+h-j}.
-\]</div>
-<p>Separating future shocks from shocks dated at or before \(t\) gives</p>
-<div class="equation-stack">\[
-X_{t+h}
-=6+
-\sum_{j=0}^{h-1}\psi_j\varepsilon_{t+h-j}
-+
-\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j}.
-\]</div>
-<p>The first sum contains future shocks, whose best linear forecasts are zero.</p>
-<p>Therefore the best linear forecast is</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\widehat X_{t+h\mid t}
-=6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j}.
-}
-\]</div></div>
-<p>Equivalently, after reindexing,</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\widehat X_{t+h\mid t}
-=6+\sum_{k=0}^{\infty}\psi_{h+k}\varepsilon_{t-k}.
-}
-\]</div></div>
-<h4>Horizon \(h=1\)</h4>
-<p>Using the original ARMA equation and setting the forecast of \(\varepsilon_{t+1}\) to zero,</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\widehat X_{t+1\mid t}
-=2+\frac56X_t-\frac16X_{t-1}-\frac17\varepsilon_t.
-}
-\]</div></div>
-<p>The current shock \(\varepsilon_t\) is recoverable from the observed history by fundamentalness, whereas \(\varepsilon_{t+1}\) is unknown.</p>
-<h4>Horizon \(h=2\)</h4>
-<p>At date \(t+2\), the model is</p>
-<div class="equation-stack">\[
-X_{t+2}
-=2+\frac56X_{t+1}-\frac16X_t
-+\varepsilon_{t+2}-\frac17\varepsilon_{t+1}.
-\]</div>
-<p>Both future shocks have zero best linear forecast. The unknown observation \(X_{t+1}\) is replaced with its forecast:</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\widehat X_{t+2\mid t}
-=2+\frac56\widehat X_{t+1\mid t}-\frac16X_t.
-}
-\]</div></div>
-<h4>Horizon \(h=3\)</h4>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\widehat X_{t+3\mid t}
-=2+\frac56\widehat X_{t+2\mid t}
--\frac16\widehat X_{t+1\mid t}.
-}
-\]</div></div>
-<h4>General horizon</h4>
-<p>For \(h\ge2\),</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\widehat X_{t+h\mid t}
-=2+\frac56\widehat X_{t+h-1\mid t}
--\frac16\widehat X_{t+h-2\mid t},
-}
-\]</div></div>
-<p>with initial values</p>
-<div class="equation-stack">\[
-\widehat X_{t\mid t}=X_t
-\]</div>
-<p>and the one-step forecast calculated above.</p>
-<p>This recursion is applied for \(h\ge2\); the one-step forecast includes the known shock \(\varepsilon_t\).</p>
-<h4>Infinite horizon</h4>
-<p>As \(h\to\infty\), the stable AR roots imply that the effects of today's information disappear.</p>
-<p>The forecast approaches the unconditional mean:</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\lim_{h\to\infty}\widehat X_{t+h\mid t}=m_X=6.
-}
-\]</div></div>
-
-<p>Thus the best linear forecast converges in mean square to the mean \(m_X=6\).</p></section></div>
+<div class="solution-givens"><h4>Solution</h4><p>The forecast is formed at date \(t\). Current and past innovations are recoverable by fundamentalness, and future innovations have zero best linear forecast.</p></div>
+<h4>1. One-step forecast</h4>
+<p>At date \(t+1\), the model is</p>
+<div class="equation-stack">\[X_{t+1}=2+\frac56X_t-\frac16X_{t-1}+\varepsilon_{t+1}-\frac17\varepsilon_t.\]</div>
+<p>Only \(\varepsilon_{t+1}\) is unknown at date \(t\). Its best linear forecast is zero, so</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\widehat X_{t+1\mid t}=2+\frac56X_t-\frac16X_{t-1}-\frac17\varepsilon_t.}\]</div></div>
+<h4>2. Two-step forecast</h4>
+<p>At date \(t+2\), both \(\varepsilon_{t+2}\) and \(\varepsilon_{t+1}\) have zero forecast. We replace \(X_{t+1}\) by its one-step forecast:</p>
+<div class="equation-stack">\[\widehat X_{t+2\mid t}=2+\frac56\widehat X_{t+1\mid t}-\frac16X_t.\]</div>
+<p>Substituting the previous result gives</p>
+<div class="equation-stack">\[\widehat X_{t+2\mid t}=2+\frac56\left(2+\frac56X_t-\frac16X_{t-1}-\frac17\varepsilon_t\right)-\frac16X_t.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\widehat X_{t+2\mid t}=\frac{11}{3}+\frac{19}{36}X_t-\frac5{36}X_{t-1}-\frac5{42}\varepsilon_t.}\]</div></div>
+<h4>3. Three-step forecast</h4>
+<p>Applying the same recursion,</p>
+<div class="equation-stack">\[\widehat X_{t+3\mid t}=2+\frac56\widehat X_{t+2\mid t}-\frac16\widehat X_{t+1\mid t}.\]</div>
+<p>The coefficients after substitution are</p>
+<div class="equation-stack">\[\begin{aligned}2+\frac56\cdot\frac{11}{3}-\frac16\cdot2&=\frac{85}{18},\\\frac56\cdot\frac{19}{36}-\frac16\cdot\frac56&=\frac{65}{216},\\-\frac56\cdot\frac5{36}+\frac16\cdot\frac16&=-\frac{19}{216},\\-\frac56\cdot\frac5{42}+\frac16\cdot\frac17&=-\frac{19}{252}.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\widehat X_{t+3\mid t}=\frac{85}{18}+\frac{65}{216}X_t-\frac{19}{216}X_{t-1}-\frac{19}{252}\varepsilon_t.}\]</div></div>
+<h4>4. General horizon</h4>
+<p>For every \(h\ge2\), the forecast satisfies</p>
+<div class="equation-stack">\[\widehat X_{t+h\mid t}=2+\frac56\widehat X_{t+h-1\mid t}-\frac16\widehat X_{t+h-2\mid t},\]\[\widehat X_{t\mid t}=X_t.\]</div>
+<p>To solve the recurrence, let \(d_h=\widehat X_{t+h\mid t}-6\). Then \(d_h=(5/6)d_{h-1}-(1/6)d_{h-2}\), with</p>
+<div class="equation-stack">\[d_0=X_t-6,\]\[d_1=\frac56(X_t-6)-\frac16(X_{t-1}-6)-\frac17\varepsilon_t.\]</div>
+<p>The roots are \(1/2\) and \(1/3\), so \(d_h=C(1/2)^h+D(1/3)^h\). From \(C+D=d_0\) and \(C/2+D/3=d_1\),</p>
+<div class="equation-stack">\[C=6d_1-2d_0,\qquad D=3d_0-6d_1.\]</div>
+<p>Hence the forecast at any horizon is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\widehat X_{t+h\mid t}=6&+(6d_1-2d_0)\left(\frac12\right)^h\\&+(3d_0-6d_1)\left(\frac13\right)^h.\end{aligned}}\]</div></div>
+<p>The same forecast follows from the MA representation by keeping the shocks dated at or before \(t\):</p>
+<div class="equation-stack">\[\widehat X_{t+h\mid t}=6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j}.\]</div>
+<h4>5. Infinite horizon</h4>
+<p>Both geometric terms tend to zero. Therefore,</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\lim_{h\to\infty}\widehat X_{t+h\mid t}=6.}\]</div></div>
+</section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q7"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 7</button>
 <section class="solution-step answer-panel" id="exercise-1-q7" hidden><h3><span>Question 7</span>Forecast errors and their variances</h3><div class="target-form"><span class="target-label">Formulas to use — Question 7</span>
@@ -843,167 +342,30 @@ X_{t+2}
 <p>Expand \(\psi_j^2\), then sum each geometric term. For the infinite horizon, take the limit of the variance as \(h\to\infty\).</p>
 <p><strong>Conclusion:</strong> report the error and its variance for each finite horizon, then the limiting error variance.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>From Questions 3 and 6, the forecast error is obtained by subtracting the forecast from the MA representation.</p></div>
-<h4>1. Forecast error definition</h4>
-<p>We set</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-e_t(h)=X_{t+h}-\widehat X_{t+h\mid t}.
-}
-\]</div></div>
-<p>Using the MA(∞) representation from Question 3 and the forecast from Question 6,</p>
-<div class="equation-stack">\[
-e_t(h)=
-\left[6+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t+h-j}\right]
--
-\left[6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j}\right].
-\]</div>
-<p>The already-known terms cancel.</p>
-<p>Therefore</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-e_t(h)=\sum_{j=0}^{h-1}\psi_j\varepsilon_{t+h-j}.
-}
-\]</div></div>
-<p>The forecast error contains only future shocks, unknown when the forecast was made.</p>
-<h4>2. First forecast errors</h4>
-<p>For \(h=1\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-e_t(1)=\varepsilon_{t+1}.
-}
-\]</div></div>
-<p>For \(h=2\):</p>
-<div class="equation-stack">\[
-e_t(2)=\varepsilon_{t+2}+\psi_1\varepsilon_{t+1}.
-\]</div>
-<p>Using \(\psi_1=29/42\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-e_t(2)=\varepsilon_{t+2}
-+\frac{29}{42}\varepsilon_{t+1}.
-}
-\]</div></div>
-<p>For \(h=3\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-e_t(3)=
-\varepsilon_{t+3}
-+\frac{29}{42}\varepsilon_{t+2}
-+\frac{103}{252}\varepsilon_{t+1}.
-}
-\]</div></div>
-<h4>3. Forecast error variance</h4>
-<p>White-noise shocks have constant variance \(\sigma_\varepsilon^2\) and are uncorrelated across dates.</p>
-<p>Hence the variance of the weighted sum is the sum of its squared coefficients multiplied by \(\sigma_\varepsilon^2\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\operatorname{Var}[e_t(h)]
-=\sigma_\varepsilon^2
-\sum_{j=0}^{h-1}\psi_j^2.
-}
-\]</div></div>
-<p>For \(h=1\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\operatorname{Var}[e_t(1)]=\sigma_\varepsilon^2.
-}
-\]</div></div>
-<p>For \(h=2\):</p>
-<div class="equation-stack">\[
-\operatorname{Var}[e_t(2)]
-=\sigma_\varepsilon^2
-\left[1+\left(\frac{29}{42}\right)^2\right].
-\]</div>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\operatorname{Var}[e_t(2)]
-=\frac{2605}{1764}\sigma_\varepsilon^2
-\approx1.476757\sigma_\varepsilon^2.
-}
-\]</div></div>
-<p>For \(h=3\):</p>
-<div class="equation-stack">\[
-\operatorname{Var}[e_t(3)]
-=\sigma_\varepsilon^2
-\left[
-1+\left(\frac{29}{42}\right)^2
-+\left(\frac{103}{252}\right)^2
-\right].
-\]</div>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\operatorname{Var}[e_t(3)]
-=\frac{104389}{63504}\sigma_\varepsilon^2
-\approx1.643818\sigma_\varepsilon^2.
-}
-\]</div></div>
-<h4>4. General horizon</h4>
-<p>We have</p>
-<div class="equation-stack">\[
-\psi_0=1,
-\]</div>
-<p>and, for \(j\ge1\),</p>
-<div class="equation-stack">\[
-\psi_j=
-\frac{15}{14}\left(\frac12\right)^{j-1}
--\frac8{21}\left(\frac13\right)^{j-1}.
-\]</div>
-<p>Therefore</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\operatorname{Var}[e_t(h)]
-=\sigma_\varepsilon^2
-\left[
-1+
-\sum_{j=1}^{h-1}
-\left(
-\frac{15}{14}\left(\frac12\right)^{j-1}
--\frac8{21}\left(\frac13\right)^{j-1}
-\right)^2
-\right].
-}
-\]</div></div>
-<h4>Summing the squared coefficients</h4>
-<p>Writing \(V_h=\operatorname{Var}[e_t(h)]\) and \(n=j-1\), squaring the difference gives</p>
-<div class="equation-stack">\[
-\psi_j^2=\frac{225}{196}\left(\frac14\right)^n
-+\frac{64}{441}\left(\frac19\right)^n
--\frac{40}{49}\left(\frac16\right)^n.
-\]</div>
-<p>Applying \(\sum_{n=0}^{h-2}r^n=(1-r^{h-1})/(1-r)\), with an empty sum for \(h=1\), gives</p>
-<div class="equation-stack">\[
-\begin{aligned}
-\frac{V_h}{\sigma_\varepsilon^2}
-&amp;=1+\frac{75}{49}[1-(1/4)^{h-1}]\\
-&amp;\quad+\frac8{49}[1-(1/9)^{h-1}]\\
-&amp;\quad-\frac{48}{49}[1-(1/6)^{h-1}].
-\end{aligned}
-\]</div>
-<p>The constant is \(1+75/49+8/49-48/49=12/7\).</p>
-<p>Summing the three geometric series gives the closed form valid for integer \(h\ge1\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\operatorname{Var}[e_t(h)]
-=\sigma_\varepsilon^2
-\left[
-\frac{12}{7}
--\frac{75}{49}\left(\frac14\right)^{h-1}
--\frac8{49}\left(\frac19\right)^{h-1}
-+\frac{48}{49}\left(\frac16\right)^{h-1}
-\right].
-}
-\]</div></div>
-<h4>5. Infinite horizon</h4>
-<p>Since \(1/4\), \(1/9\) and \(1/6\) are all strictly smaller than 1, their powers converge to zero as \(h\to\infty\).</p>
-<p>Consequently,</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-\lim_{h\to\infty}\operatorname{Var}[e_t(h)]
-=\frac{12}{7}\sigma_\varepsilon^2.
-}
-\]</div></div>
-<p>This equals the unconditional variance \(\gamma(0)\) found in Question 4.</p>
+<div class="solution-givens"><h4>Solution</h4><p>We subtract the forecast in Question 6 from the future observation, using the MA coefficients found in Question 3.</p></div>
+<h4>1. Forecast error</h4>
+<div class="equation-stack">\[\begin{aligned}e_t(h)&=X_{t+h}-\widehat X_{t+h\mid t}\\&=\left(6+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t+h-j}\right)-\left(6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{t+h-j}\right).\end{aligned}\]</div>
+<p>The known terms cancel, leaving only future shocks:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{e_t(h)=\sum_{j=0}^{h-1}\psi_j\varepsilon_{t+h-j}.}\]</div></div>
+<p>Using \(\psi_0=1\), \(\psi_1=29/42\), and \(\psi_2=103/252\),</p>
+<div class="equation-stack">\[\begin{aligned}e_t(1)&=\varepsilon_{t+1},\\e_t(2)&=\varepsilon_{t+2}+\frac{29}{42}\varepsilon_{t+1},\\e_t(3)&=\varepsilon_{t+3}+\frac{29}{42}\varepsilon_{t+2}+\frac{103}{252}\varepsilon_{t+1}.\end{aligned}\]</div>
+<h4>2. Error variances</h4>
+<p>The innovations are uncorrelated and each has variance \(\sigma_\varepsilon^2\). Thus the cross-covariances vanish:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{V_h:=\operatorname{Var}[e_t(h)]=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.}\]</div></div>
+<p>For the first three horizons,</p>
+<div class="equation-stack">\[\begin{aligned}V_1&=\sigma_\varepsilon^2,\\V_2&=\sigma_\varepsilon^2\left[1+\left(\frac{29}{42}\right)^2\right]=\frac{2605}{1764}\sigma_\varepsilon^2,\\V_3&=\sigma_\varepsilon^2\left[1+\left(\frac{29}{42}\right)^2+\left(\frac{103}{252}\right)^2\right]=\frac{104389}{63504}\sigma_\varepsilon^2.\end{aligned}\]</div>
+<h4>3. Variance at a general horizon</h4>
+<p>For \(j\ge1\), we have \(\psi_j=(15/14)(1/2)^{j-1}-(8/21)(1/3)^{j-1}\). Squaring and setting \(n=j-1\),</p>
+<div class="equation-stack">\[\psi_j^2=\frac{225}{196}\left(\frac14\right)^n+\frac{64}{441}\left(\frac19\right)^n-\frac{40}{49}\left(\frac16\right)^n.\]</div>
+<p>We apply \(\sum_{n=0}^{h-2}a^n=(1-a^{h-1})/(1-a)\) to each term:</p>
+<div class="equation-stack">\[\begin{aligned}\frac{V_h}{\sigma_\varepsilon^2}&=1+\frac{225}{196}\frac{1-(1/4)^{h-1}}{1-1/4}\\&\quad+\frac{64}{441}\frac{1-(1/9)^{h-1}}{1-1/9}-\frac{40}{49}\frac{1-(1/6)^{h-1}}{1-1/6}\\&=1+\frac{75}{49}[1-(1/4)^{h-1}]\\&\quad+\frac8{49}[1-(1/9)^{h-1}]-\frac{48}{49}[1-(1/6)^{h-1}].\end{aligned}\]</div>
+<p>Since \(1+75/49+8/49-48/49=12/7\), this simplifies to</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}V_h=\sigma_\varepsilon^2\Bigg[\frac{12}{7}&-\frac{75}{49}\left(\frac14\right)^{h-1}\\&-\frac8{49}\left(\frac19\right)^{h-1}+\frac{48}{49}\left(\frac16\right)^{h-1}\Bigg],\qquad h\ge1.\end{aligned}}\]</div></div>
+<p>For \(h=1\), the geometric sums are empty and the formula gives \(V_1=\sigma_\varepsilon^2\).</p>
+<h4>4. Infinite horizon</h4>
+<p>The forecast tends to 6, so the long-horizon forecast error is approximately \(X_{t+h}-6\). In the variance formula, each geometric power tends to zero. Therefore,</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\lim_{h\to\infty}V_h=\frac{12}{7}\sigma_\varepsilon^2=\gamma(0).}\]</div></div>
+<p>Moreover, \(V_{h+1}-V_h=\sigma_\varepsilon^2\psi_h^2\ge0\), so the error variance increases towards this limit.</p>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q8"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 8</button>
@@ -1016,99 +378,23 @@ e_t(3)=
 <p>Subtract the margin for the lower endpoint; add it for the upper endpoint.</p>
 <p><strong>Conclusion:</strong> give both endpoints for the requested horizons, stating the Gaussian assumption.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>The forecast and its error variance are known from Questions 6 and 7; Gaussianity is an additional assumption.</p></div>
-<h4>1. Distribution of the forecast error</h4>
-<p>To construct a normal prediction interval, we additionally assume</p>
-<div class="equation-stack">\[
-\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2).
-\]</div>
-<p>We give the general \(1-\alpha\) level and illustrate it at 95%.</p>
-<h4>2. Prediction interval</h4>
-<p>Under Gaussian innovations, the forecast error is normally distributed with mean zero and variance</p>
-<div class="equation-stack">\[
-V_h=\operatorname{Var}[e_t(h)].
-\]</div>
-<p>A \(100(1-\alpha)\%\) prediction interval is</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-PI_{1-\alpha}(h)=
-\left[
-\widehat X_{t+h\mid t}
--z_{1-\alpha/2}\sqrt{V_h},
-\quad
-\widehat X_{t+h\mid t}
-+z_{1-\alpha/2}\sqrt{V_h}
-\right].
-}
-\]</div></div>
-<p>Here, \(z_{1-\alpha/2}\) is the corresponding standard-normal quantile.</p>
-<p>For a 95% prediction interval,</p>
-<div class="equation-stack">\[
-z_{0.975}\approx1.96.
-\]</div>
-<p>Thus</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-PI_{95\%}(h)=
-\widehat X_{t+h\mid t}
-\pm1.96\sqrt{\operatorname{Var}[e_t(h)]}.
-}
-\]</div></div>
-<p>Substituting Question 7:</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-PI_{95\%}(h)=
-\widehat X_{t+h\mid t}
-\pm1.96\sigma_\varepsilon
-\sqrt{\sum_{j=0}^{h-1}\psi_j^2}.
-}
-\]</div></div>
-<h4>3. First horizons</h4>
-<p>For \(h=1\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-PI_{95\%}(1)=
-\widehat X_{t+1\mid t}
-\pm1.96\sigma_\varepsilon.
-}
-\]</div></div>
-<p>For \(h=2\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-PI_{95\%}(2)=
-\widehat X_{t+2\mid t}
-\pm1.96\sigma_\varepsilon
-\sqrt{1+\left(\frac{29}{42}\right)^2}.
-}
-\]</div></div>
-<p>For \(h=3\):</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-PI_{95\%}(3)=
-\widehat X_{t+3\mid t}
-\pm1.96\sigma_\varepsilon
-\sqrt{
-1+\left(\frac{29}{42}\right)^2
-+\left(\frac{103}{252}\right)^2
-}.
-}
-\]</div></div>
-<h4>4. Infinite horizon</h4>
-<p>From Questions 6 and 7,</p>
-<div class="equation-stack">\[
-\widehat X_{t+h\mid t}\longrightarrow6
-\]</div>
-<p>and</p>
-<div class="equation-stack">\[
-\operatorname{Var}[e_t(h)]
-\longrightarrow\frac{12}{7}\sigma_\varepsilon^2.
-\]</div>
-<p>Therefore</p>
-<div class="result-box"><div class="equation-stack">\[
-\boxed{
-PI_{95\%}(\infty)
-=6\pm1.96\sigma_\varepsilon\sqrt{\frac{12}{7}}.
-}
-\]</div></div>
-<p>The interval widens with the horizon and approaches this limiting interval. These normal prediction intervals use the additional iid Gaussian assumption; weak white noise alone does not justify normal coverage.</p></section></div>
+<div class="solution-givens"><h4>Solution</h4><p>For a normal prediction interval, we additionally assume \(\varepsilon_t\overset{iid}{\sim}N(0,\sigma_\varepsilon^2)\). We treat the model parameters as known and use \(V_h\) from Question 7.</p></div>
+<h4>1. General prediction interval</h4>
+<p>The forecast error is a linear combination of future Gaussian innovations. Hence,</p>
+<div class="equation-stack">\[e_t(h)=X_{t+h}-\widehat X_{t+h\mid t}\sim N(0,V_h),\qquad\frac{e_t(h)}{\sqrt{V_h}}\sim N(0,1).\]</div>
+<p>If \(z_{1-\alpha/2}\) is the standard-normal quantile, then</p>
+<div class="equation-stack">\[P\left(-z_{1-\alpha/2}\le\frac{X_{t+h}-\widehat X_{t+h\mid t}}{\sqrt{V_h}}\le z_{1-\alpha/2}\right)=1-\alpha.\]</div>
+<p>Multiplying by \(\sqrt{V_h}\) and adding the forecast gives the interval</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{PI_{1-\alpha}(h)=\left[\widehat X_{t+h\mid t}-z_{1-\alpha/2}\sqrt{V_h},\;\widehat X_{t+h\mid t}+z_{1-\alpha/2}\sqrt{V_h}\right].}\]</div></div>
+<h4>2. Interval at 95%</h4>
+<p>For \(1-\alpha=0.95\), \(z_{0.975}\approx1.96\). Therefore,</p>
+<div class="equation-stack">\[PI_{95\%}(h)=\widehat X_{t+h\mid t}\pm1.96\sigma_\varepsilon\sqrt{\sum_{j=0}^{h-1}\psi_j^2}.\]</div>
+<p>Using the forecasts in Question 6 and the variances in Question 7, the first three intervals are</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}PI_{95\%}(1)&=\widehat X_{t+1\mid t}\pm1.96\sigma_\varepsilon,\\PI_{95\%}(2)&=\widehat X_{t+2\mid t}\pm1.96\sigma_\varepsilon\sqrt{\frac{2605}{1764}},\\PI_{95\%}(3)&=\widehat X_{t+3\mid t}\pm1.96\sigma_\varepsilon\sqrt{\frac{104389}{63504}}.\end{aligned}}\]</div></div>
+<p>In each expression, the minus sign gives the lower endpoint and the plus sign gives the upper endpoint.</p>
+<h4>3. Infinite horizon</h4>
+<p>Since \(\widehat X_{t+h\mid t}\to6\) and \(V_h\to(12/7)\sigma_\varepsilon^2\), the limiting interval is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{PI_{95\%}(\infty)=6\pm1.96\sigma_\varepsilon\sqrt{\frac{12}{7}}.}\]</div></div>
+<p>These normal intervals require the additional Gaussian assumption; weak white noise alone does not determine the distribution needed for normal coverage.</p>
+</section></div>
 </div></section></main></div></body></html>
