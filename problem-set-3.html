@@ -159,8 +159,10 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 </div>
 <div class="solution-givens"><h4>Solution</h4><p>We use the two inverse polynomials from Question 2 and write the representations in terms of \(X_t\), as in the course correction.</p></div>
 <h4>1. MA(∞) representation</h4>
-<p>The MA(∞) representation (using \(X_t\)) is:</p>
-<div class="equation-stack">\[\begin{aligned}X_t&=2\Phi(1)^{-1}+\left(1-\frac17L\right)\sum_{j=0}^{\infty}\left[3\left(\frac12\right)^{j}-2\left(\frac13\right)^{j}\right]\varepsilon_{t-j}\\&=\mu_\Phi+\sum_{j=0}^{\infty}\left[3\left(\frac12\right)^{j}-2\left(\frac13\right)^{j}\right]\left(\varepsilon_{t-j}-\frac17\varepsilon_{t-j-1}\right).\end{aligned}\]</div>
+<p>To keep the coefficients easy to follow, let</p>
+<div class="equation-stack">\[a_j=3\left(\frac12\right)^j-2\left(\frac13\right)^j,\qquad j\ge0,\qquad a_0=1.\]</div>
+<p>These are the coefficients of \(\Phi(L)^{-1}\). The MA(∞) representation (using \(X_t\)) is:</p>
+<div class="equation-stack">\[\begin{aligned}X_t&=2\Phi(1)^{-1}+\left(1-\frac17L\right)\sum_{j=0}^{\infty}a_j\varepsilon_{t-j}\\&=\mu_\Phi+\sum_{j=0}^{\infty}a_j\left(\varepsilon_{t-j}-\frac17\varepsilon_{t-j-1}\right).\end{aligned}\]</div>
 <p>For \(j\in\{0,1,2,\ldots\}\):</p>
 <button class="toggle-btn method-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="q3-ma-reindexing"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> reindexing details — MA(∞)</button>
 <div class="method-panel" id="q3-ma-reindexing" hidden>
@@ -198,10 +200,13 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <p>Simplifying,</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{a_j-\frac17a_{j-1}=\frac{15}{14}\left(\frac12\right)^{j-1}-\frac8{21}\left(\frac13\right)^{j-1}.}\]</div></div>
 </div>
-<div class="equation-stack">\[\begin{aligned}j=0\quad\Rightarrow\quad&\varepsilon_t\quad{\color{#fb7185}\boxed{-\frac17\varepsilon_{t-1}}}\\[12pt]j=1\quad\Rightarrow\quad&{\color{#fb7185}\boxed{\left[3\left(\frac12\right)^{1}-2\left(\frac13\right)^{1}\right]\varepsilon_{t-1}}}\quad{\color{#60a5fa}\boxed{-\frac17\left[3\left(\frac12\right)^{1}-2\left(\frac13\right)^{1}\right]\varepsilon_{t-2}}}\\[12pt]j=2\quad\Rightarrow\quad&{\color{#60a5fa}\boxed{\left[3\left(\frac12\right)^{2}-2\left(\frac13\right)^{2}\right]\varepsilon_{t-2}}}\quad{\color{#4ade80}\boxed{-\frac17\left[3\left(\frac12\right)^{2}-2\left(\frac13\right)^{2}\right]\varepsilon_{t-3}}}\\&\vdots\end{aligned}\]</div>
+<div class="equation-stack">\[\begin{aligned}j=0\quad\Rightarrow\quad&\varepsilon_t\quad{\color{#fb7185}\boxed{-\frac17\varepsilon_{t-1}}}\\[12pt]j=1\quad\Rightarrow\quad&{\color{#fb7185}\boxed{a_1\varepsilon_{t-1}}}\quad{\color{#60a5fa}\boxed{-\frac17a_1\varepsilon_{t-2}}}\\[12pt]j=2\quad\Rightarrow\quad&{\color{#60a5fa}\boxed{a_2\varepsilon_{t-2}}}\quad{\color{#4ade80}\boxed{-\frac17a_2\varepsilon_{t-3}}}\\&\vdots\end{aligned}\]</div>
 <p>Let’s regroup the terms by factoring out. The same colour identifies terms multiplying the same shock:</p>
-<div class="equation-stack">\[\begin{aligned}\varepsilon_t&+{\color{#fb7185}\boxed{\left\{\left[3\left(\frac12\right)^{1}-2\left(\frac13\right)^{1}\right]-\frac17\right\}\varepsilon_{t-1}}}\\&+{\color{#60a5fa}\boxed{\left\{\left[3\left(\frac12\right)^{2}-2\left(\frac13\right)^{2}\right]-\frac17\left[3\left(\frac12\right)^{1}-2\left(\frac13\right)^{1}\right]\right\}\varepsilon_{t-2}}}+\cdots.\end{aligned}\]</div>
-<p>From which we obtain:</p>
+<div class="equation-stack">\[\begin{aligned}\varepsilon_t&+{\color{#fb7185}\boxed{\left\{a_1-\frac17\right\}\varepsilon_{t-1}}}\\&+{\color{#60a5fa}\boxed{\left\{a_2-\frac17a_1\right\}\varepsilon_{t-2}}}+\cdots.\end{aligned}\]</div>
+<p>From which we obtain, since \(a_0=1\):</p>
+<div class="equation-stack">\[X_t=\mu_\Phi+\varepsilon_t+\sum_{j=1}^{\infty}\left(a_j-\frac17a_{j-1}\right)\varepsilon_{t-j}.\]</div>
+<p>Now substitute \(a_j\) and</p>
+<div class="equation-stack">\[a_{j-1}=3\left(\frac12\right)^{j-1}-2\left(\frac13\right)^{j-1}:\]</div>
 <div class="equation-stack">\[X_t=\mu_\Phi+\varepsilon_t+\sum_{j=1}^{\infty}\left\{\left[3\left(\frac12\right)^{j}-2\left(\frac13\right)^{j}\right]-\frac17\left[3\left(\frac12\right)^{j-1}-2\left(\frac13\right)^{j-1}\right]\right\}\varepsilon_{t-j}.\]</div>
 <div class="equation-stack">\[=\mu_\Phi+\varepsilon_t+\sum_{j=1}^{\infty}\left[3\left(\frac12-\frac17\right)\left(\frac12\right)^{j-1}-2\left(\frac13-\frac17\right)\left(\frac13\right)^{j-1}\right]\varepsilon_{t-j}.\]</div>
 <p>where</p>
