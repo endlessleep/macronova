@@ -456,41 +456,46 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q7"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 7</button>
 <section class="solution-step answer-panel" id="exercise-1-q7" hidden><h3><span>Question 7</span>Forecast errors and their variances</h3><div class="target-form"><span class="target-label">Formulas to use — Question 7</span>
-<p><strong>Known innovations (forecast):</strong> only innovations dated \(T\) or earlier are known.</p>
-<div class="equation-stack">\[T+h-j\le T\quad\Longrightarrow\quad j\ge h.\]</div>
-<p><strong>Unknown innovations (forecast error):</strong> future innovations have \(0\le j\le h-1\).</p>
-<div class="equation-stack">\[T+h-j>T\quad\Longrightarrow\quad j&lt;h.\]</div>
-<div class="equation-stack">\[X_{T+h|T}=m_X+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\]</div>
+<p><strong>1. Forecast error:</strong> subtract the forecast. Only future innovations remain.</p>
 <div class="equation-stack">\[e_{T+h|T}=X_{T+h}-X_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.\]</div>
+<p>Known at \(T\): \(T+h-j\le T\Rightarrow j\ge h\). Future: \(T+h-j>T\Rightarrow 0\le j&lt;h\).</p>
+<p><strong>2. Error variance:</strong> square the MA weights, add them, and multiply by the innovation variance.</p>
 <div class="equation-stack">\[V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.\]</div>
+<p>For each horizon, write the result with \(\psi_0,\psi_1,\psi_2\) first; then substitute their expressions from Question 3.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>From the MA(∞) representation established in Question 3:</p></div>
-<div class="equation-stack">\[X_t=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j},\]</div>
-<div class="equation-stack">\[\begin{aligned}\psi_0&=1,\qquad\psi_1=\theta_1+\phi_1\psi_0,\\\psi_j&=\phi_1\psi_{j-1}+\phi_2\psi_{j-2},\qquad j\ge2.\end{aligned}\]</div>
-<p>The future observation and its best linear forecast are</p>
-<div class="equation-stack">\[X_{T+h}=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{T+h-j},\]</div>
-<div class="equation-stack">\[X_{T+h|T}=m_X+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\]</div>
-<p>Subtracting gives</p>
+<div class="solution-givens"><h4>Solution</h4><p>From Question 3,</p></div>
+<div class="equation-stack">\[X_t=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j},\qquad\psi_0=1.\]</div>
+<h4>1. Forecast errors</h4>
+<p>At horizon \(h\), the observation and its forecast are</p>
+<div class="equation-stack">\[\begin{aligned}X_{T+h}&=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{T+h-j},\\X_{T+h|T}&=m_X+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\end{aligned}\]</div>
+<p>The mean and the known innovations cancel:</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.}\]</div></div>
-<div class="equation-stack">\[\begin{aligned}h=1:\quad&e_{T+1|T}=\varepsilon_{T+1},\\h=2:\quad&e_{T+2|T}=\varepsilon_{T+2}+(\phi_1+\theta_1)\varepsilon_{T+1},\\h=3:\quad&e_{T+3|T}=\varepsilon_{T+3}+(\phi_1+\theta_1)\varepsilon_{T+2}\\&\qquad+[\phi_1(\phi_1+\theta_1)+\phi_2]\varepsilon_{T+1}.\end{aligned}\]</div>
-<p>For the general case, with \(e_{T|T}=0\):</p>
-<div class="equation-stack">\[\begin{aligned}e_{T+h|T}={}&\phi_1e_{T+h-1|T}+\phi_2e_{T+h-2|T}\\&+\varepsilon_{T+h}+\theta_1\varepsilon_{T+h-1},\qquad h\ge2.\end{aligned}\]</div>
-<p>Since innovations at different dates are uncorrelated,</p>
+<p><strong>First write the errors with the MA weights:</strong></p>
+<div class="equation-stack">\[\begin{aligned}h=1:\quad&e_{T+1|T}=\psi_0\varepsilon_{T+1}=\varepsilon_{T+1},\\h=2:\quad&e_{T+2|T}=\varepsilon_{T+2}+\psi_1\varepsilon_{T+1},\\h=3:\quad&e_{T+3|T}=\varepsilon_{T+3}+\psi_1\varepsilon_{T+2}+\psi_2\varepsilon_{T+1}.\end{aligned}\]</div>
+<p><strong>Then substitute the coefficients from Question 3:</strong></p>
+<div class="equation-stack">\[\begin{aligned}\psi_1&=\theta_1+\phi_1\psi_0=\phi_1+\theta_1,\\\psi_2&=\phi_1\psi_1+\phi_2\psi_0=\phi_1(\phi_1+\theta_1)+\phi_2.\end{aligned}\]</div>
+<div class="equation-stack">\[\begin{aligned}e_{T+2|T}&=\varepsilon_{T+2}+(\phi_1+\theta_1)\varepsilon_{T+1},\\e_{T+3|T}&=\varepsilon_{T+3}+(\phi_1+\theta_1)\varepsilon_{T+2}\\&\quad+[\phi_1(\phi_1+\theta_1)+\phi_2]\varepsilon_{T+1}.\end{aligned}\]</div>
+<p>For \(h\ge2\), the error also satisfies the recurrence, with \(e_{T|T}=0\):</p>
+<div class="equation-stack">\[\begin{aligned}e_{T+h|T}={}&\phi_1e_{T+h-1|T}+\phi_2e_{T+h-2|T}\\&+\varepsilon_{T+h}+\theta_1\varepsilon_{T+h-1}.\end{aligned}\]</div>
+<h4>2. Forecast-error variance</h4>
+<p>The innovations are uncorrelated, so</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.}\]</div></div>
-<div class="equation-stack">\[\begin{aligned}h=1:\quad&V(e_{T+1|T})=\sigma_\varepsilon^2,\\h=2:\quad&V(e_{T+2|T})=[1+(\phi_1+\theta_1)^2]\sigma_\varepsilon^2,\\h=3:\quad&V(e_{T+3|T})=\big[1+(\phi_1+\theta_1)^2\\&\qquad+(\phi_1(\phi_1+\theta_1)+\phi_2)^2\big]\sigma_\varepsilon^2.\end{aligned}\]</div>
-<p>Finally,</p>
+<p>Again, write the weights first, then substitute:</p>
+<div class="equation-stack">\[\begin{aligned}h=1:\quad V(e_{T+1|T})&=\psi_0^2\sigma_\varepsilon^2=\sigma_\varepsilon^2,\\[6pt]h=2:\quad V(e_{T+2|T})&=(1+\psi_1^2)\sigma_\varepsilon^2\\&=[1+(\phi_1+\theta_1)^2]\sigma_\varepsilon^2,\\[6pt]h=3:\quad V(e_{T+3|T})&=(1+\psi_1^2+\psi_2^2)\sigma_\varepsilon^2\\&=\big[1+(\phi_1+\theta_1)^2\\&\quad+(\phi_1(\phi_1+\theta_1)+\phi_2)^2\big]\sigma_\varepsilon^2.\end{aligned}\]</div>
+<p>Each additional horizon adds one squared weight:</p>
 <div class="equation-stack">\[V(e_{T+h|T})=V(e_{T+h-1|T})+\sigma_\varepsilon^2\psi_{h-1}^2,\qquad h\ge2.\]</div>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q8"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 8</button>
 <section class="solution-step answer-panel" id="exercise-1-q8" hidden><h3><span>Question 8</span>Prediction interval</h3><div class="target-form"><span class="target-label">Formulas to use — Question 8</span>
-<p><strong>Prediction interval:</strong> forecast ± normal critical value × forecast-error standard deviation.</p>
+<p><strong>Build the interval:</strong> take the forecast from Question 6 and the error variance from Question 7.</p>
 <div class="equation-stack">\[X_{T+h|T}\pm z_{\alpha/2}\sqrt{V(e_{T+h|T})}.\]</div>
-<p>Here \(P(Z>z_{\alpha/2})=\alpha/2\) for \(Z\sim\mathcal N(0,1)\). This interval requires Gaussian innovations or an appropriate normal approximation.</p>
+<p>Use \(z_{\alpha/2}\), defined by \(P(Z>z_{\alpha/2})=\alpha/2\) for \(Z\sim\mathcal N(0,1)\). At long horizons, replace the forecast and variance by their limits.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>Using the forecast from Question 6 and its error variance from Question 7, the \((1-\alpha)\)-level prediction interval is</p></div>
+<div class="solution-givens"><h4>Solution</h4><p>Using Questions 6 and 7, the \((1-\alpha)\)-level prediction interval is</p></div>
 <div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}\pm z_{\alpha/2}\sqrt{V(e_{T+h|T})}.}\]</div></div>
-<p>As \(h\to\infty\), the limiting prediction interval is</p>
+<p>Here \(V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2\). The normal-quantile interval assumes Gaussian innovations or an appropriate normal approximation.</p>
+<p>As \(h\to\infty\),</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{m_X\pm z_{\alpha/2}\sqrt{V(X_t)}.}\]</div></div>
 <p>Indeed,</p>
 <div class="equation-stack">\[\lim_{h\to\infty}X_{T+h|T}=m_X,\]</div>
