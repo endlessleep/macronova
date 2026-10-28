@@ -456,172 +456,44 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q7"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 7</button>
 <section class="solution-step answer-panel" id="exercise-1-q7" hidden><h3><span>Question 7</span>Forecast errors and their variances</h3><div class="target-form"><span class="target-label">Formulas to use — Question 7</span>
-<p><strong>Forecast error:</strong> subtract the forecast from the actual future observation.</p>
-<div class="equation-stack">\[e_{T+h|T}=X_{T+h}-X_{T+h|T}.\]</div>
-<p><strong>1. Forecast — known innovations</strong></p>
-<p>At time \(T\), an innovation is known if its date is at most \(T\):</p>
+<p><strong>Known innovations (forecast):</strong> only innovations dated \(T\) or earlier are known.</p>
 <div class="equation-stack">\[T+h-j\le T\quad\Longrightarrow\quad j\ge h.\]</div>
-<p>Therefore:</p>
-<div class="equation-stack">\[\boxed{X_{T+h|T}=6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}}\]</div>
-<p>The sum starts at \(j=h\) because only innovations dated \(T\) or earlier can be used in the forecast.</p>
-<p><strong>2. Forecast error — unknown innovations</strong></p>
-<p>An innovation is unknown at time \(T\) if its date is after \(T\):</p>
+<p><strong>Unknown innovations (forecast error):</strong> future innovations have \(0\le j\le h-1\).</p>
 <div class="equation-stack">\[T+h-j>T\quad\Longrightarrow\quad j&lt;h.\]</div>
-<p>Since \(j\) starts at 0:</p>
-<div class="equation-stack">\[\boxed{e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}}\]</div>
-<p>The forecast error contains only future innovations, which are not known at time \(T\).</p>
-<p><strong>Short horizons:</strong> subtract the recursive forecast from the model at the same date. Replace differences between observations and forecasts by the errors already calculated.</p>
-<p><strong>General error and variance:</strong> use the MA coefficients from Question 3.</p>
-<div class="equation-stack">\[e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j},\qquad\sigma_e^2(h)=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.\]</div>
-<p><strong>Long-run variance:</strong> extend the sum of squared MA weights to infinity and compare it with \(\gamma(0)\).</p>
+<div class="equation-stack">\[X_{T+h|T}=m_X+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\]</div>
+<div class="equation-stack">\[e_{T+h|T}=X_{T+h}-X_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.\]</div>
+<div class="equation-stack">\[V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.\]</div>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>The forecasts are those from Question 6, formed at the fixed origin \(T\). We first identify the error using the MA(∞) representation, then verify horizons 1, 2 and 3 by subtracting the forecasts from the model.</p>
-</div>
-<h4>1. Definition</h4>
-<div class="result-box"><div class="equation-stack">\[\boxed{e_{T+h|T}=X_{T+h}-X_{T+h|T}.}\]</div>
-</div>
-<p>The error is <strong>actual future observation minus its forecast</strong>. A positive error means that the realised observation exceeds the forecast. Write \(\sigma_e^2(h)=\operatorname{Var}(e_{T+h|T})\); it is the variance of the error, not the innovation itself.</p>
-<h4>2. General error and MA weights</h4>
-<p>Question 3 gives a representation in current and past innovations:</p>
-<div class="equation-stack">\[X_t=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j},\qquad\psi_0=1,\]</div>
-<div class="equation-stack">\[\psi_j=\frac{15}{14}\left(\frac12\right)^{j-1}-\frac8{21}\left(\frac13\right)^{j-1},\qquad j\ge1.\]</div>
-<p>These weights are the coefficients of the complete ARMA filter, including the MA term:</p>
-<div class="equation-stack">\[\Psi(L)=\frac{\Theta(L)}{\Phi(L)}=\frac{1-\frac17L}{(1-\frac12L)(1-\frac13L)}=\sum_{j=0}^{\infty}\psi_jL^j.\]</div>
-<p><strong>Recursion for the MA weights.</strong> We can also obtain the weights without substituting into the closed formula. Multiply \(\Psi(L)\) by \(\Phi(L)\):</p>
-<div class="equation-stack">\[(1-\phi_1L-\phi_2L^2)\sum_{j=0}^{\infty}\psi_jL^j=1+\theta_1L,\qquad\phi_1=\frac56,\quad\phi_2=-\frac16,\quad\theta_1=-\frac17.\]</div>
-<p>Match the coefficients of equal powers of \(L\). The constant gives \(\psi_0=1\). The coefficient of \(L\) gives \(\psi_1-\phi_1\psi_0=\theta_1\):</p>
-<div class="equation-stack">\[\psi_0=1,\qquad\psi_1=\theta_1+\phi_1\psi_0=-\frac17+\frac56=\frac{29}{42}.\]</div>
-<p>For \(L^j\) with \(j\ge2\), the coefficient on the right is zero, so \(\psi_j-\phi_1\psi_{j-1}-\phi_2\psi_{j-2}=0\). Thus</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\psi_j=\phi_1\psi_{j-1}+\phi_2\psi_{j-2}=\frac56\psi_{j-1}-\frac16\psi_{j-2},\qquad j\ge2.}\]</div>
-</div>
-<p>In particular,</p>
-<div class="equation-stack">\[\psi_2=\frac56\psi_1-\frac16\psi_0=\frac56\left(\frac56-\frac17\right)-\frac16=\frac{103}{252}.\]</div>
-<p>The MA coefficient \(\theta_1\) enters \(\psi_1\), and this starting value is then propagated by the AR recursion. These weights agree with the formula in Question 3.</p>
-<p>At the future date \(T+h\), split the sum according to whether each innovation is known at \(T\). The inequality \(T+h-j\le T\) is equivalent to \(j\ge h\):</p>
-<div class="equation-stack">\[X_{T+h}=6+\underbrace{\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}}_{\text{future innovations}}+\underbrace{\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}}_{\text{known at }T}.\]</div>
-<p>The best linear forecast retains the known innovations and replaces each future innovation by its zero projection:</p>
-<div class="equation-stack">\[X_{T+h|T}=6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\]</div>
-<p>Subtracting this forecast cancels the mean and all the known terms. Hence, for every finite horizon:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j},\qquad h\ge1.}\]</div>
-</div>
-<p>For \(h=1,2,3\), the sum contains respectively one, two and three innovations:</p>
-<div class="equation-stack">\[\begin{aligned}e_{T+1|T}&=\varepsilon_{T+1},\\e_{T+2|T}&=\varepsilon_{T+2}+\psi_1\varepsilon_{T+1},\\e_{T+3|T}&=\varepsilon_{T+3}+\psi_1\varepsilon_{T+2}+\psi_2\varepsilon_{T+1}.\end{aligned}\]</div>
-<p>The following calculations verify these expressions directly from the model and the forecasts.</p>
-<h4>3. Error and variance at h = 1</h4>
-<p>Write the actual observation and its forecast next to each other:</p>
-<div class="equation-stack">\[\begin{aligned}X_{T+1}&=2+\frac56X_T-\frac16X_{T-1}+\varepsilon_{T+1}-\frac17\varepsilon_T,\\X_{T+1|T}&=2+\frac56X_T-\frac16X_{T-1}-\frac17\varepsilon_T.\end{aligned}\]</div>
-<p>The constant, the known observations and the known innovation have identical coefficients. Subtracting cancels them:</p>
-<div class="equation-stack">\[\begin{aligned}e_{T+1|T}&=(2-2)+\frac56(X_T-X_T)-\frac16(X_{T-1}-X_{T-1})\\&\quad+\varepsilon_{T+1}-\frac17(\varepsilon_T-\varepsilon_T)\\&=\varepsilon_{T+1}.\end{aligned}\]</div>
-<div class="result-box"><div class="equation-stack">\[\boxed{e_{T+1|T}=\varepsilon_{T+1},\qquad\sigma_e^2(1)=\sigma_\varepsilon^2.}\]</div>
-</div>
-<p>The one-step error is exactly the new innovation. Its variance is therefore the innovation variance.</p>
-<h4>4. Error and variance at h = 2</h4>
-<p>At this horizon, the actual model uses \(X_{T+1}\), while the forecast uses \(X_{T+1|T}\):</p>
-<div class="equation-stack">\[\begin{aligned}X_{T+2}&=2+\frac56X_{T+1}-\frac16X_T+\varepsilon_{T+2}-\frac17\varepsilon_{T+1},\\X_{T+2|T}&=2+\frac56X_{T+1|T}-\frac16X_T.\end{aligned}\]</div>
-<p>The constant and the known \(X_T\) cancel. The remaining observation difference is the one-step error:</p>
-<div class="equation-stack">\[\begin{aligned}e_{T+2|T}&=\frac56(X_{T+1}-X_{T+1|T})+\varepsilon_{T+2}-\frac17\varepsilon_{T+1}\\&=\frac56e_{T+1|T}+\varepsilon_{T+2}-\frac17\varepsilon_{T+1}\\&=\varepsilon_{T+2}+\left(\frac56-\frac17\right)\varepsilon_{T+1}.\end{aligned}\]</div>
-<div class="result-box"><div class="equation-stack">\[\boxed{e_{T+2|T}=\varepsilon_{T+2}+\left(\frac56-\frac17\right)\varepsilon_{T+1}.}\]</div>
-</div>
-<p>The shock at \(T+1\) reaches \(X_{T+2}\) through the AR term with weight \(5/6\) and through the MA term with weight \(-1/7\). Add these weights before calculating the variance.</p>
-<p>The innovations at \(T+1\) and \(T+2\) are uncorrelated, so their cross-covariance is zero:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\sigma_e^2(2)=\sigma_\varepsilon^2\left[1+\left(\frac56-\frac17\right)^2\right].}\]</div>
-</div>
-<h4>5. Error and variance at h = 3</h4>
-<p>Subtract the three-step forecast from the actual equation:</p>
-<div class="equation-stack">\[\begin{aligned}X_{T+3}&=2+\frac56X_{T+2}-\frac16X_{T+1}+\varepsilon_{T+3}-\frac17\varepsilon_{T+2},\\X_{T+3|T}&=2+\frac56X_{T+2|T}-\frac16X_{T+1|T}.\end{aligned}\]</div>
-<p>Replace each observation minus its forecast by the corresponding error:</p>
-<div class="equation-stack">\[\begin{aligned}e_{T+3|T}&=\frac56(X_{T+2}-X_{T+2|T})-\frac16(X_{T+1}-X_{T+1|T})\\&\quad+\varepsilon_{T+3}-\frac17\varepsilon_{T+2}\\&=\frac56e_{T+2|T}-\frac16e_{T+1|T}+\varepsilon_{T+3}-\frac17\varepsilon_{T+2}.\end{aligned}\]</div>
-<p>Substitute the errors already calculated at horizons 1 and 2:</p>
-<div class="equation-stack">\[\begin{aligned}e_{T+3|T}={}&\frac56\left[\varepsilon_{T+2}+\left(\frac56-\frac17\right)\varepsilon_{T+1}\right]-\frac16\varepsilon_{T+1}\\&+\varepsilon_{T+3}-\frac17\varepsilon_{T+2}.\end{aligned}\]</div>
-<p>Group the coefficients of each innovation date:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}e_{T+3|T}={}&\varepsilon_{T+3}+\left(\frac56-\frac17\right)\varepsilon_{T+2}\\&+\left[\frac56\left(\frac56-\frac17\right)-\frac16\right]\varepsilon_{T+1}.\end{aligned}}\]</div>
-</div>
-<p>The oldest shock is propagated through the first AR lag, and the second AR lag adds the contribution \(-1/6\). Using uncorrelated innovations again, square the three weights and add their variance contributions:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\sigma_e^2(3)=\sigma_\varepsilon^2\Bigg\{1&+\left(\frac56-\frac17\right)^2\\&+\left[\frac56\left(\frac56-\frac17\right)-\frac16\right]^2\Bigg\}.\end{aligned}}\]</div>
-</div>
-<h4>6. Forecast-error recurrence</h4>
-<p>The same subtraction works at any horizon \(h\ge2\). Write the model and the forecast from Question 6 with \(\phi_1=5/6\), \(\phi_2=-1/6\), and \(\theta_1=-1/7\):</p>
-<div class="equation-stack">\[\begin{aligned}X_{T+h}&=2+\phi_1X_{T+h-1}+\phi_2X_{T+h-2}+\varepsilon_{T+h}+\theta_1\varepsilon_{T+h-1},\\X_{T+h|T}&=2+\phi_1X_{T+h-1|T}+\phi_2X_{T+h-2|T}.\end{aligned}\]</div>
-<p>The constants cancel. Each actual observation minus its forecast becomes the error at that horizon:</p>
-<div class="equation-stack">\[\begin{aligned}e_{T+h|T}={}&\phi_1(X_{T+h-1}-X_{T+h-1|T})\\&+\phi_2(X_{T+h-2}-X_{T+h-2|T})\\&+\varepsilon_{T+h}+\theta_1\varepsilon_{T+h-1}.\end{aligned}\]</div>
-<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}e_{T+h|T}={}&\phi_1e_{T+h-1|T}+\phi_2e_{T+h-2|T}\\&+\varepsilon_{T+h}+\theta_1\varepsilon_{T+h-1},\qquad h\ge2.\end{aligned}}\]</div>
-</div>
-<p>The initial conditions are</p>
-<div class="equation-stack">\[e_{T|T}=X_T-X_{T|T}=0,\qquad e_{T+1|T}=\varepsilon_{T+1}.\]</div>
-<p>The current observation has no forecast error because it is already known. At \(h=2\), the term \(\phi_2e_{T|T}\) is therefore zero, recovering the two-step error above. All errors in this recursion use the same forecast origin \(T\).</p>
-<h4>7. General forecast-error variance</h4>
-<p>For a weighted sum of innovations, the variance includes squared-weight terms and cross-covariance terms:</p>
-<div class="equation-stack">\[\begin{aligned}\operatorname{Var}(e_{T+h|T})={}&\sum_{j=0}^{h-1}\psi_j^2\operatorname{Var}(\varepsilon_{T+h-j})\\&+2\sum_{0\le i&lt;j\le h-1}\psi_i\psi_j\operatorname{Cov}(\varepsilon_{T+h-i},\varepsilon_{T+h-j}).\end{aligned}\]</div>
-<p>Different innovation dates are uncorrelated, so every cross-covariance is zero. Each innovation has variance \(\sigma_\varepsilon^2\). Therefore:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{\sigma_e^2(h)=\operatorname{Var}(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.}\]</div>
-</div>
-<p>We <strong>sum the squared weights</strong> because they multiply different, uncorrelated innovations. Squaring the sum of the weights would introduce cross terms that do not belong in this variance.</p>
-<p>Substitute the coefficients from Question 3 and separate \(\psi_0^2=1\):</p>
-<div class="equation-stack">\[\boxed{\sigma_e^2(h)=\sigma_\varepsilon^2\left[1+\sum_{j=1}^{h-1}\left(\frac{15}{14}\left(\frac12\right)^{j-1}-\frac8{21}\left(\frac13\right)^{j-1}\right)^2\right].}\]</div>
-<p>Using the first MA weights, the three variances already calculated are</p>
-<div class="equation-stack">\[\begin{aligned}\sigma_e^2(1)&=\sigma_\varepsilon^2,\\\sigma_e^2(2)&=(1+\psi_1^2)\sigma_\varepsilon^2,\\\sigma_e^2(3)&=(1+\psi_1^2+\psi_2^2)\sigma_\varepsilon^2.\end{aligned}\]</div>
-<p><strong>Recursion for the variance.</strong> Separate the last squared weight from the sum at horizon \(h\):</p>
-<div class="equation-stack">\[\begin{aligned}\sigma_e^2(h)&=\sigma_\varepsilon^2\sum_{j=0}^{h-2}\psi_j^2+\sigma_\varepsilon^2\psi_{h-1}^2\\&=\sigma_e^2(h-1)+\sigma_\varepsilon^2\psi_{h-1}^2.\end{aligned}\]</div>
-<div class="result-box"><div class="equation-stack">\[\boxed{\sigma_e^2(h)=\sigma_e^2(h-1)+\sigma_\varepsilon^2\psi_{h-1}^2,\qquad h\ge2.}\]</div>
-</div>
-<p>At \(h=1\), the sum from 1 to 0 is empty and \(\sigma_e^2(1)=\sigma_\varepsilon^2\). Each new horizon adds one squared MA weight times the innovation variance, a nonnegative amount. Equivalently, \(\sigma_e^2(h+1)-\sigma_e^2(h)=\sigma_\varepsilon^2\psi_h^2\ge0\), so forecast-error variance cannot decrease.</p>
-<h4>8. Long-run forecast-error variance</h4>
-<p>As the horizon increases, the variance includes more MA weights. Since the stationary process has square-summable weights,</p>
-<div class="equation-stack">\[\lim_{h\to\infty}\sigma_e^2(h)=\sigma_\varepsilon^2\sum_{j=0}^{\infty}\psi_j^2=\operatorname{Var}(X_t)=\gamma(0).\]</div>
-<p>We can verify the value directly. Set \(n=j-1\) for the terms with \(j\ge1\), expand the square, and sum the three geometric series:</p>
-<div class="equation-stack">\[\begin{aligned}\sum_{j=0}^{\infty}\psi_j^2&=1+\frac{225}{196}\sum_{n=0}^{\infty}\left(\frac14\right)^n\\&\quad+\frac{64}{441}\sum_{n=0}^{\infty}\left(\frac19\right)^n-\frac{40}{49}\sum_{n=0}^{\infty}\left(\frac16\right)^n\\&=1+\frac{225}{196}\frac{1}{1-1/4}\\&\quad+\frac{64}{441}\frac{1}{1-1/9}-\frac{40}{49}\frac{1}{1-1/6}\\&=1+\frac{75}{49}+\frac8{49}-\frac{48}{49}=\frac{12}{7}.\end{aligned}\]</div>
-<div class="result-box"><div class="equation-stack">\[\boxed{\lim_{h\to\infty}\sigma_e^2(h)=\gamma(0)=\frac{12}{7}\sigma_\varepsilon^2.}\]</div>
-</div>
-<p>This matches the unconditional variance in Question 4. The forecast loses the influence of current information at long horizons, but future innovations still create uncertainty. The limit here concerns the error variance; every forecast error above is defined at a finite horizon.</p>
+<div class="solution-givens"><h4>Solution</h4><p>From the MA(∞) representation established in Question 3:</p></div>
+<div class="equation-stack">\[X_t=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j},\]</div>
+<div class="equation-stack">\[\begin{aligned}\psi_0&=1,\qquad\psi_1=\theta_1+\phi_1\psi_0,\\\psi_j&=\phi_1\psi_{j-1}+\phi_2\psi_{j-2},\qquad j\ge2.\end{aligned}\]</div>
+<p>The future observation and its best linear forecast are</p>
+<div class="equation-stack">\[X_{T+h}=m_X+\sum_{j=0}^{\infty}\psi_j\varepsilon_{T+h-j},\]</div>
+<div class="equation-stack">\[X_{T+h|T}=m_X+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\]</div>
+<p>Subtracting gives</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.}\]</div></div>
+<div class="equation-stack">\[\begin{aligned}h=1:\quad&e_{T+1|T}=\varepsilon_{T+1},\\h=2:\quad&e_{T+2|T}=\varepsilon_{T+2}+(\phi_1+\theta_1)\varepsilon_{T+1},\\h=3:\quad&e_{T+3|T}=\varepsilon_{T+3}+(\phi_1+\theta_1)\varepsilon_{T+2}\\&\qquad+[\phi_1(\phi_1+\theta_1)+\phi_2]\varepsilon_{T+1}.\end{aligned}\]</div>
+<p>For the general case, with \(e_{T|T}=0\):</p>
+<div class="equation-stack">\[\begin{aligned}e_{T+h|T}={}&\phi_1e_{T+h-1|T}+\phi_2e_{T+h-2|T}\\&+\varepsilon_{T+h}+\theta_1\varepsilon_{T+h-1},\qquad h\ge2.\end{aligned}\]</div>
+<p>Since innovations at different dates are uncorrelated,</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.}\]</div></div>
+<div class="equation-stack">\[\begin{aligned}h=1:\quad&V(e_{T+1|T})=\sigma_\varepsilon^2,\\h=2:\quad&V(e_{T+2|T})=[1+(\phi_1+\theta_1)^2]\sigma_\varepsilon^2,\\h=3:\quad&V(e_{T+3|T})=\big[1+(\phi_1+\theta_1)^2\\&\qquad+(\phi_1(\phi_1+\theta_1)+\phi_2)^2\big]\sigma_\varepsilon^2.\end{aligned}\]</div>
+<p>Finally,</p>
+<div class="equation-stack">\[V(e_{T+h|T})=V(e_{T+h-1|T})+\sigma_\varepsilon^2\psi_{h-1}^2,\qquad h\ge2.\]</div>
 </section></div>
 
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q8"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 8</button>
 <section class="solution-step answer-panel" id="exercise-1-q8" hidden><h3><span>Question 8</span>Prediction interval</h3><div class="target-form"><span class="target-label">Formulas to use — Question 8</span>
-<p><strong>Additional assumption:</strong> Gaussian white noise is needed for the normal prediction interval.</p>
-<div class="equation-stack">\[\varepsilon_t\overset{\mathrm{iid}}{\sim}\mathcal N(0,\sigma_\varepsilon^2).\]</div>
-<p><strong>Standardisation:</strong> divide the forecast error by its standard deviation from Question 7.</p>
-<div class="equation-stack">\[\frac{X_{T+h}-X_{T+h|T}}{\sqrt{\sigma_e^2(h)}}\sim\mathcal N(0,1).\]</div>
-<p><strong>Positive critical value:</strong> for \(Z\sim\mathcal N(0,1)\), define \(z_{\alpha/2}>0\) by \(P(Z>z_{\alpha/2})=\alpha/2\).</p>
-<p><strong>Endpoints:</strong> use the forecast as the centre and add or subtract the critical value times the error standard deviation.</p>
-<div class="equation-stack">\[X_{T+h|T}\pm z_{\alpha/2}\sqrt{\sigma_e^2(h)}.\]</div>
+<p><strong>Prediction interval:</strong> forecast ± normal critical value × forecast-error standard deviation.</p>
+<div class="equation-stack">\[X_{T+h|T}\pm z_{\alpha/2}\sqrt{V(e_{T+h|T})}.\]</div>
+<p>Here \(P(Z>z_{\alpha/2})=\alpha/2\) for \(Z\sim\mathcal N(0,1)\). This interval requires Gaussian innovations or an appropriate normal approximation.</p>
 </div>
-<div class="solution-givens"><h4>Solution</h4><p>Use \(X_{T+h|T}\) from Question 6 as the centre and \(\sigma_e^2(h)\) from Question 7 to measure forecast uncertainty. All intervals are formed at date \(T\), with model parameters treated as known.</p>
-</div>
-<h4>1. Gaussian assumption</h4>
-<p><strong>Assume the innovations are Gaussian white noise:</strong></p>
-<div class="equation-stack">\[\varepsilon_t\overset{\mathrm{iid}}{\sim}\mathcal N(0,\sigma_\varepsilon^2).\]</div>
-<p>The original weak-white-noise assumption gives zero means, a common variance and zero autocovariances. It does not determine a normal distribution. The Gaussian assumption is additional: it makes the weighted sum of future innovations in Question 7 normal, so normal critical values can be used.</p>
-<p>Future iid innovations are independent of the information at \(T\). Consequently, the forecast error has the following distribution conditional on that information:</p>
-<div class="equation-stack">\[e_{T+h|T}\mid\Omega_T\sim\mathcal N(0,\sigma_e^2(h)),\qquad X_{T+h}\mid\Omega_T\sim\mathcal N(X_{T+h|T},\sigma_e^2(h)).\]</div>
-<h4>2. General prediction interval</h4>
-<p>Let \(z_{\alpha/2}\) be the <strong>positive upper-tail critical value</strong> of a standard normal variable:</p>
-<div class="equation-stack">\[P(Z>z_{\alpha/2})=\frac\alpha2,\qquad Z\sim\mathcal N(0,1).\]</div>
-<p>There is probability \(\alpha/2\) in each tail. Standardising the error therefore gives</p>
-<div class="equation-stack">\[P\left(-z_{\alpha/2}\le\frac{X_{T+h}-X_{T+h|T}}{\sqrt{\sigma_e^2(h)}}\le z_{\alpha/2}\,\middle|\,\Omega_T\right)=1-\alpha.\]</div>
-<p>Multiply by \(\sqrt{\sigma_e^2(h)}\) and add \(X_{T+h|T}\) to obtain the interval for the future observation:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}\pm z_{\alpha/2}\sqrt{\sigma_e^2(h)}.}\]</div>
-</div>
-<p>From Question 7, \(\sigma_e^2(h)=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2\). Taking its square root gives</p>
-<div class="equation-stack">\[\boxed{X_{T+h|T}\pm z_{\alpha/2}\sigma_\varepsilon\sqrt{\sum_{j=0}^{h-1}\psi_j^2}.}\]</div>
-<p>The forecast is the <strong>centre</strong>. The forecast-error standard deviation determines the <strong>width</strong>: the total width is \(2z_{\alpha/2}\sqrt{\sigma_e^2(h)}\). Subtract the margin for the lower bound and add it for the upper bound.</p>
-<h4>3. Prediction interval at 95%</h4>
-<p>For \(\alpha=5\%\), each tail has probability \(2.5\%\), so \(z_{\alpha/2}=z_{0.025}\approx1.96\) under the upper-tail convention defined above. Hence the 95% interval is</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}\pm1.96\,\sigma_\varepsilon\sqrt{\sum_{j=0}^{h-1}\psi_j^2}.}\]</div>
-</div>
-<p>Written as lower and upper endpoints, this is</p>
-<div class="equation-stack">\[\left[X_{T+h|T}-1.96\sqrt{\sigma_e^2(h)},\quad X_{T+h|T}+1.96\sqrt{\sigma_e^2(h)}\right].\]</div>
-<p>For example, the first two horizons use the variances already obtained by subtraction in Question 7:</p>
-<div class="equation-stack">\[\begin{aligned}h=1:\quad&X_{T+1|T}\pm1.96\,\sigma_\varepsilon,\\[6pt]h=2:\quad&X_{T+2|T}\pm1.96\,\sigma_\varepsilon\sqrt{1+\left(\frac56-\frac17\right)^2}.\end{aligned}\]</div>
-<p>At \(h=3\), use \(X_{T+3|T}\) from Question 6 and the three-term error variance from Question 7 in exactly the same interval formula.</p>
-<h4>4. Long-run prediction interval</h4>
-<p>The centre and the error variance have limits established in Questions 6 and 7:</p>
-<div class="equation-stack">\[\lim_{h\to\infty}X_{T+h|T}=6,\qquad\lim_{h\to\infty}\sigma_e^2(h)=\frac{12}{7}\sigma_\varepsilon^2.\]</div>
-<p>Substitute these limits into the endpoints of the \((1-\alpha)\)-level interval:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{6\pm z_{\alpha/2}\sigma_\varepsilon\sqrt{\frac{12}{7}}.}\]</div>
-</div>
-<p>For 95% coverage, \(z_{\alpha/2}\approx1.96\), giving:</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{6\pm1.96\,\sigma_\varepsilon\sqrt{\frac{12}{7}}.}\]</div>
-</div>
-<p>The long-run forecast converges to the unconditional mean, but the interval retains a positive width. Future innovations remain unpredictable, so uncertainty does not disappear when the effect of current information vanishes.</p>
+<div class="solution-givens"><h4>Solution</h4><p>Using the forecast from Question 6 and its error variance from Question 7, the \((1-\alpha)\)-level prediction interval is</p></div>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}\pm z_{\alpha/2}\sqrt{V(e_{T+h|T})}.}\]</div></div>
+<p>As \(h\to\infty\), the limiting prediction interval is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{m_X\pm z_{\alpha/2}\sqrt{V(X_t)}.}\]</div></div>
+<p>Indeed,</p>
+<div class="equation-stack">\[\lim_{h\to\infty}X_{T+h|T}=m_X,\]</div>
+<div class="equation-stack">\[\lim_{h\to\infty}V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{\infty}\psi_j^2=V(X_t).\]</div>
 </section></div>
 </div></section></main></div></body></html>
