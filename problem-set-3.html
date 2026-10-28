@@ -458,6 +458,18 @@ X_t=2+\frac56X_{t-1}-\frac16X_{t-2}
 <section class="solution-step answer-panel" id="exercise-1-q7" hidden><h3><span>Question 7</span>Forecast errors and their variances</h3><div class="target-form"><span class="target-label">Formulas to use — Question 7</span>
 <p><strong>Forecast error:</strong> subtract the forecast from the actual future observation.</p>
 <div class="equation-stack">\[e_{T+h|T}=X_{T+h}-X_{T+h|T}.\]</div>
+<p><strong>1. Forecast — known innovations</strong></p>
+<p>At time \(T\), an innovation is known if its date is at most \(T\):</p>
+<div class="equation-stack">\[T+h-j\le T\quad\Longrightarrow\quad j\ge h.\]</div>
+<p>Therefore:</p>
+<div class="equation-stack">\[\boxed{X_{T+h|T}=6+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}}\]</div>
+<p>The sum starts at \(j=h\) because only innovations dated \(T\) or earlier can be used in the forecast.</p>
+<p><strong>2. Forecast error — unknown innovations</strong></p>
+<p>An innovation is unknown at time \(T\) if its date is after \(T\):</p>
+<div class="equation-stack">\[T+h-j>T\quad\Longrightarrow\quad j&lt;h.\]</div>
+<p>Since \(j\) starts at 0:</p>
+<div class="equation-stack">\[\boxed{e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}}\]</div>
+<p>The forecast error contains only future innovations, which are not known at time \(T\).</p>
 <p><strong>Short horizons:</strong> subtract the recursive forecast from the model at the same date. Replace differences between observations and forecasts by the errors already calculated.</p>
 <p><strong>General error and variance:</strong> use the MA coefficients from Question 3.</p>
 <div class="equation-stack">\[e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j},\qquad\sigma_e^2(h)=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.\]</div>
