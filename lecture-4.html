@@ -80,6 +80,26 @@
     #ar-irf .results-table th:first-child { width: 20%; }
     .lecture-page mjx-container[display="true"] { max-width: 100%; }
     .lecture-page mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+    /* Teal accents distinguish worked model examples. */
+    .lecture-page .example-block {
+      --accent: #5eead4;
+      --accent-bright: #99f6e4;
+      --accent-muted: rgba(94, 234, 212, .08);
+      --accent-border: rgba(94, 234, 212, .3);
+      background: #132326;
+      border-color: var(--accent-border);
+    }
+    .lecture-page .lecture-block.example-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+    }
+    .lecture-page .example-block > h3,
+    .lecture-page .example-block > .section-header h2 { color: var(--accent-bright); }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-block.example-block { padding: 16px 12px; }
+    }
   </style>
 </head>
 <body data-math class="lecture-page">
@@ -155,7 +175,7 @@
 <section class="concept-card violet-top lecture-section" id="ar-forecasts" aria-labelledby="ar-forecasts-title">
 <div class="section-header"><span class="section-label">AR models</span><h2 id="ar-forecasts-title">Autoregressive forecasts</h2></div>
 <p>Assume iid Gaussian innovations with mean zero and variance \(\sigma_\varepsilon^2\).</p>
-<div class="lecture-block"><h3>Stationary AR(1)</h3>
+<div class="lecture-block example-block"><h3>Stationary AR(1)</h3>
 <div class="equation-stack">\[X_t=\mu+\phi X_{t-1}+\varepsilon_t,\qquad |\phi|&lt;1.\]</div>
 <p>Iterate the equation forward:</p>
 <div class="equation-stack">\[X_{T+1}=\mu+\phi X_T+\varepsilon_{T+1},\]</div>
@@ -180,7 +200,7 @@
 <section class="concept-card violet-top lecture-section" id="ma-forecasts" aria-labelledby="ma-forecasts-title">
 <div class="section-header"><span class="section-label">MA models</span><h2 id="ma-forecasts-title">Moving-average forecasts</h2></div>
 <p>Use the fundamental representation so that the past innovations in the formulas are recoverable from \(\Omega_T\). The MA examples assume iid Gaussian innovations.</p>
-<div class="lecture-block"><h3>MA(1)</h3>
+<div class="lecture-block example-block"><h3>MA(1)</h3>
 <div class="equation-stack">\[X_t=\mu+\varepsilon_t+\theta\varepsilon_{t-1},\]</div>
 <div class="equation-stack">\[X_{T+h}=\mu+\varepsilon_{T+h}+\theta\varepsilon_{T+h-1}.\]</div>
 <p>At \(h=1\), the second innovation is \(\varepsilon_T\), which is known. For \(h&gt;1\), both innovations are future shocks.</p>
@@ -223,7 +243,7 @@
 </section>
 <section class="concept-card violet-top lecture-section" id="long-horizons" aria-labelledby="long-horizons-title">
 <div class="section-header"><span class="section-label">Comparison</span><h2 id="long-horizons-title">Random walk and long horizons</h2></div>
-<div class="lecture-block"><h3>Random walk with drift</h3>
+<div class="lecture-block example-block"><h3>Random walk with drift</h3>
 <div class="equation-stack">\[X_t=\mu+X_{t-1}+\varepsilon_t,\qquad \varepsilon_t\sim\mathcal N(0,\sigma^2).\]</div>
 <p>The one-step forecast and its continuation are</p>
 <div class="equation-stack">\[X_{T+1|T}=\mu+X_T,\]</div>
@@ -238,7 +258,7 @@
 <table class="results-table"><caption>Long-horizon forecasts and uncertainty</caption><thead><tr><th scope="col">Stationary AR(1)</th><th scope="col">Random walk</th></tr></thead><tbody><tr><td>Forecast tends to \(m_X\).</td><td>Forecast is \(h\mu+X_T\).</td></tr><tr><td>Current information eventually vanishes from the forecast.</td><td>The forecast retains \(X_T\); shocks have permanent effects.</td></tr><tr><td>\(\operatorname V(e_{T+h|T})\) tends to \(\frac{\sigma^2}{1-\phi^2}\).</td><td>Variance \(h\sigma^2\) grows without bound.</td></tr></tbody></table>
 </div>
 </section>
-<section class="concept-card violet-top lecture-section" id="arma11" aria-labelledby="arma11-title">
+<section class="concept-card violet-top lecture-section example-block" id="arma11" aria-labelledby="arma11-title">
 <div class="section-header"><span class="section-label">Example</span><h2 id="arma11-title">ARMA(1,1) example</h2></div>
 <div class="equation-stack">\[\begin{aligned}X_t&amp;=\mu+\phi X_{t-1}+\varepsilon_t+\theta\varepsilon_{t-1},\\\varepsilon_t&amp;\sim\mathcal N(0,\sigma^2).\end{aligned}\]</div>
 <p>Assume a stationary, causal and fundamental representation. In this case \(m_X=\mu/(1-\phi)\), \(\psi_0=1\), and</p>
@@ -281,13 +301,13 @@
 </section>
 <section class="concept-card violet-top lecture-section" id="ar-irf" aria-labelledby="ar-irf-title">
 <div class="section-header"><span class="section-label">AR models</span><h2 id="ar-irf-title">Autoregressive impulse responses</h2></div>
-<div class="lecture-block"><h3>AR(1)</h3>
+<div class="lecture-block example-block"><h3>AR(1)</h3>
 <div class="equation-stack">\[X_t=\phi X_{t-1}+\varepsilon_t\]\[\Rightarrow\quad X_t=\sum_{j=0}^{\infty}\phi^j\varepsilon_{t-j}.\]</div>
 <p>For the causal stationary representation,</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{IRF}(h)=\psi_h=\phi^h,\qquad h\ge0.}\]</div></div>
 <p>The sequence is \(1,\phi,\phi^2,\phi^3,\ldots\); a temporary innovation can affect many later observations.</p>
 </div>
-<div class="lecture-block"><h3>AR(2): characteristic-root form</h3>
+<div class="lecture-block example-block"><h3>AR(2): characteristic-root form</h3>
 <p>For distinct characteristic roots \(z_1,z_2\) of \(\Phi\), the MA coefficients can be written as:</p>
 <div class="equation-stack">\[X_t=\sum_{j=0}^{\infty}\underbrace{\left(\alpha z_1^{-j}+\beta z_2^{-j}\right)}_{\psi_j}\varepsilon_{t-j}.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{IRF}(h)=\alpha z_1^{-h}+\beta z_2^{-h},\qquad h\ge1.}\]</div></div>
