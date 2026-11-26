@@ -199,17 +199,17 @@
 <div class="target-form"><span class="target-label">Formulas to use — Question 4</span>
 
 <p><strong>Combine the previous two results:</strong> forecast ± critical value × forecast-error standard deviation.</p>
-<div class="equation-stack">\[X_{T+h|T}\pm z_{\alpha/2}\sqrt{V(e_{T+h|T})}.\]</div>
-<p>Here \(P(Z&gt;z_{\alpha/2})=\alpha/2\) for \(Z\sim\mathcal N(0,1)\). At long horizons, substitute the limits of the forecast and variance.</p>
+<div class="equation-stack">\[X_{T+h|T}\pm z_{1-\alpha/2}\sqrt{V(e_{T+h|T})}.\]</div>
+<p>Here \(P(Z\le z_{1-\alpha/2})=1-\alpha/2\) for \(Z\sim\mathcal N(0,1)\). At long horizons, substitute the limits of the forecast and variance.</p>
 
 </div>
 <div class="solution-givens"><h4>Solution</h4></div>
 
 <p>Using the forecast from Question 2 and the variance from Question 3, the \((1-\alpha)\)-level prediction interval is</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}\pm z_{\alpha/2}\sqrt{V(e_{T+h|T})}.}\]</div></div>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}\pm z_{1-\alpha/2}\sqrt{V(e_{T+h|T})}.}\]</div></div>
 <p>This normal-quantile interval requires Gaussian innovations or an appropriate normal approximation; weak white noise alone is not sufficient.</p>
 <p>Since \(X_{T+h|T}\to0\) and \(V(e_{T+h|T})\to\frac{28}{27}\sigma_\varepsilon^2\), its limiting form is</p>
-<div class="result-box"><div class="equation-stack">\[\boxed{0\pm z_{\alpha/2}\sqrt{\frac{28}{27}\sigma_\varepsilon^2}.}\]</div></div>
+<div class="result-box"><div class="equation-stack">\[\boxed{0\pm z_{1-\alpha/2}\sqrt{\frac{28}{27}\sigma_\varepsilon^2}.}\]</div></div>
 
 </section></div>
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q5"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 5</button>
