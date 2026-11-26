@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — Problem Set 4 corrections.">
+  <title>Problem Set 4 — MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=b263a6e185e5">
+  <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    .solution mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+    .answer-toggle { width: 100%; text-align: left; }
+    .answer-panel { border-top: 0; padding-top: 16px; }
+    .exercise .math-display, .equation-stack { max-width: 100%; overflow-x: auto; }
+    .answer-item { min-width: 0; }
+    .method-toggle { align-self: flex-start; width: auto; padding: 7px 12px; font-size: .78rem; }
+    .method-panel { display: flex; flex-direction: column; gap: 12px; min-width: 0; border-left: 3px solid var(--accent); padding: 4px 0 8px 16px; }
+    .method-panel ul { padding-left: 22px; font-size: .91rem; line-height: 1.65; }
+  </style>
+</head>
+<body data-math>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span></a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <div class="sidebar-group problem-sets-nav">
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+        <a href="problem-set-2.html" class="sidebar-link">Problem Set 2</a>
+        <a href="problem-set-3.html" class="sidebar-link">Problem Set 3</a>
+        <a href="problem-set-4.html" class="sidebar-link active" aria-current="page">Problem Set 4</a>
+      </div>
+      <hr class="sidebar-divider">
+      <details class="sidebar-folder">
+        <summary>LECTURES<span class="folder-arrow" aria-hidden="true">›</span></summary>
+        <div class="sidebar-folder-links">
+        <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
+        <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
+        <a href="lecture-3.html" class="sidebar-link">LECTURE 3</a>
+        <a href="lecture-4.html" class="sidebar-link">LECTURE 4</a>
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        </div>
+      </details>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar"><img src="images/avatar.png" width="44" height="44" alt=""><span class="user-dot" aria-hidden="true"></span></div>
+        <div class="user-info"><div class="user-name">STAR NOVA</div></div>
+      </div>
+    </div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden></button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb"><span>MACRO</span><span class="sep" aria-hidden="true">›</span><strong>Problem Set 4</strong></nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">Macroeconometrics · Exercises</div>
+        <h1>PROBLEM SET 4</h1>
+      </div>
+
+<section class="concept-card violet-top exercise" id="exercise-1" aria-labelledby="exercise-1-title">
+<div class="section-header"><span class="section-label">Exercise 1</span><h2 id="exercise-1-title">ARMA(1,1) process: forecasts and IRFs</h2></div>
+<div class="exercise-statement"><p>Consider the following ARMA(1,1) process:</p>
+<div class="equation-stack">\[X_t=\frac12X_{t-1}+\varepsilon_t-\frac13\varepsilon_{t-1},\]</div>
+<p>where \(\varepsilon_t\) is a zero-mean weak white noise with variance \(\sigma_\varepsilon^2&gt;0\).</p>
+<ol>
+<li>Give the MA(\(\infty\)) representation of \(X_t\).</li>
+<li>Determine the best linear forecast for \(h=1,2,3,\ldots,\infty\).</li>
+<li>Determine the forecast errors and their variance for \(h=1,2,3,\ldots,\infty\).</li>
+<li>Determine the prediction interval.</li>
+<li>Compute the IRF for \(h=1,2,3,\ldots,\infty\), and the long-run cumulative IRF.</li>
+</ol></div>
+<div class="collapsible solution" id="solution-1">
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
+<section class="solution-step answer-panel" id="exercise-1-q1" hidden><h3><span>Question 1</span>MA(∞) representation</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 1</span>
+
+<p><strong>Invert the AR polynomial:</strong> express the process as a filter of innovations.</p>
+<div class="equation-stack">\[X_t=\Phi(L)^{-1}\Theta(L)\varepsilon_t,\qquad (1-aL)^{-1}=\sum_{j=0}^{\infty}a^jL^j,\quad |a|&lt;1.\]</div>
+<p><strong>Collect the same shock:</strong> after distributing the MA polynomial, combine the coefficients multiplying each \(\varepsilon_{t-j}\). These are the MA weights \(\psi_j\).</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>Write the lag-polynomial equation:</p>
+<div class="equation-stack">\[\underbrace{\left(1-\frac12L\right)}_{\Phi(L)}X_t=\underbrace{\left(1-\frac13L\right)}_{\Theta(L)}\varepsilon_t.\]</div>
+<p>Since \(|1/2|&lt;1\), expand the AR inverse as a geometric series. Let \(a_j=(1/2)^j\), so \(a_0=1\):</p>
+<div class="equation-stack">\[\begin{aligned}X_t&=\frac{\Theta(L)}{\Phi(L)}\varepsilon_t\\&=\left(1-\frac13L\right)\sum_{j=0}^{\infty}a_j\varepsilon_{t-j}\\&=\sum_{j=0}^{\infty}a_j\left(\varepsilon_{t-j}-\frac13\varepsilon_{t-j-1}\right).\end{aligned}\]</div>
+<p>The lag operator shifts each innovation back one period. For \(j\in\{0,1,2,\ldots\}\):</p>
+<button class="toggle-btn method-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="q1-ma-reindexing"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> reindexing details — MA(∞)</button>
+<div class="method-panel" id="q1-ma-reindexing" hidden>
+<h4>Reindexing the second sum</h4>
+<p>Set \(j_{\mathrm{new}}=j_{\mathrm{old}}+1\). The lower bound becomes 1, the coefficient becomes \(a_{j-1}\), and the shock becomes \(\varepsilon_{t-j}\):</p>
+<div class="equation-stack">\[\sum_{j=0}^{\infty}a_j\varepsilon_{t-j-1}=\sum_{j=1}^{\infty}a_{j-1}\varepsilon_{t-j}.\]</div>
+<p>Isolate \(j=0\) in the first sum, then combine:</p>
+<div class="equation-stack">\[X_t=a_0\varepsilon_t+\sum_{j=1}^{\infty}\left(a_j-\frac13a_{j-1}\right)\varepsilon_{t-j}.\]</div>
+<p>Reindexing leaves the sum unchanged; it puts the same innovation date in both sums.</p>
+</div>
+<div class="equation-stack">\[\begin{aligned}j=0\quad\Rightarrow\quad&\varepsilon_t\quad{\color{#fb7185}\boxed{-\frac13\varepsilon_{t-1}}}\\[10pt]j=1\quad\Rightarrow\quad&{\color{#fb7185}\boxed{a_1\varepsilon_{t-1}}}\quad{\color{#60a5fa}\boxed{-\frac13a_1\varepsilon_{t-2}}}\\[10pt]j=2\quad\Rightarrow\quad&{\color{#60a5fa}\boxed{a_2\varepsilon_{t-2}}}\quad{\color{#4ade80}\boxed{-\frac13a_2\varepsilon_{t-3}}}\\&\vdots\end{aligned}\]</div>
+<p>Terms with the same colour multiply the same shock. Collecting them gives</p>
+<div class="equation-stack">\[\begin{aligned}X_t=\varepsilon_t&+{\color{#fb7185}\left(a_1-\frac13a_0\right)\varepsilon_{t-1}}\\&+{\color{#60a5fa}\left(a_2-\frac13a_1\right)\varepsilon_{t-2}}+\cdots.\end{aligned}\]</div>
+<p>For \(j\ge1\), substitute \(a_j\) and factor out the common power:</p>
+<div class="equation-stack">\[\begin{aligned}a_j-\frac13a_{j-1}&=\left(\frac12\right)^j-\frac13\left(\frac12\right)^{j-1}\\&=\left(\frac12-\frac13\right)\left(\frac12\right)^{j-1}\\&=\frac16\left(\frac12\right)^{j-1}.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_t=\varepsilon_t+\frac16\sum_{j=1}^{\infty}\left(\frac12\right)^{j-1}\varepsilon_{t-j}.}\]</div></div>
+<div class="equation-stack">\[\psi_0=1,\qquad\psi_j=\frac16\left(\frac12\right)^{j-1},\quad j\ge1.\]</div>
+
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
+<section class="solution-step answer-panel" id="exercise-1-q2" hidden><h3><span>Question 2</span>Best linear forecasts</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 2</span>
+
+<p><strong>Project the model at the fixed origin \(T\):</strong></p>
+<div class="equation-stack">\[X_{T+h|T}=\mathbb E_L[X_{T+h}\mid\Omega_T].\]</div>
+<p>Keep known observations and innovations; replace future observations by their forecasts and future innovations by zero:</p>
+<div class="equation-stack">\[\mathbb E_L[\varepsilon_{T+s}\mid\Omega_T]=\begin{cases}\varepsilon_{T+s},&s\le0,\\0,&s&gt;0.\end{cases}\]</div>
+<p>Calculate the one-step forecast first, then iterate the same recursion.</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>Here \(\phi_1=1/2\) and \(\theta_1=-1/3\). Since \(|\phi_1|&lt;1\) and \(|\theta_1|&lt;1\), the representation is causal and fundamental: past innovations are recoverable, while future innovations have zero linear forecast.</p>
+<h4>1. One-step forecast</h4>
+<p>At \(T+1\), \(X_T\) and \(\varepsilon_T\) are known:</p>
+<div class="equation-stack">\[\begin{aligned}X_{T+1|T}&=\mathbb E_L\!\left[\frac12X_T+\varepsilon_{T+1}-\frac13\varepsilon_T\,\middle|\,\Omega_T\right]\\&=\frac12X_T-\frac13\varepsilon_T.\end{aligned}\]</div>
+<h4>2. Two- and three-step forecasts</h4>
+<p>For \(h\ge2\), both innovation dates in the model are after \(T\), so their forecasts are zero:</p>
+<div class="equation-stack">\[\begin{aligned}X_{T+2|T}&=\frac12X_{T+1|T}=\frac14X_T-\frac16\varepsilon_T,\\X_{T+3|T}&=\frac12X_{T+2|T}=\frac18X_T-\frac1{12}\varepsilon_T.\end{aligned}\]</div>
+<h4>3. General horizon and limit</h4>
+<div class="equation-stack">\[X_{T+h|T}=\frac12X_{T+h-1|T},\qquad h\ge2.\]</div>
+<p>Iterating from the one-step forecast gives</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}X_{T+h|T}&=\left(\frac12\right)^{h-1}X_{T+1|T}\\&=\left(\frac12\right)^{h-1}\left(\frac12X_T-\frac13\varepsilon_T\right),\\&\hspace{5em}h\ge1.\end{aligned}}\]</div></div>
+<p>Since \((1/2)^{h-1}\to0\), the forecast converges to the mean:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\lim_{h\to\infty}X_{T+h|T}=m_X=0.}\]</div></div>
+
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
+<section class="solution-step answer-panel" id="exercise-1-q3" hidden><h3><span>Question 3</span>Forecast errors and their variance</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 3</span>
+
+<p><strong>Forecast error:</strong> subtract the forecast; only future innovations remain.</p>
+<div class="equation-stack">\[e_{T+h|T}=X_{T+h}-X_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.\]</div>
+<p>Known innovations satisfy \(T+h-j\le T\Rightarrow j\ge h\); future innovations satisfy \(0\le j&lt;h\).</p>
+<p><strong>Variance:</strong> square the weights and add, since innovations are uncorrelated.</p>
+<div class="equation-stack">\[V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.\]</div>
+<p>Write each horizon with the \(\psi_j\) coefficients before substituting. For the limit, use \(\sum_{j=0}^{\infty}r^j=1/(1-r)\), \(|r|&lt;1\).</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>Use the MA(∞) representation from Question 1:</p>
+<div class="equation-stack">\[\begin{aligned}X_{T+h}&=\sum_{j=0}^{\infty}\psi_j\varepsilon_{T+h-j},\\X_{T+h|T}&=\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\end{aligned}\]</div>
+<p>Subtracting cancels all known innovations:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.}\]</div></div>
+<h4>1. Forecast errors</h4>
+<p>The required weights are</p>
+<div class="equation-stack">\[\begin{aligned}\psi_0&=1,\\\psi_1&=\theta_1+\phi_1\psi_0=-\frac13+\frac12=\frac16,\\\psi_2&=\phi_1\psi_1=\frac12\cdot\frac16=\frac1{12},\end{aligned}\]</div>
+<p>with \(\psi_j=\phi_1\psi_{j-1}\) for \(j\ge2\). Hence,</p>
+<div class="equation-stack">\[\begin{aligned}h=1:\quad e_{T+1|T}&=\psi_0\varepsilon_{T+1}=\varepsilon_{T+1},\\[6pt]h=2:\quad e_{T+2|T}&=\psi_0\varepsilon_{T+2}+\psi_1\varepsilon_{T+1}\\&=\varepsilon_{T+2}+\frac16\varepsilon_{T+1},\\[6pt]h=3:\quad e_{T+3|T}&=\psi_0\varepsilon_{T+3}+\psi_1\varepsilon_{T+2}+\psi_2\varepsilon_{T+1}\\&=\varepsilon_{T+3}+\frac16\varepsilon_{T+2}+\frac1{12}\varepsilon_{T+1}.\end{aligned}\]</div>
+<p>For \(h\ge2\), subtracting the recursive forecast from the model also gives</p>
+<div class="equation-stack">\[\begin{aligned}e_{T+h|T}&=\phi_1e_{T+h-1|T}+\varepsilon_{T+h}+\theta_1\varepsilon_{T+h-1}\\&=\frac12e_{T+h-1|T}+\varepsilon_{T+h}-\frac13\varepsilon_{T+h-1}.\end{aligned}\]</div>
+<h4>2. Forecast-error variance</h4>
+<div class="result-box"><div class="equation-stack">\[\boxed{V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.}\]</div></div>
+<div class="equation-stack">\[\begin{aligned}h=1:\quad V(e_{T+1|T})&=\psi_0^2\sigma_\varepsilon^2=\sigma_\varepsilon^2,\\[6pt]h=2:\quad V(e_{T+2|T})&=(\psi_0^2+\psi_1^2)\sigma_\varepsilon^2\\&=\left(1+\frac1{36}\right)\sigma_\varepsilon^2,\\[6pt]h=3:\quad V(e_{T+3|T})&=(\psi_0^2+\psi_1^2+\psi_2^2)\sigma_\varepsilon^2\\&=\left(1+\frac1{36}+\frac1{144}\right)\sigma_\varepsilon^2.\end{aligned}\]</div>
+<p>Each additional horizon adds one squared MA weight:</p>
+<div class="equation-stack">\[V(e_{T+h|T})=V(e_{T+h-1|T})+\sigma_\varepsilon^2\psi_{h-1}^2,\qquad h\ge2.\]</div>
+<p>Using \(\psi_j=\frac16(\frac12)^{j-1}\), the general variance is</p>
+<div class="equation-stack">\[V(e_{T+h|T})=\left[1+\frac1{36}\sum_{j=1}^{h-1}\left(\frac14\right)^{j-1}\right]\sigma_\varepsilon^2.\]</div>
+<p>For \(h=1\), the sum is empty. As \(h\to\infty\), the geometric sum tends to \(1/(1-1/4)=4/3\):</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\lim_{h\to\infty}V(e_{T+h|T})&=\left(1+\frac1{36}\cdot\frac43\right)\sigma_\varepsilon^2\\&=\frac{28}{27}\sigma_\varepsilon^2=V(X_t).\end{aligned}}\]</div></div>
+
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button>
+<section class="solution-step answer-panel" id="exercise-1-q4" hidden><h3><span>Question 4</span>Prediction interval</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 4</span>
+
+<p><strong>Combine the previous two results:</strong> forecast ± critical value × forecast-error standard deviation.</p>
+<div class="equation-stack">\[X_{T+h|T}\pm z_{\alpha/2}\sqrt{V(e_{T+h|T})}.\]</div>
+<p>Here \(P(Z&gt;z_{\alpha/2})=\alpha/2\) for \(Z\sim\mathcal N(0,1)\). At long horizons, substitute the limits of the forecast and variance.</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>Using the forecast from Question 2 and the variance from Question 3, the \((1-\alpha)\)-level prediction interval is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_{T+h|T}\pm z_{\alpha/2}\sqrt{V(e_{T+h|T})}.}\]</div></div>
+<p>This normal-quantile interval requires Gaussian innovations or an appropriate normal approximation; weak white noise alone is not sufficient.</p>
+<p>Since \(X_{T+h|T}\to0\) and \(V(e_{T+h|T})\to\frac{28}{27}\sigma_\varepsilon^2\), its limiting form is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{0\pm z_{\alpha/2}\sqrt{\frac{28}{27}\sigma_\varepsilon^2}.}\]</div></div>
+
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q5"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 5</button>
+<section class="solution-step answer-panel" id="exercise-1-q5" hidden><h3><span>Question 5</span>Impulse responses and the cumulative effect</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 5</span>
+
+<p><strong>Unit-shock response:</strong> read the coefficient of the innovation at the shock date.</p>
+<div class="equation-stack">\[\operatorname{IRF}(h)=\frac{\partial X_{t+h}}{\partial\varepsilon_t}=\psi_h.\]</div>
+<p><strong>Cumulative response:</strong> add the responses, including the impact at \(h=0\).</p>
+<div class="equation-stack">\[\operatorname{CIRF}(H)=\sum_{h=0}^{H}\psi_h,\qquad\operatorname{CIRF}(\infty)=\sum_{h=0}^{\infty}\psi_h.\]</div>
+<p>Use the MA coefficients from Question 1 and the geometric-series formula.</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>From Question 1, \(\psi_0=1\) and \(\psi_h=\frac16(\frac12)^{h-1}\) for \(h\ge1\). In \(X_{t+h}\), the shock \(\varepsilon_t\) has coefficient \(\psi_h\), so</p>
+<div class="equation-stack">\[\begin{aligned}\operatorname{IRF}(0)&=\psi_0=1,\\\operatorname{IRF}(1)&=\psi_1=\frac16,\\\operatorname{IRF}(2)&=\psi_2=\frac16\cdot\frac12=\frac1{12},\\\operatorname{IRF}(3)&=\psi_3=\frac16\left(\frac12\right)^2=\frac1{24}.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}\operatorname{IRF}(h)&=\frac16\left(\frac12\right)^{h-1},\quad h\ge1,\\\lim_{h\to\infty}\operatorname{IRF}(h)&=0.\end{aligned}}\]</div></div>
+<p>For the long-run cumulative response, include the initial impact \(\psi_0=1\):</p>
+<div class="equation-stack">\[\begin{aligned}\lim_{H\to\infty}\operatorname{CIRF}(H)&=\sum_{h=0}^{\infty}\operatorname{IRF}(h)\\&=1+\frac16\sum_{h=1}^{\infty}\left(\frac12\right)^{h-1}\\&=1+\frac16\frac1{1-1/2}.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{CIRF}(\infty)=\frac43.}\]</div></div>
+<p>The response at a distant horizon tends to zero; the total response accumulated across all horizons is \(4/3\).</p>
+
+</section></div>
+</div></section></main></div></body></html>

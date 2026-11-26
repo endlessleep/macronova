@@ -30,3 +30,15 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .topbar { -webkit-backdrop-filter: blur(12px); }
 @media(max-width:359px){.lecture-page .autocorrelation-matrix{margin-inline:-12px}}
 .sidebar-divider { border: 0; border-top: 1px solid var(--border); margin: 16px 22px; }
+
+/* Problem sets are primary; lecture material stays in a closed folder. */
+.problem-sets-nav { margin-top: 0; }
+.sidebar-folder summary { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; color: var(--text-3); font-size: .88rem; font-weight: 700; cursor: pointer; list-style: none; }
+.sidebar-folder summary::-webkit-details-marker { display: none; }
+.sidebar-folder summary:hover { color: var(--text); background: rgba(255,255,255,.04); }
+.sidebar-folder summary:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -4px; border-radius: 6px; }
+.sidebar-folder .folder-arrow { font-size: 1.25rem; line-height: 1; transition: transform .2s; }
+.sidebar-folder[open] .folder-arrow { transform: rotate(90deg); }
+.sidebar-folder[open] summary { color: var(--accent-bright); }
+.sidebar-folder-links .sidebar-link { padding-left: 38px; font-size: .82rem; }
+.sidebar-folder:has([aria-current="page"]) summary { color: var(--accent-bright); }
