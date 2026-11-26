@@ -148,29 +148,42 @@
 <div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
 <section class="solution-step answer-panel" id="exercise-1-q3" hidden><h3><span>Question 3</span>Forecast errors and their variance</h3>
 <div class="target-form"><span class="target-label">Formulas to use — Question 3</span>
-
-<p><strong>Forecast error:</strong> subtract the forecast; only future innovations remain.</p>
-<div class="equation-stack">\[e_{T+h|T}=X_{T+h}-X_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.\]</div>
-<p>Known innovations satisfy \(T+h-j\le T\Rightarrow j\ge h\); future innovations satisfy \(0\le j&lt;h\).</p>
-<p><strong>Variance:</strong> square the weights and add, since innovations are uncorrelated.</p>
-<div class="equation-stack">\[V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.\]</div>
-<p>Write each horizon with the \(\psi_j\) coefficients before substituting. For the limit, use \(\sum_{j=0}^{\infty}r^j=1/(1-r)\), \(|r|&lt;1\).</p>
-
+<p><strong>Start with the definition:</strong> write the observation and its forecast at the same date, then subtract.</p>
+<div class="equation-stack">\[e_{T+h|T}=X_{T+h}-X_{T+h|T}.\]</div>
+<p>Keep information known at \(T\); future innovations have zero linear forecast. Factor any observation-minus-forecast difference and identify the previous error.</p>
+<p><strong>Variance:</strong> innovations at different dates are uncorrelated, so square their coefficients and add.</p>
+<div class="equation-stack">\[V(a\varepsilon_s+b\varepsilon_r)=(a^2+b^2)\sigma_\varepsilon^2,\qquad s\ne r.\]</div>
 </div>
 <div class="solution-givens"><h4>Solution</h4></div>
-
-<p>Use the MA(∞) representation from Question 1:</p>
-<div class="equation-stack">\[\begin{aligned}X_{T+h}&=\sum_{j=0}^{\infty}\psi_j\varepsilon_{T+h-j},\\X_{T+h|T}&=\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\end{aligned}\]</div>
-<p>Subtracting cancels all known innovations:</p>
+<p>Start from the original model and keep the forecast origin fixed at \(T\):</p>
+<div class="equation-stack">\[X_t=\frac12X_{t-1}+\varepsilon_t-\frac13\varepsilon_{t-1}.\]</div>
+<h4>1. One-step error: subtract the forecast</h4>
+<p>At \(T+1\), \(X_T\) and \(\varepsilon_T\) are known. Only \(\varepsilon_{T+1}\) is a future innovation:</p>
+<div class="equation-stack">\[\begin{aligned}X_{T+1}&=\frac12X_T+\varepsilon_{T+1}-\frac13\varepsilon_T,\\X_{T+1|T}&=\frac12X_T-\frac13\varepsilon_T.\end{aligned}\]</div>
+<p>Subtract the entire forecast, including its negative MA term:</p>
+<div class="equation-stack">\[\begin{aligned}e_{T+1|T}&=X_{T+1}-X_{T+1|T}\\&=\left(\frac12X_T+\varepsilon_{T+1}-\frac13\varepsilon_T\right)\\&\quad-\left(\frac12X_T-\frac13\varepsilon_T\right)\\&=\left(\frac12X_T-\frac12X_T\right)+\varepsilon_{T+1}\\&\quad+\left(-\frac13\varepsilon_T+\frac13\varepsilon_T\right)\\&=\varepsilon_{T+1}.\end{aligned}\]</div>
+<p>The known terms cancel. This gives the starting error \(e_{T+1|T}=\varepsilon_{T+1}\).</p>
+<h4>2. Derive the recursion before going further</h4>
+<p>For \(h\ge2\), write the model at \(T+h\):</p>
+<div class="equation-stack">\[X_{T+h}=\frac12X_{T+h-1}+\varepsilon_{T+h}-\frac13\varepsilon_{T+h-1}.\]</div>
+<p>Both innovation dates are now after \(T\), so both have zero forecast. Replace the future observation by its forecast:</p>
+<div class="equation-stack">\[X_{T+h|T}=\frac12X_{T+h-1|T},\qquad h\ge2.\]</div>
+<p>Subtract and factor out \(1/2\) from the observation-minus-forecast difference:</p>
+<div class="equation-stack">\[\begin{aligned}e_{T+h|T}&=X_{T+h}-X_{T+h|T}\\&=\frac12X_{T+h-1}-\frac12X_{T+h-1|T}\\&\quad+\varepsilon_{T+h}-\frac13\varepsilon_{T+h-1}\\&=\frac12\underbrace{\left(X_{T+h-1}-X_{T+h-1|T}\right)}_{e_{T+h-1|T}}\\&\quad+\varepsilon_{T+h}-\frac13\varepsilon_{T+h-1}.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\begin{aligned}e_{T+h|T}&=\frac12e_{T+h-1|T}+\varepsilon_{T+h}\\&\quad-\frac13\varepsilon_{T+h-1},\qquad h\ge2.\end{aligned}}\]</div></div>
+<p>The bracket is exactly the previous forecast error, formed at the same origin \(T\). We can now use it to obtain each next horizon.</p>
+<h4>3. Two-step error: substitute the one-step error</h4>
+<div class="equation-stack">\[\begin{aligned}e_{T+2|T}&=\frac12e_{T+1|T}+\varepsilon_{T+2}-\frac13\varepsilon_{T+1}\\&=\frac12\varepsilon_{T+1}+\varepsilon_{T+2}-\frac13\varepsilon_{T+1}\\&=\varepsilon_{T+2}+\left(\frac12-\frac13\right)\varepsilon_{T+1}\\&=\varepsilon_{T+2}+\frac16\varepsilon_{T+1}.\end{aligned}\]</div>
+<h4>4. Three-step error: substitute the two-step error</h4>
+<div class="equation-stack">\[\begin{aligned}e_{T+3|T}&=\frac12e_{T+2|T}+\varepsilon_{T+3}-\frac13\varepsilon_{T+2}\\&=\frac12\left(\varepsilon_{T+2}+\frac16\varepsilon_{T+1}\right)\\&\quad+\varepsilon_{T+3}-\frac13\varepsilon_{T+2}\\&=\varepsilon_{T+3}+\left(\frac12-\frac13\right)\varepsilon_{T+2}\\&\quad+\frac12\cdot\frac16\varepsilon_{T+1}\\&=\varepsilon_{T+3}+\frac16\varepsilon_{T+2}+\frac1{12}\varepsilon_{T+1}.\end{aligned}\]</div>
+<h4>5. General horizon: connect with the MA weights</h4>
+<p>The coefficients just obtained are \(1\), \(1/6\) and \(1/12\): these are exactly \(\psi_0\), \(\psi_1\) and \(\psi_2\) from Question 1. At each horizon, they multiply the newest innovation, the preceding one, and so on.</p>
+<p>For any \(h\ge1\), the MA(∞) representation separates future and known innovations:</p>
+<div class="equation-stack">\[\begin{aligned}X_{T+h}&=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}\\&\quad+\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j},\\X_{T+h|T}&=\sum_{j=h}^{\infty}\psi_j\varepsilon_{T+h-j}.\end{aligned}\]</div>
+<p>Subtracting cancels the second sum. The remaining dates are \(T+1,\ldots,T+h\), corresponding to \(j=0,\ldots,h-1\):</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{e_{T+h|T}=\sum_{j=0}^{h-1}\psi_j\varepsilon_{T+h-j}.}\]</div></div>
-<h4>1. Forecast errors</h4>
-<p>The required weights are</p>
-<div class="equation-stack">\[\begin{aligned}\psi_0&=1,\\\psi_1&=\theta_1+\phi_1\psi_0=-\frac13+\frac12=\frac16,\\\psi_2&=\phi_1\psi_1=\frac12\cdot\frac16=\frac1{12},\end{aligned}\]</div>
-<p>with \(\psi_j=\phi_1\psi_{j-1}\) for \(j\ge2\). Hence,</p>
-<div class="equation-stack">\[\begin{aligned}h=1:\quad e_{T+1|T}&=\psi_0\varepsilon_{T+1}=\varepsilon_{T+1},\\[6pt]h=2:\quad e_{T+2|T}&=\psi_0\varepsilon_{T+2}+\psi_1\varepsilon_{T+1}\\&=\varepsilon_{T+2}+\frac16\varepsilon_{T+1},\\[6pt]h=3:\quad e_{T+3|T}&=\psi_0\varepsilon_{T+3}+\psi_1\varepsilon_{T+2}+\psi_2\varepsilon_{T+1}\\&=\varepsilon_{T+3}+\frac16\varepsilon_{T+2}+\frac1{12}\varepsilon_{T+1}.\end{aligned}\]</div>
-<p>For \(h\ge2\), subtracting the recursive forecast from the model also gives</p>
-<div class="equation-stack">\[\begin{aligned}e_{T+h|T}&=\phi_1e_{T+h-1|T}+\varepsilon_{T+h}+\theta_1\varepsilon_{T+h-1}\\&=\frac12e_{T+h-1|T}+\varepsilon_{T+h}-\frac13\varepsilon_{T+h-1}.\end{aligned}\]</div>
-<h4>2. Forecast-error variance</h4>
+<p>Here \(\psi_0=1\) and \(\psi_j=\frac16(\frac12)^{j-1}\) for \(j\ge1\), as established in Question 1. This single sum collects the errors derived above.</p>
+<h4>6. Forecast-error variance</h4>
 <div class="result-box"><div class="equation-stack">\[\boxed{V(e_{T+h|T})=\sigma_\varepsilon^2\sum_{j=0}^{h-1}\psi_j^2.}\]</div></div>
 <div class="equation-stack">\[\begin{aligned}h=1:\quad V(e_{T+1|T})&=\psi_0^2\sigma_\varepsilon^2=\sigma_\varepsilon^2,\\[6pt]h=2:\quad V(e_{T+2|T})&=(\psi_0^2+\psi_1^2)\sigma_\varepsilon^2\\&=\left(1+\frac1{36}\right)\sigma_\varepsilon^2,\\[6pt]h=3:\quad V(e_{T+3|T})&=(\psi_0^2+\psi_1^2+\psi_2^2)\sigma_\varepsilon^2\\&=\left(1+\frac1{36}+\frac1{144}\right)\sigma_\varepsilon^2.\end{aligned}\]</div>
 <p>Each additional horizon adds one squared MA weight:</p>
