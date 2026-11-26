@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — Problem Set 5 corrections.">
+  <title>Problem Set 5 — MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=b263a6e185e5">
+  <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    .solution mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+    .answer-toggle { width: 100%; text-align: left; }
+    .answer-panel { border-top: 0; padding-top: 16px; }
+    .exercise .math-display, .equation-stack { max-width: 100%; overflow-x: auto; }
+    .answer-item { min-width: 0; }
+    .method-toggle { align-self: flex-start; width: auto; padding: 7px 12px; font-size: .78rem; }
+    .method-panel { display: flex; flex-direction: column; gap: 12px; min-width: 0; border-left: 3px solid var(--accent); padding: 4px 0 8px 16px; }
+    .method-panel ul { padding-left: 22px; font-size: .91rem; line-height: 1.65; }
+  </style>
+</head>
+<body data-math>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span></a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <div class="sidebar-group problem-sets-nav">
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+        <a href="problem-set-2.html" class="sidebar-link">Problem Set 2</a>
+        <a href="problem-set-3.html" class="sidebar-link">Problem Set 3</a>
+        <a href="problem-set-4.html" class="sidebar-link">Problem Set 4</a>
+        <a href="problem-set-5.html" class="sidebar-link active" aria-current="page">Problem Set 5</a>
+      </div>
+      <hr class="sidebar-divider">
+      <details class="sidebar-folder">
+        <summary>LECTURES<span class="folder-arrow" aria-hidden="true">›</span></summary>
+        <div class="sidebar-folder-links">
+        <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
+        <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
+        <a href="lecture-3.html" class="sidebar-link">LECTURE 3</a>
+        <a href="lecture-4.html" class="sidebar-link">LECTURE 4</a>
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        </div>
+      </details>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar"><img src="images/avatar.png" width="44" height="44" alt=""><span class="user-dot" aria-hidden="true"></span></div>
+        <div class="user-info"><div class="user-name">STAR NOVA</div></div>
+      </div>
+    </div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden></button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb"><span>MACRO</span><span class="sep" aria-hidden="true">›</span><strong>Problem Set 5</strong></nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">Macroeconometrics · Exercises</div>
+        <h1>PROBLEM SET 5</h1>
+      </div>
+
+<section class="concept-card violet-top exercise" id="exercise-1" aria-labelledby="exercise-1-title">
+<div class="section-header"><span class="section-label">Exercise 1</span><h2 id="exercise-1-title">VAR stability</h2></div>
+<div class="exercise-statement">
+<p>Are the following VAR processes stable? Write the companion matrix where needed. Roots may be reported numerically.</p>
+<ol><li>\(Y_t\) such that
+<div class="equation-stack">\[Y_t=\begin{pmatrix}0.5&0.1\\0&0.2\end{pmatrix}Y_{t-1}+\varepsilon_t.\]</div></li>
+<li>\(Z_t\) such that
+<div class="equation-stack">\[\begin{aligned}Z_t={}&\begin{pmatrix}0.6&0.4\\0.5&0.2\end{pmatrix}Z_{t-1}\\&+\begin{pmatrix}0.1&0.3\\0.2&0.6\end{pmatrix}Z_{t-2}+\eta_t.\end{aligned}\]</div></li></ol>
+</div>
+<div class="collapsible solution" id="solution-1">
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
+<section class="solution-step answer-panel" id="exercise-1-q1" hidden><h3><span>Question 1</span>Stability of the VAR(1)</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 1</span>
+
+<p><strong>Find the eigenvalues:</strong> solve the characteristic equation of the coefficient matrix.</p>
+<div class="equation-stack">\[\det(\lambda I-\Phi)=0.\]</div>
+<p><strong>Check stability:</strong> every eigenvalue must have modulus below 1.</p>
+<div class="equation-stack">\[\rho(\Phi)=\max_i|\lambda_i|&lt;1.\]</div>
+<p>For a triangular matrix, the eigenvalues are its diagonal entries.</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>This is already a VAR(1), so use its coefficient matrix directly:</p>
+<div class="equation-stack">\[\Phi=\begin{pmatrix}0.5&0.1\\0&0.2\end{pmatrix}.\]</div>
+<div class="equation-stack">\[\begin{aligned}\det(\lambda I_2-\Phi)&=\begin{vmatrix}\lambda-0.5&-0.1\\0&\lambda-0.2\end{vmatrix}\\&=(\lambda-0.5)(\lambda-0.2)\\&=\lambda^2-0.7\lambda+0.1.\end{aligned}\]</div>
+<p>Thus \(\lambda_1=0.5\) and \(\lambda_2=0.2\). Both are inside the unit circle:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\rho(\Phi)=0.5&lt;1\quad\Longrightarrow\quad\text{the VAR(1) is stable.}}\]</div></div>
+
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
+<section class="solution-step answer-panel" id="exercise-1-q2" hidden><h3><span>Question 2</span>Companion matrix and stability of the VAR(2)</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 2</span>
+
+<p><strong>Stack the current and lagged vectors:</strong> rewrite the VAR(2) as a VAR(1).</p>
+<div class="equation-stack">\[W_t=\begin{pmatrix}Z_t\\Z_{t-1}\end{pmatrix},\qquad F=\begin{pmatrix}\Phi_1&\Phi_2\\I_2&0\end{pmatrix}.\]</div>
+<p><strong>Apply the same stability test to \(F\):</strong></p>
+<div class="equation-stack">\[\det(\lambda I_4-F)=0,\qquad\rho(F)=\max_i|\lambda_i|&lt;1.\]</div>
+<p>For a determinant expanded down column \(k\), use \(\det A=\sum_i a_{ik}C_{ik}\), where \(C_{ik}=(-1)^{i+k}M_{ik}\) is the cofactor.</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>Let \(W_t=(Z_t',Z_{t-1}')'\). The top block reproduces the model; the bottom block carries \(Z_{t-1}\) into the state:</p>
+<div class="equation-stack">\[W_t=FW_{t-1}+\begin{pmatrix}\eta_t\\0\end{pmatrix}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{F=\begin{pmatrix}\Phi_1&\Phi_2\\I_2&0\end{pmatrix}=\begin{pmatrix}0.6&0.4&0.1&0.3\\0.5&0.2&0.2&0.6\\1&0&0&0\\0&1&0&0\end{pmatrix}.}\]</div></div>
+<p>Expand \(\det(F-\lambda I_4)\) down column 3, whose entries are \(0.1,0.2,-\lambda,0\):</p>
+<div class="equation-stack">\[\det(F-\lambda I_4)=0.1C_{13}+0.2C_{23}-\lambda C_{33}.\]</div>
+<button class="toggle-btn method-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="ex1-q2-determinant"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> determinant calculation</button>
+<div class="method-panel" id="ex1-q2-determinant" hidden>
+<p>Delete the row and column of each entry, then apply the cofactor sign:</p>
+<div class="equation-stack">\[\begin{aligned}C_{13}&=\begin{vmatrix}0.5&0.2-\lambda&0.6\\1&0&0\\0&1&-\lambda\end{vmatrix}\\&=0.6+0.2\lambda-\lambda^2,\end{aligned}\]</div>
+<div class="equation-stack">\[\begin{aligned}C_{23}&=-\begin{vmatrix}0.6-\lambda&0.4&0.3\\1&0&0\\0&1&-\lambda\end{vmatrix}\\&=-0.3-0.4\lambda,\end{aligned}\]</div>
+<div class="equation-stack">\[\begin{aligned}C_{33}&=\begin{vmatrix}0.6-\lambda&0.4&0.3\\0.5&0.2-\lambda&0.6\\0&1&-\lambda\end{vmatrix}\\&=(0.6-\lambda)(\lambda^2-0.2\lambda-0.6)\\&\quad+0.2\lambda+0.15.\end{aligned}\]</div>
+<p>Substitute these three expressions into the column expansion and collect powers of \(\lambda\).</p>
+</div>
+<p>Since the matrix is \(4\times4\), \(\det(F-\lambda I_4)=\det(\lambda I_4-F)\). This gives</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\det(\lambda I_4-F)=\lambda^4-0.8\lambda^3-0.78\lambda^2+0.15\lambda.}\]</div></div>
+<p>The eigenvalues are approximately</p>
+<div class="equation-stack">\[\{-0.67766,\ 0,\ 0.16916,\ 1.30850\}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\rho(F)\simeq1.30850&gt;1\quad\Longrightarrow\quad\text{the VAR(2) is unstable.}}\]</div></div>
+
+</section></div>
+</div></section>
+<section class="concept-card violet-top exercise" id="exercise-2" aria-labelledby="exercise-2-title">
+<div class="section-header"><span class="section-label">Exercise 2</span><h2 id="exercise-2-title">Main outputs of a VAR process</h2></div>
+<div class="exercise-statement">
+<p>Consider the following VAR(1), using its causal stationary solution:</p>
+<div class="equation-stack">\[Y_t=\Phi Y_{t-1}+\varepsilon_t,\qquad\Phi=\begin{pmatrix}0.5&0.1\\0&0.2\end{pmatrix},\]</div>
+<div class="equation-stack">\[\varepsilon_t\overset{\mathrm{iid}}{\sim}\mathcal N(0,\Sigma_\varepsilon),\qquad\Sigma_\varepsilon=\begin{pmatrix}0.3&0.2\\0.2&0.5\end{pmatrix}.\]</div>
+<ol><li>Compute the VMA(\(\infty\)) form of \(Y_t\).</li>
+<li>Compute the reduced-form IRFs and the long-run cumulative IRFs of \(Y_t\).</li>
+<li>Compute the orthogonalised IRFs and their long-run cumulative responses. State the shock normalization used.</li></ol>
+</div>
+<div class="collapsible solution" id="solution-2">
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button>
+<section class="solution-step answer-panel" id="exercise-2-q1" hidden><h3><span>Question 1</span>VMA(∞) representation and diagonalization</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 1</span>
+
+<p><strong>Invert the stable VAR(1):</strong></p>
+<div class="equation-stack">\[(I_2-\Phi L)^{-1}=\sum_{j=0}^{\infty}\Phi^jL^j,\qquad Y_t=\sum_{j=0}^{\infty}\Phi^j\varepsilon_{t-j}.\]</div>
+<p><strong>Compute matrix powers by diagonalization:</strong> find eigenvectors \(d_i\) from \((\Phi-\lambda_i I_2)d_i=0\), then set \(D=(d_1,d_2)\).</p>
+<div class="equation-stack">\[\Phi=D\Lambda D^{-1}\quad\Longrightarrow\quad\Phi^j=D\Lambda^jD^{-1}.\]</div>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>Stability was established in Exercise 1. Therefore,</p>
+<div class="equation-stack">\[(I_2-\Phi L)Y_t=\varepsilon_t\quad\Longrightarrow\quad Y_t=\sum_{j=0}^{\infty}\Phi^j\varepsilon_{t-j}.\]</div>
+<h4>1. Find the eigenvectors</h4>
+<p>For \(\lambda_1=0.5\),</p>
+<div class="equation-stack">\[\begin{pmatrix}0&0.1\\0&-0.3\end{pmatrix}\begin{pmatrix}d_{11}\\d_{21}\end{pmatrix}=0\quad\Longrightarrow\quad d_{21}=0.\]</div>
+<p>Choose \(d_{11}=1\). For \(\lambda_2=0.2\),</p>
+<div class="equation-stack">\[\begin{pmatrix}0.3&0.1\\0&0\end{pmatrix}\begin{pmatrix}d_{12}\\d_{22}\end{pmatrix}=0\quad\Longrightarrow\quad d_{12}=-\frac13d_{22}.\]</div>
+<p>Choose \(d_{22}=1\). Putting the eigenvectors in columns gives</p>
+<div class="equation-stack">\[D=\begin{pmatrix}1&-\frac13\\0&1\end{pmatrix},\qquad D^{-1}=\begin{pmatrix}1&\frac13\\0&1\end{pmatrix},\]</div>
+<div class="equation-stack">\[\Lambda=\begin{pmatrix}0.5&0\\0&0.2\end{pmatrix},\qquad\Phi=D\Lambda D^{-1}.\]</div>
+<h4>2. Compute the VMA coefficient matrices</h4>
+<p>In successive powers, \(D^{-1}D=I_2\), so only the diagonal matrix is raised to the power \(j\):</p>
+<div class="equation-stack">\[\Phi^j=D\Lambda^jD^{-1}=\begin{pmatrix}1&-\frac13\\0&1\end{pmatrix}\begin{pmatrix}0.5^j&0\\0&0.2^j\end{pmatrix}\begin{pmatrix}1&\frac13\\0&1\end{pmatrix}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Phi^j=\begin{pmatrix}0.5^j&\frac13(0.5^j-0.2^j)\\0&0.2^j\end{pmatrix},\qquad j\ge0.}\]</div></div>
+<p>Thus the VMA(∞) representation is</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{Y_t=\sum_{j=0}^{\infty}\begin{pmatrix}0.5^j&\frac13(0.5^j-0.2^j)\\0&0.2^j\end{pmatrix}\varepsilon_{t-j}.}\]</div></div>
+<p>Componentwise,</p>
+<div class="equation-stack">\[\begin{aligned}y_{1,t}&=\sum_{j=0}^{\infty}\left[0.5^j\varepsilon_{1,t-j}+\frac13(0.5^j-0.2^j)\varepsilon_{2,t-j}\right],\\y_{2,t}&=\sum_{j=0}^{\infty}0.2^j\varepsilon_{2,t-j}.\end{aligned}\]</div>
+
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button>
+<section class="solution-step answer-panel" id="exercise-2-q2" hidden><h3><span>Question 2</span>Reduced-form IRFs and cumulative responses</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 2</span>
+
+<p><strong>Read the VMA coefficients:</strong> the response to a unit innovation at horizon \(h\) is the corresponding coefficient matrix.</p>
+<div class="equation-stack">\[\Psi_h=\Phi^h,\qquad h\ge0.\]</div>
+<p><strong>Add all horizons, including \(h=0\):</strong></p>
+<div class="equation-stack">\[\sum_{h=0}^{\infty}\Psi_h=(I_2-\Phi)^{-1}.\]</div>
+<p>Alternatively, sum each matrix entry using \(\sum_{h=0}^{\infty}r^h=1/(1-r)\), \(|r|&lt;1\).</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<p>Use the matrix powers obtained in Question 1:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Psi_h=\Phi^h=\begin{pmatrix}0.5^h&\frac13(0.5^h-0.2^h)\\0&0.2^h\end{pmatrix},\quad h\ge0.}\]</div></div>
+<p>Entry \((i,k)\) gives the response of variable \(i\) to a unit innovation in component \(k\), with the other innovation held at zero. In particular, \(\Psi_0=I_2\) and \(\Psi_1=\Phi\).</p>
+<p>Sum the entries over all horizons:</p>
+<div class="equation-stack">\[\sum_{h=0}^{\infty}\Psi_h=\begin{pmatrix}\frac1{1-0.5}&\frac13\left(\frac1{1-0.5}-\frac1{1-0.2}\right)\\0&\frac1{1-0.2}\end{pmatrix}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\sum_{h=0}^{\infty}\Psi_h=\begin{pmatrix}2&\frac14\\0&\frac54\end{pmatrix}=(I_2-\Phi)^{-1}.}\]</div></div>
+<p>The reduced-form innovations are correlated because \(\sigma_{12}=0.2\). To describe orthogonal shocks, we next choose an impact matrix.</p>
+
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-2-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button>
+<section class="solution-step answer-panel" id="exercise-2-q3" hidden><h3><span>Question 3</span>Orthogonalised IRFs and shock normalization</h3>
+<div class="target-form"><span class="target-label">Formulas to use — Question 3</span>
+
+<p><strong>Cholesky factorization:</strong> choose a lower-triangular impact matrix \(S\) with positive diagonal.</p>
+<div class="equation-stack">\[SS'=\Sigma_\varepsilon,\qquad\varepsilon_t=Se_t,\qquad V(e_t)=I_2.\]</div>
+<p><strong>Propagate the impact matrix:</strong> multiply the VMA coefficients on the right by \(S\).</p>
+<div class="equation-stack">\[\Theta_h=\Phi^hS,\qquad\sum_{h=0}^{\infty}\Theta_h=(I_2-\Phi)^{-1}S.\]</div>
+<p><strong>Unit-diagonal normalization:</strong> with \(H=\operatorname{diag}(s_{11},s_{22})\), use \(B=SH^{-1}\), \(v_t=He_t\) and \(\widetilde\Theta_h=\Phi^hB\). State which shock has unit size.</p>
+
+</div>
+<div class="solution-givens"><h4>Solution</h4></div>
+
+<h4>1. Cholesky impact matrix</h4>
+<p>Use the ordering \((y_1,y_2)\) and unit-variance shocks \(e_t\):</p>
+<div class="equation-stack">\[\varepsilon_t=Se_t,\qquad V(e_t)=I_2,\qquad S=\begin{pmatrix}s_{11}&0\\s_{21}&s_{22}\end{pmatrix}.\]</div>
+<p>Matching \(SS'=\Sigma_\varepsilon\) gives</p>
+<div class="equation-stack">\[\begin{pmatrix}s_{11}^2&s_{11}s_{21}\\s_{11}s_{21}&s_{21}^2+s_{22}^2\end{pmatrix}=\begin{pmatrix}0.3&0.2\\0.2&0.5\end{pmatrix}.\]</div>
+<div class="equation-stack">\[\begin{aligned}s_{11}&=\sqrt{0.3},\\s_{21}&=\frac{0.2}{\sqrt{0.3}},\\s_{22}&=\sqrt{0.5-\frac{0.2^2}{0.3}}=\sqrt{\frac{11}{30}}.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{S\simeq\begin{pmatrix}0.547723&0\\0.365148&0.605530\end{pmatrix}.}\]</div></div>
+<p>The zero in the first row means the second orthogonal shock has no contemporaneous effect on \(y_1\).</p>
+<h4>2. Unit-diagonal normalization</h4>
+<p>Rescale the shocks using</p>
+<div class="equation-stack">\[H=\operatorname{diag}\!\left(\sqrt{0.3},\sqrt{\frac{11}{30}}\right),\qquad v_t=He_t.\]</div>
+<p>Then \(\varepsilon_t=SH^{-1}v_t=Bv_t\), with</p>
+<div class="equation-stack">\[B=\begin{pmatrix}1&0\\\frac23&1\end{pmatrix},\qquad\Omega=V(v_t)=\begin{pmatrix}0.3&0\\0&\frac{11}{30}\end{pmatrix}.\]</div>
+<p>The shocks remain uncorrelated, but their variances are no longer 1. This gives the same innovation covariance:</p>
+<div class="equation-stack">\[B\Omega B'=\begin{pmatrix}0.3&0.2\\0.2&\frac49(0.3)+\frac{11}{30}\end{pmatrix}=\Sigma_\varepsilon.\]</div>
+<h4>3. Responses to unit shocks in \(v_t\)</h4>
+<p>Multiply the coefficient matrix from Question 1 by \(B\):</p>
+<div class="equation-stack">\[\widetilde\Theta_h=\Phi^hB=\begin{pmatrix}0.5^h&\frac13(0.5^h-0.2^h)\\0&0.2^h\end{pmatrix}\begin{pmatrix}1&0\\\frac23&1\end{pmatrix}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\widetilde\Theta_h=\begin{pmatrix}\frac{11}{9}0.5^h-\frac29 0.2^h&\frac13(0.5^h-0.2^h)\\\frac23 0.2^h&0.2^h\end{pmatrix},\quad h\ge0.}\]</div></div>
+<p>Each column gives the responses to a unit shock in the corresponding component of \(v_t\). At impact, \(\widetilde\Theta_0=B\). For the long-run cumulative responses, use the sum from Question 2:</p>
+<div class="equation-stack">\[\sum_{h=0}^{\infty}\widetilde\Theta_h=(I_2-\Phi)^{-1}B=\begin{pmatrix}2&\frac14\\0&\frac54\end{pmatrix}\begin{pmatrix}1&0\\\frac23&1\end{pmatrix}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\sum_{h=0}^{\infty}\widetilde\Theta_h=\begin{pmatrix}\frac{13}{6}&\frac14\\\frac56&\frac54\end{pmatrix}.}\]</div></div>
+<h4>4. Responses to one-standard-deviation shocks</h4>
+<p>A unit shock in \(e_t\) is a one-standard-deviation shock. Since \(S=BH\), multiply each column above by the corresponding diagonal entry of \(H\):</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Theta_h=\Phi^hS=\widetilde\Theta_hH.}\]</div>
+<div class="equation-stack">\[\boxed{\sum_{h=0}^{\infty}\Theta_h=\begin{pmatrix}\frac{13}{6}&\frac14\\\frac56&\frac54\end{pmatrix}H.}\]</div></div>
+<p>Thus \(\widetilde\Theta_h\) uses unit shocks in \(v_t\), while \(\Theta_h\) uses unit-variance shocks \(e_t\). The difference is the scale of each shock.</p>
+
+</section></div>
+</div></section>
+</main></div></body></html>
