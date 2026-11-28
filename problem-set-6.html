@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — Problem Set 6 corrections.">
+  <title>Problem Set 6 — MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=b263a6e185e5">
+  <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    .solution mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+    .answer-toggle { width: 100%; text-align: left; }
+    .answer-panel { border-top: 0; padding-top: 16px; }
+    .exercise .math-display, .equation-stack { max-width: 100%; overflow-x: auto; }
+    .answer-item { min-width: 0; }
+    .method-toggle { align-self: flex-start; width: auto; padding: 7px 12px; font-size: .78rem; }
+    .method-panel { display: flex; flex-direction: column; gap: 12px; min-width: 0; border-left: 3px solid var(--accent); padding: 4px 0 8px 16px; }
+    .method-panel ul { padding-left: 22px; font-size: .91rem; line-height: 1.65; }
+  </style>
+</head>
+<body data-math>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span></a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <div class="sidebar-group problem-sets-nav">
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+        <a href="problem-set-2.html" class="sidebar-link">Problem Set 2</a>
+        <a href="problem-set-3.html" class="sidebar-link">Problem Set 3</a>
+        <a href="problem-set-4.html" class="sidebar-link">Problem Set 4</a>
+        <a href="problem-set-5.html" class="sidebar-link">Problem Set 5</a>
+        <a href="problem-set-6.html" class="sidebar-link active" aria-current="page">Problem Set 6</a>
+      </div>
+      <hr class="sidebar-divider">
+      <details class="sidebar-folder">
+        <summary>LECTURES<span class="folder-arrow" aria-hidden="true">›</span></summary>
+        <div class="sidebar-folder-links">
+        <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
+        <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
+        <a href="lecture-3.html" class="sidebar-link">LECTURE 3</a>
+        <a href="lecture-4.html" class="sidebar-link">LECTURE 4</a>
+        <a href="lecture-5.html" class="sidebar-link">LECTURE 5</a>
+        <a href="lecture-6.html" class="sidebar-link">LECTURE 6</a>
+        <a href="lecture-7.html" class="sidebar-link">LECTURE 7</a>
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        </div>
+      </details>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar"><img src="images/avatar.png" width="44" height="44" alt=""><span class="user-dot" aria-hidden="true"></span></div>
+        <div class="user-info"><div class="user-name">STAR NOVA</div></div>
+      </div>
+    </div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden></button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb"><span>MACRO</span><span class="sep" aria-hidden="true">›</span><strong>Problem Set 6</strong></nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">Macroeconometrics · Exercises</div>
+        <h1>PROBLEM SET 6</h1>
+      </div>
+
+
+<section class="concept-card violet-top exercise" id="exercise-1" aria-labelledby="exercise-1-title"><div class="section-header"><span class="section-label">Exercise 1</span><h2 id="exercise-1-title">Main outputs of a VAR process</h2></div><div class="exercise-statement">
+<p>Consider the structural VAR(1), using its causal stationary solution:</p>
+<div class="equation-stack">\[X_t=\Phi X_{t-1}+S\epsilon_t,\]</div>
+<div class="equation-stack">\[\Phi=\begin{pmatrix}0.7&amp;0\\0&amp;0.3\end{pmatrix},\qquad S=\begin{pmatrix}0.1&amp;0\\0.1&amp;0.2\end{pmatrix},\]</div>
+<p>where \(\epsilon_t\overset{\mathrm{iid}}{\sim}\mathcal N(0,I_2)\) are the structural shocks.</p>
+<ol><li>Check the stability of the VAR.</li><li>Compute the VMA(\(\infty\)) form of \(X_t\).</li><li>Compute the orthogonalised IRFs.</li><li>Compute the FEVD at horizons \(h=1\) and \(h=2\).</li><li>Compute \(\Gamma_X(h)=\operatorname{Cov}(X_t,X_{t-h})\), the autocovariance function of \(X_t\).</li><li>Compute the FEVD at horizon \(h\to\infty\).</li></ol></div><div class="collapsible solution" id="solution-1">
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q1"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 1</button><section class="solution-step answer-panel" id="exercise-1-q1" hidden><h3><span>Question 1</span>Stability of the VAR</h3><div class="target-form"><span class="target-label">Formulas to use — Question 1</span>
+<p><strong>Eigenvalues:</strong> solve the characteristic equation, then check their moduli.</p>
+<div class="equation-stack">\[\det(\lambda I_n-\Phi)=0,\qquad\rho(\Phi)=\max_i|\lambda_i|&lt;1.\]</div>
+</div><div class="solution-givens"><h4>Solution</h4></div>
+<div class="equation-stack">\[\begin{aligned}\det(\lambda I_2-\Phi)&amp;=(\lambda-0.7)(\lambda-0.3)\\&amp;=\lambda^2-\lambda+0.21.\end{aligned}\]</div>
+<p>The eigenvalues are \(0.7\) and \(0.3\). Both lie inside the unit circle:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\rho(\Phi)=0.7&lt;1\quad\Longrightarrow\quad\text{the VAR is stable.}}\]</div></div>
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q2"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 2</button><section class="solution-step answer-panel" id="exercise-1-q2" hidden><h3><span>Question 2</span>VMA(∞) representation</h3><div class="target-form"><span class="target-label">Formulas to use — Question 2</span>
+<p><strong>Matrix powers:</strong> diagonalization raises only the eigenvalues to the power j.</p>
+<div class="equation-stack">\[\Phi=D\Lambda D^{-1}\quad\Longrightarrow\quad\Phi^j=D\Lambda^jD^{-1}.\]</div>
+<p><strong>Stable structural VAR(1):</strong> iterate backward and collect past shocks.</p>
+<div class="equation-stack">\[X_t=\sum_{j=0}^{\infty}\Phi^jS\epsilon_{t-j},\qquad\Theta_j=\Phi^jS.\]</div>
+</div><div class="solution-givens"><h4>Solution</h4></div>
+<p>\(\Phi\) is already diagonal. Its eigenvectors are \((1,0)'\) and \((0,1)'\), so \(D=D^{-1}=I_2\):</p>
+<div class="equation-stack">\[\Phi^j=\begin{pmatrix}0.7^j&amp;0\\0&amp;0.3^j\end{pmatrix}.\]</div>
+<p>Substitute the previous observation into the model:</p>
+<div class="equation-stack">\[\begin{aligned}X_t&amp;=\Phi(\Phi X_{t-2}+S\epsilon_{t-1})+S\epsilon_t\\&amp;=\Phi^2X_{t-2}+\Phi S\epsilon_{t-1}+S\epsilon_t.\end{aligned}\]</div>
+<p>Repeated substitution and stability give</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{X_t=\sum_{j=0}^{\infty}\Phi^jS\epsilon_{t-j}=\sum_{j=0}^{\infty}\Theta_j\epsilon_{t-j}.}\]</div></div>
+<div class="equation-stack">\[\Theta_j=\Phi^jS=\begin{pmatrix}0.1(0.7)^j&amp;0\\0.1(0.3)^j&amp;0.2(0.3)^j\end{pmatrix}.\]</div>
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q3"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 3</button><section class="solution-step answer-panel" id="exercise-1-q3" hidden><h3><span>Question 3</span>Orthogonalised impulse responses</h3><div class="target-form"><span class="target-label">Formulas to use — Question 3</span>
+<p><strong>Innovation covariance and structural responses:</strong> under unit-variance shocks,</p>
+<div class="equation-stack">\[\varepsilon_t=S\epsilon_t,\qquad\Sigma_\varepsilon=SS',\qquad\operatorname{IRF}(h)=\Theta_h=\Phi^hS.\]</div>
+<p><strong>Cumulative responses:</strong> sum each coefficient sequence, including the impact period.</p>
+<div class="equation-stack">\[\sum_{h=0}^{\infty}r^h=\frac1{1-r},\qquad |r|&lt;1.\]</div>
+</div><div class="solution-givens"><h4>Solution</h4></div>
+<p>The reduced-form innovation is a combination of the structural shocks:</p>
+<div class="equation-stack">\[\begin{aligned}\Sigma_\varepsilon=SS'&amp;=\begin{pmatrix}0.1&amp;0\\0.1&amp;0.2\end{pmatrix}\begin{pmatrix}0.1&amp;0.1\\0&amp;0.2\end{pmatrix}\\&amp;=\begin{pmatrix}0.01&amp;0.01\\0.01&amp;0.05\end{pmatrix}.\end{aligned}\]</div>
+<p>The structural shocks are already orthogonal with variance 1. Use the VMA coefficients from Question 2:</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Theta_h=\operatorname{IRF}(h)=\begin{pmatrix}0.1(0.7)^h&amp;0\\0.1(0.3)^h&amp;0.2(0.3)^h\end{pmatrix},\quad h\ge0.}\]</div></div>
+<p>Column \(j\) gives the responses to a unit, hence one-standard-deviation, shock \(\epsilon_j\). At impact, \(\Theta_0=S\).</p>
+<div class="result-box"><div class="equation-stack">\[\sum_{h=0}^{\infty}\Theta_h=\begin{pmatrix}\frac{0.1}{1-0.7}&amp;0\\\frac{0.1}{1-0.3}&amp;\frac{0.2}{1-0.3}\end{pmatrix}=\begin{pmatrix}\frac13&amp;0\\\frac17&amp;\frac27\end{pmatrix}.\]</div></div>
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q4"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 4</button><section class="solution-step answer-panel" id="exercise-1-q4" hidden><h3><span>Question 4</span>FEVD at horizons 1 and 2</h3><div class="target-form"><span class="target-label">Formulas to use — Question 4</span>
+<p><strong>Unit-variance orthogonal shocks:</strong> square the responses and add over the forecast-error horizons.</p>
+<div class="equation-stack">\[\operatorname{FEVD}(h)\big|_{\epsilon_j}^{x_i}=\frac{\sum_{k=0}^{h-1}(\theta_{ij}^{(k)})^2}{\sum_{\ell=1}^{2}\sum_{k=0}^{h-1}(\theta_{i\ell}^{(k)})^2}.\]</div>
+<p>The numerator is shock \(j\)’s contribution; the denominator adds both shocks. Use \(\Theta_0\) at \(h=1\), and \(\Theta_0,\Theta_1\) at \(h=2\). Rows identify variables and columns identify shocks.</p>
+</div><div class="solution-givens"><h4>Solution</h4></div>
+<h4>Horizon h = 1</h4>
+<div class="equation-stack">\[\Theta_0=S=\begin{pmatrix}0.1&amp;0\\0.1&amp;0.2\end{pmatrix}.\]</div>
+<div class="equation-stack">\[\begin{aligned}\operatorname{FEVD}(1)\big|_{\epsilon_1}^{x_1}&amp;=\frac{0.1^2}{0.1^2+0^2}=100\%,\\\operatorname{FEVD}(1)\big|_{\epsilon_2}^{x_1}&amp;=\frac{0^2}{0.1^2+0^2}=0\%,\\\operatorname{FEVD}(1)\big|_{\epsilon_1}^{x_2}&amp;=\frac{0.1^2}{0.1^2+0.2^2}=20\%,\\\operatorname{FEVD}(1)\big|_{\epsilon_2}^{x_2}&amp;=\frac{0.2^2}{0.1^2+0.2^2}=80\%.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{FEVD}(1)=\begin{pmatrix}1&amp;0\\0.2&amp;0.8\end{pmatrix}.}\]</div></div>
+<h4>Horizon h = 2</h4>
+<p>Include the impact responses and the responses one period later:</p>
+<div class="equation-stack">\[\Theta_1=\Phi S=\begin{pmatrix}0.07&amp;0\\0.03&amp;0.06\end{pmatrix}.\]</div>
+<div class="equation-stack">\[\begin{aligned}\operatorname{FEVD}(2)\big|_{\epsilon_1}^{x_1}&amp;=\frac{0.1^2+0.07^2}{0.1^2+0.07^2+0^2+0^2}=100\%,\\\operatorname{FEVD}(2)\big|_{\epsilon_2}^{x_1}&amp;=0\%.\end{aligned}\]</div>
+<div class="equation-stack">\[\begin{aligned}\operatorname{FEVD}(2)\big|_{\epsilon_1}^{x_2}&amp;=\frac{0.1^2+0.03^2}{0.1^2+0.03^2+0.2^2+0.06^2}\\&amp;=\frac{0.0109}{0.0545}=20\%,\\\operatorname{FEVD}(2)\big|_{\epsilon_2}^{x_2}&amp;=\frac{0.2^2+0.06^2}{0.1^2+0.03^2+0.2^2+0.06^2}\\&amp;=\frac{0.0436}{0.0545}=80\%.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{FEVD}(2)=\begin{pmatrix}1&amp;0\\0.2&amp;0.8\end{pmatrix}.}\]</div></div>
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q5"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 5</button><section class="solution-step answer-panel" id="exercise-1-q5" hidden><h3><span>Question 5</span>Autocovariance function</h3><div class="target-form"><span class="target-label">Formulas to use — Question 5</span>
+<p><strong>Start with the unconditional covariance:</strong> current innovations are uncorrelated with past observations.</p>
+<div class="equation-stack">\[\Gamma_X(0)=\Phi\Gamma_X(0)\Phi'+\Sigma_\varepsilon.\]</div>
+<p><strong>Vectorize to solve:</strong> vec stacks columns, and the Kronecker product replaces each entry of its first matrix by that entry times its second matrix.</p>
+<div class="equation-stack">\[\operatorname{vec}(ABC)=(C'\otimes A)\operatorname{vec}(B).\]</div>
+<div class="equation-stack">\[\operatorname{vec}(\Gamma_X(0))=(I_4-\Phi\otimes\Phi)^{-1}\operatorname{vec}(\Sigma_\varepsilon).\]</div>
+<p><strong>Propagate to other lags:</strong></p>
+<div class="equation-stack">\[\Gamma_X(h)=\Phi^h\Gamma_X(0),\quad h\ge1,\qquad\Gamma_X(-h)=\Gamma_X(h)'.\]</div>
+</div><div class="solution-givens"><h4>Solution</h4></div>
+<h4>Unconditional covariance</h4>
+<p>Taking the covariance of the VAR gives the Lyapunov equation. Apply the column-stacking identity:</p>
+<div class="equation-stack">\[\Gamma_X(0)=\Phi\Gamma_X(0)\Phi'+\Sigma_\varepsilon,\]</div>
+<div class="equation-stack">\[\begin{aligned}\operatorname{vec}(\Gamma_X(0))&amp;=(\Phi\otimes\Phi)\operatorname{vec}(\Gamma_X(0))\\&amp;\quad+\operatorname{vec}(\Sigma_\varepsilon).\end{aligned}\]</div>
+<p>Move the first term to the left and invert \(I_4-\Phi\otimes\Phi\). Since \(\Phi\) is diagonal,</p>
+<div class="equation-stack">\[\Phi\otimes\Phi=\begin{pmatrix}0.49&amp;0&amp;0&amp;0\\0&amp;0.21&amp;0&amp;0\\0&amp;0&amp;0.21&amp;0\\0&amp;0&amp;0&amp;0.09\end{pmatrix}.\]</div>
+<div class="equation-stack">\[\begin{aligned}\operatorname{vec}(\Gamma_X(0))&amp;=\begin{pmatrix}1/0.51&amp;0&amp;0&amp;0\\0&amp;1/0.79&amp;0&amp;0\\0&amp;0&amp;1/0.79&amp;0\\0&amp;0&amp;0&amp;1/0.91\end{pmatrix}\begin{pmatrix}0.01\\0.01\\0.01\\0.05\end{pmatrix}\\&amp;=\begin{pmatrix}1/51\\1/79\\1/79\\5/91\end{pmatrix}.\end{aligned}\]</div>
+<p>Unstack column by column: the first two entries form column 1, and the last two form column 2.</p>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Gamma_X(0)=\begin{pmatrix}\frac1{51}&amp;\frac1{79}\\\frac1{79}&amp;\frac5{91}\end{pmatrix}\approx\begin{pmatrix}0.019608&amp;0.012658\\0.012658&amp;0.054945\end{pmatrix}.}\]</div></div>
+<h4>Covariance at lag h</h4>
+<p>For positive lags, the current innovation contributes no covariance with the past:</p>
+<div class="equation-stack">\[\Gamma_X(h)=\Phi\Gamma_X(h-1)=\Phi^h\Gamma_X(0).\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\Gamma_X(h)=\begin{pmatrix}\frac{0.7^h}{51}&amp;\frac{0.7^h}{79}\\\frac{0.3^h}{79}&amp;\frac{5(0.3)^h}{91}\end{pmatrix},\quad h\ge0.}\]</div></div>
+<div class="equation-stack">\[\Gamma_X(1)\approx\begin{pmatrix}0.013725&amp;0.008861\\0.003797&amp;0.016484\end{pmatrix},\]</div>
+<div class="equation-stack">\[\Gamma_X(2)\approx\begin{pmatrix}0.009608&amp;0.006203\\0.001139&amp;0.004945\end{pmatrix}.\]</div>
+<p>For negative lags, \(\Gamma_X(-h)=\Gamma_X(h)'\). As \(h\to\infty\), both powers tend to zero, so \(\Gamma_X(h)\to0\).</p>
+</section></div>
+<div class="answer-item"><button class="toggle-btn answer-toggle" type="button" data-disclosure aria-expanded="false" aria-controls="exercise-1-q6"><span class="disclosure-arrow" aria-hidden="true">▶</span> <span data-toggle-action>Show</span> correction — Question 6</button><section class="solution-step answer-panel" id="exercise-1-q6" hidden><h3><span>Question 6</span>Long-horizon FEVD</h3><div class="target-form"><span class="target-label">Formulas to use — Question 6</span>
+<p><strong>Sum the squared responses:</strong> use the geometric-series limit in the numerator and denominator of each variance share.</p>
+<div class="equation-stack">\[\sum_{k=0}^{h-1}r^k=\frac{1-r^h}{1-r}\longrightarrow\frac1{1-r},\qquad |r|&lt;1.\]</div>
+<div class="equation-stack">\[\operatorname{FEVD}(\infty)\big|_{\epsilon_j}^{x_i}=\frac{\sum_{k=0}^{\infty}(\theta_{ij}^{(k)})^2}{[\Gamma_X(0)]_{ii}}.\]</div>
+<p>For a stable VAR, \(\Sigma_e(h)\to\Gamma_X(0)\): long-horizon forecast uncertainty reaches the unconditional covariance.</p>
+</div><div class="solution-givens"><h4>Solution</h4></div>
+<p>For \(x_1\), only shock 1 contributes:</p>
+<div class="equation-stack">\[\operatorname{FEVD}(\infty)\big|_{\epsilon_1}^{x_1}=\frac{0.01/(1-0.7^2)}{0.01/(1-0.7^2)}=100\%,\]</div>
+<div class="equation-stack">\[\operatorname{FEVD}(\infty)\big|_{\epsilon_2}^{x_1}=0\%.\]</div>
+<p>For \(x_2\), the two squared responses share the same decay factor \(0.3^{2k}\):</p>
+<div class="equation-stack">\[\operatorname{FEVD}(\infty)\big|_{\epsilon_1}^{x_2}=\frac{0.01/(1-0.3^2)}{0.05/(1-0.3^2)}=\frac15,\]</div>
+<div class="equation-stack">\[\operatorname{FEVD}(\infty)\big|_{\epsilon_2}^{x_2}=\frac{0.04/(1-0.3^2)}{0.05/(1-0.3^2)}=\frac45.\]</div>
+<div class="result-box"><div class="equation-stack">\[\boxed{\operatorname{FEVD}(\infty)=\begin{pmatrix}100\%&amp;0\%\\20\%&amp;80\%\end{pmatrix}.}\]</div></div>
+<p>The shares are constant at every horizon in this process: both responses of \(x_2\) decay at the same rate \(0.3^h\), which cancels in their variance shares.</p>
+</section></div>
+</div></section></main></div></body></html>
