@@ -215,55 +215,53 @@
 <h4>1. Why do we orthogonalise the innovations?</h4>
 <p>Read the covariance directly from the off-diagonal entries:</p>
 <div class="equation-stack">\[\Sigma_\varepsilon=\begin{pmatrix}0.3&0.2\\0.2&0.5\end{pmatrix}\quad\Longrightarrow\quad\operatorname{Cov}(\varepsilon_{1,t},\varepsilon_{2,t})=0.2\ne0.\]</div>
-<p>The two reduced-form innovations are therefore correlated: they tend to move together. To interpret the effect of each shock separately, we construct <strong>orthogonal shocks</strong>, meaning shocks with zero covariance. We can then follow one shock while holding the other at zero.</p>
-<p>Use the ordering \((y_1,y_2)\) and a lower-triangular impact matrix. This is our identification choice: the second shock has no immediate effect on \(y_1\), while the first may immediately affect both variables. The interpretation depends on this ordering.</p>
+<p>The covariance is nonzero, so the innovations are correlated. Orthogonalisation gives uncorrelated shocks whose effects can be interpreted separately.</p>
+<p>Use the ordering \((y_1,y_2)\): a lower-triangular impact matrix means shock 2 has no immediate effect on \(y_1\).</p>
 <h4>2. Build the Cholesky impact matrix \(S\)</h4>
 <p>Write the original innovations as a linear combination of new shocks \(e_t\):</p>
 <div class="equation-stack">\[\varepsilon_t=Se_t,\qquad V(e_t)=I_2,\qquad S=\begin{pmatrix}s_{11}&0\\s_{21}&s_{22}\end{pmatrix}.\]</div>
-<p>Setting \(V(e_t)=I_2\) makes the shocks uncorrelated (zero off-diagonal entries) and gives each shock variance 1. This fixes their scale: a unit shock is also a one-standard-deviation shock. The matrix \(S\) carries their effects in the original units of \(Y_t\).</p>
+<p>\(V(e_t)=I_2\) sets both variances to 1 and their covariance to zero. A unit shock is then one standard deviation.</p>
 <p>Apply \(V(Au_t)=A\,V(u_t)A'\), where the prime denotes the transpose:</p>
 <div class="equation-stack">\[\Sigma_\varepsilon=V(\varepsilon_t)=V(Se_t)=S\,V(e_t)S'=SI_2S'=SS'.\]</div>
 <p>Multiply \(S\) by its transpose and match the entries with the given covariance matrix:</p>
 <div class="equation-stack">\[SS'=\begin{pmatrix}s_{11}^2&s_{11}s_{21}\\s_{11}s_{21}&s_{21}^2+s_{22}^2\end{pmatrix}=\begin{pmatrix}0.3&0.2\\0.2&0.5\end{pmatrix}.\]</div>
-<p><strong>First entry:</strong> the variance of the first innovation determines \(s_{11}\). Choose the positive square root.</p>
+<p><strong>First entry:</strong> take the positive square root.</p>
 <div class="equation-stack">\[s_{11}^2=0.3\quad\Longrightarrow\quad s_{11}=\sqrt{0.3}.\]</div>
-<p><strong>Off-diagonal entry:</strong> use the covariance to find \(s_{21}\).</p>
+<p><strong>Covariance:</strong> solve for \(s_{21}\).</p>
 <div class="equation-stack">\[s_{11}s_{21}=0.2\quad\Longrightarrow\quad s_{21}=\frac{0.2}{\sqrt{0.3}}.\]</div>
-<p><strong>Last diagonal entry:</strong> subtract the variance already explained by the first shock. The remaining variance gives \(s_{22}\).</p>
+<p><strong>Last entry:</strong> subtract the variance explained by shock 1.</p>
 <div class="equation-stack">\[\begin{aligned}s_{21}^2+s_{22}^2&=0.5,\\s_{22}&=\sqrt{0.5-s_{21}^2}=\sqrt{0.5-\frac{0.2^2}{0.3}}=\sqrt{\frac{11}{30}}.\end{aligned}\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{S\simeq\begin{pmatrix}0.547723&0\\0.365148&0.605530\end{pmatrix}.}\]</div></div>
-<p>Each column gives the immediate effects of one unit shock in \(e_t\). The zero in the first row means the second orthogonal shock has no contemporaneous effect on \(y_1\).</p>
+
 <h4>3. Obtain \(H\), \(B\) and \(\Omega\)</h4>
-<p>We now use <strong>unit-diagonal normalization</strong>: each shock has an immediate effect of 1 on its corresponding variable. To obtain it, put the diagonal entries of \(S\) into a diagonal matrix \(H\):</p>
+<p>For <strong>unit-diagonal normalization</strong>, first extract the diagonal of \(S\):</p>
 <div class="equation-stack">\[H=\operatorname{diag}(s_{11},s_{22})=\begin{pmatrix}\sqrt{0.3}&0\\0&\sqrt{\frac{11}{30}}\end{pmatrix},\qquad H^{-1}=\begin{pmatrix}\frac1{s_{11}}&0\\0&\frac1{s_{22}}\end{pmatrix}.\]</div>
-<p>Define the rescaled shocks by \(v_t=He_t\), so \(e_t=H^{-1}v_t\). Substitution gives \(\varepsilon_t=SH^{-1}v_t=Bv_t\). Multiplication on the right by \(H^{-1}\) divides column 1 of \(S\) by \(s_{11}\), and column 2 by \(s_{22}\):</p>
+<p>Set \(v_t=He_t\), so \(\varepsilon_t=SH^{-1}v_t=Bv_t\). Right multiplication by \(H^{-1}\) divides column \(k\) of \(S\) by \(s_{kk}\):</p>
 <div class="equation-stack">\[\begin{aligned}B=SH^{-1}&=\begin{pmatrix}s_{11}/s_{11}&0\\s_{21}/s_{11}&s_{22}/s_{22}\end{pmatrix}\\&=\begin{pmatrix}1&0\\0.2/0.3&1\end{pmatrix}=\begin{pmatrix}1&0\\\frac23&1\end{pmatrix}.\end{aligned}\]</div>
-<p>The diagonal of \(B\) is now 1. To find the covariance of \(v_t\), apply the same variance property:</p>
+<p>The diagonal of \(B\) is 1. The rescaled shocks have covariance:</p>
 <div class="equation-stack">\[\begin{aligned}\Omega=V(v_t)&=V(He_t)=H\,V(e_t)H'\\&=HH'=\begin{pmatrix}s_{11}^2&0\\0&s_{22}^2\end{pmatrix}=\begin{pmatrix}0.3&0\\0&\frac{11}{30}\end{pmatrix}.\end{aligned}\]</div>
-<p>The off-diagonal entries are still zero, so the shocks remain uncorrelated. A diagonal rescaling changes their size without mixing them. Their variances are now \(0.3\) and \(11/30\), rather than 1.</p>
-<p><strong>Check that the original covariance is preserved.</strong> Since \(\varepsilon_t=Bv_t\), we must recover \(V(\varepsilon_t)=B\Omega B'\):</p>
+<p>\(\Omega\) is diagonal: the shocks remain uncorrelated, with variances \(0.3\) and \(11/30\).</p>
+<p>Check that rescaling preserves the original innovation covariance:</p>
 <div class="equation-stack">\[\begin{aligned}B\Omega B'&=\begin{pmatrix}0.3&0.2\\0.2&\frac49(0.3)+\frac{11}{30}\end{pmatrix}\\&=\begin{pmatrix}0.3&0.2\\0.2&0.5\end{pmatrix}=\Sigma_\varepsilon.\end{aligned}\]</div>
-<p>This verifies that \((B,\Omega)\) describes the same innovations as \(S\). Only the units used to measure the orthogonal shocks have changed.</p>
+
 <h4>4. Responses to unit shocks in \(v_t\)</h4>
-<p>Question 2 already gives the reduced-form IRFs \(\Psi_h=\Phi^h\) and their sum \((I_2-\Phi)^{-1}\). Replacing \(\varepsilon_{t-h}\) by \(Bv_{t-h}\) in the VMA representation gives</p>
+<p>Reuse \(\Psi_h=\Phi^h\) from Question 2. Substituting \(\varepsilon_t=Bv_t\) gives:</p>
 <div class="equation-stack">\[Y_t=\sum_{h=0}^{\infty}\Psi_hBv_{t-h}\quad\Longrightarrow\quad\widetilde\Theta_h=\Psi_hB.\]</div>
-<p>Thus, multiply the existing response matrix on the right by \(B\):</p>
+<p>Multiply on the right by \(B\):</p>
 <div class="equation-stack">\[\widetilde\Theta_h=\Phi^hB=\begin{pmatrix}0.5^h&\frac13(0.5^h-0.2^h)\\0&0.2^h\end{pmatrix}\begin{pmatrix}1&0\\\frac23&1\end{pmatrix}.\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{\widetilde\Theta_h=\begin{pmatrix}\frac{11}{9}0.5^h-\frac29 0.2^h&\frac13(0.5^h-0.2^h)\\\frac23 0.2^h&0.2^h\end{pmatrix},\quad h\ge0.}\]</div></div>
-<p>Entry \((i,k)\) is the response of variable \(i\) at horizon \(h\) to a unit shock in component \(k\) of \(v_t\). At impact, \(\widetilde\Theta_0=B\): shock 1 raises \(y_1\) by 1 and \(y_2\) by \(2/3\); shock 2 raises \(y_2\) by 1 with no immediate effect on \(y_1\).</p>
-<p>For cumulative responses, \(B\) is constant across horizons, so it can be placed outside the sum. Reuse the sum from Question 2; no geometric series needs to be calculated again:</p>
+<p>Rows are variables; columns are shocks. At impact, \(\widetilde\Theta_0=B\): shock 1 has effects \((1,2/3)\), and shock 2 has effects \((0,1)\).</p>
+<p>\(B\) does not depend on \(h\), so reuse the sum from Question 2:</p>
 <div class="equation-stack">\[\begin{aligned}\sum_{h=0}^{\infty}\widetilde\Theta_h&=\left(\sum_{h=0}^{\infty}\Psi_h\right)B=(I_2-\Phi)^{-1}B\\&=\begin{pmatrix}2&\frac14\\0&\frac54\end{pmatrix}\begin{pmatrix}1&0\\\frac23&1\end{pmatrix}.\end{aligned}\]</div>
 <div class="result-box"><div class="equation-stack">\[\boxed{\sum_{h=0}^{\infty}\widetilde\Theta_h=\begin{pmatrix}\frac{13}{6}&\frac14\\\frac56&\frac54\end{pmatrix}.}\]</div></div>
-<p>The first column gives the total effects of shock 1 over all horizons: \(13/6\) on \(y_1\) and \(5/6\) on \(y_2\). The second gives the total effects of shock 2: \(1/4\) and \(5/4\). These are <strong>sums of responses</strong>; the responses at each individual horizon tend to zero.</p>
+<p>Each column sums the effects of one shock over all horizons. These cumulative effects differ from the individual responses, which tend to zero.</p>
 <h4>5. Responses to one-standard-deviation shocks</h4>
-<p>A normalization defines the size of the shock used to report a response. With \(V(e_t)=I_2\), one unit of \(e_{k,t}\) is one standard deviation. With the unit diagonal of \(B\), one unit of \(v_{k,t}\) gives an immediate response of 1 in variable \(k\), but it is not one standard deviation.</p>
-<p>Since \(v_t=He_t\), a unit shock in \(e_{k,t}\) corresponds to a shock of size \(s_{kk}\) in \(v_{k,t}\). Also, \(S=BH\). Therefore, multiply column 1 of the previous responses by \(\sqrt{0.3}\), and column 2 by \(\sqrt{11/30}\):</p>
+<p><strong>Normalization fixes shock size:</strong> a unit \(e_t\) shock is one standard deviation; a unit \(v_t\) shock gives an immediate response of 1 in its corresponding variable.</p>
+<p>Since \(S=BH\), multiply column 1 by \(\sqrt{0.3}\) and column 2 by \(\sqrt{11/30}\):</p>
 <div class="result-box"><div class="equation-stack">\[\boxed{\Theta_h=\Phi^hS=\widetilde\Theta_hH.}\]</div>
 <div class="equation-stack">\[\boxed{\sum_{h=0}^{\infty}\Theta_h=\begin{pmatrix}\frac{13}{6}&\frac14\\\frac56&\frac54\end{pmatrix}H.}\]</div></div>
-<p>The two normalizations give different numerical responses because a “unit shock” has a different size. For each shock, all horizons are multiplied by the same positive constant. The timing, signs and decay pattern stay the same: both use the same dynamics \(\Phi^h\) and the same shock ordering.</p>
+<p>Only the scale changes: each column is multiplied by a fixed positive number, so the timing, signs and decay pattern remain the same.</p>
 <div class="target-form"><span class="target-label">Exam recap — formulas to remember</span>
-<p><strong>Build and rescale the impact matrix:</strong></p>
-<div class="equation-stack">\[\begin{gathered}SS'=\Sigma_\varepsilon,\qquad V(e_t)=I_2,\\H=\operatorname{diag}(s_{11},s_{22}),\qquad B=SH^{-1},\\\Omega=HH',\qquad B\Omega B'=\Sigma_\varepsilon.\end{gathered}\]</div>
 <p><strong>Use one rule for both normalizations:</strong> \(A=S\) for unit shocks in \(e_t\); \(A=B\) for unit shocks in \(v_t\).</p>
 <div class="equation-stack">\[\text{IRF at }h=\Psi_hA,\qquad\text{cumulative IRF}=(I_2-\Phi)^{-1}A.\]</div>
 <p>Always state the shock normalization. Read rows as variables and columns as shocks.</p>
