@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — Lecture 5: The Vector Autoregressive Model (VAR).">
+  <title>Lecture 5 — The Vector Autoregressive Model (VAR) | MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=b263a6e185e5">
+  <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    .lecture-section, .answer-item, .result-box { min-width: 0; }
+    .lecture-page .toggle-btn { max-width: 100%; text-align: left; line-height: 1.5; }
+    .lecture-page .lecture-calculation { margin-top: 16px; gap: 12px; }
+    .equation-stack, .equation-chain > span, .matrix-pair > div { max-width: 100%; min-width: 0; }
+    .lecture-page .results-table { table-layout: fixed; }
+    .lecture-page .results-table th, .lecture-page .results-table td { overflow-wrap: anywhere; line-height: 1.55; }
+    @media (max-width: 767px) {
+      .lecture-page .results-table th:first-child { width: 38%; }
+      .lecture-page .results-table th[scope="row"] { white-space: nowrap; font-size: .84rem; }
+    }
+    /* Shared lecture layout. */
+    .lecture-page .lecture-section { gap: 24px; }
+    .lecture-page .lecture-section > .section-header { padding-bottom: 20px; }
+    .lecture-page .lecture-section > .lecture-block { gap: 14px; }
+    .lecture-page .lecture-panel,
+    .lecture-page .lecture-grid > .lecture-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .02);
+      gap: 14px;
+    }
+    .lecture-page .lecture-panel > h3,
+    .lecture-page .lecture-grid > .lecture-block > :is(h3, h4):first-child {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .lecture-page .lecture-panel + .lecture-panel { padding-top: 20px; }
+    .lecture-page .lecture-section > :is(.lecture-grid, section) + .lecture-block:not(.lecture-panel) {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .lecture-page .lecture-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+    .lecture-page .lecture-grid > .lecture-block { align-content: start; }
+    .lecture-page .lecture-panel > .lecture-panel { border-color: var(--border); border-left: 3px solid var(--accent-border); }
+    .lecture-page h5 {
+      font-size: .9rem;
+      line-height: 1.5;
+      color: var(--accent-bright);
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      margin-top: 6px;
+    }
+    .lecture-page .lecture-note { gap: 14px; }
+    .lecture-page .lecture-calculation { padding-top: 20px; }
+    .lecture-page .results-table { width: 100%; }
+    .lecture-page .results-table :is(th, td) { vertical-align: top; padding: 14px 12px; }
+    @media (min-width: 1101px) {
+      @supports (grid-template-rows: subgrid) {
+        .lecture-page .lecture-grid > .lecture-block { display: grid; grid-template-rows: subgrid; grid-row: span 4; }
+        .lecture-page #pacf-identification .lecture-grid > .lecture-block { grid-row: span 3; }
+      }
+    }
+    @media (max-width: 1100px) {
+      .lecture-page .lecture-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-section { gap: 20px; }
+      .lecture-page .lecture-panel,
+      .lecture-page .lecture-grid > .lecture-block { padding: 16px 12px; }
+      .lecture-page .lecture-panel + .lecture-panel { padding-top: 16px; }
+      .lecture-page .results-table :is(th, td) { padding: 12px 6px; }
+    }
+    #ar-irf .results-table th:first-child { width: 20%; }
+    .lecture-page mjx-container[display="true"] { max-width: 100%; }
+    .lecture-page mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+    /* Teal accents distinguish worked model examples. */
+    .lecture-page .example-block {
+      --accent: #5eead4;
+      --accent-bright: #99f6e4;
+      --accent-muted: rgba(94, 234, 212, .08);
+      --accent-border: rgba(94, 234, 212, .3);
+      background: #132326;
+      border-color: var(--accent-border);
+    }
+    .lecture-page .lecture-block.example-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+    }
+    .lecture-page .example-block > h3,
+    .lecture-page .example-block > .section-header h2 { color: var(--accent-bright); }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-block.example-block { padding: 16px 12px; }
+    }
+  .lecture-page mjx-container[display="true"] { text-align: left !important; }
+</style>
+</head>
+<body data-math class="lecture-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span></a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <div class="sidebar-group problem-sets-nav">
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+        <a href="problem-set-2.html" class="sidebar-link">Problem Set 2</a>
+        <a href="problem-set-3.html" class="sidebar-link">Problem Set 3</a>
+        <a href="problem-set-4.html" class="sidebar-link">Problem Set 4</a>
+        <a href="problem-set-5.html" class="sidebar-link">Problem Set 5</a>
+      </div>
+      <hr class="sidebar-divider">
+      <details class="sidebar-folder">
+        <summary>LECTURES<span class="folder-arrow" aria-hidden="true">›</span></summary>
+        <div class="sidebar-folder-links">
+        <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
+        <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
+        <a href="lecture-3.html" class="sidebar-link">LECTURE 3</a>
+        <a href="lecture-4.html" class="sidebar-link">LECTURE 4</a>
+        <a href="lecture-5.html" class="sidebar-link active" aria-current="page">LECTURE 5</a>
+        <a href="lecture-6.html" class="sidebar-link">LECTURE 6</a>
+        <a href="lecture-7.html" class="sidebar-link">LECTURE 7</a>
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        </div>
+      </details>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar"><img src="images/avatar.png" width="44" height="44" alt=""><span class="user-dot" aria-hidden="true"></span></div><div class="user-info"><div class="user-name">STAR NOVA</div></div></div></div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden></button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb"><span>MACRO</span><span class="sep" aria-hidden="true">›</span><strong>Lecture 5</strong></nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">MACROECONOMETRICS · REVISION NOTES</div>
+        <h1>LECTURE 5</h1>
+        <p class="lecture-subtitle">The Vector Autoregressive Model (VAR)</p>
+      </div>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="multivariate-series" aria-labelledby="multivariate-series-title"><div class="section-header"><span class="section-label">Definitions</span><h2 id="multivariate-series-title">Multivariate time series</h2></div>
+<p>A multivariate time series collects \(n\) variables in an \(n\times1\) vector:</p>
+<div class="equation-stack">\[Y_t=(y_{1t},\ldots,y_{nt})'.\]</div>
+<div class="lecture-block"><h3>Weak white noise</h3>
+<div class="equation-stack">\[\mathbb E(\varepsilon_t)=0\]</div><div class="equation-stack">\[\mathbb E(\varepsilon_t\varepsilon_{t-k}')=\begin{cases}\Sigma_\varepsilon,&amp;k=0,\\0,&amp;k\ne0.\end{cases}\]</div>
+<p>\(\Sigma_\varepsilon\) is an \(n\times n\) symmetric positive definite matrix. Innovations are uncorrelated across dates; different components may be correlated at the same date.</p>
+</div>
+<div class="lecture-block"><h3>Weak stationarity and covariance</h3>
+<p>Weak stationarity requires a constant mean and covariance matrices that depend on the lag, not the date:</p>
+<div class="equation-stack">\[\mathbb E(Y_t)=\boldsymbol m\]</div><div class="equation-stack">\[\Gamma_k=\mathbb E[(Y_t-\boldsymbol m)(Y_{t-k}-\boldsymbol m)'].\]</div>
+<div class="equation-stack">\[\Gamma_0=V(Y_t)\]</div><div class="equation-stack">\[[\Gamma_k]_{ij}=\gamma_{ij}^{(k)}=\operatorname{Cov}(y_{it},y_{j,t-k}).\]</div>
+<p>The diagonal contains autocovariances; off-diagonal entries contain cross-lag covariances. At lag zero, these are variances and contemporaneous covariances.</p>
+<div class="equation-stack">\[\rho_{ij}^{(k)}=\frac{\gamma_{ij}^{(k)}}{\sqrt{\gamma_{ii}^{(0)}\gamma_{jj}^{(0)}}}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\gamma_{ij}^{(k)}=\operatorname{Cov}(y_{i,t+k},y_{jt})=\gamma_{ji}^{(-k)}\quad\Longrightarrow\quad\Gamma_{-k}=\Gamma_k'.\]</div></div>
+<p>\(\Gamma_0\) is symmetric. In general, \(\Gamma_k\) is not symmetric when \(k\ne0\).</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="stationary-var" aria-labelledby="stationary-var-title"><div class="section-header"><span class="section-label">Representation</span><h2 id="stationary-var-title">The stationary VAR</h2></div>
+<div class="lecture-block"><h3>VAR(p) and lag polynomial</h3>
+<div class="result-box"><div class="equation-stack">\[Y_t=\boldsymbol\mu+\sum_{j=1}^{p}\Phi_jY_{t-j}+\varepsilon_t.\]</div></div>
+<p>\(Y_t,\boldsymbol\mu,\varepsilon_t\) are \(n\times1\); each \(\Phi_j\) is \(n\times n\). Entry \((i,\ell)\) of \(\Phi_j\) is the coefficient of variable \(\ell\), lagged \(j\) periods, in equation \(i\). All equations use the same lagged variables, with different coefficients.</p>
+<div class="equation-stack">\[\Phi(L)Y_t=\boldsymbol\mu+\varepsilon_t\]</div><div class="equation-stack">\[\Phi(L)=I_n-\Phi_1L-\cdots-\Phi_pL^p.\]</div>
+</div>
+<div class="lecture-block"><h3>Stability and unconditional mean</h3>
+<div class="result-box"><div class="equation-stack">\[\det(I_n-\Phi_1z-\cdots-\Phi_pz^p)=0\quad\Longrightarrow\quad |z|&gt;1.\]</div></div>
+<p>Equivalently, every eigenvalue of the companion matrix \(F\) lies inside the unit circle:</p>
+<div class="equation-stack">\[\det(F-\lambda I_{np})=0\quad\Longrightarrow\quad |\lambda|&lt;1.\]</div>
+<p>Lag-polynomial roots and companion eigenvalues use reciprocal conventions. Stability gives the causal stationary solution.</p>
+<div class="equation-stack">\[\boldsymbol m=\boldsymbol\mu+\sum_{j=1}^{p}\Phi_j\boldsymbol m\quad\Longrightarrow\quad\boldsymbol m=(I_n-\Phi_1-\cdots-\Phi_p)^{-1}\boldsymbol\mu.\]</div>
+<div class="equation-stack">\[Y_t-\boldsymbol m=\sum_{j=1}^{p}\Phi_j(Y_{t-j}-\boldsymbol m)+\varepsilon_t.\]</div>
+</div>
+<div class="lecture-block"><h3>Wold representation</h3>
+<div class="result-box"><div class="equation-stack">\[\begin{aligned}Y_t&amp;=\Phi(1)^{-1}\boldsymbol\mu+\Phi(L)^{-1}\varepsilon_t\\&amp;=\boldsymbol m+\sum_{k=0}^{\infty}\Psi_k\varepsilon_{t-k}.\end{aligned}\]</div></div>
+<p>\(\Psi_k\) is the \(n\times n\) coefficient of \(L^k\) in \(\Phi(L)^{-1}\), with \(\Psi_0=I_n\). Stability ensures absolute summability of each coefficient sequence.</p>
+<div class="equation-stack">\[\sum_{k=0}^{\infty}|\psi_{ij}^{(k)}|&lt;\infty\]</div><div class="equation-stack">\[i,j=1,\ldots,n.\]</div>
+</div>
+<div class="lecture-block"><h3>Companion representation</h3>
+<div class="equation-stack">\[X_t=\begin{pmatrix}Y_t-\boldsymbol m\\Y_{t-1}-\boldsymbol m\\\vdots\\Y_{t-p+1}-\boldsymbol m\end{pmatrix}\]</div><div class="equation-stack">\[\nu_t=\begin{pmatrix}\varepsilon_t\\0\\\vdots\\0\end{pmatrix}.\]</div>
+<div class="result-box"><div class="equation-stack">\[F=\begin{pmatrix}\Phi_1&amp;\Phi_2&amp;\cdots&amp;\Phi_p\\I_n&amp;0&amp;\cdots&amp;0\\0&amp;\ddots&amp;\ddots&amp;\vdots\\0&amp;\cdots&amp;I_n&amp;0\end{pmatrix}\]</div><div class="equation-stack">\[X_t=FX_{t-1}+\nu_t.\]</div></div>
+<p>\(X_t\) and \(\nu_t\) have dimension \(np\times1\); \(F\) has dimension \(np\times np\). The first block row reproduces the VAR; the remaining rows shift the lagged vectors.</p>
+<div class="equation-stack">\[\Sigma_\nu=\operatorname{diag}(\Sigma_\varepsilon,0,\ldots,0).\]</div>
+</div>
+<div class="lecture-block"><h3>Yule–Walker equations</h3>
+<p>Multiply the centered VAR by the lagged centered vector and take expectations. Innovations are orthogonal to past observations:</p>
+<div class="equation-stack">\[\Gamma_h=\sum_{j=1}^{p}\Phi_j\Gamma_{h-j},\quad h\ge1\]</div><div class="equation-stack">\[\Gamma_{-h}=\Gamma_h'.\]</div>
+<div class="result-box"><div class="equation-stack">\[\Gamma_0=\sum_{j=1}^{p}\Phi_j\Gamma_j'+\Sigma_\varepsilon.\]</div></div>
+</div>
+<div class="lecture-block"><h3>Covariance through the companion form</h3>
+<p>Let \(\Gamma_0^x=\mathbb E(X_tX_t')\). Substitute \(X_t=FX_{t-1}+\nu_t\); the cross terms vanish:</p>
+<div class="equation-stack">\[\begin{aligned}\mathbb E(X_tX_t')&amp;=\mathbb E[(FX_{t-1}+\nu_t)(FX_{t-1}+\nu_t)']\\&amp;=F\mathbb E(X_{t-1}X_{t-1}')F'+\Sigma_\nu.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\Gamma_0^x=F\Gamma_0^xF'+\Sigma_\nu.\]</div></div>
+<p>\(\operatorname{Vec}\) stacks the columns of a matrix into one vector. The Kronecker product \(A\otimes B\) replaces each entry \(a_{ij}\) by the block \(a_{ij}B\). Here, \(F\otimes F\) has dimension \((np)^2\times(np)^2\).</p>
+<div class="equation-stack">\[\operatorname{Vec}(F\Gamma_0^xF')=(F\otimes F)\operatorname{Vec}(\Gamma_0^x).\]</div>
+<div class="result-box"><div class="equation-stack">\[\begin{aligned}{}[I_{(np)^2}-F\otimes F]\operatorname{Vec}(\Gamma_0^x)&amp;=\operatorname{Vec}(\Sigma_\nu),\\\operatorname{Vec}(\Gamma_0^x)&amp;=[I_{(np)^2}-F\otimes F]^{-1}\operatorname{Vec}(\Sigma_\nu).\end{aligned}\]</div></div>
+<p>Reshape the resulting vector column by column. The first block row contains the covariance matrices needed to start the Yule–Walker recursion:</p>
+<div class="equation-stack">\[\Gamma_0^x=\begin{pmatrix}\Gamma_0^y&amp;\Gamma_1^y&amp;\cdots&amp;\Gamma_{p-1}^y\\(\Gamma_1^y)'&amp;\Gamma_0^y&amp;\cdots&amp;\Gamma_{p-2}^y\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\(\Gamma_{p-1}^y)'&amp;(\Gamma_{p-2}^y)'&amp;\cdots&amp;\Gamma_0^y\end{pmatrix}.\]</div>
+</div>
+<div class="lecture-block"><h3>Autocorrelation matrices</h3>
+<div class="equation-stack">\[D_y=\operatorname{diag}\!\left(\sqrt{\gamma_{11}^{(0)}},\ldots,\sqrt{\gamma_{nn}^{(0)}}\right)\]</div><div class="equation-stack">\[R_h^y=D_y^{-1}\Gamma_h^yD_y^{-1}.\]</div>
+<p>Dividing each covariance by the two corresponding standard deviations gives the cross-lag correlations.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="var-outputs" aria-labelledby="var-outputs-title"><div class="section-header"><span class="section-label">Dynamics</span><h2 id="var-outputs-title">Main outputs of the VAR</h2></div>
+<div class="lecture-block"><h3>Reduced-form impulse responses</h3>
+<div class="equation-stack">\[Y_t=\boldsymbol m+\sum_{k=0}^{\infty}\Psi_k\varepsilon_{t-k}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\operatorname{IRF}(h)\big|_{\varepsilon_j}^{y_i}=\frac{\partial y_{i,t+h}}{\partial\varepsilon_{j,t}}=[\Psi_h]_{ij}.\]</div></div>
+<p>Row \(i\) identifies the responding variable, column \(j\) the shock, and \(h\) the periods since that shock. For a VAR(1), \(\Psi_h=\Phi^h\), a matrix power.</p>
+<div class="equation-stack">\[\operatorname{CIRF}(h)\big|_{\varepsilon_j}^{y_i}=\sum_{k=0}^{h}[\Psi_k]_{ij}.\]</div>
+<p>An IRF measures the response at one horizon; a CIRF adds responses through that horizon. Under stability, \(\Psi_h\to0\), but the accumulated response need not be zero.</p>
+</div>
+<div class="lecture-block"><h3>Orthogonalized impulse responses</h3>
+<p>Off-diagonal entries of the innovation covariance describe contemporaneous correlation, not serial correlation. Holding other correlated innovations at zero is mathematically possible, but does not generally isolate a structural shock.</p>
+<p>Choose a nonsingular transformation \(Q\) such that \(Q\Sigma_\varepsilon Q'=I_n\). Insert \(Q^{-1}Q\) into the VMA:</p>
+<div class="equation-stack">\[\begin{aligned}Y_t&amp;=\boldsymbol m+\sum_{k=0}^{\infty}\Psi_k\varepsilon_{t-k}\\&amp;=\boldsymbol m+\sum_{k=0}^{\infty}\Psi_kQ^{-1}Q\varepsilon_{t-k}.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[w_t=Q\varepsilon_t\]</div><div class="equation-stack">\[C_k=\Psi_kQ^{-1}\]</div><div class="equation-stack">\[Y_t=\boldsymbol m+\sum_{k=0}^{\infty}C_kw_{t-k}.\]</div></div>
+<div class="equation-stack">\[\mathbb E(w_tw_t')=Q\mathbb E(\varepsilon_t\varepsilon_t')Q'=Q\Sigma_\varepsilon Q'=I_n.\]</div>
+<p>The shocks \(w_t\) are uncorrelated and have unit variance. \(Q\) transforms innovations; \(Q^{-1}\) transforms their impact, so \(C_0=Q^{-1}\). The matrix \(Q\) is not unique: orthogonalisation alone does not identify economic shocks.</p>
+</div>
+<div class="lecture-block"><h3>Forecasting</h3>
+<p>For a zero-mean or mean-adjusted VAR, future innovations have zero linear forecast. The one-step forecast is</p>
+<div class="equation-stack">\[Y_{T+1|T}=\Phi_1Y_T+\cdots+\Phi_pY_{T-p+1}.\]</div>
+<p>The chain-rule of forecasting substitutes forecasts only for dates beyond the origin:</p>
+<div class="equation-stack">\[Y_{T+h|T}=\sum_{j=1}^{p}\Phi_j\widetilde Y_{T+h-j|T}\]</div><div class="equation-stack">\[\widetilde Y_{T+s|T}=\begin{cases}Y_{T+s},&amp;s\le0,\\Y_{T+s|T},&amp;s&gt;0.\end{cases}\]</div>
+<div class="equation-stack">\[\begin{aligned}Y_{T+h}&amp;=\sum_{k=0}^{h-1}\Psi_k\varepsilon_{T+h-k}+\sum_{k=h}^{\infty}\Psi_k\varepsilon_{T+h-k},\\Y_{T+h|T}&amp;=\sum_{k=h}^{\infty}\Psi_k\varepsilon_{T+h-k}.\end{aligned}\]</div>
+<p>Known innovations satisfy \(T+h-k\le T\), hence \(k\ge h\). Subtraction leaves only future innovations:</p>
+<div class="result-box"><div class="equation-stack">\[e_{T+h|T}=\sum_{k=0}^{h-1}\Psi_k\varepsilon_{T+h-k}\]</div><div class="equation-stack">\[\Sigma_e(h)=\sum_{k=0}^{h-1}\Psi_k\Sigma_\varepsilon\Psi_k'.\]</div></div>
+<p>Cross-date covariance terms vanish. The diagonal entry \([\Sigma_e(h)]_{ii}\) is variable \(i\)’s forecast-error variance.</p>
+</div>
+<div class="lecture-block"><h3>Forecast-error variance decomposition</h3>
+<div class="equation-stack">\[\begin{aligned}\Sigma_\varepsilon&amp;=Q^{-1}(Q^{-1})',\\\Sigma_e(h)&amp;=\sum_{k=0}^{h-1}\Psi_kQ^{-1}(Q^{-1})'\Psi_k'\\&amp;=\sum_{k=0}^{h-1}C_kC_k'.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\operatorname{FEVD}(h)\big|_{\varepsilon_j}^{y_i}=\frac{\sum_{k=0}^{h-1}(c_{ij}^{(k)})^2}{\sum_{\ell=1}^{n}\sum_{k=0}^{h-1}(c_{i\ell}^{(k)})^2}.\]</div></div>
+<p>The numerator is shock \(j\)’s contribution; the denominator is total forecast uncertainty for variable \(i\). Here shock labels refer to the orthogonalized, unit-variance shocks. FEVD gives a variance share, unlike IRF and CIRF, which measure responses.</p>
+<p>Orthogonality alone does not imply unit variance. For two orthogonal shocks \(u_t,v_t\) with variances \(\sigma_u^2,\sigma_v^2\), the VAR(1) variance retains these weights:</p>
+<div class="equation-stack">\[V(e_{y,T+h|T})=\sigma_u^2\sum_{k=0}^{h-1}([\Phi^k]_{11})^2+\sigma_v^2\sum_{k=0}^{h-1}([\Phi^k]_{12})^2.\]</div>
+<div class="equation-stack">\[\operatorname{FEVD}(h)\big|_u^y=\frac{\sigma_u^2\sum_{k=0}^{h-1}([\Phi^k]_{11})^2}{V(e_{y,T+h|T})}\]</div><div class="equation-stack">\[\operatorname{FEVD}(h)\big|_v^y=\frac{\sigma_v^2\sum_{k=0}^{h-1}([\Phi^k]_{12})^2}{V(e_{y,T+h|T})}.\]</div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="structural-var" aria-labelledby="structural-var-title"><div class="section-header"><span class="section-label">Identification</span><h2 id="structural-var-title">Structural VAR</h2></div>
+<p>The contemporaneous structural matrix \(B\) describes relations among variables at the same date. Structural shocks \(\epsilon_t\) have diagonal covariance \(\Omega_\epsilon\); reduced-form innovations are written \(\varepsilon_t\).</p>
+<div class="equation-stack">\[\begin{aligned}BY_t&amp;=A_0+A_1Y_{t-1}+\epsilon_t,\\Y_t&amp;=B^{-1}A_0+B^{-1}A_1Y_{t-1}+B^{-1}\epsilon_t\\&amp;=\boldsymbol\mu+\Phi Y_{t-1}+\varepsilon_t.\end{aligned}\]</div>
+<div class="equation-stack">\[\boldsymbol\mu=B^{-1}A_0\]</div><div class="equation-stack">\[\Phi=B^{-1}A_1\]</div><div class="equation-stack">\[\varepsilon_t=B^{-1}\epsilon_t.\]</div>
+<p>This requires \(B\) to be nonsingular. Its inverse transmits contemporaneous feedback. Reduced-form innovations mix structural shocks and are generally correlated:</p>
+<div class="result-box"><div class="equation-stack">\[\Sigma_\varepsilon=B^{-1}\mathbb E(\epsilon_t\epsilon_t')(B^{-1})'=B^{-1}\Omega_\epsilon(B^{-1})'.\]</div></div>
+<p>For a bivariate model with unit diagonal in B, the structural model has 2 contemporaneous coefficients, 2 constants, 4 lag coefficients and 2 shock variances: 10 parameters. The reduced form has 2 constants, 4 lag coefficients and 3 distinct covariance entries: 9 parameters. Additional restrictions are needed to recover the structural model.</p>
+<p><strong>Data identify the reduced form model. Economic assumptions identify the structural model.</strong></p>
+</section>
+</main></div></body></html>

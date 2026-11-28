@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — Lecture 7: SVARs: Long-run, Non-recursive Zero and Sign Restrictions.">
+  <title>Lecture 7 — SVARs: Long-run, Non-recursive Zero and Sign Restrictions | MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=b263a6e185e5">
+  <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    .lecture-section, .answer-item, .result-box { min-width: 0; }
+    .lecture-page .toggle-btn { max-width: 100%; text-align: left; line-height: 1.5; }
+    .lecture-page .lecture-calculation { margin-top: 16px; gap: 12px; }
+    .equation-stack, .equation-chain > span, .matrix-pair > div { max-width: 100%; min-width: 0; }
+    .lecture-page .results-table { table-layout: fixed; }
+    .lecture-page .results-table th, .lecture-page .results-table td { overflow-wrap: anywhere; line-height: 1.55; }
+    @media (max-width: 767px) {
+      .lecture-page .results-table th:first-child { width: 38%; }
+      .lecture-page .results-table th[scope="row"] { white-space: nowrap; font-size: .84rem; }
+    }
+    /* Shared lecture layout. */
+    .lecture-page .lecture-section { gap: 24px; }
+    .lecture-page .lecture-section > .section-header { padding-bottom: 20px; }
+    .lecture-page .lecture-section > .lecture-block { gap: 14px; }
+    .lecture-page .lecture-panel,
+    .lecture-page .lecture-grid > .lecture-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .02);
+      gap: 14px;
+    }
+    .lecture-page .lecture-panel > h3,
+    .lecture-page .lecture-grid > .lecture-block > :is(h3, h4):first-child {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .lecture-page .lecture-panel + .lecture-panel { padding-top: 20px; }
+    .lecture-page .lecture-section > :is(.lecture-grid, section) + .lecture-block:not(.lecture-panel) {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .lecture-page .lecture-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+    .lecture-page .lecture-grid > .lecture-block { align-content: start; }
+    .lecture-page .lecture-panel > .lecture-panel { border-color: var(--border); border-left: 3px solid var(--accent-border); }
+    .lecture-page h5 {
+      font-size: .9rem;
+      line-height: 1.5;
+      color: var(--accent-bright);
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      margin-top: 6px;
+    }
+    .lecture-page .lecture-note { gap: 14px; }
+    .lecture-page .lecture-calculation { padding-top: 20px; }
+    .lecture-page .results-table { width: 100%; }
+    .lecture-page .results-table :is(th, td) { vertical-align: top; padding: 14px 12px; }
+    @media (min-width: 1101px) {
+      @supports (grid-template-rows: subgrid) {
+        .lecture-page .lecture-grid > .lecture-block { display: grid; grid-template-rows: subgrid; grid-row: span 4; }
+        .lecture-page #pacf-identification .lecture-grid > .lecture-block { grid-row: span 3; }
+      }
+    }
+    @media (max-width: 1100px) {
+      .lecture-page .lecture-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-section { gap: 20px; }
+      .lecture-page .lecture-panel,
+      .lecture-page .lecture-grid > .lecture-block { padding: 16px 12px; }
+      .lecture-page .lecture-panel + .lecture-panel { padding-top: 16px; }
+      .lecture-page .results-table :is(th, td) { padding: 12px 6px; }
+    }
+    #ar-irf .results-table th:first-child { width: 20%; }
+    .lecture-page mjx-container[display="true"] { max-width: 100%; }
+    .lecture-page mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+    /* Teal accents distinguish worked model examples. */
+    .lecture-page .example-block {
+      --accent: #5eead4;
+      --accent-bright: #99f6e4;
+      --accent-muted: rgba(94, 234, 212, .08);
+      --accent-border: rgba(94, 234, 212, .3);
+      background: #132326;
+      border-color: var(--accent-border);
+    }
+    .lecture-page .lecture-block.example-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+    }
+    .lecture-page .example-block > h3,
+    .lecture-page .example-block > .section-header h2 { color: var(--accent-bright); }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-block.example-block { padding: 16px 12px; }
+    }
+  .lecture-page mjx-container[display="true"] { text-align: left !important; }
+</style>
+</head>
+<body data-math class="lecture-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span></a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <div class="sidebar-group problem-sets-nav">
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+        <a href="problem-set-2.html" class="sidebar-link">Problem Set 2</a>
+        <a href="problem-set-3.html" class="sidebar-link">Problem Set 3</a>
+        <a href="problem-set-4.html" class="sidebar-link">Problem Set 4</a>
+        <a href="problem-set-5.html" class="sidebar-link">Problem Set 5</a>
+      </div>
+      <hr class="sidebar-divider">
+      <details class="sidebar-folder">
+        <summary>LECTURES<span class="folder-arrow" aria-hidden="true">›</span></summary>
+        <div class="sidebar-folder-links">
+        <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
+        <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
+        <a href="lecture-3.html" class="sidebar-link">LECTURE 3</a>
+        <a href="lecture-4.html" class="sidebar-link">LECTURE 4</a>
+        <a href="lecture-5.html" class="sidebar-link">LECTURE 5</a>
+        <a href="lecture-6.html" class="sidebar-link">LECTURE 6</a>
+        <a href="lecture-7.html" class="sidebar-link active" aria-current="page">LECTURE 7</a>
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        </div>
+      </details>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar"><img src="images/avatar.png" width="44" height="44" alt=""><span class="user-dot" aria-hidden="true"></span></div><div class="user-info"><div class="user-name">STAR NOVA</div></div></div></div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden></button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb"><span>MACRO</span><span class="sep" aria-hidden="true">›</span><strong>Lecture 7</strong></nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">MACROECONOMETRICS · REVISION NOTES</div>
+        <h1>LECTURE 7</h1>
+        <p class="lecture-subtitle">SVARs: Long-run, Non-recursive Zero and Sign Restrictions</p>
+      </div>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="long-run" aria-labelledby="long-run-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="long-run-title">Long-run restrictions</h2></div>
+<p>Consider a stable VAR(1) with \(\varepsilon_t=S\epsilon_t\), \(V(\epsilon_t)=I_n\), and \(\Sigma_\varepsilon=SS'\). Short-run restrictions concern impact; long-run restrictions concern accumulated effects.</p>
+<div class="lecture-block"><h3>Growth and level responses</h3>
+<div class="equation-stack">\[g_t=\Delta y_t=y_t-y_{t-1}\]</div><div class="equation-stack">\[y_{t+h}=y_{t-1}+\sum_{k=0}^{h}g_{t+k}.\]</div>
+<p>Holding the pre-shock history fixed, differentiate with respect to the structural shock:</p>
+<div class="result-box"><div class="equation-stack">\[\operatorname{IRF}(h)\big|_{\epsilon_j}^{y}=\sum_{k=0}^{h}\operatorname{IRF}(k)\big|_{\epsilon_j}^{g}.\]</div></div>
+<p>A temporary growth response can leave a permanent level effect because the growth responses accumulate. A zero long-run level effect requires</p>
+<div class="equation-stack">\[\sum_{k=0}^{\infty}\operatorname{IRF}(k)\big|_{\epsilon_j}^{g}=0.\]</div>
+</div>
+<div class="lecture-block"><h3>Long-run multiplier</h3>
+<div class="equation-stack">\[Y_t=\boldsymbol m+\sum_{k=0}^{\infty}\Phi^kS\epsilon_{t-k}\]</div><div class="equation-stack">\[\Theta_h=\Phi^hS.\]</div>
+<p>Stability makes the matrix geometric series converge:</p>
+<div class="result-box"><div class="equation-stack">\[\begin{aligned}\mathcal C=\operatorname{CIRF}(\infty)&amp;=\sum_{k=0}^{\infty}\Phi^kS\\&amp;=(I_n-\Phi)^{-1}S=\Psi(1)S,\\\Psi(1)&amp;=(I_n-\Phi)^{-1}.\end{aligned}\]</div></div>
+<p>\(S\) is the impact matrix; \(\Theta_h\) is the response at horizon \(h\); \(\mathcal C\) is the cumulative long-run multiplier. Although \(\Theta_h\to0\), its sum \(\mathcal C\) need not vanish.</p>
+</div>
+<div class="lecture-block"><h3>Long-run identification</h3>
+<p>Short-run Cholesky identification makes S triangular. Long-run identification instead makes the cumulative multiplier triangular, leaving impact responses unrestricted:</p>
+<div class="equation-stack">\[S_{SR}=\begin{pmatrix}\star&amp;0&amp;\cdots&amp;0\\\star&amp;\star&amp;\cdots&amp;0\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\star&amp;\star&amp;\cdots&amp;\star\end{pmatrix}\]</div><div class="equation-stack">\[\mathcal C=\begin{pmatrix}\star&amp;0&amp;\cdots&amp;0\\\star&amp;\star&amp;\cdots&amp;0\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\star&amp;\star&amp;\cdots&amp;\star\end{pmatrix}.\]</div>
+<div class="result-box"><div class="equation-stack">\[\begin{aligned}\mathcal C\mathcal C'&amp;=\Psi(1)SS'\Psi(1)'\\&amp;=\Psi(1)\Sigma_\varepsilon\Psi(1)'\equiv\Lambda.\end{aligned}\]</div></div>
+<p>Obtain \(\Phi,\Sigma_\varepsilon\) from the reduced form; compute \(\Psi(1)\), then \(\Lambda\). Cholesky-factorize \(\Lambda\) with positive diagonal to obtain \(\mathcal C\). Recover the impact matrix:</p>
+<div class="result-box"><div class="equation-stack">\[S_{LR}=\Psi(1)^{-1}\mathcal C=(I_n-\Phi)\mathcal C.\]</div></div>
+<p>In general, \(\Lambda\ne V(Y_t)\). Short-run and long-run identification can fit the same reduced form but imply different structural responses:</p>
+<div class="equation-stack">\[\Xi_h=\Phi^hS_{LR}\]</div><div class="equation-stack">\[\operatorname{CIRF}(h)=\sum_{k=0}^{h}\Xi_k.\]</div>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="mixed" aria-labelledby="mixed-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="mixed-title">Combining restrictions</h2></div>
+<p>Restrictions may concern \(S\), \(\mathcal C\), or both, linked by \(\mathcal C=\Psi(1)S\). With standardized shocks, the number of additional independent identifying restrictions is \(n(n-1)/2\).</p>
+<div class="var-grid"><div class="var-item"><strong>Order</strong><br>Sufficient number of restrictions.</div><div class="var-item"><strong>Compatibility</strong><br>At least one solution satisfies the restrictions and covariance equation.</div><div class="var-item"><strong>Rank</strong><br>Locally independent restrictions rule out nearby equivalent solutions.</div><div class="var-item"><strong>Global uniqueness</strong><br>No distinct admissible solution remains, apart from conventional shock signs.</div></div>
+<p>Too few independent restrictions imply underidentification. The required count gives candidate exact identification; additional restrictions give overidentification. The order condition is necessary, not sufficient. A redundant restriction adds no identifying information. Local identification does not rule out a separate solution elsewhere.</p>
+<div class="lecture-block"><h3>Compatibility in a bivariate system</h3>
+<div class="equation-stack">\[c_{12}=[\Psi(1)]_{11}s_{12}+[\Psi(1)]_{12}s_{22}.\]</div>
+<p>If \(s_{12}=0\), nonsingularity requires \(s_{22}\ne0\). Imposing \(c_{12}=0\) as well therefore gives</p>
+<div class="result-box"><div class="equation-stack">\[s_{12}=c_{12}=0\quad\Longrightarrow\quad[\Psi(1)]_{12}=0\quad\Longleftrightarrow\quad\phi_{12}=0.\]</div></div>
+<p>Thus the two restrictions can be incompatible with the estimated dynamics. Counting them is not enough to establish existence or uniqueness.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="rotations" aria-labelledby="rotations-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="rotations-title">Non-recursive zero restrictions</h2></div>
+<div class="lecture-block"><h3>Orthogonal rotations</h3>
+<p>A triangular ordering may be too restrictive. Start with \(S=\operatorname{chol}(\Sigma_\varepsilon)\) and rotate its columns. Here \(Q\) is an orthogonal rotation, rather than the covariance-standardizing transformation used earlier.</p>
+<div class="equation-stack">\[Q(\theta)=\begin{pmatrix}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{pmatrix}\]</div><div class="equation-stack">\[QQ'=I_n,\quad Q^{-1}=Q'.\]</div>
+<div class="result-box"><div class="equation-stack">\[\mathcal P(\theta)=SQ(\theta),\qquad\begin{aligned}\mathcal P(\theta)\mathcal P(\theta)'&amp;=SQ(\theta)Q(\theta)' S'\\&amp;=SS'=\Sigma_\varepsilon.\end{aligned}\]</div></div>
+<p>Rotations preserve the covariance but change which combinations of innovations are interpreted as structural shocks.</p>
+<div class="equation-stack">\[\Upsilon_{h,\theta}=\Phi^h\mathcal P(\theta)\]</div><div class="equation-stack">\[\mathcal C(\theta)=\Psi(1)\mathcal P(\theta).\]</div>
+</div>
+<div class="lecture-block"><h3>Givens rotations</h3>
+<p>In three dimensions, rotate in each coordinate plane:</p>
+<div class="equation-stack">\[G(\theta_a)=\begin{pmatrix}\cos\theta_a&amp;-\sin\theta_a&amp;0\\\sin\theta_a&amp;\cos\theta_a&amp;0\\0&amp;0&amp;1\end{pmatrix}.\]</div>
+<div class="equation-stack">\[G(\theta_b)=\begin{pmatrix}\cos\theta_b&amp;0&amp;-\sin\theta_b\\0&amp;1&amp;0\\\sin\theta_b&amp;0&amp;\cos\theta_b\end{pmatrix}.\]</div>
+<div class="equation-stack">\[G(\theta_c)=\begin{pmatrix}1&amp;0&amp;0\\0&amp;\cos\theta_c&amp;-\sin\theta_c\\0&amp;\sin\theta_c&amp;\cos\theta_c\end{pmatrix}\]</div><div class="equation-stack">\[Q(\theta)=G(\theta_a)G(\theta_b)G(\theta_c).\]</div>
+</div>
+<div class="lecture-block"><h3>Imposing non-triangular zeros</h3>
+<div class="equation-stack">\[\mathcal P=\begin{pmatrix}\star&amp;0&amp;\star\\\star&amp;\star&amp;0\\0&amp;\star&amp;\star\end{pmatrix}\]</div><div class="equation-stack">\[p_{ij}=0\iff\operatorname{IRF}(0)\big|_{\epsilon_j}^{y_i}=0.\]</div>
+<p>With \(BY_t=\cdots+\epsilon_t\) and unit-variance shocks, \(\mathcal P=B^{-1}\). A zero in \(B\) is generally not equivalent to a zero in \(B^{-1}\).</p>
+<p>Compute the Cholesky factor, construct \(Q(\theta)\), and impose the required entries of \(SQ(\theta)\) equal to zero. Solve the nonlinear equations for the angles, then verify covariance preservation, compatibility, rank and global uniqueness. One Cholesky decomposition generally cannot deliver a non-recursive pattern.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="signs" aria-labelledby="signs-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="signs-title">Sign restrictions</h2></div>
+<p>Zero restrictions are equalities. Sign restrictions are inequalities on selected responses, allowing their magnitudes to vary:</p>
+<div class="equation-stack">\[\operatorname{IRF}(h)\big|_{\epsilon_j}^{y_i}\ge0\]</div><div class="equation-stack">\[\text{or}\]</div><div class="equation-stack">\[\operatorname{IRF}(h)\big|_{\epsilon_j}^{y_i}\le0.\]</div>
+<p>Let \(d_{ijh}\in\{-1,+1\}\) specify the required sign. The admissible orthogonal matrices satisfy</p>
+<div class="result-box"><div class="equation-stack">\[\mathcal Q_{\mathrm{adm}}=\{Q\in O(n):d_{ijh}[\Phi^hSQ]_{ij}\ge0\},\]</div></div>
+<p>for every restricted \((i,j,h)\). Restrictions can apply at impact or over several horizons. Impact signs alone do not determine later signs. Shock signs and labels must be normalized consistently.</p>
+<p>Several rotations may satisfy the same inequalities. Sign restrictions therefore usually deliver set identification, rather than one point-identified model.</p>
+<div class="lecture-block"><h3>Monte Carlo rejection sampling</h3>
+<ol><li>Compute \(S=\operatorname{chol}(\Sigma_\varepsilon)\).</li><li>Draw an orthogonal matrix \(Q\) and form \(\mathcal P=SQ\).</li><li>Calculate \(\Phi^h\mathcal P\) at the restricted horizons.</li><li>Keep the candidate only if all restrictions hold; otherwise discard it.</li><li>Repeat to characterize the admissible set.</li></ol>
+<p>Uniform orthogonal draws use Haar measure and can be generated through the QR decomposition of a Gaussian random matrix. Exact zeros have zero probability under unrestricted continuous draws: impose the equalities explicitly before applying sign tests.</p>
+</div>
+<div class="lecture-block"><h3>Interpretation and limitations</h3>
+<p>The minimum and maximum admissible responses at each horizon form a pointwise identified envelope, not a sampling confidence interval. Identification uncertainty remains even with a fixed reduced form; estimation uncertainty requires separate bootstrap or Bayesian simulation.</p>
+<p>Short-run zeros, long-run zeros and signs can be combined. The restrictions require economic justification, and conclusions depend on the horizon, sign conventions and numerical implementation. Selecting one admissible rotation does not establish uniqueness.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="identified-outputs" aria-labelledby="identified-outputs-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="identified-outputs-title">Structural outputs after identification</h2></div>
+<p>For each admissible impact matrix and its corresponding unit-variance shocks:</p>
+<div class="equation-stack">\[\epsilon_t=\mathcal P(\theta)^{-1}\varepsilon_t.\]</div>
+<div class="result-box"><div class="equation-stack">\[\operatorname{IRF}(h,\theta)=\Upsilon_{h,\theta}=\Phi^h\mathcal P(\theta)\]</div><div class="equation-stack">\[\operatorname{CIRF}(h,\theta)=\sum_{k=0}^{h}\Upsilon_{k,\theta}.\]</div></div>
+<div class="result-box"><div class="equation-stack">\[\operatorname{FEVD}(h,\theta)\big|_{\epsilon_j}^{y_i}=\frac{\sum_{k=0}^{h-1}[\Upsilon_{k,\theta}]_{ij}^2}{\sum_{\ell=1}^{n}\sum_{k=0}^{h-1}[\Upsilon_{k,\theta}]_{i\ell}^2}.\]</div></div>
+<p>For a VAR without deterministic trend, historical decomposition retains the initial-condition term:</p>
+<div class="result-box"><div class="equation-stack">\[\begin{aligned}Y_t-\boldsymbol m={}&amp;\Phi^t(Y_0-\boldsymbol m)\\&amp;+\sum_{k=0}^{t-1}\Phi^k\mathcal P(\theta)\epsilon_{t-k}.\end{aligned}\]</div></div>
+<p>IRFs, FEVD and historical contributions can differ across admissible impact matrices even when the reduced-form dynamics and covariance are unchanged.</p>
+</section>
+</main></div></body></html>

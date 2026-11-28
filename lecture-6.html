@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100c18">
+  <meta name="description" content="MACRO — Lecture 6: Structural Vector Autoregressive Models (SVARs).">
+  <title>Lecture 6 — Structural Vector Autoregressive Models (SVARs) | MACRO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=b263a6e185e5">
+  <script src="assets/app.js?v=725a7f169a2f" defer></script>
+  <style>
+    .lecture-section, .answer-item, .result-box { min-width: 0; }
+    .lecture-page .toggle-btn { max-width: 100%; text-align: left; line-height: 1.5; }
+    .lecture-page .lecture-calculation { margin-top: 16px; gap: 12px; }
+    .equation-stack, .equation-chain > span, .matrix-pair > div { max-width: 100%; min-width: 0; }
+    .lecture-page .results-table { table-layout: fixed; }
+    .lecture-page .results-table th, .lecture-page .results-table td { overflow-wrap: anywhere; line-height: 1.55; }
+    @media (max-width: 767px) {
+      .lecture-page .results-table th:first-child { width: 38%; }
+      .lecture-page .results-table th[scope="row"] { white-space: nowrap; font-size: .84rem; }
+    }
+    /* Shared lecture layout. */
+    .lecture-page .lecture-section { gap: 24px; }
+    .lecture-page .lecture-section > .section-header { padding-bottom: 20px; }
+    .lecture-page .lecture-section > .lecture-block { gap: 14px; }
+    .lecture-page .lecture-panel,
+    .lecture-page .lecture-grid > .lecture-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .02);
+      gap: 14px;
+    }
+    .lecture-page .lecture-panel > h3,
+    .lecture-page .lecture-grid > .lecture-block > :is(h3, h4):first-child {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .lecture-page .lecture-panel + .lecture-panel { padding-top: 20px; }
+    .lecture-page .lecture-section > :is(.lecture-grid, section) + .lecture-block:not(.lecture-panel) {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .lecture-page .lecture-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+    .lecture-page .lecture-grid > .lecture-block { align-content: start; }
+    .lecture-page .lecture-panel > .lecture-panel { border-color: var(--border); border-left: 3px solid var(--accent-border); }
+    .lecture-page h5 {
+      font-size: .9rem;
+      line-height: 1.5;
+      color: var(--accent-bright);
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      margin-top: 6px;
+    }
+    .lecture-page .lecture-note { gap: 14px; }
+    .lecture-page .lecture-calculation { padding-top: 20px; }
+    .lecture-page .results-table { width: 100%; }
+    .lecture-page .results-table :is(th, td) { vertical-align: top; padding: 14px 12px; }
+    @media (min-width: 1101px) {
+      @supports (grid-template-rows: subgrid) {
+        .lecture-page .lecture-grid > .lecture-block { display: grid; grid-template-rows: subgrid; grid-row: span 4; }
+        .lecture-page #pacf-identification .lecture-grid > .lecture-block { grid-row: span 3; }
+      }
+    }
+    @media (max-width: 1100px) {
+      .lecture-page .lecture-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-section { gap: 20px; }
+      .lecture-page .lecture-panel,
+      .lecture-page .lecture-grid > .lecture-block { padding: 16px 12px; }
+      .lecture-page .lecture-panel + .lecture-panel { padding-top: 16px; }
+      .lecture-page .results-table :is(th, td) { padding: 12px 6px; }
+    }
+    #ar-irf .results-table th:first-child { width: 20%; }
+    .lecture-page mjx-container[display="true"] { max-width: 100%; }
+    .lecture-page mjx-container[display="true"] svg { max-width: 100%; height: auto; }
+    /* Teal accents distinguish worked model examples. */
+    .lecture-page .example-block {
+      --accent: #5eead4;
+      --accent-bright: #99f6e4;
+      --accent-muted: rgba(94, 234, 212, .08);
+      --accent-border: rgba(94, 234, 212, .3);
+      background: #132326;
+      border-color: var(--accent-border);
+    }
+    .lecture-page .lecture-block.example-block {
+      padding: 20px;
+      border: 1px solid var(--accent-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+    }
+    .lecture-page .example-block > h3,
+    .lecture-page .example-block > .section-header h2 { color: var(--accent-bright); }
+    @media (max-width: 767px) {
+      .lecture-page .lecture-block.example-block { padding: 16px 12px; }
+    }
+  .lecture-page mjx-container[display="true"] { text-align: left !important; }
+</style>
+</head>
+<body data-math class="lecture-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="sidebar-brand">
+      <a href="./" class="brand" aria-label="MACRO home">MACRO<span>.</span></a>
+      <button class="sidebar-close" type="button" data-sidebar-toggle aria-label="Close navigation" aria-controls="sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav" aria-label="Macroeconomics">
+      <div class="sidebar-group problem-sets-nav">
+        <a href="problem-set-1.html" class="sidebar-link">Problem Set 1</a>
+        <a href="problem-set-2.html" class="sidebar-link">Problem Set 2</a>
+        <a href="problem-set-3.html" class="sidebar-link">Problem Set 3</a>
+        <a href="problem-set-4.html" class="sidebar-link">Problem Set 4</a>
+        <a href="problem-set-5.html" class="sidebar-link">Problem Set 5</a>
+      </div>
+      <hr class="sidebar-divider">
+      <details class="sidebar-folder">
+        <summary>LECTURES<span class="folder-arrow" aria-hidden="true">›</span></summary>
+        <div class="sidebar-folder-links">
+        <a href="lecture-1.html" class="sidebar-link">LECTURE 1</a>
+        <a href="lecture-2.html" class="sidebar-link">LECTURE 2</a>
+        <a href="lecture-3.html" class="sidebar-link">LECTURE 3</a>
+        <a href="lecture-4.html" class="sidebar-link">LECTURE 4</a>
+        <a href="lecture-5.html" class="sidebar-link">LECTURE 5</a>
+        <a href="lecture-6.html" class="sidebar-link active" aria-current="page">LECTURE 6</a>
+        <a href="lecture-7.html" class="sidebar-link">LECTURE 7</a>
+        <a href="training.html" class="sidebar-link">TRAINING</a>
+        </div>
+      </details>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar"><img src="images/avatar.png" width="44" height="44" alt=""><span class="user-dot" aria-hidden="true"></span></div><div class="user-info"><div class="user-name">STAR NOVA</div></div></div></div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" tabindex="-1" aria-label="Close navigation" hidden></button>
+  <div class="main-wrap" id="main-wrap">
+    <header class="topbar">
+      <button class="topbar-toggle" type="button" data-sidebar-toggle aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg></button>
+      <nav class="topbar-breadcrumb" aria-label="Breadcrumb"><span>MACRO</span><span class="sep" aria-hidden="true">›</span><strong>Lecture 6</strong></nav>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    </header>
+    <main class="main-content" id="main-content" tabindex="-1">
+      <div class="page-title-block">
+        <div class="page-label">MACROECONOMETRICS · REVISION NOTES</div>
+        <h1>LECTURE 6</h1>
+        <p class="lecture-subtitle">Structural Vector Autoregressive Models (SVARs)</p>
+      </div>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="identification" aria-labelledby="identification-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="identification-title">Reduced form and identification</h2></div>
+<div class="equation-stack">\[\begin{aligned}BY_t&amp;=A_0+A_1Y_{t-1}+\epsilon_t,\\Y_t&amp;=B^{-1}A_0+B^{-1}A_1Y_{t-1}+B^{-1}\epsilon_t\\&amp;=\boldsymbol\mu+\Phi Y_{t-1}+\varepsilon_t.\end{aligned}\]</div>
+<div class="equation-stack">\[\boldsymbol\mu=B^{-1}A_0,\quad\Phi=B^{-1}A_1,\quad S=B^{-1},\quad\varepsilon_t=S\epsilon_t.\]</div>
+<p>\(B\) is the contemporaneous structural matrix; \(S\) is the impact matrix. Structural shocks \(\epsilon_t\) are orthogonal with positive diagonal covariance \(\Omega_\epsilon\).</p>
+<div class="result-box"><div class="equation-stack">\[\Sigma_\varepsilon=S\Omega_\epsilon S'.\]</div></div>
+<p>The reduced form does not uniquely identify the structural model. In the bivariate case, normalizing the diagonal of B to 1 leaves 10 structural parameters: 2 contemporaneous coefficients, 2 constants, 4 lag coefficients and 2 shock variances. The reduced form supplies 9: 2 constants, 4 lag coefficients and 3 covariance entries.</p>
+<p>With unit-variance shocks, \(S\) has \(n^2\) entries, while the symmetric covariance supplies \(n(n+1)/2\) equations. Equivalently, with unit-diagonal \(S\), its off-diagonal entries plus \(n\) variances also total \(n^2\). Thus the additional restriction count is</p>
+<div class="result-box"><div class="equation-stack">\[n^2-\frac{n(n+1)}2=\frac{n(n-1)}2.\]</div></div>
+<p>Short-run zeros restrict contemporaneous effects; long-run zeros restrict cumulative effects. Non-recursive zeros and sign restrictions allow other patterns of exclusions or response directions.</p>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="recursive-identification" aria-labelledby="recursive-identification-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="recursive-identification-title">Recursive short-run identification</h2></div>
+<div class="lecture-block"><h3>Two covariance factorizations</h3>
+<p>For a positive definite innovation covariance, Cholesky factorization fixes shock variances to 1 and uses a lower-triangular impact matrix with positive diagonal:</p>
+<div class="equation-stack">\[\Sigma_\varepsilon=SS',\quad\Omega_\epsilon=I_n\]</div><div class="equation-stack">\[S=\begin{pmatrix}s_{11}&amp;0&amp;\cdots&amp;0\\s_{21}&amp;s_{22}&amp;\cdots&amp;0\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\s_{n1}&amp;s_{n2}&amp;\cdots&amp;s_{nn}\end{pmatrix}.\]</div>
+<p>The triangular (LDL) factorization instead fixes the impact diagonal to 1 and leaves shock variances in a diagonal matrix:</p>
+<div class="equation-stack">\[S=\begin{pmatrix}1&amp;0&amp;\cdots&amp;0\\s_{21}&amp;1&amp;\cdots&amp;0\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\s_{n1}&amp;s_{n2}&amp;\cdots&amp;1\end{pmatrix},\quad\Omega_\epsilon=\operatorname{diag}(\omega_1^2,\ldots,\omega_n^2).\]</div>
+<div class="equation-stack">\[\Sigma_\varepsilon=S\Omega_\epsilon S'.\]</div>
+<p>Each factorization is unique under its stated normalization and fixed variable ordering. Unit-variance shocks measure responses to one standard deviation; unit-diagonal normalization measures an immediate own-variable effect of one unit.</p>
+</div>
+<div class="lecture-block"><h3>Ordering and contemporaneous effects</h3>
+<div class="equation-stack">\[y_{1t}\longrightarrow y_{2t}\longrightarrow\cdots\longrightarrow y_{nt}.\]</div>
+<div class="equation-stack">\[B=\begin{pmatrix}1&amp;0&amp;\cdots&amp;0\\\star&amp;1&amp;\cdots&amp;0\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\star&amp;\star&amp;\cdots&amp;1\end{pmatrix}\]</div><div class="equation-stack">\[S=B^{-1}=\begin{pmatrix}1&amp;0&amp;\cdots&amp;0\\\star&amp;1&amp;\cdots&amp;0\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\star&amp;\star&amp;\cdots&amp;1\end{pmatrix}.\]</div>
+<p>Under this unit-diagonal normalization, row \(i\) of \(B\) describes contemporaneous relations in equation \(i\). Variable \(i\) may respond immediately to variables ordered before it. Column \(j\) of \(S\) gives the impact of shock \(j\): it can affect variables \(j,\ldots,n\), but not earlier variables.</p>
+<p>The restrictions concern \(h=0\). Dynamic interactions for \(h\ge1\) remain governed by the unrestricted lag coefficients. Changing the ordering generally changes the shocks and their IRFs.</p>
+</div>
+<div class="lecture-block"><h3>Recovering the structural shocks</h3>
+<div class="result-box"><div class="equation-stack">\[\varepsilon_t=S\epsilon_t\quad\Longrightarrow\quad\epsilon_t=S^{-1}\varepsilon_t=B\varepsilon_t.\]</div></div>
+<p>\(S\) maps structural shocks into their impact; \(S^{-1}\) recovers shocks from reduced-form innovations by removing the specified contemporaneous effects.</p>
+<p>Recursive ordering needs an economic or institutional justification. It can be restrictive when several variables react within the observation period. The reduced form cannot establish which ordering is economically correct.</p>
+</div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="structural-irfs" aria-labelledby="structural-irfs-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="structural-irfs-title">Structural impulse responses</h2></div>
+<p>Substitute the structural shocks into the reduced-form VMA:</p>
+<div class="equation-stack">\[\begin{aligned}Y_t&amp;=\boldsymbol m+\sum_{k=0}^{\infty}\Psi_k\varepsilon_{t-k}\\&amp;=\boldsymbol m+\sum_{k=0}^{\infty}\Psi_kS\epsilon_{t-k}\\&amp;=\boldsymbol m+\sum_{k=0}^{\infty}\Theta_k\epsilon_{t-k}.\end{aligned}\]</div>
+<div class="result-box"><div class="equation-stack">\[\Theta_k=\Psi_kS\]</div><div class="equation-stack">\[\Psi_0=I_n\]</div><div class="equation-stack">\[\Theta_0=S.\]</div></div>
+<p>\(\Psi_k\) is the coefficient of \(L^k\) in \(\Phi(L)^{-1}\). For VAR(1), \(\Psi_h=\Phi^h\), hence \(\Theta_h=\Phi^hS\).</p>
+<div class="equation-stack">\[\operatorname{IRF}(h)\big|_{\epsilon_j}^{y_i}=\frac{\partial y_{i,t+h}}{\partial\epsilon_{j,t}}=\theta_{ij}^{(h)}.\]</div>
+<p>Row \(i\) is the responding variable; column \(j\) is the structural shock. These responses use a unit shock in the chosen normalization.</p>
+<div class="result-box"><div class="equation-stack">\[\operatorname{CIRF}(h)=\sum_{k=0}^{h}\Theta_k=\sum_{k=0}^{h}\Phi^kS\quad\text{for VAR(1)}.\]</div></div>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="structural-fevd" aria-labelledby="structural-fevd-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="structural-fevd-title">Forecast-error variance decomposition</h2></div>
+<div class="equation-stack">\[e_{T+h|T}=\sum_{k=0}^{h-1}\Theta_k\epsilon_{T+h-k}.\]</div>
+<p>Only future shocks remain in the forecast error. Innovations at different dates are uncorrelated, so cross-date terms vanish when taking its covariance:</p>
+<div class="result-box"><div class="equation-stack">\[\begin{aligned}\Sigma_e(h)&amp;=\mathbb E(e_{T+h|T}e_{T+h|T}')\\&amp;=\sum_{k=0}^{h-1}\Theta_k\mathbb E(\epsilon_{T+h-k}\epsilon_{T+h-k}')\Theta_k'\\&amp;=\sum_{k=0}^{h-1}\Theta_k\Omega_\epsilon\Theta_k'.\end{aligned}\]</div></div>
+<div class="equation-stack">\[\Theta_0\Omega_\epsilon\Theta_0'=S\Omega_\epsilon S'=\Sigma_\varepsilon.\]</div>
+<p>For standardized orthogonal shocks, \(\Omega_\epsilon=I_n\):</p>
+<div class="equation-stack">\[\Sigma_e(h)=\sum_{k=0}^{h-1}\Theta_k\Theta_k'.\]</div>
+<div class="result-box"><div class="equation-stack">\[\operatorname{FEVD}(h)\big|_{\epsilon_j}^{y_i}=\frac{\sum_{k=0}^{h-1}(\theta_{ij}^{(k)})^2}{\sum_{\ell=1}^{n}\sum_{k=0}^{h-1}(\theta_{i\ell}^{(k)})^2}.\]</div></div>
+<p>The numerator is shock \(j\)’s contribution to variable \(i\)’s forecast-error variance; the denominator adds all shocks. Orthogonal shocks need not have variance 1: with diagonal \(\Omega_\epsilon\ne I_n\), each squared response must retain its shock-variance weight.</p>
+</section>
+<section class="concept-card violet-top lecture-section" data-chapter-section id="historical-decomposition" aria-labelledby="historical-decomposition-title"><div class="section-header"><span class="section-label">Theory</span><h2 id="historical-decomposition-title">Historical decomposition</h2></div>
+<p>Historical decomposition separates the observed path into deterministic terms, initial conditions and contributions of realized structural shocks. For VAR(1), successive substitution gives</p>
+<div class="equation-stack">\[Y_1=\boldsymbol\mu+\Phi Y_0+\varepsilon_1.\]</div>
+<div class="equation-stack">\[\begin{aligned}Y_2&amp;=\boldsymbol\mu+\Phi(\boldsymbol\mu+\Phi Y_0+\varepsilon_1)+\varepsilon_2\\&amp;=(I_n+\Phi)\boldsymbol\mu+\Phi^2Y_0+\Phi\varepsilon_1+\varepsilon_2.\end{aligned}\]</div>
+<div class="equation-stack">\[\begin{aligned}Y_3&amp;=\boldsymbol\mu+\Phi Y_2+\varepsilon_3\\&amp;=(I_n+\Phi+\Phi^2)\boldsymbol\mu+\Phi^3Y_0\\&amp;\quad+\Phi^2\varepsilon_1+\Phi\varepsilon_2+\varepsilon_3.\end{aligned}\]</div>
+<div class="equation-stack">\[Y_t=\sum_{k=0}^{t-1}\Phi^k\boldsymbol\mu+\Phi^tY_0+\sum_{k=0}^{t-1}\Phi^k\varepsilon_{t-k}.\]</div>
+<p>Using \(\varepsilon_t=S\epsilon_t\) and \(\Theta_k=\Phi^kS\):</p>
+<div class="result-box"><div class="equation-stack">\[\begin{aligned}Y_t={}&amp;\underbrace{\sum_{k=0}^{t-1}\Phi^k\boldsymbol\mu}_{\text{Constant}}+\underbrace{\Phi^tY_0}_{\text{Initial conditions}}\\&amp;+\underbrace{\sum_{k=0}^{t-1}\Theta_k\epsilon_{t-k}}_{\text{Structural shocks}}.\end{aligned}\]</div></div>
+<p>Under stability, the constant component tends to \(\boldsymbol m\) and the initial-condition component tends to zero. Shock \(j\)’s contribution to variable \(i\) is</p>
+<div class="equation-stack">\[\sum_{k=0}^{t-1}\theta_{ij}^{(k)}\epsilon_{j,t-k}.\]</div>
+<p>For sufficiently large t, the remaining deterministic difference is negligible, giving the approximation around the unconditional mean:</p>
+<div class="equation-stack">\[y_{i,t}-m_i\approx\sum_{j=1}^{n}\sum_{k=0}^{t-1}\theta_{ij}^{(k)}\epsilon_{j,t-k}.\]</div>
+<p>This final expression is asymptotic; the finite-sample decomposition above retains the initial conditions.</p>
+</section>
+</main></div></body></html>
